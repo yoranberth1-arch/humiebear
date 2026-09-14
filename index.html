@@ -6,16 +6,16 @@
 
   <meta
     name="description"
-    content="HummieBear - gezellige snoep- en foodtruck voor feesten, evenementen, bedrijfsfeesten en privéfeesten."
+    content="Hummie Bear brengt twee mobiele sweet experiences naar jouw event: Hummie Bear Candy Edition en Hummie Bear Waffle Edition."
   >
 
-  <title>HummieBear | Foodtruck</title>
+  <title>Hummie Bear | Candy Edition & Waffle Edition</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
     rel="stylesheet"
   >
 
@@ -24,118 +24,94 @@
 
 <body>
 
-  <!-- Bovenste melding -->
   <div class="announcement">
-    HummieBear is beschikbaar voor feesten, events & private bookings
+    Hummie Bear • Sweet experiences on wheels • West-Vlaanderen & omgeving
   </div>
 
+  <header class="site-header">
+    <div class="header-inner">
 
-  <!-- Navigatie -->
-  <header class="header">
-
-    <a
-      class="logo"
-      href="#home"
-      aria-label="HummieBear home"
-    >
-      <span class="logo-mark">HB</span>
-      <span>Hummie<b>Bear</b></span>
-    </a>
-
-    <button
-      class="menu-toggle"
-      aria-label="Menu openen"
-      aria-expanded="false"
-    >
-      ☰
-    </button>
-
-    <nav class="nav">
-
-      <a href="#home">
-        Home
+      <a class="brand" href="#home" aria-label="Hummie Bear home">
+        <span class="brand-mark">HB</span>
+        <span>Hummie <b>Bear</b></span>
       </a>
 
-      <a href="#menu">
-        Menu
-      </a>
-
-      <a href="#over-ons">
-        Over ons
-      </a>
-
-      <a href="#events">
-        Events
-      </a>
-
-      <a
-        href="#contact"
-        class="nav-cta"
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Menu openen"
+        aria-expanded="false"
       >
-        Boek HummieBear
-      </a>
+        ☰
+      </button>
 
-    </nav>
+      <nav class="main-nav" aria-label="Hoofdnavigatie">
+        <a href="#home">Home</a>
+        <a href="#editions">Editions</a>
+        <a href="#menu">Wat we serveren</a>
+        <a href="#formules">Voor jouw event</a>
+        <a href="#contact" class="nav-button">
+          Offerte aanvragen
+        </a>
+      </nav>
 
+    </div>
   </header>
-
 
   <main id="home">
 
-
     <!-- HERO -->
+
     <section class="hero">
 
       <div class="hero-copy">
 
         <span class="eyebrow">
-          FOODTRUCK • WEST-VLAANDEREN
+          HUMMIE BEAR
         </span>
 
         <h1>
-          Een beetje <em>sweetness</em>
+          Een <em>zoete belevenis</em>
           op jouw event.
         </h1>
 
-        <p>
-          Verse American pancakes, wafels en toppings
-          om van elk feest een moment te maken
-          waar iedereen voor terugkomt.
+        <p class="hero-lead">
+          Eén merk, twee belevingen. Kies voor kleurrijk snoep met de
+          <strong>Hummie Bear Candy Edition</strong>, vers gebakken lekkers met de
+          <strong>Hummie Bear Waffle Edition</strong>, of combineer ze allebei.
         </p>
-
 
         <div class="hero-actions">
 
           <a
-            href="#contact"
             class="btn btn-primary"
+            href="#contact"
           >
-            Boek HummieBear
+            Vraag een offerte aan
             <span>→</span>
           </a>
 
           <a
-            href="#menu"
             class="btn btn-ghost"
+            href="#editions"
           >
-            Bekijk het menu
+            Ontdek de editions
           </a>
 
         </div>
 
-
-        <div class="trust-row">
+        <div class="hero-proof">
 
           <span>
-            ✓ Vers bereid
+            ✓ Op maat van jouw event
           </span>
 
           <span>
-            ✓ Op locatie
+            ✓ Vers bereid waar nodig
           </span>
 
           <span>
-            ✓ Voor klein & groot
+            ✓ Candy of Waffle — of beide
           </span>
 
         </div>
@@ -143,91 +119,75 @@
       </div>
 
 
-      <!-- Visueel gedeelte -->
-      <div class="hero-visual">
+      <div class="hero-media">
 
-        <div class="sun"></div>
+        <div class="hero-badge badge-pink">
+          CANDY + WAFFLE
+        </div>
 
-        <div class="food-card">
-
-          <div class="plate">
-
-            <div class="pancake p1"></div>
-            <div class="pancake p2"></div>
-            <div class="pancake p3"></div>
-
-            <div class="berry b1"></div>
-            <div class="berry b2"></div>
-            <div class="berry b3"></div>
-
-            <span class="drip">
-              ✦
-            </span>
-
-          </div>
+        <div class="hero-badge badge-yellow">
+          ♥ Hummie Bear
+        </div>
 
 
-          <div class="food-card-label">
+        <div class="hero-photo hero-photo-main">
 
-            <strong>
-              American pancakes
-            </strong>
-
-            <span>
-              vers • warm • heerlijk
-            </span>
-
-          </div>
+          <img
+            src="images/waffle-lollipop-closeup.png"
+            alt="Vers afgewerkte lolliwafels op stokjes"
+          >
 
         </div>
 
 
-        <span class="sticker sticker-one">
-          YUM!
-        </span>
+        <div class="hero-photo hero-photo-side">
 
-        <span class="sticker sticker-two">
-          made<br>
-          with ♥
-        </span>
+          <img
+            src="images/candy-display.png"
+            alt="Kleurrijk snoepassortiment"
+          >
+
+        </div>
 
       </div>
 
     </section>
 
 
+    <!-- MARQUEE -->
 
-    <!-- SPECIALITEITEN -->
     <section
       class="marquee"
-      aria-label="Specialiteiten"
+      aria-label="Hummie Bear aanbod"
     >
 
       <div>
-        AMERICAN PANCAKES
+
+        Hummie Bear Candy Edition
         <span>✦</span>
 
-        BELGISCHE WAFELS
+        Hummie Bear Waffle Edition
         <span>✦</span>
 
-        TOPPINGS
+        American Pancakes
         <span>✦</span>
 
-        DESSERTS
+        Frisdranken
         <span>✦</span>
 
-        CATERING
+        Events
         <span>✦</span>
+
       </div>
 
     </section>
 
 
+    <!-- EDITIONS -->
 
-    <!-- MENU -->
     <section
-      id="menu"
-      class="section menu-section"
+      id="editions"
+      class="section editions-section"
     >
 
       <div class="section-heading">
@@ -235,372 +195,387 @@
         <div>
 
           <span class="eyebrow">
-            OP HET MENU
+            TWEE EDITIONS • ÉÉN MERK
           </span>
 
           <h2>
-            Waar krijg jij
-            <em>goesting</em> in?
+            Welke Hummie Bear past bij jouw
+            <em>feest?</em>
           </h2>
 
         </div>
 
-
         <p>
-          Een compacte kaart met klassiekers
-          én combinaties waar je zelf je draai
-          aan geeft.
+          Je kiest één kraam of combineert beide. We stemmen de invulling af op
+          het soort event, het aantal gasten en de duur van de aanwezigheid.
         </p>
 
       </div>
 
 
-      <div class="menu-grid">
+      <div class="edition-grid">
 
 
-        <!-- Pancakes -->
-        <article class="menu-card featured">
+        <!-- CANDY -->
 
-          <div class="menu-icon">
-            🥞
+        <article class="edition-card candy-card">
+
+          <div class="edition-image">
+
+            <img
+              src="images/candy-display.png"
+              alt="Hummie Bear Candy Edition met verschillende soorten snoep"
+            >
+
+            <span class="edition-label">
+              CANDY EDITION
+            </span>
+
           </div>
 
-          <span class="tag">
-            FAVORIET
-          </span>
 
-          <h3>
-            American Pancakes
-          </h3>
+          <div class="edition-body">
 
-          <p>
-            2 fluffy pancakes met jouw favoriete toppings.
-          </p>
+            <span class="mini-label">
+              HUMMIE BEAR
+            </span>
 
-          <div class="price">
-            vanaf €6,50
+            <h3>
+              Hummie Bear Candy Edition
+            </h3>
+
+            <p>
+              Een kleurrijke snoepkraam met
+              <strong>tot 66 verschillende soorten
+              Haribo-snoep</strong>.
+              Daar kunnen ook frisdranken bij geserveerd worden.
+            </p>
+
+
+            <div class="pill-row">
+
+              <span>
+                🍭 Tot 66 soorten snoep
+              </span>
+
+              <span>
+                🥤 Frisdranken
+              </span>
+
+              <span>
+                🎨 Kleurrijke presentatie
+              </span>
+
+            </div>
+
+
+            <a
+              href="#contact"
+              class="text-link"
+            >
+              Deze edition aanvragen →
+            </a>
+
           </div>
 
         </article>
 
 
-        <!-- Wafels -->
-        <article class="menu-card">
+        <!-- WAFFLE -->
 
-          <div class="menu-icon">
+        <article class="edition-card waffle-card">
+
+          <div class="edition-image">
+
+            <img
+              src="images/waffle-lollipop-selection.png"
+              alt="Hummie Bear Waffle Edition met lolliwafels en toppings"
+            >
+
+            <span class="edition-label">
+              WAFFLE EDITION
+            </span>
+
+          </div>
+
+
+          <div class="edition-body">
+
+            <span class="mini-label">
+              HUMMIE BEAR
+            </span>
+
+            <h3>
+              Hummie Bear Waffle Edition
+            </h3>
+
+            <p>
+              Vers gebakken
+              <strong>lolliwafels op een stokje</strong>,
+              afgewerkt met chocolade, Nutella en toppings.
+              Ook American pancakes en frisdranken zijn mogelijk.
+            </p>
+
+
+            <div class="pill-row">
+
+              <span>
+                🧇 Lolliwafels
+              </span>
+
+              <span>
+                🥞 American pancakes
+              </span>
+
+              <span>
+                🍫 Toppings & chocolade
+              </span>
+
+            </div>
+
+
+            <a
+              href="#contact"
+              class="text-link"
+            >
+              Deze edition aanvragen →
+            </a>
+
+          </div>
+
+        </article>
+
+      </div>
+
+
+      <!-- BEIDE -->
+
+      <div class="both-callout">
+
+        <div>
+
+          <span class="eyebrow">
+            OF GEWOON ALLEBEI
+          </span>
+
+          <h3>
+            Hummie Bear Candy + Waffle
+          </h3>
+
+          <p>
+            Voor grote events of wie zowel snoep als vers bereide desserts wil aanbieden.
+          </p>
+
+        </div>
+
+
+        <a
+          class="btn btn-dark"
+          href="#contact"
+        >
+          Beide editions aanvragen →
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- AANBOD -->
+
+    <section
+      id="menu"
+      class="section offer-section"
+    >
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="eyebrow">
+            WAT WE SERVEREN
+          </span>
+
+          <h2>
+            Veel keuze, zonder een
+            <em>drukke kaart.</em>
+          </h2>
+
+        </div>
+
+        <p>
+          Geen vaste prijslijst op de website.
+          Na je aanvraag bekijken we de beste formule
+          en bezorgen we een offerte op maat.
+        </p>
+
+      </div>
+
+
+      <div class="offer-grid">
+
+
+        <div class="offer-block candy-offer">
+
+          <div class="offer-icon">
+            🍬
+          </div>
+
+          <h3>
+            Candy Edition
+          </h3>
+
+          <p>
+            Een breed assortiment snoep,
+            met ruimte voor een kleurrijke mix
+            die past bij jouw publiek.
+          </p>
+
+          <ul>
+
+            <li>
+              Tot 66 soorten Haribo-snoep
+            </li>
+
+            <li>
+              Verschillende smaken en structuren
+            </li>
+
+            <li>
+              Frisdranken mogelijk
+            </li>
+
+            <li>
+              Geschikt voor jong en oud
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="offer-block waffle-offer">
+
+          <div class="offer-icon">
             🧇
           </div>
 
           <h3>
-            Mini wafels
+            Waffle Edition
           </h3>
 
           <p>
-            Warme wafeltjes, krokant vanbuiten
-            en zacht vanbinnen.
+            Verse lolliwafels en American pancakes
+            die op locatie afgewerkt worden.
           </p>
 
-          <div class="price">
-            vanaf €5,50
-          </div>
+          <ul>
 
-        </article>
+            <li>
+              Lolliwafels op stokje
+            </li>
 
+            <li>
+              Melk-, witte- en pure chocolade
+            </li>
 
-        <!-- Toppings -->
-        <article class="menu-card">
+            <li>
+              Nutella en extra toppings
+            </li>
 
-          <div class="menu-icon">
-            🍓
-          </div>
+            <li>
+              American pancakes
+            </li>
 
-          <h3>
-            Sweet toppings
-          </h3>
+            <li>
+              Frisdranken mogelijk
+            </li>
 
-          <p>
-            Fruit, chocolade, koekjes,
-            sauzen en andere toppings.
-          </p>
+          </ul>
 
-          <div class="price">
-            à la carte
-          </div>
-
-        </article>
-
-
-        <!-- Events -->
-        <article class="menu-card">
-
-          <div class="menu-icon">
-            ✨
-          </div>
-
-          <h3>
-            Event special
-          </h3>
-
-          <p>
-            Een formule op maat voor jouw feest,
-            bedrijf of evenement.
-          </p>
-
-          <div class="price">
-            op aanvraag
-          </div>
-
-        </article>
-
-      </div>
-
-
-      <!-- Toppings -->
-      <div class="toppings">
-
-        <span>
-          🍫 Nutella
-        </span>
-
-        <span>
-          🍓 Aardbei
-        </span>
-
-        <span>
-          🍌 Banaan
-        </span>
-
-        <span>
-          🍪 Oreo
-        </span>
-
-        <span>
-          🍯 Speculoos
-        </span>
-
-        <span>
-          🍦 Vanille
-        </span>
-
-        <span>
-          🫐 Blauwe bes
-        </span>
-
-        <span>
-          ✨ & meer
-        </span>
+        </div>
 
       </div>
 
     </section>
 
 
+    <!-- FORMULE -->
 
-    <!-- OVER ONS -->
     <section
-      id="over-ons"
-      class="section about"
+      id="formules"
+      class="section experience-section"
     >
 
-      <div class="about-image">
-
-        <div class="truck-art">
-
-          <div class="truck-body">
-
-            <span>
-              Hummie<br>
-              <b>Bear</b>
-            </span>
-
-          </div>
-
-
-          <div class="wheel left"></div>
-
-          <div class="wheel right"></div>
-
-
-          <div class="serving">
-
-            OPEN
-
-            <br>
-
-            <small>
-              ♡
-            </small>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="about-copy">
+      <div class="experience-intro">
 
         <span class="eyebrow">
-          ONS VERHAAL
+          JOUW EVENT
         </span>
 
         <h2>
-          Van onze foodtruck
-          naar jouw <em>feest.</em>
+          Van eerste idee tot
+          <em>zoete afwerking.</em>
         </h2>
 
-
         <p>
-          HummieBear brengt de sfeer van een gezellige
-          dessertbar naar jouw locatie.
-          Alles wordt vers en zichtbaar bereid,
-          zodat gasten niet alleen lekker eten,
-          maar ook iets beleven.
+          Hummie Bear past zich aan jouw evenement aan.
+          We vragen daarom niet alleen wat je wilt serveren,
+          maar ook hoe lang het event duurt en welke praktische
+          voorzieningen op locatie aanwezig zijn.
         </p>
-
-
-        <p>
-          Van verjaardagen en communies
-          tot bedrijfsfeesten en festivals:
-          wij maken een formule die past
-          bij jouw event.
-        </p>
-
-
-        <div class="stats">
-
-          <div>
-
-            <strong>
-              100%
-            </strong>
-
-            <span>
-              vers bereid
-            </span>
-
-          </div>
-
-
-          <div>
-
-            <strong>
-              ♡
-            </strong>
-
-            <span>
-              op maat
-            </span>
-
-          </div>
-
-
-          <div>
-
-            <strong>
-              1
-            </strong>
-
-            <span>
-              gezellige truck
-            </span>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-
-    <!-- EVENTS -->
-    <section
-      id="events"
-      class="section events"
-    >
-
-      <div class="section-heading centered">
-
-        <span class="eyebrow">
-          VOOR ELK MOMENT
-        </span>
-
-        <h2>
-          Jouw event,
-          onze <em>sweet spot.</em>
-        </h2>
 
       </div>
 
 
-      <div class="event-grid">
+      <div class="experience-grid">
 
-
-        <div class="event-item">
+        <div class="experience-step">
 
           <span>
-            🎂
+            01
           </span>
 
           <h3>
-            Verjaardagen
+            Kies je edition
           </h3>
 
           <p>
-            Maak je feest extra zoet.
+            Candy, Waffle of beide.
           </p>
 
         </div>
 
 
-        <div class="event-item">
+        <div class="experience-step">
 
           <span>
-            💍
+            02
           </span>
 
           <h3>
-            Huwelijken
+            Vertel ons over je event
           </h3>
 
           <p>
-            Een dessertmoment om te onthouden.
+            Datum, locatie, duur en gasten.
           </p>
 
         </div>
 
 
-        <div class="event-item">
+        <div class="experience-step">
 
           <span>
-            🏢
+            03
           </span>
 
           <h3>
-            Bedrijfsfeesten
+            Wij maken een voorstel
           </h3>
 
           <p>
-            Een lekkere break voor je team.
-          </p>
-
-        </div>
-
-
-        <div class="event-item">
-
-          <span>
-            🎪
-          </span>
-
-          <h3>
-            Events
-          </h3>
-
-          <p>
-            Van buurtfeest tot festival.
+            Een formule en offerte op maat.
           </p>
 
         </div>
@@ -610,20 +585,114 @@
     </section>
 
 
+    <!-- GALERIJ -->
 
-    <!-- CTA -->
-    <section class="booking-banner">
+    <section class="gallery-section section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="eyebrow">
+            SFEER & PRODUCT
+          </span>
+
+          <h2>
+            Een klein voorproefje van de
+            <em>Hummie Bear vibe.</em>
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="gallery-grid">
+
+        <figure class="gallery-item gallery-large">
+
+          <img
+            src="images/waffle-lollipop-closeup.png"
+            alt="Lolliwafels met chocolade en toppings"
+          >
+
+        </figure>
+
+
+        <figure class="gallery-item">
+
+          <img
+            src="images/waffle-serving.png"
+            alt="Lolliwafel die met topping wordt afgewerkt"
+          >
+
+        </figure>
+
+
+        <figure class="gallery-item">
+
+          <img
+            src="images/gummy-candy.png"
+            alt="Kleurrijke snoepjes"
+          >
+
+        </figure>
+
+
+        <figure class="gallery-item">
+
+          <img
+            src="images/waffle-lollipop-selection.png"
+            alt="Verschillende lolliwafels met toppings"
+          >
+
+        </figure>
+
+
+        <figure class="gallery-item gallery-tall">
+
+          <img
+            src="images/candy-display.png"
+            alt="Verschillende snoepsoorten in presentatiebakken"
+          >
+
+        </figure>
+
+
+        <figure class="gallery-item machine-item">
+
+          <img
+            src="images/waffle-machine.png"
+            alt="Professioneel wafelijzer voor lolliwafels"
+          >
+
+        </figure>
+
+      </div>
+
+    </section>
+
+
+    <!-- OFFERTE BANNER -->
+
+    <section class="quote-banner">
 
       <div>
 
         <span class="eyebrow">
-          KLAAR OM TE ZOETEN?
+          GEEN VASTE PRIJSLIJST
         </span>
 
         <h2>
-          Jouw gasten gaan dit
-          <em>geweldig</em> vinden.
+          Elke aanvraag krijgt een
+          <em>offerte op maat.</em>
         </h2>
+
+        <p>
+          Zo houden we rekening met aantal gasten,
+          aantal dagen, duur, edition(s)
+          en praktische wensen.
+        </p>
 
       </div>
 
@@ -632,41 +701,39 @@
         class="btn btn-dark"
         href="#contact"
       >
-        Vraag een offerte aan →
+        Start je aanvraag →
       </a>
 
     </section>
 
 
+    <!-- CONTACT / FORMULIER -->
 
-    <!-- CONTACT / BOEKEN -->
     <section
       id="contact"
-      class="section contact"
+      class="section contact-section"
     >
 
 
-      <!-- Contactinformatie -->
-      <div class="contact-copy">
+      <div class="contact-intro">
 
         <span class="eyebrow">
-          BOEKEN
+          OFFERTENAANVRAAG
         </span>
 
         <h2>
-          Vertel ons over jouw
-          <em>event.</em>
+          Vertel ons alles wat we moeten weten
+          over jouw <em>event.</em>
         </h2>
 
-
         <p>
-          Vul het formulier in.
-          We nemen zo snel mogelijk contact op
-          om de mogelijkheden en prijs te bespreken.
+          Telefoonnummer is verplicht zodat we snel kunnen afstemmen.
+          De rest van het formulier past zich aan aan de edition(s)
+          die je kiest.
         </p>
 
 
-        <div class="contact-details">
+        <div class="contact-points">
 
 
           <div>
@@ -678,7 +745,7 @@
             <div>
 
               <strong>
-                Regio
+                Werkgebied
               </strong>
 
               <small>
@@ -714,17 +781,17 @@
           <div>
 
             <span>
-              ☎
+              🎀
             </span>
 
             <div>
 
               <strong>
-                Telefoon
+                Editions
               </strong>
 
               <small>
-                +32 4XX XX XX XX
+                Candy • Waffle • Beide
               </small>
 
             </div>
@@ -737,8 +804,8 @@
       </div>
 
 
+      <!-- FORMULIER -->
 
-      <!-- Formulier -->
       <form
         id="booking-form"
         class="booking-form"
@@ -746,46 +813,85 @@
         method="POST"
       >
 
+        <div class="form-title">
 
-        <!-- Naam -->
-        <label>
+          <span class="eyebrow">
+            AANVRAAG
+          </span>
 
-          Naam
+          <h3>
+            Jouw event
+          </h3>
 
-          <input
-            name="name"
-            type="text"
-            placeholder="Jouw naam"
-            autocomplete="name"
-            required
-          >
-
-        </label>
+        </div>
 
 
-        <!-- Email -->
-        <label>
+        <!-- BASISGEGEVENS -->
 
-          E-mail
-
-          <input
-            name="email"
-            type="email"
-            placeholder="jij@email.be"
-            autocomplete="email"
-            required
-          >
-
-        </label>
-
-
-        <!-- Datum + aantal -->
-        <div class="form-row">
+        <div class="field-grid">
 
 
           <label>
 
-            Datum
+            Voornaam & naam *
+
+            <input
+              name="name"
+              type="text"
+              placeholder="Jouw naam"
+              autocomplete="name"
+              required
+            >
+
+          </label>
+
+
+          <label>
+
+            E-mail *
+
+            <input
+              name="email"
+              type="email"
+              placeholder="jij@email.be"
+              autocomplete="email"
+              required
+            >
+
+          </label>
+
+
+          <label>
+
+            Telefoonnummer *
+
+            <input
+              name="phone"
+              type="tel"
+              placeholder="+32 ..."
+              autocomplete="tel"
+              required
+            >
+
+          </label>
+
+
+          <label>
+
+            Bedrijf / organisatie
+
+            <input
+              name="company"
+              type="text"
+              placeholder="Optioneel"
+            >
+
+          </label>
+
+
+          <label>
+
+            Datum *
 
             <input
               name="date"
@@ -798,15 +904,190 @@
 
           <label>
 
-            Aantal gasten
+            Aantal dagen *
+
+            <input
+              name="days"
+              type="number"
+              min="1"
+              step="1"
+              placeholder="bv. 2"
+              required
+            >
+
+          </label>
+
+
+          <label>
+
+            Verwacht aantal gasten *
 
             <input
               name="guests"
               type="number"
               min="1"
-              placeholder="bv. 80"
+              step="1"
+              placeholder="bv. 250"
               required
             >
+
+          </label>
+
+
+          <label>
+
+            Type event *
+
+            <select
+              name="event_type"
+              required
+            >
+
+              <option value="">
+                Kies een optie
+              </option>
+
+              <option>
+                Verjaardag
+              </option>
+
+              <option>
+                Huwelijk
+              </option>
+
+              <option>
+                Communie / lentefeest
+              </option>
+
+              <option>
+                Bedrijfsfeest
+              </option>
+
+              <option>
+                Festival
+              </option>
+
+              <option>
+                Schoolfeest
+              </option>
+
+              <option>
+                Buurtfeest
+              </option>
+
+              <option>
+                Markt
+              </option>
+
+              <option>
+                Privéfeest
+              </option>
+
+              <option>
+                Ander
+              </option>
+
+            </select>
+
+          </label>
+
+
+          <label>
+
+            Startuur
+
+            <input
+              name="start_time"
+              type="time"
+            >
+
+          </label>
+
+
+          <label>
+
+            Einduur
+
+            <input
+              name="end_time"
+              type="time"
+            >
+
+          </label>
+
+
+          <label class="full-width">
+
+            Locatie *
+
+            <input
+              name="location"
+              type="text"
+              placeholder="Adres / evenemententerrein"
+              required
+            >
+
+          </label>
+
+
+          <label>
+
+            Binnen of buiten?
+
+            <select name="inside_outside">
+
+              <option value="">
+                Maak een keuze
+              </option>
+
+              <option>
+                Binnen
+              </option>
+
+              <option>
+                Buiten
+              </option>
+
+              <option>
+                Gedeeltelijk binnen / buiten
+              </option>
+
+              <option>
+                Onbekend
+              </option>
+
+            </select>
+
+          </label>
+
+
+          <label>
+
+            Opbouwtijd
+
+            <select name="setup_time">
+
+              <option value="">
+                Maak een keuze
+              </option>
+
+              <option>
+                Ruim vooraf mogelijk
+              </option>
+
+              <option>
+                Tot 30 min. vooraf
+              </option>
+
+              <option>
+                Tot 1 uur vooraf
+              </option>
+
+              <option>
+                Onbekend
+              </option>
+
+            </select>
 
           </label>
 
@@ -814,62 +1095,681 @@
         </div>
 
 
-        <!-- Type event -->
-        <label>
+        <!-- EDITION SELECTIE -->
 
-          Type event
+        <fieldset class="edition-selector">
 
-          <select
-            name="event"
-            required
-          >
-
-            <option value="">
-              Kies een optie
-            </option>
-
-            <option>
-              Verjaardag
-            </option>
-
-            <option>
-              Huwelijk
-            </option>
-
-            <option>
-              Bedrijfsfeest
-            </option>
-
-            <option>
-              Festival / event
-            </option>
-
-            <option>
-              Andere
-            </option>
-
-          </select>
-
-        </label>
+          <legend>
+            Welke Hummie Bear edition(s) wil je aanvragen? *
+          </legend>
 
 
-        <!-- Bericht -->
-        <label>
+          <div class="edition-options">
 
-          Vertel iets over je event
+
+            <label class="edition-option">
+
+              <input
+                type="checkbox"
+                name="editions"
+                value="Hummie Bear Candy Edition"
+              >
+
+              <span>
+
+                <strong>
+                  🍬 Candy Edition
+                </strong>
+
+                <small>
+                  Tot 66 soorten snoep + frisdranken mogelijk
+                </small>
+
+              </span>
+
+            </label>
+
+
+            <label class="edition-option">
+
+              <input
+                type="checkbox"
+                name="editions"
+                value="Hummie Bear Waffle Edition"
+              >
+
+              <span>
+
+                <strong>
+                  🧇 Waffle Edition
+                </strong>
+
+                <small>
+                  Lolliwafels + American pancakes + toppings
+                </small>
+
+              </span>
+
+            </label>
+
+
+            <label class="edition-option">
+
+              <input
+                type="checkbox"
+                name="editions"
+                value="Beide editions"
+              >
+
+              <span>
+
+                <strong>
+                  🎀 Beide
+                </strong>
+
+                <small>
+                  Candy Edition + Waffle Edition
+                </small>
+
+              </span>
+
+            </label>
+
+
+          </div>
+
+        </fieldset>
+
+
+        <!-- CANDY -->
+
+        <section
+          id="candy-fields"
+          class="conditional-panel"
+          hidden
+        >
+
+          <div class="conditional-heading">
+
+            <span class="panel-icon">
+              🍬
+            </span>
+
+            <div>
+
+              <h4>
+                Candy Edition
+              </h4>
+
+              <p>
+                Vertel ons wat voor jouw event belangrijk is.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="check-grid">
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="candy_drinks"
+                value="Frisdranken gewenst"
+              >
+
+              <span>
+                🥤 Frisdranken voorzien
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="candy_mix"
+                value="Mix van zoet, zuur en fruitig"
+              >
+
+              <span>
+                🍭 Mix van smaken
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="candy_haribo_focus"
+                value="Vooral Haribo"
+              >
+
+              <span>
+                🧸 Vooral Haribo
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="candy_color"
+                value="Kleurrijke presentatie"
+              >
+
+              <span>
+                🌈 Extra kleurrijke presentatie
+              </span>
+
+            </label>
+
+
+          </div>
+
+        </section>
+
+
+        <!-- WAFFLE -->
+
+        <section
+          id="waffle-fields"
+          class="conditional-panel"
+          hidden
+        >
+
+          <div class="conditional-heading">
+
+            <span class="panel-icon">
+              🧇
+            </span>
+
+            <div>
+
+              <h4>
+                Waffle Edition
+              </h4>
+
+              <p>
+                Kies welke onderdelen we voor je moeten voorzien.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="check-grid">
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="waffle_lolly"
+                value="Lolliwafels"
+              >
+
+              <span>
+                🧇 Lolliwafels
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="waffle_pancakes"
+                value="American pancakes"
+              >
+
+              <span>
+                🥞 American pancakes
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="waffle_drinks"
+                value="Frisdranken gewenst"
+              >
+
+              <span>
+                🥤 Frisdranken
+              </span>
+
+            </label>
+
+
+          </div>
+
+
+          <div class="subheading">
+            Gewenste toppings / afwerking
+          </div>
+
+
+          <div class="check-grid">
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="toppings"
+                value="Melkchocolade"
+              >
+
+              <span>
+                🍫 Melkchocolade
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="toppings"
+                value="Witte chocolade"
+              >
+
+              <span>
+                🤍 Witte chocolade
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="toppings"
+                value="Pure chocolade"
+              >
+
+              <span>
+                🖤 Pure chocolade
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="toppings"
+                value="Nutella"
+              >
+
+              <span>
+                🥜 Nutella
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="toppings"
+                value="Speculoos"
+              >
+
+              <span>
+                🍪 Speculoos
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="toppings"
+                value="Oreo"
+              >
+
+              <span>
+                🍪 Oreo
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="toppings"
+                value="Aardbei"
+              >
+
+              <span>
+                🍓 Aardbei
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="toppings"
+                value="Banaan"
+              >
+
+              <span>
+                🍌 Banaan
+              </span>
+
+            </label>
+
+
+          </div>
+
+        </section>
+
+
+        <!-- ALLERGIEËN -->
+
+        <section class="conditional-panel">
+
+          <div class="conditional-heading">
+
+            <span class="panel-icon">
+              🧑‍🍳
+            </span>
+
+            <div>
+
+              <h4>
+                Allergieën & dieetwensen
+              </h4>
+
+              <p>
+                Zo kunnen we hiermee rekening houden in onze offerte en voorbereiding.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="check-grid">
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="diet"
+                value="Lactosevrije optie gewenst"
+              >
+
+              <span>
+                🥛 Lactosevrije optie
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="diet"
+                value="Glutenvrije optie gewenst"
+              >
+
+              <span>
+                🌾 Glutenvrije optie
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="diet"
+                value="Vegan optie gewenst"
+              >
+
+              <span>
+                🌱 Vegan optie
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="diet"
+                value="Andere allergieën of dieetwensen"
+              >
+
+              <span>
+                ⚠️ Andere wensen
+              </span>
+
+            </label>
+
+
+          </div>
+
+
+          <label class="full-width">
+
+            Toelichting allergieën / dieetwensen
+
+            <textarea
+              name="diet_notes"
+              rows="3"
+              placeholder="Bijvoorbeeld: lactosevrij voor 10 personen..."
+            ></textarea>
+
+          </label>
+
+        </section>
+
+
+        <!-- PRAKTISCHE VOORZIENINGEN -->
+
+        <section class="conditional-panel">
+
+          <div class="conditional-heading">
+
+            <span class="panel-icon">
+              🔌
+            </span>
+
+            <div>
+
+              <h4>
+                Praktische voorzieningen
+              </h4>
+
+              <p>
+                Deze info helpt ons om de opstelling en voorbereiding goed in te schatten.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="check-grid">
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="facilities"
+                value="Elektriciteit beschikbaar"
+              >
+
+              <span>
+                ⚡ Elektriciteit beschikbaar
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="facilities"
+                value="Water beschikbaar"
+              >
+
+              <span>
+                💧 Water beschikbaar
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="facilities"
+                value="Overdekte plaats beschikbaar"
+              >
+
+              <span>
+                ⛺ Overdekte plaats
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="facilities"
+                value="Plaats voor opstelling"
+              >
+
+              <span>
+                📐 Plaats voor de kraam
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="facilities"
+                value="Parking / laad- en losmogelijkheid"
+              >
+
+              <span>
+                🚚 Parking / laad- en losmogelijkheid
+              </span>
+
+            </label>
+
+
+            <label class="check-card">
+
+              <input
+                type="checkbox"
+                name="facilities"
+                value="Toegankelijke doorgang"
+              >
+
+              <span>
+                ↔️ Goede doorgang
+              </span>
+
+            </label>
+
+
+          </div>
+
+
+          <label class="full-width">
+
+            Extra praktische informatie
+
+            <textarea
+              name="practical_notes"
+              rows="3"
+              placeholder="Eventuele beperkingen, trappen, verdiepingen, bereikbaarheid, parking..."
+            ></textarea>
+
+          </label>
+
+        </section>
+
+
+        <!-- EXTRA BERICHT -->
+
+        <label class="full-width">
+
+          Vertel ons iets over je event
 
           <textarea
             name="message"
-            rows="4"
-            placeholder="Locatie, gewenste formule, speciale wensen..."
+            rows="5"
+            placeholder="Wat wil je graag organiseren? Zijn er speciale wensen, thema's of momenten waar we rekening mee moeten houden?"
           ></textarea>
 
         </label>
 
 
-        <!-- Verzenden -->
+        <!-- TOESTEMMING -->
+
+        <label class="consent-line">
+
+          <input
+            type="checkbox"
+            name="contact_ok"
+            value="Ja, Hummie Bear mag contact met mij opnemen"
+            required
+          >
+
+          <span>
+            Ik geef toestemming om mij over deze offerteaanvraag te contacteren. *
+          </span>
+
+        </label>
+
+
+        <!-- VERZENDEN -->
+
         <button
-          class="btn btn-primary"
+          class="btn btn-primary submit-button"
           type="submit"
         >
           Aanvraag versturen
@@ -878,7 +1778,9 @@
 
 
         <p class="form-note">
-          Je aanvraag wordt rechtstreeks naar ons verzonden.
+          Geen prijzen op de website:
+          je ontvangt na beoordeling van je aanvraag
+          een offerte op maat.
         </p>
 
       </form>
@@ -888,48 +1790,41 @@
   </main>
 
 
-
   <!-- FOOTER -->
-  <footer>
 
-    <div class="footer-main">
+  <footer class="site-footer">
 
+    <div class="footer-top">
 
       <a
-        class="logo"
+        class="brand footer-brand"
         href="#home"
       >
 
-        <span class="logo-mark">
+        <span class="brand-mark">
           HB
         </span>
 
         <span>
-          Hummie<b>Bear</b>
+          Hummie <b>Bear</b>
         </span>
 
       </a>
 
 
       <p>
-        Sweet moments. Made memorable.
+        Sweet experiences on wheels.
       </p>
 
 
-      <div class="socials">
+      <div class="footer-links">
 
-        <a
-          href="#"
-          aria-label="Instagram"
-        >
-          Instagram
+        <a href="#editions">
+          Editions
         </a>
 
-        <a
-          href="#"
-          aria-label="Facebook"
-        >
-          Facebook
+        <a href="#contact">
+          Offerte
         </a>
 
       </div>
@@ -940,11 +1835,11 @@
     <div class="footer-bottom">
 
       <span>
-        © 2026 HummieBear
+        © 2026 Hummie Bear
       </span>
 
       <span>
-        Gemaakt met liefde in België
+        Gemaakt in België
       </span>
 
     </div>
@@ -952,16 +1847,14 @@
   </footer>
 
 
-
-  <!-- Melding na verzenden -->
   <div
     id="toast"
     class="toast"
     role="status"
+    aria-live="polite"
   ></div>
 
 
-  <!-- JavaScript -->
   <script src="script.js"></script>
 
 </body>
