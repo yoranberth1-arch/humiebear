@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 180">
+  <rect width="240" height="180" rx="45" fill="#ffd6e5"/>
+  <circle cx="120" cy="88" r="58" fill="#c98252" stroke="#3a1828" stroke-width="7"/>
+  <circle cx="75" cy="45" r="25" fill="#c98252" stroke="#3a1828" stroke-width="7"/>
+  <circle cx="165" cy="45" r="25" fill="#c98252" stroke="#3a1828" stroke-width="7"/>
+  <circle cx="75" cy="45" r="11" fill="#f4b88f"/><circle cx="165" cy="45" r="11" fill="#f4b88f"/>
+  <ellipse cx="120" cy="103" rx="35" ry="28" fill="#f2bd99"/>
+  <circle cx="101" cy="82" r="6" fill="#23161c"/><circle cx="139" cy="82" r="6" fill="#23161c"/>
+  <ellipse cx="120" cy="101" rx="11" ry="8" fill="#3a1828"/>
+  <path d="M120 109c-11 0-17 10-17 17 8 7 26 7 34 0 0-7-6-17-17-17z" fill="#3a1828"/>
+  <text x="120" y="163" text-anchor="middle" font-family="Arial, sans-serif" font-weight="800" font-size="16" fill="#3a1828">HUMMIE BEAR</text>
+</svg>
