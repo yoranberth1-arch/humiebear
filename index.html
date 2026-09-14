@@ -1,237 +1,968 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Hummie Bear – gezellige snoep- en wafelkramen voor markten, feesten, bedrijfsevents en privéfeesten. Huur onze foodtruck of snoepkraam." />
-  <meta name="theme-color" content="#ffd7e6" />
-  <title>Hummie Bear | Snoepkraam & Wafelkraam huren</title>
-  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="HummieBear - gezellige snoep- en foodtruck voor feesten, evenementen, bedrijfsfeesten en privéfeesten."
+  >
+
+  <title>HummieBear | Foodtruck</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <header class="site-header" id="top">
-    <div class="container nav-wrap">
-      <a class="brand" href="#top" aria-label="Hummie Bear home">
-        <img src="assets/logo.svg" alt="Hummie Bear logo" />
-        <span>Hummie Bear</span>
+
+  <!-- Bovenste melding -->
+  <div class="announcement">
+    HummieBear is beschikbaar voor feesten, events & private bookings
+  </div>
+
+
+  <!-- Navigatie -->
+  <header class="header">
+
+    <a
+      class="logo"
+      href="#home"
+      aria-label="HummieBear home"
+    >
+      <span class="logo-mark">HB</span>
+      <span>Hummie<b>Bear</b></span>
+    </a>
+
+    <button
+      class="menu-toggle"
+      aria-label="Menu openen"
+      aria-expanded="false"
+    >
+      ☰
+    </button>
+
+    <nav class="nav">
+
+      <a href="#home">
+        Home
       </a>
-      <button class="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
-      <nav id="main-nav" class="main-nav">
-        <a href="#aanbod">Ons aanbod</a>
-        <a href="#kraam">Onze kramen</a>
-        <a href="#huren">Foodtruck huren</a>
-        <a href="#over-ons">Over ons</a>
-        <a href="#contact" class="nav-cta">Vraag offerte</a>
-      </nav>
-    </div>
+
+      <a href="#menu">
+        Menu
+      </a>
+
+      <a href="#over-ons">
+        Over ons
+      </a>
+
+      <a href="#events">
+        Events
+      </a>
+
+      <a
+        href="#contact"
+        class="nav-cta"
+      >
+        Boek HummieBear
+      </a>
+
+    </nav>
+
   </header>
 
-  <main>
+
+  <main id="home">
+
+
+    <!-- HERO -->
     <section class="hero">
-      <div class="hero-decor decor-one">♥</div>
-      <div class="hero-decor decor-two">✦</div>
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">WAFFLES · PANCAKES · SWEETS</p>
-          <h1>Good Food,<br /><span>Happier People.</span></h1>
-          <p class="hero-text">Van een gezellige snoepkraam tot verse lolly waffles: Hummie Bear maakt van elk evenement een zoet moment.</p>
-          <div class="hero-buttons">
-            <a class="btn btn-primary" href="#huren">Huur ons voor jouw feest</a>
-            <a class="btn btn-secondary" href="#kraam">Ontdek onze kramen</a>
-          </div>
-          <div class="trust-row">
-            <span>✓ Markten</span>
-            <span>✓ Bedrijfsfeesten</span>
-            <span>✓ Privéfeesten</span>
-          </div>
+
+      <div class="hero-copy">
+
+        <span class="eyebrow">
+          FOODTRUCK • WEST-VLAANDEREN
+        </span>
+
+        <h1>
+          Een beetje <em>sweetness</em>
+          op jouw event.
+        </h1>
+
+        <p>
+          Verse American pancakes, wafels en toppings
+          om van elk feest een moment te maken
+          waar iedereen voor terugkomt.
+        </p>
+
+
+        <div class="hero-actions">
+
+          <a
+            href="#contact"
+            class="btn btn-primary"
+          >
+            Boek HummieBear
+            <span>→</span>
+          </a>
+
+          <a
+            href="#menu"
+            class="btn btn-ghost"
+          >
+            Bekijk het menu
+          </a>
+
         </div>
-        <div class="hero-card">
-          <div class="hero-image-placeholder">
-            <div class="bear-orbit orbit-a"></div>
-            <div class="bear-orbit orbit-b"></div>
-            <div class="hero-truck">
-              <div class="truck-top">Hummie Bear</div>
-              <div class="truck-window"><span>WAFFLES</span><span>PANCAKES</span><span>SWEETS</span></div>
-              <div class="truck-body"></div>
-              <div class="wheel w1"></div><div class="wheel w2"></div>
-            </div>
-            <div class="floating-tag tag-left">Vers gemaakt</div>
-            <div class="floating-tag tag-right">Voor elk feest</div>
-          </div>
+
+
+        <div class="trust-row">
+
+          <span>
+            ✓ Vers bereid
+          </span>
+
+          <span>
+            ✓ Op locatie
+          </span>
+
+          <span>
+            ✓ Voor klein & groot
+          </span>
+
         </div>
+
       </div>
+
+
+      <!-- Visueel gedeelte -->
+      <div class="hero-visual">
+
+        <div class="sun"></div>
+
+        <div class="food-card">
+
+          <div class="plate">
+
+            <div class="pancake p1"></div>
+            <div class="pancake p2"></div>
+            <div class="pancake p3"></div>
+
+            <div class="berry b1"></div>
+            <div class="berry b2"></div>
+            <div class="berry b3"></div>
+
+            <span class="drip">
+              ✦
+            </span>
+
+          </div>
+
+
+          <div class="food-card-label">
+
+            <strong>
+              American pancakes
+            </strong>
+
+            <span>
+              vers • warm • heerlijk
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <span class="sticker sticker-one">
+          YUM!
+        </span>
+
+        <span class="sticker sticker-two">
+          made<br>
+          with ♥
+        </span>
+
+      </div>
+
     </section>
 
-    <section class="section" id="aanbod">
-      <div class="container">
-        <div class="section-heading">
-          <p class="eyebrow">WAT WE DOEN</p>
-          <h2>Twee kramen. Eén zoete sfeer.</h2>
-          <p>Je kiest wat bij jouw evenement past: een kleurrijke snoepkraam of onze sfeervolle wafelkraam met verse lolly waffles en American pancakes.</p>
-        </div>
-        <div class="offer-grid">
-          <article class="offer-card sweets">
-            <div class="offer-icon">🍭</div>
-            <p class="card-kicker">SNOEPKRAAM</p>
-            <h3>De kleurrijke snoepkraam</h3>
-            <p>Een vrolijke snoepbeleving met een ruime keuze aan lekkers. Ideaal voor verjaardagen, communies, bedrijfsevents en feestdagen.</p>
-            <a href="#contact" class="text-link">Snoepkraam huren →</a>
-          </article>
-          <article class="offer-card waffles">
-            <div class="offer-icon">🧇</div>
-            <p class="card-kicker">WAFELKRAAM</p>
-            <h3>Lolly waffles & pancakes</h3>
-            <p>Verse waffles op een stokje, lekkere toppings en American pancakes. Een kraam waar klanten kunnen kiezen, kijken én ruiken.</p>
-            <a href="#contact" class="text-link">Wafelkraam huren →</a>
-          </article>
-        </div>
+
+
+    <!-- SPECIALITEITEN -->
+    <section
+      class="marquee"
+      aria-label="Specialiteiten"
+    >
+
+      <div>
+        AMERICAN PANCAKES
+        <span>✦</span>
+
+        BELGISCHE WAFELS
+        <span>✦</span>
+
+        TOPPINGS
+        <span>✦</span>
+
+        DESSERTS
+        <span>✦</span>
+
+        CATERING
+        <span>✦</span>
       </div>
+
     </section>
 
-    <section class="visual-break">
-      <div class="container visual-break-inner">
+
+
+    <!-- MENU -->
+    <section
+      id="menu"
+      class="section menu-section"
+    >
+
+      <div class="section-heading">
+
         <div>
-          <p class="eyebrow">HUMMIE BEAR</p>
-          <h2>Een kraam die mensen doet stoppen.</h2>
+
+          <span class="eyebrow">
+            OP HET MENU
+          </span>
+
+          <h2>
+            Waar krijg jij
+            <em>goesting</em> in?
+          </h2>
+
         </div>
-        <div class="mini-pills">
-          <span>Roze</span><span>Zoet</span><span>Vers</span><span>Gezellig</span>
-        </div>
+
+
+        <p>
+          Een compacte kaart met klassiekers
+          én combinaties waar je zelf je draai
+          aan geeft.
+        </p>
+
       </div>
+
+
+      <div class="menu-grid">
+
+
+        <!-- Pancakes -->
+        <article class="menu-card featured">
+
+          <div class="menu-icon">
+            🥞
+          </div>
+
+          <span class="tag">
+            FAVORIET
+          </span>
+
+          <h3>
+            American Pancakes
+          </h3>
+
+          <p>
+            2 fluffy pancakes met jouw favoriete toppings.
+          </p>
+
+          <div class="price">
+            vanaf €6,50
+          </div>
+
+        </article>
+
+
+        <!-- Wafels -->
+        <article class="menu-card">
+
+          <div class="menu-icon">
+            🧇
+          </div>
+
+          <h3>
+            Mini wafels
+          </h3>
+
+          <p>
+            Warme wafeltjes, krokant vanbuiten
+            en zacht vanbinnen.
+          </p>
+
+          <div class="price">
+            vanaf €5,50
+          </div>
+
+        </article>
+
+
+        <!-- Toppings -->
+        <article class="menu-card">
+
+          <div class="menu-icon">
+            🍓
+          </div>
+
+          <h3>
+            Sweet toppings
+          </h3>
+
+          <p>
+            Fruit, chocolade, koekjes,
+            sauzen en andere toppings.
+          </p>
+
+          <div class="price">
+            à la carte
+          </div>
+
+        </article>
+
+
+        <!-- Events -->
+        <article class="menu-card">
+
+          <div class="menu-icon">
+            ✨
+          </div>
+
+          <h3>
+            Event special
+          </h3>
+
+          <p>
+            Een formule op maat voor jouw feest,
+            bedrijf of evenement.
+          </p>
+
+          <div class="price">
+            op aanvraag
+          </div>
+
+        </article>
+
+      </div>
+
+
+      <!-- Toppings -->
+      <div class="toppings">
+
+        <span>
+          🍫 Nutella
+        </span>
+
+        <span>
+          🍓 Aardbei
+        </span>
+
+        <span>
+          🍌 Banaan
+        </span>
+
+        <span>
+          🍪 Oreo
+        </span>
+
+        <span>
+          🍯 Speculoos
+        </span>
+
+        <span>
+          🍦 Vanille
+        </span>
+
+        <span>
+          🫐 Blauwe bes
+        </span>
+
+        <span>
+          ✨ & meer
+        </span>
+
+      </div>
+
     </section>
 
-    <section class="section" id="kraam">
-      <div class="container">
-        <div class="section-heading two-col-heading">
+
+
+    <!-- OVER ONS -->
+    <section
+      id="over-ons"
+      class="section about"
+    >
+
+      <div class="about-image">
+
+        <div class="truck-art">
+
+          <div class="truck-body">
+
+            <span>
+              Hummie<br>
+              <b>Bear</b>
+            </span>
+
+          </div>
+
+
+          <div class="wheel left"></div>
+
+          <div class="wheel right"></div>
+
+
+          <div class="serving">
+
+            OPEN
+
+            <br>
+
+            <small>
+              ♡
+            </small>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="about-copy">
+
+        <span class="eyebrow">
+          ONS VERHAAL
+        </span>
+
+        <h2>
+          Van onze foodtruck
+          naar jouw <em>feest.</em>
+        </h2>
+
+
+        <p>
+          HummieBear brengt de sfeer van een gezellige
+          dessertbar naar jouw locatie.
+          Alles wordt vers en zichtbaar bereid,
+          zodat gasten niet alleen lekker eten,
+          maar ook iets beleven.
+        </p>
+
+
+        <p>
+          Van verjaardagen en communies
+          tot bedrijfsfeesten en festivals:
+          wij maken een formule die past
+          bij jouw event.
+        </p>
+
+
+        <div class="stats">
+
           <div>
-            <p class="eyebrow">ONZE KRAMEN</p>
-            <h2>Gemaakt om gezien te worden.</h2>
-          </div>
-          <p>De Hummie Bear-stijl is vrolijk, herkenbaar en fotogeniek. Daardoor is je foodcorner niet alleen lekker, maar ook een deel van de sfeer van het evenement.</p>
-        </div>
-        <div class="feature-grid">
-          <div class="feature-box feature-main">
-            <div class="feature-art">
-              <div class="feature-bear">🐻</div>
-              <div class="feature-sign">HUMMIE<br />BEAR</div>
-              <div class="feature-waffle">🧇</div>
-            </div>
-            <div class="feature-caption"><strong>Wafelkraam</strong><span>Waffles · Pancakes · Sweets</span></div>
-          </div>
-          <div class="feature-stack">
-            <div class="feature-box small">
-              <div class="small-art candy">🍬 🍭 🍫</div>
-              <h3>Snoepkraam</h3>
-              <p>Een vrolijke candy corner voor jong en oud.</p>
-            </div>
-            <div class="feature-box small">
-              <div class="small-art waffle">🧇 🥞</div>
-              <h3>Live bakken</h3>
-              <p>Verse bereiding en toppings vlak voor de klant.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="section pink-section" id="huren">
-      <div class="container">
-        <div class="section-heading center">
-          <p class="eyebrow">FOODTRUCK HUREN</p>
-          <h2>Jouw feest, onze kraam.</h2>
-          <p>Van een klein privéfeest tot een groot evenement: vertel ons wat je organiseert en we maken samen een passende formule.</p>
-        </div>
-        <div class="hire-grid">
-          <div class="hire-card">
-            <span class="number">01</span>
-            <h3>Kies je kraam</h3>
-            <p>Snoepkraam of wafelkraam. Je kunt ook beide combineren voor een groter event.</p>
+            <strong>
+              100%
+            </strong>
+
+            <span>
+              vers bereid
+            </span>
+
           </div>
-          <div class="hire-card">
-            <span class="number">02</span>
-            <h3>Vertel je plannen</h3>
-            <p>Datum, locatie, aantal gasten en soort evenement zijn voldoende voor een eerste prijsindicatie.</p>
-          </div>
-          <div class="hire-card">
-            <span class="number">03</span>
-            <h3>Wij maken het gezellig</h3>
-            <p>Wij komen met de kraam, bereiden, serveren en zorgen voor de herkenbare Hummie Bear-sfeer.</p>
-          </div>
-        </div>
-        <div class="cta-panel">
+
+
           <div>
-            <p class="eyebrow">KLAAR OM TE PLANNEN?</p>
-            <h3>Vraag vrijblijvend een offerte.</h3>
-            <p>Vertel ons wat je organiseert. We antwoorden met een voorstel op maat.</p>
+
+            <strong>
+              ♡
+            </strong>
+
+            <span>
+              op maat
+            </span>
+
           </div>
-          <a class="btn btn-dark" href="#contact">Offerte aanvragen</a>
+
+
+          <div>
+
+            <strong>
+              1
+            </strong>
+
+            <span>
+              gezellige truck
+            </span>
+
+          </div>
+
         </div>
+
       </div>
+
     </section>
 
-    <section class="section" id="over-ons">
-      <div class="container about-grid">
-        <div class="about-card">
-          <div class="about-badge">H</div>
-          <p class="eyebrow">OVER HUMMIE BEAR</p>
-          <h2>Zoet, vrolijk en gemaakt voor momenten samen.</h2>
-          <p>Hummie Bear is er voor de momenten waarop mensen samenkomen. We combineren een opvallende uitstraling met lekkere, eenvoudige comfort food waar je meteen blij van wordt.</p>
-          <div class="check-list">
-            <span>✓ Persoonlijke aanpak</span>
-            <span>✓ Geschikt voor privé en professioneel</span>
-            <span>✓ Snoep én warme sweets</span>
-          </div>
-        </div>
-        <div class="quote-card">
-          <span class="quote-mark">“</span>
-          <blockquote>Good Food,<br />Happier People.</blockquote>
-          <p>Hummie Bear</p>
-        </div>
+
+
+    <!-- EVENTS -->
+    <section
+      id="events"
+      class="section events"
+    >
+
+      <div class="section-heading centered">
+
+        <span class="eyebrow">
+          VOOR ELK MOMENT
+        </span>
+
+        <h2>
+          Jouw event,
+          onze <em>sweet spot.</em>
+        </h2>
+
       </div>
+
+
+      <div class="event-grid">
+
+
+        <div class="event-item">
+
+          <span>
+            🎂
+          </span>
+
+          <h3>
+            Verjaardagen
+          </h3>
+
+          <p>
+            Maak je feest extra zoet.
+          </p>
+
+        </div>
+
+
+        <div class="event-item">
+
+          <span>
+            💍
+          </span>
+
+          <h3>
+            Huwelijken
+          </h3>
+
+          <p>
+            Een dessertmoment om te onthouden.
+          </p>
+
+        </div>
+
+
+        <div class="event-item">
+
+          <span>
+            🏢
+          </span>
+
+          <h3>
+            Bedrijfsfeesten
+          </h3>
+
+          <p>
+            Een lekkere break voor je team.
+          </p>
+
+        </div>
+
+
+        <div class="event-item">
+
+          <span>
+            🎪
+          </span>
+
+          <h3>
+            Events
+          </h3>
+
+          <p>
+            Van buurtfeest tot festival.
+          </p>
+
+        </div>
+
+      </div>
+
     </section>
 
-    <section class="section contact-section" id="contact">
-      <div class="container contact-grid">
-        <div>
-          <p class="eyebrow">CONTACT</p>
-          <h2>Vertel ons over jouw event.</h2>
-          <p>Vul het formulier in en we nemen contact met je op. Je hoeft nog geen definitieve keuzes te hebben gemaakt.</p>
-          <div class="contact-details">
-            <a href="mailto:info@hummiebear.com">info@hummiebear.com</a>
-            <span>België · omgeving Eeklo</span>
-            <a href="https://www.hummiebear.com" target="_blank" rel="noopener">hummiebear.com</a>
-          </div>
-        </div>
-        <form class="contact-form" action="mailto:info@hummiebear.com" method="post" enctype="text/plain">
-          <label>Naam<input name="naam" type="text" required placeholder="Jouw naam" /></label>
-          <label>E-mail<input name="email" type="email" required placeholder="jouw@email.be" /></label>
-          <label>Soort kraam<select name="kraam"><option>Wafelkraam</option><option>Snoepkraam</option><option>Beide</option><option>Nog niet zeker</option></select></label>
-          <div class="form-row">
-            <label>Datum<input name="datum" type="date" /></label>
-            <label>Aantal gasten<input name="gasten" type="number" min="1" placeholder="bv. 80" /></label>
-          </div>
-          <label>Vertel iets over je evenement<textarea name="bericht" rows="5" placeholder="Locatie, soort feest, timing, wensen..."></textarea></label>
-          <button class="btn btn-primary" type="submit">Vraag offerte aan</button>
-          <p class="form-note">Tip: als je liever rechtstreeks mailt, gebruik dan info@hummiebear.com.</p>
-        </form>
+
+
+    <!-- CTA -->
+    <section class="booking-banner">
+
+      <div>
+
+        <span class="eyebrow">
+          KLAAR OM TE ZOETEN?
+        </span>
+
+        <h2>
+          Jouw gasten gaan dit
+          <em>geweldig</em> vinden.
+        </h2>
+
       </div>
+
+
+      <a
+        class="btn btn-dark"
+        href="#contact"
+      >
+        Vraag een offerte aan →
+      </a>
+
     </section>
+
+
+
+    <!-- CONTACT / BOEKEN -->
+    <section
+      id="contact"
+      class="section contact"
+    >
+
+
+      <!-- Contactinformatie -->
+      <div class="contact-copy">
+
+        <span class="eyebrow">
+          BOEKEN
+        </span>
+
+        <h2>
+          Vertel ons over jouw
+          <em>event.</em>
+        </h2>
+
+
+        <p>
+          Vul het formulier in.
+          We nemen zo snel mogelijk contact op
+          om de mogelijkheden en prijs te bespreken.
+        </p>
+
+
+        <div class="contact-details">
+
+
+          <div>
+
+            <span>
+              📍
+            </span>
+
+            <div>
+
+              <strong>
+                Regio
+              </strong>
+
+              <small>
+                West-Vlaanderen & omgeving
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              ✉
+            </span>
+
+            <div>
+
+              <strong>
+                E-mail
+              </strong>
+
+              <small>
+                hummiebearbusiness@gmail.com
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              ☎
+            </span>
+
+            <div>
+
+              <strong>
+                Telefoon
+              </strong>
+
+              <small>
+                +32 4XX XX XX XX
+              </small>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+      <!-- Formulier -->
+      <form
+        id="booking-form"
+        class="booking-form"
+        action="https://formspree.io/f/xnpqeljn"
+        method="POST"
+      >
+
+
+        <!-- Naam -->
+        <label>
+
+          Naam
+
+          <input
+            name="name"
+            type="text"
+            placeholder="Jouw naam"
+            autocomplete="name"
+            required
+          >
+
+        </label>
+
+
+        <!-- Email -->
+        <label>
+
+          E-mail
+
+          <input
+            name="email"
+            type="email"
+            placeholder="jij@email.be"
+            autocomplete="email"
+            required
+          >
+
+        </label>
+
+
+        <!-- Datum + aantal -->
+        <div class="form-row">
+
+
+          <label>
+
+            Datum
+
+            <input
+              name="date"
+              type="date"
+              required
+            >
+
+          </label>
+
+
+          <label>
+
+            Aantal gasten
+
+            <input
+              name="guests"
+              type="number"
+              min="1"
+              placeholder="bv. 80"
+              required
+            >
+
+          </label>
+
+
+        </div>
+
+
+        <!-- Type event -->
+        <label>
+
+          Type event
+
+          <select
+            name="event"
+            required
+          >
+
+            <option value="">
+              Kies een optie
+            </option>
+
+            <option>
+              Verjaardag
+            </option>
+
+            <option>
+              Huwelijk
+            </option>
+
+            <option>
+              Bedrijfsfeest
+            </option>
+
+            <option>
+              Festival / event
+            </option>
+
+            <option>
+              Andere
+            </option>
+
+          </select>
+
+        </label>
+
+
+        <!-- Bericht -->
+        <label>
+
+          Vertel iets over je event
+
+          <textarea
+            name="message"
+            rows="4"
+            placeholder="Locatie, gewenste formule, speciale wensen..."
+          ></textarea>
+
+        </label>
+
+
+        <!-- Verzenden -->
+        <button
+          class="btn btn-primary"
+          type="submit"
+        >
+          Aanvraag versturen
+          <span>→</span>
+        </button>
+
+
+        <p class="form-note">
+          Je aanvraag wordt rechtstreeks naar ons verzonden.
+        </p>
+
+      </form>
+
+    </section>
+
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <div class="brand footer-brand"><img src="assets/logo.svg" alt="Hummie Bear" /><span>Hummie Bear</span></div>
-        <p>WAFFLES · PANCAKES · SWEETS</p>
+
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-main">
+
+
+      <a
+        class="logo"
+        href="#home"
+      >
+
+        <span class="logo-mark">
+          HB
+        </span>
+
+        <span>
+          Hummie<b>Bear</b>
+        </span>
+
+      </a>
+
+
+      <p>
+        Sweet moments. Made memorable.
+      </p>
+
+
+      <div class="socials">
+
+        <a
+          href="#"
+          aria-label="Instagram"
+        >
+          Instagram
+        </a>
+
+        <a
+          href="#"
+          aria-label="Facebook"
+        >
+          Facebook
+        </a>
+
       </div>
-      <div class="footer-links">
-        <a href="#aanbod">Aanbod</a><a href="#huren">Foodtruck huren</a><a href="#contact">Contact</a>
-      </div>
-      <div class="footer-copy">© <span id="year"></span> Hummie Bear</div>
+
     </div>
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 HummieBear
+      </span>
+
+      <span>
+        Gemaakt met liefde in België
+      </span>
+
+    </div>
+
   </footer>
 
+
+
+  <!-- Melding na verzenden -->
+  <div
+    id="toast"
+    class="toast"
+    role="status"
+  ></div>
+
+
+  <!-- JavaScript -->
   <script src="script.js"></script>
+
 </body>
 </html>
