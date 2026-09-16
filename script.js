@@ -308,6 +308,16 @@ if (form) {
       }
 
 
+      const guestsInput = form.querySelector('input[name="guests"]');
+      const guests = guestsInput ? Number(guestsInput.value) : 0;
+
+      if (guestsInput && guests < 50) {
+        showToast("Hummie Bear komt vanaf ongeveer 50 personen. Kleinere aanvragen kunnen we uitzonderlijk bekijken.");
+        guestsInput.focus();
+        return;
+      }
+
+
       /* =====================================
          BUTTON
       ====================================== */
