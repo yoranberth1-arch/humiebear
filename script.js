@@ -15,7 +15,7 @@ if (menuToggle && mainNav) {
   });
 }
 
-// Zet alle zichtbare vermeldingen van 0,5 kg om naar 500 gram.
+// Maak de zichtbare gewichtsvermeldingen consequent: 500 gram.
 const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
 const textNodes = [];
 let currentNode;
@@ -57,11 +57,11 @@ if (editionOptions) {
     </label>
     <label class="edition-option">
       <input type="radio" name="editions" value="Hummie Bear Candy Edition">
-      <span><strong>Candy Edition</strong><small>Vanaf 20 personen • 500 gram p.p. • €150 opstart 20–34 • vanaf 50 geen opstart</small></span>
+      <span><strong>Candy Edition</strong><small>Vanaf 20 personen • €10 p.p. • 500 gram p.p. • €150 opstart onder 35 • vanaf 50 geen opstart</small></span>
     </label>
     <label class="edition-option">
       <input type="radio" name="editions" value="Beide editions">
-      <span><strong>Candy + Waffle</strong><small>Vanaf 20 personen • €32,50 p.p. • 2 uur</small></span>
+      <span><strong>Candy + Waffle</strong><small>Vanaf 20 personen • €29,50 p.p. • 2 uur</small></span>
     </label>
     <label class="edition-option">
       <input type="radio" name="editions" value="Snoepzakken op maat">
@@ -72,34 +72,64 @@ if (editionOptions) {
 
 const editionInputs = [...document.querySelectorAll('input[name="editions"]')];
 
-function updateComboPrice() {
+function updatePricingCards() {
   const cards = document.querySelectorAll('#prijzen .price-card');
-  const comboCard = cards[cards.length - 1];
-  if (!comboCard) return;
+  if (!cards.length) return;
 
-  comboCard.querySelector('h3')?.replaceChildren(document.createTextNode('Beide concepten'));
-  const price = comboCard.querySelector('.price');
-  if (price) price.textContent = '€32,50 p.p.';
-
-  const paragraph = comboCard.querySelector('p');
-  if (paragraph) paragraph.textContent = 'Waffle Edition + Candy Edition samen als één complete zoete cateringformule voor 2 uur.';
-
-  const list = comboCard.querySelector('ul');
-  if (list) {
-    list.innerHTML = `
-      <li>Vanaf 20 personen</li>
-      <li>€32,50 per persoon</li>
-      <li>Waffle All-in voor 2 uur</li>
-      <li>Candy catering met 500 gram p.p.</li>
+  // Candy card
+  const candyCard = cards[0];
+  const candyTitle = candyCard?.querySelector('h3');
+  const candyPrice = candyCard?.querySelector('.price');
+  const candyParagraph = candyCard?.querySelector('p');
+  const candyList = candyCard?.querySelector('ul');
+  if (candyTitle) candyTitle.textContent = '€10 p.p. • 500 gram snoep';
+  if (candyPrice) candyPrice.textContent = '€10 p.p.';
+  if (candyParagraph) candyParagraph.textContent = '65 soorten snoep in onze kraam. Bezoekers mogen hun zakje zo vaak komen vullen als ze willen, binnen de totale afgesproken hoeveelheid.';
+  if (candyList) {
+    candyList.innerHTML = `
+      <li>€10 per persoon</li>
+      <li>500 gram snoep p.p.</li>
+      <li>65 soorten</li>
       <li>Vegan snoep mogelijk</li>
+      <li>Vanaf 20 personen</li>
+      <li>€150 opstart onder 35 personen</li>
+      <li>Vanaf 50 personen geen opstartkost</li>
     `;
   }
 
-  const button = comboCard.querySelector('.btn');
-  if (button) button.textContent = 'Combo aanvragen →';
+  // Combo card: €20 + €10 = €30, met kleine combinatiekorting.
+  const comboCard = cards[cards.length - 1];
+  const comboTitle = comboCard?.querySelector('h3');
+  const comboPrice = comboCard?.querySelector('.price');
+  const comboParagraph = comboCard?.querySelector('p');
+  const comboList = comboCard?.querySelector('ul');
+  if (comboTitle) comboTitle.textContent = 'Candy + Waffle';
+  if (comboPrice) comboPrice.textContent = '€29,50 p.p.';
+  if (comboParagraph) comboParagraph.textContent = 'Waffle Edition + Candy Edition samen als één complete zoete cateringformule voor 2 uur.';
+  if (comboList) {
+    comboList.innerHTML = `
+      <li>Vanaf 20 personen</li>
+      <li>€29,50 per persoon</li>
+      <li>Waffle All-in voor 2 uur</li>
+      <li>Candy catering met 500 gram p.p.</li>
+      <li>€0,50 combinatievoordeel p.p.</li>
+      <li>Vegan snoep mogelijk</li>
+    `;
+  }
 }
 
-updateComboPrice();
+updatePricingCards();
+
+// Prijs duidelijk zichtbaar maken op de Candy-pagina.
+if (document.title.includes('Candy Edition')) {
+  const heroLead = document.querySelector('.hero-copy .hero-lead');
+  if (heroLead && !document.querySelector('.candy-price-note')) {
+    const note = document.createElement('p');
+    note.className = 'candy-price-note';
+    note.innerHTML = '<strong>€10 per persoon</strong> • 500 gram snoep p.p. • €150 opstartkost onder 35 personen • vanaf 50 personen geen opstartkost';
+    heroLead.insertAdjacentElement('afterend', note);
+  }
+}
 
 function updateEditionPanels() {
   const selected = editionInputs.find((input) => input.checked)?.value || '';
@@ -129,9 +159,9 @@ function updateEditionPanels() {
   if (candyFields) {
     candyFields.hidden = !candy;
     candyFields.innerHTML = `
-      <h4>Candy Edition — catering</h4>
-      <p class="extra-intro"><strong>Vanaf 20 personen • 500 gram snoep per persoon.</strong> Bijvoorbeeld: 35 personen = 17,5 kg snoep in onze kraam. Bezoekers kunnen tijdens de catering zo vaak hun zakje komen vullen als ze willen, binnen de totale afgesproken hoeveelheid.</p>
-      <p class="extra-intro"><strong>Opstartkost:</strong> €150 bij 20–34 personen. Vanaf 50 personen vervalt de opstartkost. Voor 35–49 personen bekijken we de praktische prijs in de offerte.</p>
+      <h4>Candy Edition — €10 p.p.</h4>
+      <p class="extra-intro"><strong>Vanaf 20 personen • €10 per persoon • 500 gram snoep per persoon.</strong> Bijvoorbeeld: 35 personen = 17,5 kg snoep in onze kraam. Bezoekers kunnen tijdens de catering zo vaak hun zakje komen vullen als ze willen, binnen de totale afgesproken hoeveelheid.</p>
+      <p class="extra-intro"><strong>Opstartkost:</strong> €150 onder 35 personen. Vanaf 50 personen vervalt de opstartkost.</p>
       <label class="check-line">
         <input type="checkbox" name="candy_options" value="Vegan snoep gewenst">
         Vegan snoep gewenst
@@ -273,7 +303,7 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     const target = document.querySelector(id);
     if (!target) return;
     e.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.scrollIntoView({ behavior: 'smooth' });
   });
 });
 
