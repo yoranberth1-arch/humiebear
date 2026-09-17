@@ -221,7 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch (error) {
         console.error(error);
         showToast('Er ging iets mis. Probeer opnieuw of mail hummiebearbusiness@gmail.com.');
-      } finally if (button) { button.disabled = false; button.innerHTML = original; }
+      } finally {
+        if (button) { button.disabled = false; button.innerHTML = original; }
+      }
     });
   }
 
