@@ -11,10 +11,10 @@
   ========================================================= */
 
   const SUPABASE_URL =
-    "https://xsabwmcjgjijgmxkwyyx.supabase.co";
+    "https://yrcajvpstbyupohjbavm.supabase.co";
 
   const SUPABASE_KEY =
-    "sb_publishable_LoVCt7ZXZ4ytzpgKRcfwgg_O96TheUc";
+    "sb_publishable_TjBCB01RHm67xQVm3CtvEw_b0qxklDJ";
 
 
   /* =========================================================
