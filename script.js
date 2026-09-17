@@ -53,19 +53,19 @@ if (editionOptions) {
   editionOptions.innerHTML = `
     <label class="edition-option">
       <input type="radio" name="editions" value="Hummie Bear Waffle Edition">
-      <span><strong>Waffle Edition</strong><small>Vanaf 20 personen • €20 p.p. • 2 uur • €150 opstart onder 30</small></span>
+      <span><strong>Waffle Edition</strong><small>Vanaf 20 personen • €20 p.p. • 2 uur • €150 opstart 20–49 • vanaf 50 geen opstart</small></span>
     </label>
     <label class="edition-option">
       <input type="radio" name="editions" value="Hummie Bear Candy Edition">
-      <span><strong>Candy Edition</strong><small>Vanaf 20 personen • €10 p.p. • 500 gram p.p. • €150 opstart onder 35 • vanaf 50 geen opstart</small></span>
+      <span><strong>Candy Edition</strong><small>Vanaf 20 personen • €10 p.p. • 2 uur • 500 gram p.p. • €150 opstart 20–49 • vanaf 50 geen opstart</small></span>
     </label>
     <label class="edition-option">
       <input type="radio" name="editions" value="Beide editions">
-      <span><strong>Candy + Waffle</strong><small>Vanaf 20 personen • €29,50 p.p. • 2 uur</small></span>
+      <span><strong>Candy + Waffle</strong><small>Vanaf 20 personen • €29,50 p.p. • 2 uur • €150 opstart 20–49 • vanaf 50 geen opstart</small></span>
     </label>
     <label class="edition-option">
       <input type="radio" name="editions" value="Snoepzakken op maat">
-      <span><strong>Snoepzakken op maat</strong><small>Vanaf 20 personen • prijs op maat</small></span>
+      <span><strong>Snoepzakken op maat</strong><small>Vanaf 20 personen • 2 uur • €150 opstart 20–49 • vanaf 50 geen opstart</small></span>
     </label>
   `;
 }
@@ -76,45 +76,68 @@ function updatePricingCards() {
   const cards = document.querySelectorAll('#prijzen .price-card');
   if (!cards.length) return;
 
-  // Candy card
   const candyCard = cards[0];
   const candyTitle = candyCard?.querySelector('h3');
   const candyPrice = candyCard?.querySelector('.price');
   const candyParagraph = candyCard?.querySelector('p');
   const candyList = candyCard?.querySelector('ul');
-  if (candyTitle) candyTitle.textContent = '€10 p.p. • 500 gram snoep';
+  if (candyTitle) candyTitle.textContent = '€10 p.p. • 500 gram snoep • 2 uur';
   if (candyPrice) candyPrice.textContent = '€10 p.p.';
-  if (candyParagraph) candyParagraph.textContent = '65 soorten snoep in onze kraam. Bezoekers mogen hun zakje zo vaak komen vullen als ze willen, binnen de totale afgesproken hoeveelheid.';
+  if (candyParagraph) candyParagraph.textContent = '65 soorten snoep in onze kraam. Bezoekers mogen hun zakje tijdens de 2 uur zo vaak komen vullen als ze willen, binnen de totale afgesproken hoeveelheid.';
   if (candyList) {
     candyList.innerHTML = `
       <li>€10 per persoon</li>
       <li>500 gram snoep p.p.</li>
       <li>65 soorten</li>
-      <li>Vegan snoep mogelijk</li>
-      <li>Vanaf 20 personen</li>
-      <li>€150 opstart onder 35 personen</li>
+      <li>2 uur catering</li>
+      <li>€150 opstartkost bij 20–49 personen</li>
       <li>Vanaf 50 personen geen opstartkost</li>
+      <li>Vegan snoep mogelijk</li>
     `;
   }
 
-  // Combo card: €20 + €10 = €30, met kleine combinatiekorting.
   const comboCard = cards[cards.length - 1];
   const comboTitle = comboCard?.querySelector('h3');
   const comboPrice = comboCard?.querySelector('.price');
   const comboParagraph = comboCard?.querySelector('p');
   const comboList = comboCard?.querySelector('ul');
-  if (comboTitle) comboTitle.textContent = 'Candy + Waffle';
+  if (comboTitle) comboTitle.textContent = '€29,50 p.p. • 2 uur';
   if (comboPrice) comboPrice.textContent = '€29,50 p.p.';
   if (comboParagraph) comboParagraph.textContent = 'Waffle Edition + Candy Edition samen als één complete zoete cateringformule voor 2 uur.';
   if (comboList) {
     comboList.innerHTML = `
       <li>Vanaf 20 personen</li>
       <li>€29,50 per persoon</li>
-      <li>Waffle All-in voor 2 uur</li>
+      <li>2 uur</li>
+      <li>Waffle All-in</li>
       <li>Candy catering met 500 gram p.p.</li>
-      <li>€0,50 combinatievoordeel p.p.</li>
+      <li>€150 opstartkost bij 20–49 personen</li>
+      <li>Vanaf 50 personen geen opstartkost</li>
       <li>Vegan snoep mogelijk</li>
     `;
+  }
+
+  const waffleCard = cards.find((card) => card.querySelector('.price-label')?.textContent.includes('WAFFLE')) || cards[1];
+  if (waffleCard) {
+    const waffleTitle = waffleCard.querySelector('h3');
+    const waffleParagraph = waffleCard.querySelector('p');
+    const waffleList = waffleCard.querySelector('ul');
+    if (waffleTitle) waffleTitle.textContent = '€20 p.p. • 2 uur all-in';
+    if (waffleParagraph) waffleParagraph.textContent = 'Verse lollywafels, milkshakes, ijs, koffie en warme chocomelk inbegrepen voor 2 uur.';
+    if (waffleList) {
+      waffleList.innerHTML = `
+        <li>Vanaf 20 personen</li>
+        <li>€20 per persoon</li>
+        <li>2 uur all-in</li>
+        <li>Koffie inbegrepen</li>
+        <li>Warme chocomelk inbegrepen</li>
+        <li>IJs inbegrepen</li>
+        <li>Frisdrank: €2 per blik</li>
+        <li>Snoepzakje: +€5 p.p. vanaf 30 personen</li>
+        <li>€150 opstartkost bij 20–49 personen</li>
+        <li>Vanaf 50 personen geen opstartkost</li>
+      `;
+    }
   }
 }
 
@@ -126,7 +149,7 @@ if (document.title.includes('Candy Edition')) {
   if (heroLead && !document.querySelector('.candy-price-note')) {
     const note = document.createElement('p');
     note.className = 'candy-price-note';
-    note.innerHTML = '<strong>€10 per persoon</strong> • 500 gram snoep p.p. • €150 opstartkost onder 35 personen • vanaf 50 personen geen opstartkost';
+    note.innerHTML = '<strong>€10 per persoon</strong> • 500 gram snoep p.p. • 2 uur • €150 opstartkost bij 20–49 personen • vanaf 50 personen geen opstartkost';
     heroLead.insertAdjacentElement('afterend', note);
   }
 }
@@ -142,7 +165,7 @@ function updateEditionPanels() {
     waffleFields.hidden = !waffle;
     waffleFields.innerHTML = `
       <h4>Waffle Edition — €20 p.p. all-in</h4>
-      <p class="extra-intro"><strong>Vanaf 20 personen, 2 uur all-in.</strong> Lollywafels, milkshakes, ijs, koffie en warme chocomelk zijn inbegrepen. Bij minder dan 30 personen geldt €150 opstartkost; vanaf 30 personen vervalt die kost.</p>
+      <p class="extra-intro"><strong>Vanaf 20 personen, 2 uur all-in.</strong> Lollywafels, milkshakes, ijs, koffie en warme chocomelk zijn inbegrepen. <strong>€150 opstartkost bij 20–49 personen; vanaf 50 personen geen opstartkost.</strong></p>
       <div class="check-grid">
         <label class="check-line">
           <input type="checkbox" name="waffle_options" value="Frisdranken">
@@ -159,9 +182,9 @@ function updateEditionPanels() {
   if (candyFields) {
     candyFields.hidden = !candy;
     candyFields.innerHTML = `
-      <h4>Candy Edition — €10 p.p.</h4>
-      <p class="extra-intro"><strong>Vanaf 20 personen • €10 per persoon • 500 gram snoep per persoon.</strong> Bijvoorbeeld: 35 personen = 17,5 kg snoep in onze kraam. Bezoekers kunnen tijdens de catering zo vaak hun zakje komen vullen als ze willen, binnen de totale afgesproken hoeveelheid.</p>
-      <p class="extra-intro"><strong>Opstartkost:</strong> €150 onder 35 personen. Vanaf 50 personen vervalt de opstartkost.</p>
+      <h4>Candy Edition — €10 p.p. • 2 uur</h4>
+      <p class="extra-intro"><strong>Vanaf 20 personen • €10 per persoon • 500 gram snoep per persoon • 2 uur.</strong> Bijvoorbeeld: 35 personen = 17,5 kg snoep in onze kraam. Bezoekers kunnen tijdens de catering zo vaak hun zakje komen vullen als ze willen, binnen de totale afgesproken hoeveelheid.</p>
+      <p class="extra-intro"><strong>Opstartkost:</strong> €150 bij 20–49 personen. <strong>Vanaf 50 personen vervalt de opstartkost.</strong></p>
       <label class="check-line">
         <input type="checkbox" name="candy_options" value="Vegan snoep gewenst">
         Vegan snoep gewenst
@@ -172,8 +195,9 @@ function updateEditionPanels() {
   if (bagFields) {
     bagFields.hidden = !bags;
     bagFields.innerHTML = `
-      <h4>Snoepzakken op maat</h4>
-      <p class="extra-intro"><strong>Vanaf 20 personen.</strong> Stel je snoepzakken samen zoals jij ze wilt. Ideaal voor verjaardagen, Chiro, KSA, Scouts, scholen, sportverenigingen en andere groepen.</p>
+      <h4>Snoepzakken op maat — 2 uur</h4>
+      <p class="extra-intro"><strong>Vanaf 20 personen.</strong> Dit concept duurt 2 uur. Stel je snoepzakken samen zoals jij ze wilt. Ideaal voor verjaardagen, Chiro, KSA, Scouts, scholen, sportverenigingen en andere groepen.</p>
+      <p class="extra-intro"><strong>Opstartkost:</strong> €150 bij 20–49 personen. <strong>Vanaf 50 personen geen opstartkost.</strong></p>
       <div class="bag-grid">
         <label>Aantal snoepzakken *
           <select name="bag_quantity" required>
@@ -303,7 +327,7 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
     const target = document.querySelector(id);
     if (!target) return;
     e.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth' });
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
