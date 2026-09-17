@@ -67,19 +67,34 @@
       status: 'new'
     };
 
-    const response = await originalFetch(`${SUPABASE_URL}/rest/v1/quotes`, {
-      method: 'POST',
-      headers: {
-        apikey: SUPABASE_KEY,
-        Authorization: `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        Prefer: 'return=minimal'
-      },
-      body: JSON.stringify(quote)
-    });
+    try {
+      const response = await originalFetch(`${SUPABASE_URL}/rest/v1/quotes`, {
+        method: 'POST',
+        headers: {
+          // Publishable keys are API keys, not JWTs: send them via apikey only.
+          apikey: SUPABASE_KEY,
+          'Content-Type': 'application/json',
+          Prefer: 'return=minimal'
+        },
+        body: JSON.stringify(quote),
+        cache: 'no-store'
+      });
 
-    if (!response.ok) console.error('Hummie Bear Supabase error:', response.status, await response.text());
-    return response.ok ? new Response('{}', { status: 200, headers: { 'Content-Type': 'application/json' } }) : response;
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Hummie Bear Supabase error:', response.status, errorText);
+        return response;
+      }
+
+      console.log('Hummie Bear: quote opgeslagen in Supabase.');
+      return new Response('{}', {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    } catch (error) {
+      console.error('Hummie Bear Supabase connection error:', error);
+      throw error;
+    }
   };
 
   const script = document.createElement('script');
