@@ -581,8 +581,10 @@
 
   /* Links vanaf de Wafel- en Candy-pagina openen het formulier
      meteen met de juiste formule geselecteerd. */
+
   const requestedEdition =
     new URLSearchParams(window.location.search).get("edition");
+
 
   const editionByQuery = {
     waffle: "Hummie Bear Waffle Edition",
@@ -591,10 +593,12 @@
     bags: "Snoepzakken op maat"
   };
 
+
   const requestedInput =
     editionInputs.find(
       (input) => input.value === editionByQuery[requestedEdition]
     );
+
 
   if (requestedInput) {
     requestedInput.checked = true;
