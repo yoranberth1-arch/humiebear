@@ -146,100 +146,48 @@
 
     editionContainer.innerHTML = `
 
-      <label class="edition-option">
-
-        <input
-          type="radio"
-          name="editions"
-          value="Hummie Bear Waffle Edition"
-        >
-
+      <label class="edition-option edition-option--waffle">
+        <input type="radio" name="editions" value="Hummie Bear Waffle Edition" required>
         <span>
-
-          <strong>
-            Waffle Edition
-          </strong>
-
-          <small>
-            Vanaf 20 personen · €20 p.p. · 2 uur ·
-            €150 opstart 20–49 · vanaf 50 geen opstart
-          </small>
-
+          <span class="edition-option-kicker">WARME DESSERTBELEVING</span>
+          <strong>Wafel Edition</strong>
+          <small>Lollywafels, milkshakes, ijs, koffie en warme chocomelk.</small>
+          <b>€20 p.p.</b>
+          <em>Vanaf 20 personen · 2 uur all-in</em>
         </span>
-
       </label>
 
-
-      <label class="edition-option">
-
-        <input
-          type="radio"
-          name="editions"
-          value="Hummie Bear Candy Edition"
-        >
-
+      <label class="edition-option edition-option--candy">
+        <input type="radio" name="editions" value="Hummie Bear Candy Edition" required>
         <span>
-
-          <strong>
-            Candy Edition
-          </strong>
-
-          <small>
-            Vanaf 35 personen · €10 p.p. ·
-            500 gram p.p. · €150 opstart 35–49 ·
-            vanaf 50 geen opstart
-          </small>
-
+          <span class="edition-option-kicker">KLEURRIJK & VRIJ KIEZEN</span>
+          <strong>Candy Edition</strong>
+          <small>65 soorten snoep en 500 gram per persoon.</small>
+          <b>€10 p.p.</b>
+          <em>Vanaf 35 personen · 2 uur catering</em>
         </span>
-
       </label>
 
-
-      <label class="edition-option">
-
-        <input
-          type="radio"
-          name="editions"
-          value="Beide editions"
-        >
-
+      <label class="edition-option edition-option--combo">
+        <input type="radio" name="editions" value="Beide editions" required>
         <span>
-
-          <strong>
-            Candy + Waffle
-          </strong>
-
-          <small>
-            Vanaf 35 personen · €29,50 p.p. · 2 uur ·
-            €150 opstart 35–49 · vanaf 50 geen opstart
-          </small>
-
+          <span class="edition-option-kicker">DE VOLLEDIGE BELEVING</span>
+          <strong>Wafel + Candy Combo</strong>
+          <small>Alle Wafel Edition-items én 65 soorten snoep.</small>
+          <b>€29,50 p.p.</b>
+          <em>Vanaf 35 personen · 2 uur all-in</em>
         </span>
-
       </label>
 
-
-      <label class="edition-option">
-
-        <input
-          type="radio"
-          name="editions"
-          value="Snoepzakken op maat"
-        >
-
+      <label class="edition-option edition-option--bags">
+        <input type="radio" name="editions" value="Snoepzakken op maat" required>
         <span>
-
-          <strong>
-            Snoepzakken op maat
-          </strong>
-
-          <small>
-            Vanaf 20 personen · 2 uur · prijs op maat ·
-            €150 opstart 20–49 · vanaf 50 geen opstart
-          </small>
-
+          <span class="edition-option-kicker">VOLLEDIG OP MAAT</span>
+          <strong>Snoepzakken op maat</strong>
+          <small>Kies aantal, snoepmix en eventuele personalisatie.</small>
+          <b>Prijs op maat</b>
+          <em>Ideaal als traktatie of bedankje</em>
         </span>
-
       </label>
 
     `;
@@ -388,6 +336,12 @@
     input.addEventListener(
       "change",
       () => {
+
+        /* Eén duidelijke formule per aanvraag. De kaarten zijn radio-
+           keuzes, dus de browser beheert de exclusieve selectie. */
+        updateEditionPanels();
+        updateEstimate();
+        return;
 
         const bothInput =
           editionInputs.find(
@@ -551,7 +505,30 @@
   });
 
 
+  /* Links vanaf de Wafel- en Candy-pagina openen het formulier
+     meteen met de juiste formule geselecteerd. */
+  const requestedEdition =
+    new URLSearchParams(window.location.search).get("edition");
+
+  const editionByQuery = {
+    waffle: "Hummie Bear Waffle Edition",
+    candy: "Hummie Bear Candy Edition",
+    combo: "Beide editions",
+    bags: "Snoepzakken op maat"
+  };
+
+  const requestedInput =
+    editionInputs.find(
+      (input) => input.value === editionByQuery[requestedEdition]
+    );
+
+  if (requestedInput) {
+    requestedInput.checked = true;
+  }
+
+
   updateEditionPanels();
+  updateEstimate();
 
 
   /* =========================================================
