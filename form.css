@@ -152,3 +152,285 @@
     min-height: 185px;
   }
 }
+
+
+/* =========================================================
+   FINAL FORMULA CARD FIX
+   ========================================================= */
+
+.edition-options {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  align-items: stretch !important;
+}
+
+.edition-option {
+  position: relative !important;
+  display: block !important;
+  min-width: 0 !important;
+  height: auto !important;
+}
+
+.edition-option input {
+  position: absolute !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Reset ALL nested span styling from earlier generic rules. */
+.edition-option span {
+  box-sizing: border-box !important;
+}
+
+.edition-option span::after {
+  content: none !important;
+}
+
+/* The outer card only. */
+.edition-option > span {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  min-height: 230px !important;
+  height: auto !important;
+  padding: 23px !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+
+  border: 1px solid var(--line) !important;
+  border-radius: 20px !important;
+
+  background: #fff !important;
+  color: var(--brown) !important;
+
+  cursor: pointer !important;
+
+  box-shadow: none !important;
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease,
+    background .2s ease !important;
+}
+
+/* Decorative corner accent. */
+.edition-option > span::before {
+  content: "" !important;
+  position: absolute !important;
+  width: 95px !important;
+  height: 95px !important;
+  right: -38px !important;
+  top: -38px !important;
+  border-radius: 50% !important;
+  background: var(--pink-soft) !important;
+  pointer-events: none !important;
+}
+
+/* Small uppercase label. */
+.edition-option > span > .edition-option-kicker {
+  position: static !important;
+  display: block !important;
+  width: auto !important;
+  min-height: 0 !important;
+  height: auto !important;
+
+  margin: 0 0 11px !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+  color: var(--pink-dark) !important;
+
+  font-family: inherit !important;
+  font-size: .66rem !important;
+  line-height: 1.25 !important;
+  font-weight: 900 !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+
+  z-index: 1 !important;
+}
+
+/* Main title. */
+.edition-option > span > strong {
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  height: auto !important;
+
+  margin: 0 0 8px !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+  color: var(--brown) !important;
+
+  font-family: "Playfair Display", Georgia, serif !important;
+  font-size: 1.45rem !important;
+  line-height: 1.12 !important;
+  font-weight: 800 !important;
+  letter-spacing: -.01em !important;
+
+  z-index: 1 !important;
+}
+
+/* Description. */
+.edition-option > span > small {
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  height: auto !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  border-radius: 0 !important;
+
+  background: transparent !important;
+  color: var(--muted) !important;
+
+  font-family: inherit !important;
+  font-size: .82rem !important;
+  line-height: 1.5 !important;
+  font-weight: 500 !important;
+
+  z-index: 1 !important;
+}
+
+/* Price. */
+.edition-option > span > b {
+  position: static !important;
+  display: block !important;
+
+  margin: 16px 0 0 !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--brown) !important;
+
+  font-size: 1.28rem !important;
+  line-height: 1.05 !important;
+  font-weight: 900 !important;
+
+  z-index: 1 !important;
+}
+
+/* Minimum / duration line. */
+.edition-option > span > em {
+  position: static !important;
+  display: block !important;
+
+  margin: 5px 0 0 !important;
+  padding: 0 !important;
+
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--muted) !important;
+
+  font-family: inherit !important;
+  font-size: .73rem !important;
+  line-height: 1.4 !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+
+  z-index: 1 !important;
+}
+
+/* Bottom action text. */
+.edition-option > span {
+  padding-bottom: 52px !important;
+}
+
+.edition-option > span::after {
+  content: "Kies deze formule" !important;
+
+  position: absolute !important;
+  right: 18px !important;
+  bottom: 17px !important;
+
+  color: var(--pink-dark) !important;
+
+  font-family: inherit !important;
+  font-size: .72rem !important;
+  line-height: 1 !important;
+  font-weight: 900 !important;
+  letter-spacing: .04em !important;
+
+  pointer-events: none !important;
+  z-index: 2 !important;
+}
+
+/* Hover. */
+.edition-option > span:hover {
+  transform: translateY(-2px) !important;
+  border-color: var(--pink) !important;
+  box-shadow: 0 10px 25px rgba(61,42,32,.07) !important;
+}
+
+/* Waffle. */
+.edition-option--waffle > span {
+  background: linear-gradient(145deg,#fff 0%,#fff7fa 100%) !important;
+}
+
+/* Candy. */
+.edition-option--candy > span {
+  background: linear-gradient(145deg,#fff 0%,#fffaf2 100%) !important;
+}
+
+/* Combo. */
+.edition-option--combo > span {
+  background: linear-gradient(145deg,#fff8ef 0%,#ffe9f1 100%) !important;
+}
+
+/* Bags. */
+.edition-option--bags > span {
+  background: linear-gradient(145deg,#fff 0%,#f8eee5 100%) !important;
+}
+
+/* Selected. */
+.edition-option input:checked + span {
+  border-color: var(--pink-dark) !important;
+
+  background: linear-gradient(
+    145deg,
+    #fff 0%,
+    var(--pink-light) 100%
+  ) !important;
+
+  box-shadow:
+    0 0 0 3px var(--pink-dark),
+    0 15px 30px rgba(207,94,137,.13) !important;
+}
+
+.edition-option input:checked + span::after {
+  content: "✓ Geselecteerd" !important;
+  color: var(--brown) !important;
+}
+
+.edition-option input:focus-visible + span {
+  outline: 3px solid rgba(239,160,189,.4) !important;
+  outline-offset: 3px !important;
+}
+
+@media (max-width: 760px) {
+  .edition-options {
+    grid-template-columns: 1fr !important;
+  }
+
+  .edition-option > span {
+    min-height: 205px !important;
+  }
+}
