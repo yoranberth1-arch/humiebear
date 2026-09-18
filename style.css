@@ -91,3 +91,243 @@
     margin-top:3px !important;
   }
 }
+
+
+/* =========================================================
+   HUMMIE BEAR — PROFESSIONAL POLISH
+   Visual refinement only: no form logic or navigation changes.
+========================================================= */
+
+:root{
+  --surface:#ffffff;
+  --surface-soft:rgba(255,255,255,.78);
+  --ink:#302520;
+  --ink-soft:#665952;
+  --pink-deep:#bd4f7c;
+  --pink-ultra:#fce8ef;
+  --border-soft:rgba(230,216,206,.72);
+  --shadow-soft:0 12px 35px rgba(51,39,33,.07);
+  --shadow-hover:0 22px 55px rgba(51,39,33,.12);
+}
+
+/* Smoother overall rendering */
+body{
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+::selection{
+  background:var(--pink);
+  color:#fff;
+}
+
+/* Header feels more like a real brand navigation */
+.site-header{
+  box-shadow:0 1px 0 rgba(51,39,33,.025);
+}
+
+.header-inner{
+  min-height:68px;
+}
+
+.brand{
+  letter-spacing:-.02em;
+}
+
+.brand-mark{
+  flex-shrink:0;
+}
+
+.main-nav a:not(.nav-button){
+  position:relative;
+}
+
+.main-nav a:not(.nav-button):after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-7px;
+  height:2px;
+  border-radius:999px;
+  background:var(--pink-dark);
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform .22s ease;
+}
+
+.main-nav a:not(.nav-button):hover:after{
+  transform:scaleX(1);
+}
+
+/* More premium buttons */
+.btn{
+  letter-spacing:-.01em;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,#f2a8c3,#c95b87);
+}
+
+.btn-primary:active,
+.btn-dark:active,
+.nav-button:active{
+  transform:translateY(0) scale(.98);
+}
+
+/* Give content sections a clearer visual rhythm */
+.section{
+  position:relative;
+}
+
+.section + .section{
+  border-top:1px solid rgba(230,216,206,.32);
+}
+
+.section-heading h2,
+.experience-intro h2,
+.quote-banner h2,
+.contact-intro h2{
+  letter-spacing:-.045em;
+}
+
+.section-heading>p,
+.experience-intro p,
+.contact-intro>p{
+  line-height:1.75;
+}
+
+/* Cards: consistent commercial finish */
+.edition-card,
+.feature,
+.price-card,
+.process-card,
+.faq-grid details,
+.gallery-item{
+  border-color:var(--border-soft);
+  box-shadow:var(--shadow-soft);
+}
+
+.edition-card:hover,
+.feature:hover,
+.process-card:hover{
+  box-shadow:var(--shadow-hover);
+}
+
+.edition-body{
+  background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,250,246,.98));
+}
+
+.feature{
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+
+.feature:hover{
+  transform:translateY(-4px);
+  border-color:rgba(239,160,189,.55);
+}
+
+.feature>span,
+.experience-step>span{
+  letter-spacing:.12em;
+}
+
+/* More deliberate pricing cards */
+.price-card{
+  overflow:hidden;
+}
+
+.price-card.featured{
+  box-shadow:0 22px 55px rgba(207,94,137,.13);
+}
+
+.price-card.featured:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius:23px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.55);
+}
+
+/* Experience blocks */
+.experience-step{
+  border-top-width:3px;
+  border-radius:0 0 14px 14px;
+  box-shadow:0 8px 25px rgba(51,39,33,.035);
+}
+
+/* Trust strip gets a cleaner premium feel */
+.trust-inner{
+  box-shadow:0 15px 40px rgba(51,39,33,.075);
+}
+
+/* Gallery feels less like a generic grid */
+.gallery-item{
+  box-shadow:var(--shadow-soft);
+}
+
+.gallery-item img{
+  filter:saturate(.98);
+}
+
+/* Quote banners */
+.quote-banner{
+  box-shadow:0 18px 50px rgba(51,39,33,.07);
+  border:1px solid rgba(255,255,255,.45);
+}
+
+/* Footer hierarchy */
+.site-footer{
+  border-top:4px solid var(--pink);
+}
+
+.footer-top .brand{
+  color:#fff;
+}
+
+/* Form surfaces */
+.booking-form,
+.form-card{
+  box-shadow:0 20px 60px rgba(51,39,33,.08);
+}
+
+/* Mobile: keep the premium feel without oversized spacing */
+@media(max-width:900px){
+  .header-inner{
+    min-height:64px;
+  }
+
+  .hero{
+    gap:30px;
+  }
+
+  .section + .section{
+    border-top-color:rgba(230,216,206,.45);
+  }
+
+  .edition-card:hover,
+  .feature:hover,
+  .process-card:hover{
+    transform:none;
+  }
+}
+
+@media(max-width:600px){
+  .brand{
+    font-size:18px;
+  }
+
+  .hero h1{
+    letter-spacing:-.055em;
+  }
+
+  .hero-actions .btn{
+    width:100%;
+  }
+
+  .quote-banner{
+    box-shadow:0 14px 35px rgba(51,39,33,.07);
+  }
+}
