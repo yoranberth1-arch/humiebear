@@ -434,3 +434,343 @@
     min-height: 205px !important;
   }
 }
+
+
+/* =========================================================
+   CLEAN FORMULA CARD SYSTEM
+   Uses .edition-option-content so nested spans are never
+   mistaken for the card itself.
+   ========================================================= */
+
+.edition-options {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  align-items: stretch !important;
+}
+
+.edition-option {
+  position: relative !important;
+  display: block !important;
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+.edition-option > input {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.edition-option-content {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 230px !important;
+  padding: 22px !important;
+  padding-bottom: 53px !important;
+  overflow: hidden !important;
+
+  box-sizing: border-box !important;
+
+  border: 1px solid var(--line) !important;
+  border-radius: 20px !important;
+
+  background: #fff !important;
+  color: var(--brown) !important;
+
+  cursor: pointer !important;
+
+  transition:
+    transform .2s ease,
+    border-color .2s ease,
+    box-shadow .2s ease,
+    background .2s ease !important;
+}
+
+.edition-option-content::before {
+  content: "" !important;
+
+  position: absolute !important;
+  width: 90px !important;
+  height: 90px !important;
+
+  right: -35px !important;
+  top: -35px !important;
+
+  border-radius: 50% !important;
+  background: var(--pink-soft) !important;
+
+  pointer-events: none !important;
+}
+
+.edition-option-content:hover {
+  transform: translateY(-2px) !important;
+  border-color: var(--pink) !important;
+  box-shadow: 0 9px 24px rgba(61,42,32,.07) !important;
+}
+
+/* Small uppercase kicker */
+.edition-option-content .edition-option-kicker {
+  position: static !important;
+  display: block !important;
+
+  width: 100% !important;
+  min-width: 0 !important;
+
+  margin: 0 0 10px !important;
+  padding: 0 !important;
+
+  color: var(--pink-dark) !important;
+  background: transparent !important;
+  border: 0 !important;
+
+  font-family: inherit !important;
+  font-size: .65rem !important;
+  line-height: 1.3 !important;
+  font-weight: 900 !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+
+  z-index: 1 !important;
+}
+
+/* Card title */
+.edition-option-content > strong {
+  display: block !important;
+
+  width: 100% !important;
+  min-width: 0 !important;
+
+  margin: 0 0 8px !important;
+  padding: 0 !important;
+
+  color: var(--brown) !important;
+  background: transparent !important;
+  border: 0 !important;
+
+  font-family: "Playfair Display", Georgia, serif !important;
+  font-size: 1.4rem !important;
+  line-height: 1.12 !important;
+  font-weight: 800 !important;
+
+  z-index: 1 !important;
+}
+
+/* Description */
+.edition-option-content > small {
+  display: block !important;
+
+  width: 100% !important;
+  min-width: 0 !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  color: var(--muted) !important;
+  background: transparent !important;
+  border: 0 !important;
+
+  font-family: inherit !important;
+  font-size: .8rem !important;
+  line-height: 1.5 !important;
+  font-weight: 500 !important;
+
+  z-index: 1 !important;
+}
+
+/* Price */
+.edition-option-content > b {
+  display: block !important;
+
+  margin: 15px 0 0 !important;
+  padding: 0 !important;
+
+  color: var(--brown) !important;
+
+  font-size: 1.25rem !important;
+  line-height: 1.1 !important;
+  font-weight: 900 !important;
+
+  z-index: 1 !important;
+}
+
+/* Small practical line */
+.edition-option-content > em {
+  display: block !important;
+
+  margin: 4px 0 0 !important;
+  padding: 0 !important;
+
+  color: var(--muted) !important;
+
+  font-size: .72rem !important;
+  line-height: 1.4 !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+
+  z-index: 1 !important;
+}
+
+/* Bottom action */
+.edition-option-content .edition-choice-text {
+  position: absolute !important;
+
+  right: 17px !important;
+  bottom: 16px !important;
+
+  width: auto !important;
+  min-width: 0 !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  color: var(--pink-dark) !important;
+  background: transparent !important;
+  border: 0 !important;
+
+  font-family: inherit !important;
+  font-size: .7rem !important;
+  line-height: 1 !important;
+  font-weight: 900 !important;
+  letter-spacing: .03em !important;
+
+  z-index: 2 !important;
+}
+
+.edition-option input:checked + .edition-option-content {
+  border-color: var(--pink-dark) !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      #fff 0%,
+      var(--pink-light) 100%
+    ) !important;
+
+  box-shadow:
+    0 0 0 3px var(--pink-dark),
+    0 14px 28px rgba(207,94,137,.13) !important;
+}
+
+.edition-option input:checked + .edition-option-content .edition-choice-text {
+  color: var(--brown) !important;
+}
+
+.edition-option--waffle .edition-option-content {
+  background:
+    linear-gradient(
+      145deg,
+      #fff 0%,
+      #fff7fa 100%
+    ) !important;
+}
+
+.edition-option--candy .edition-option-content {
+  background:
+    linear-gradient(
+      145deg,
+      #fff 0%,
+      #fffaf2 100%
+    ) !important;
+}
+
+.edition-option--combo .edition-option-content {
+  background:
+    linear-gradient(
+      145deg,
+      #fff8ef 0%,
+      #ffe9f1 100%
+    ) !important;
+}
+
+.edition-option--bags .edition-option-content {
+  background:
+    linear-gradient(
+      145deg,
+      #fff 0%,
+      #f8eee5 100%
+    ) !important;
+}
+
+/* =========================================================
+   MOBILE FORM FIX
+   Prevents label/input overlap on narrow screens.
+   ========================================================= */
+
+.booking-form,
+.booking-form *,
+.form-section,
+.form-grid,
+.booking-form .form-row,
+.booking-form label {
+  min-width: 0;
+}
+
+.booking-form .form-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 16px !important;
+}
+
+.booking-form .form-grid > label {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+.booking-form label > span,
+.booking-form label > small {
+  max-width: 100% !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
+
+.booking-form input:not([type="checkbox"]):not([type="radio"]),
+.booking-form select,
+.booking-form textarea {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+}
+
+@media (max-width: 760px) {
+  .booking-form {
+    padding: 20px !important;
+  }
+
+  .booking-form .form-grid,
+  .booking-form .form-row,
+  .edition-options,
+  .check-grid,
+  .bag-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .booking-form .form-grid > label,
+  .booking-form .form-row > label {
+    width: 100% !important;
+  }
+
+  .edition-option-content {
+    min-height: 205px !important;
+    padding: 20px !important;
+    padding-bottom: 52px !important;
+  }
+
+  .edition-option-content > strong {
+    font-size: 1.3rem !important;
+  }
+
+  .edition-option-content > small {
+    font-size: .79rem !important;
+    line-height: 1.5 !important;
+  }
+}
