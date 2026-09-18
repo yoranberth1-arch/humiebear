@@ -50,122 +50,123 @@
 
 
   /* =========================================================
-     MOBILE MENU
+     MOBILE MENU — ROBUUSTE EVENT DELEGATION
   ========================================================= */
-
-  const menuToggle = $(".menu-toggle");
-  const mainNav = $(".main-nav");
 
   function closeMobileMenu() {
 
-    if (!menuToggle || !mainNav) {
+    const nav = $(".main-nav");
+    const button = $(".menu-toggle");
+
+    if (!nav || !button) {
       return;
     }
 
-    mainNav.classList.remove("open");
+    nav.classList.remove("open");
 
-    menuToggle.setAttribute(
+    button.setAttribute(
       "aria-expanded",
       "false"
     );
 
-    menuToggle.setAttribute(
+    button.setAttribute(
       "aria-label",
       "Menu openen"
     );
 
   }
 
-  function toggleMobileMenu(event) {
 
-    if (event) {
+  document.addEventListener(
+    "click",
+    (event) => {
+
+      const button =
+        event.target.closest(".menu-toggle");
+
+      const nav =
+        $(".main-nav");
+
+      if (!button || !nav) {
+        return;
+      }
+
       event.preventDefault();
       event.stopPropagation();
-    }
 
-    if (!menuToggle || !mainNav) {
-      return;
-    }
+      const isOpen =
+        nav.classList.contains("open");
 
-    const willOpen =
-      !mainNav.classList.contains("open");
-
-    mainNav.classList.toggle(
-      "open",
-      willOpen
-    );
-
-    menuToggle.setAttribute(
-      "aria-expanded",
-      willOpen ? "true" : "false"
-    );
-
-    menuToggle.setAttribute(
-      "aria-label",
-      willOpen
-        ? "Menu sluiten"
-        : "Menu openen"
-    );
-
-  }
-
-  if (menuToggle && mainNav) {
-
-    menuToggle.addEventListener(
-      "click",
-      toggleMobileMenu,
-      false
-    );
-
-    menuToggle.addEventListener(
-      "touchend",
-      (event) => {
-        event.preventDefault();
-        toggleMobileMenu(event);
-      },
-      { passive: false }
-    );
-
-    $(".main-nav a").forEach((link) => {
-
-      link.addEventListener(
-        "click",
-        () => {
-          closeMobileMenu();
-        }
+      nav.classList.toggle(
+        "open",
+        !isOpen
       );
 
-    });
+      button.setAttribute(
+        "aria-expanded",
+        isOpen ? "false" : "true"
+      );
 
-    document.addEventListener(
+      button.setAttribute(
+        "aria-label",
+        isOpen
+          ? "Menu openen"
+          : "Menu sluiten"
+      );
+
+    },
+    true
+  );
+
+
+  document.addEventListener(
+    "click",
+    (event) => {
+
+      const nav = $(".main-nav");
+      const button = $(".menu-toggle");
+
+      if (
+        !nav ||
+        !button ||
+        !nav.classList.contains("open")
+      ) {
+        return;
+      }
+
+      if (
+        nav.contains(event.target) ||
+        button.contains(event.target)
+      ) {
+        return;
+      }
+
+      closeMobileMenu();
+
+    }
+  );
+
+
+  $$(".main-nav a").forEach((link) => {
+
+    link.addEventListener(
       "click",
-      (event) => {
-
-        if (
-          mainNav.classList.contains("open") &&
-          !mainNav.contains(event.target) &&
-          !menuToggle.contains(event.target)
-        ) {
-
-          closeMobileMenu();
-
-        }
-
-      }
+      closeMobileMenu
     );
 
-    window.addEventListener(
-      "resize",
-      () => {
+  });
 
-        if (window.innerWidth > 900) {
-          closeMobileMenu();
-        }
 
+  window.addEventListener(
+    "resize",
+    () => {
+
+      if (window.innerWidth > 900) {
+        closeMobileMenu();
       }
-    );
 
-  }
+    }
+  );
 
 
   /* =========================================================
