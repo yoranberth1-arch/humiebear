@@ -147,53 +147,157 @@
     editionContainer.innerHTML = `
 
       <label class="edition-option edition-option--waffle">
-        <input type="radio" name="editions" value="Hummie Bear Waffle Edition" required>
-        <span>
-          <span class="edition-option-kicker">WARME DESSERTBELEVING</span>
-          <strong>Wafel Edition</strong>
-          <small>Lollywafels, milkshakes, ijs, koffie en warme chocomelk.</small>
-          <b>€20 p.p.</b>
-          <em>Vanaf 20 personen · 2 uur all-in</em>
-        </span>
+        <input
+          type="radio"
+          name="editions"
+          value="Hummie Bear Waffle Edition"
+          required
+        >
+
+        <div class="edition-option-content">
+
+          <span class="edition-option-kicker">
+            WARME DESSERTBELEVING
+          </span>
+
+          <strong>
+            Wafel Edition
+          </strong>
+
+          <small>
+            Lollywafels, milkshakes, ijs, koffie en warme chocomelk.
+          </small>
+
+          <b>
+            €20 p.p.
+          </b>
+
+          <em>
+            Vanaf 20 personen · 2 uur all-in
+          </em>
+
+          <span class="edition-choice-text">
+            Kies deze formule
+          </span>
+
+        </div>
       </label>
+
 
       <label class="edition-option edition-option--candy">
-        <input type="radio" name="editions" value="Hummie Bear Candy Edition" required>
-        <span>
-          <span class="edition-option-kicker">KLEURRIJK & VRIJ KIEZEN</span>
-          <strong>Candy Edition</strong>
-          <small>65 soorten snoep en 500 gram per persoon.</small>
-          <b>€10 p.p.</b>
-          <em>Vanaf 35 personen · 2 uur catering</em>
-        </span>
+        <input
+          type="radio"
+          name="editions"
+          value="Hummie Bear Candy Edition"
+          required
+        >
+
+        <div class="edition-option-content">
+
+          <span class="edition-option-kicker">
+            KLEURRIJK & VRIJ KIEZEN
+          </span>
+
+          <strong>
+            Candy Edition
+          </strong>
+
+          <small>
+            65 soorten snoep en 500 gram per persoon.
+          </small>
+
+          <b>
+            €10 p.p.
+          </b>
+
+          <em>
+            Vanaf 35 personen · 2 uur catering
+          </em>
+
+          <span class="edition-choice-text">
+            Kies deze formule
+          </span>
+
+        </div>
       </label>
+
 
       <label class="edition-option edition-option--combo">
-        <input type="radio" name="editions" value="Beide editions" required>
-        <span>
-          <span class="edition-option-kicker">DE VOLLEDIGE BELEVING</span>
-          <strong>Wafel + Candy Combo</strong>
-          <small>Alle Wafel Edition-items én 65 soorten snoep.</small>
-          <b>€29,50 p.p.</b>
-          <em>Vanaf 35 personen · 2 uur all-in</em>
-        </span>
+        <input
+          type="radio"
+          name="editions"
+          value="Beide editions"
+          required
+        >
+
+        <div class="edition-option-content">
+
+          <span class="edition-option-kicker">
+            DE VOLLEDIGE BELEVING
+          </span>
+
+          <strong>
+            Wafel + Candy Combo
+          </strong>
+
+          <small>
+            Alle Wafel Edition-items én 65 soorten snoep.
+          </small>
+
+          <b>
+            €29,50 p.p.
+          </b>
+
+          <em>
+            Vanaf 35 personen · 2 uur all-in
+          </em>
+
+          <span class="edition-choice-text">
+            Kies deze formule
+          </span>
+
+        </div>
       </label>
 
+
       <label class="edition-option edition-option--bags">
-        <input type="radio" name="editions" value="Snoepzakken op maat" required>
-        <span>
-          <span class="edition-option-kicker">VOLLEDIG OP MAAT</span>
-          <strong>Snoepzakken op maat</strong>
-          <small>Kies aantal, snoepmix en eventuele personalisatie.</small>
-          <b>Prijs op maat</b>
-          <em>Ideaal als traktatie of bedankje</em>
-        </span>
+        <input
+          type="radio"
+          name="editions"
+          value="Snoepzakken op maat"
+          required
+        >
+
+        <div class="edition-option-content">
+
+          <span class="edition-option-kicker">
+            VOLLEDIG OP MAAT
+          </span>
+
+          <strong>
+            Snoepzakken op maat
+          </strong>
+
+          <small>
+            Kies aantal, snoepmix en eventuele personalisatie.
+          </small>
+
+          <b>
+            Prijs op maat
+          </b>
+
+          <em>
+            Ideaal als traktatie of bedankje
+          </em>
+
+          <span class="edition-choice-text">
+            Kies deze formule
+          </span>
+
+        </div>
       </label>
 
     `;
-
-  }
-
 
   /* =========================================================
      EDITION INPUTS
