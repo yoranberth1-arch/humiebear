@@ -632,7 +632,71 @@
 
 
     checkSession();
+const forgotPasswordButton =
+  document.getElementById("forgotPasswordButton");
 
+forgotPasswordButton.addEventListener(
+  "click",
+  async function () {
+
+    const email =
+      document.getElementById("email").value.trim();
+
+    if (!email) {
+      showMessage(
+        "Vul eerst je e-mailadres in.",
+        "error"
+      );
+
+      document.getElementById("email").focus();
+
+      return;
+    }
+
+    forgotPasswordButton.disabled = true;
+    forgotPasswordButton.textContent =
+      "Resetmail versturen...";
+
+    loginMessage.className = "message";
+
+    const { error } =
+      await supabaseClient.auth.resetPasswordForEmail(
+        email,
+        {
+          redirectTo:
+            "https://hummiebear.be/reset-password.html"
+        }
+      );
+
+    if (error) {
+
+      console.error(
+        "Hummie Bear password reset error:",
+        error
+      );
+
+      showMessage(
+        "De resetmail kon niet worden verstuurd. Controleer het e-mailadres.",
+        "error"
+      );
+
+      forgotPasswordButton.disabled = false;
+      forgotPasswordButton.textContent =
+        "Wachtwoord vergeten?";
+
+      return;
+    }
+
+    showMessage(
+      "Resetmail verstuurd. Controleer je mailbox en klik op de link in de e-mail.",
+      "success"
+    );
+
+    forgotPasswordButton.disabled = false;
+    forgotPasswordButton.textContent =
+      "Resetmail opnieuw versturen";
+  }
+);
   </script>
 
 </body>
