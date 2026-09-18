@@ -385,3 +385,27 @@ body{
     font-size:22px;
   }
 }
+
+
+/* =========================================================
+   WAFFLE TOPPING SHOWCASE + QUIET PRICING NOTE
+========================================================= */
+.topping-showcase{padding-top:92px;padding-bottom:92px}
+.topping-heading{display:flex;justify-content:space-between;align-items:end;gap:50px;margin-bottom:36px}
+.topping-heading h2{font-family:"Playfair Display",serif;font-size:clamp(42px,5vw,64px);line-height:1.03;letter-spacing:-.045em;margin-top:12px}
+.topping-heading h2 em{color:var(--pink-dark);font-style:normal}
+.topping-heading>p{max-width:430px;color:var(--muted);line-height:1.75}
+.topping-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:14px}
+.topping-card{position:relative;min-height:225px;padding:25px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(160deg,#fff,#fbf5ef);box-shadow:var(--shadow-soft);overflow:hidden;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.topping-card:before{content:"";position:absolute;width:130px;height:130px;right:-48px;top:-48px;border-radius:50%;background:var(--pink-ultra)}
+.topping-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-hover);border-color:rgba(239,160,189,.65)}
+.topping-card-main{background:linear-gradient(145deg,#fce7ee,#fffaf6)}
+.topping-number{position:relative;z-index:1;font-size:9px;letter-spacing:.15em;font-weight:900;color:var(--pink-dark)}
+.topping-icon{position:relative;z-index:1;width:48px;height:48px;margin:28px 0 22px;display:grid;place-items:center;border-radius:15px;background:var(--brown);color:#fff;font-size:10px;font-weight:900;letter-spacing:.08em}
+.topping-card h3{position:relative;z-index:1;font-family:"Playfair Display",serif;font-size:25px;line-height:1.1;margin-bottom:8px}
+.topping-card p{position:relative;z-index:1;color:var(--muted);font-size:12px;line-height:1.55}
+.pricing-footnote{margin:14px 2px 0;color:#93857d;font-size:10px;line-height:1.5;letter-spacing:.01em}
+.candy-footnote{max-width:1180px;margin:0 auto;padding:0 30px}
+@media(max-width:1000px){.topping-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.topping-heading{display:block}.topping-heading>p{margin-top:16px}.topping-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.topping-showcase{padding-top:64px;padding-bottom:64px}.topping-heading h2{font-size:43px}.topping-grid{grid-template-columns:1fr}.topping-card{min-height:190px}.candy-footnote{padding:0 18px}}
