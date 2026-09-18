@@ -331,3 +331,57 @@ body{
     box-shadow:0 14px 35px rgba(51,39,33,.07);
   }
 }
+
+
+/* Subtler startup-cost callout */
+.startup-section{
+  padding-top:62px;
+  padding-bottom:62px;
+}
+
+.startup-callout{
+  margin-top:0;
+  padding:22px 24px;
+  border-radius:20px;
+  background:rgba(248,238,229,.62);
+  box-shadow:none;
+  border-color:rgba(230,216,206,.8);
+  gap:20px;
+}
+
+.startup-callout h3{
+  font-size:24px;
+  margin:4px 0 3px;
+}
+
+.startup-callout p{
+  font-size:13px;
+  line-height:1.55;
+}
+
+.startup-callout .eyebrow{
+  font-size:9px;
+  letter-spacing:.19em;
+}
+
+.startup-callout .btn{
+  min-height:44px;
+  padding:10px 17px;
+  font-size:12px;
+  box-shadow:0 8px 20px rgba(207,94,137,.12);
+}
+
+@media(max-width:900px){
+  .startup-section{
+    padding-top:45px;
+    padding-bottom:45px;
+  }
+
+  .startup-callout{
+    padding:20px;
+  }
+
+  .startup-callout h3{
+    font-size:22px;
+  }
+}
