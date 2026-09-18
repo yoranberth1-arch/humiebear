@@ -5549,6 +5549,11 @@
 
           const eventPayload = {
 
+            title:
+              quote.event_name ||
+              quote.name ||
+              "Hummie Bear evenement",
+
             quote_id:
               quote.id,
 
@@ -6537,6 +6542,15 @@
 
 
         const payload = {
+
+          title:
+            document.getElementById(
+              "eventName"
+            ).value.trim() ||
+            document.getElementById(
+              "eventCustomer"
+            ).value.trim() ||
+            "Hummie Bear evenement",
 
           quote_id:
             document.getElementById(
