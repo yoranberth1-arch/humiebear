@@ -6259,6 +6259,45 @@
 
 
           closeAllModals();
+                    // Bevestigingsmail naar de klant sturen
+          try {
+            await fetch(
+              "https://yrcajvpstbyupohjbavm.supabase.co/functions/v1/hummie-bear-email",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  to: quote.email,
+                  subject: "Je reservatie bij Hummie Bear is bevestigd!",
+                  html: `
+                    <h2>Hallo ${quote.name || ""}!</h2>
+                    <p>Goed nieuws! Je aanvraag bij <strong>Hummie Bear</strong> is bevestigd.</p>
+
+                    <p>
+                      <strong>Evenement:</strong> ${quote.event_name || "-"}<br>
+                      <strong>Datum:</strong> ${quote.event_date || "-"}<br>
+                      <strong>Locatie:</strong> ${quote.location || "-"}<br>
+                      <strong>Aantal personen:</strong> ${quote.guests || "-"}<br>
+                      <strong>Formule:</strong> ${quote.edition || "-"}
+                    </p>
+
+                    <p>Wij kijken ernaar uit om er samen een leuk evenement van te maken!</p>
+
+                    <p>
+                      Met vriendelijke groeten,<br>
+                      <strong>Hummie Bear</strong><br>
+                      info@hummiebear.be
+                    </p>
+                  `
+                })
+              }
+            );
+          } catch (emailError) {
+            console.error("Bevestigingsmail kon niet worden verzonden:", emailError);
+          }
+          
 
 
           showToast(
