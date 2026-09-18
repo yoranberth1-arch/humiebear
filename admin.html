@@ -300,33 +300,43 @@
 
       <form id="loginForm">
 
-        <div class="field">
-          <label for="email">E-mailadres</label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Je e-mailadres"
-            autocomplete="email"
-            required
-          >
-        </div>
+  <div class="field">
+    <label for="email">E-mailadres</label>
 
-        <div class="field">
-          <label for="password">Wachtwoord</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Je wachtwoord"
-            autocomplete="current-password"
-            required
-          >
-        </div>
+    <input
+      type="email"
+      id="email"
+      placeholder="Je e-mailadres"
+      autocomplete="email"
+      required
+    >
+  </div>
 
-        <button type="submit" id="loginButton">
-          Inloggen
-        </button>
+  <div class="field">
+    <label for="password">Wachtwoord</label>
 
-      </form>
+    <input
+      type="password"
+      id="password"
+      placeholder="Je wachtwoord"
+      autocomplete="current-password"
+      required
+    >
+  </div>
+
+  <button type="submit" id="loginButton">
+    Inloggen
+  </button>
+
+  <button
+    type="button"
+    id="forgotPasswordButton"
+    class="forgot-password"
+  >
+    Wachtwoord vergeten?
+  </button>
+
+</form>
 
       <div class="message" id="loginMessage"></div>
 
