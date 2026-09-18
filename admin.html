@@ -1630,6 +1630,393 @@
       }
 
     }
+  
+    /* =========================================================
+       DASHBOARD VISUAL UPGRADE
+       ========================================================= */
+
+    .page {
+      max-width: 1540px;
+      padding-top: 30px;
+    }
+
+    .page-intro {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .page-intro-copy {
+      min-width: 0;
+    }
+
+    .page-intro h1 {
+      font-size: 38px;
+      letter-spacing: -1px;
+    }
+
+    .page-intro p {
+      max-width: 760px;
+      font-size: 14px;
+    }
+
+    .intro-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .intro-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      color: var(--brown-light);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .intro-pill.live::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 4px var(--green-light);
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      min-height: 122px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px 22px 18px 24px;
+      border-left: 5px solid var(--pink);
+    }
+
+    .stat-card::after {
+      width: 110px;
+      height: 110px;
+      right: -42px;
+      top: -42px;
+      opacity: .8;
+    }
+
+    .stat-card:nth-child(1) { border-left-color: var(--blue); }
+    .stat-card:nth-child(1)::after { background: var(--blue-light); }
+
+    .stat-card:nth-child(2) { border-left-color: var(--orange); }
+    .stat-card:nth-child(2)::after { background: var(--orange-light); }
+
+    .stat-card:nth-child(3) { border-left-color: var(--green); }
+    .stat-card:nth-child(3)::after { background: var(--green-light); }
+
+    .stat-card:nth-child(4) { border-left-color: var(--red); }
+    .stat-card:nth-child(4)::after { background: var(--red-light); }
+
+    .stat-card:nth-child(5) { border-left-color: var(--pink-dark); }
+    .stat-card:nth-child(5)::after { background: var(--pink-light); }
+
+    .stat-card:nth-child(6) { border-left-color: var(--brown); }
+    .stat-card:nth-child(6)::after { background: var(--cream-dark); }
+
+    .stat-label {
+      margin-bottom: 8px;
+      font-size: 11px;
+      letter-spacing: .2px;
+      text-transform: uppercase;
+    }
+
+    .stat-value {
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .nav-tabs {
+      padding: 6px;
+      width: fit-content;
+      max-width: 100%;
+      background: rgba(255,255,255,.6);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: var(--shadow-small);
+    }
+
+    .nav-tab {
+      border-color: transparent;
+      background: transparent;
+    }
+
+    .nav-tab.active {
+      box-shadow: 0 5px 12px rgba(61,42,32,.12);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--line);
+      background: #fcf9f5;
+    }
+
+    .legend-title {
+      margin-right: 4px;
+      color: var(--brown-light);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .7px;
+      text-transform: uppercase;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .legend-item::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .legend-new {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .legend-progress {
+      color: var(--orange);
+      background: var(--orange-light);
+    }
+
+    .legend-accepted {
+      color: var(--green);
+      background: var(--green-light);
+    }
+
+    .legend-rejected {
+      color: var(--red);
+      background: var(--red-light);
+    }
+
+    .legend-brand {
+      color: var(--pink-dark);
+      background: var(--pink-light);
+    }
+
+    .quote-card {
+      position: relative;
+      padding: 18px 18px 16px;
+      border-left: 5px solid var(--line);
+    }
+
+    .quote-card.status-new-card {
+      border-left-color: var(--blue);
+    }
+
+    .quote-card.status-progress-card {
+      border-left-color: var(--orange);
+    }
+
+    .quote-card.status-accepted-card {
+      border-left-color: var(--green);
+    }
+
+    .quote-card.status-rejected-card {
+      border-left-color: var(--red);
+    }
+
+    .quote-card.status-cancelled-card {
+      border-left-color: var(--gray);
+    }
+
+    .quote-primary {
+      min-width: 0;
+    }
+
+    .quote-event-name {
+      font-size: 15px;
+    }
+
+    .quote-actions {
+      grid-column: 1 / -1;
+      justify-content: flex-start;
+      padding-top: 13px;
+      border-top: 1px solid #f1e9e2;
+    }
+
+    .quote-actions .button {
+      min-height: 34px;
+    }
+
+    .quote-status-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      align-items: center;
+    }
+
+    .edition-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 8px;
+      border-radius: 999px;
+      font-size: 9px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .edition-chip.waffle {
+      color: var(--pink-dark);
+      background: var(--pink-light);
+    }
+
+    .edition-chip.candy {
+      color: var(--orange);
+      background: var(--orange-light);
+    }
+
+    .edition-chip.both {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .edition-chip.bags {
+      color: #6c58a7;
+      background: #eee8fb;
+    }
+
+    .event-card {
+      position: relative;
+      padding: 17px;
+      border-left: 5px solid var(--pink);
+      transition: .2s;
+    }
+
+    .event-card:hover {
+      border-color: var(--pink);
+      box-shadow: 0 8px 25px rgba(61,42,32,.06);
+      transform: translateY(-1px);
+    }
+
+    .event-card.event-status-confirmed {
+      border-left-color: var(--green);
+    }
+
+    .event-card.event-status-cancelled {
+      border-left-color: var(--red);
+    }
+
+    .event-date-box {
+      min-width: 82px;
+    }
+
+    .calendar-day {
+      min-height: 136px;
+    }
+
+    .calendar-event {
+      border-left: 3px solid var(--pink-dark);
+      box-shadow: 0 2px 6px rgba(61,42,32,.06);
+    }
+
+    .calendar-event.candy {
+      border-left-color: var(--orange);
+    }
+
+    .calendar-event.both {
+      border-left-color: var(--blue);
+    }
+
+    .calendar-event.bags {
+      border-left-color: #6c58a7;
+    }
+
+    .calendar-event.confirmed-event {
+      border-right: 2px solid var(--green);
+    }
+
+    .calendar-event.cancelled-event {
+      border-right: 2px solid var(--red);
+      opacity: .65;
+    }
+
+    .panel {
+      box-shadow: 0 10px 28px rgba(61,42,32,.07);
+    }
+
+    .panel-header {
+      background: linear-gradient(180deg,#fff,#fffdfb);
+    }
+
+    .filters {
+      background: #fcfaf7;
+    }
+
+    @media (max-width: 900px) {
+      .page-intro {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .intro-meta {
+        justify-content: flex-start;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .quote-actions {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-tabs {
+        width: 100%;
+      }
+
+      .nav-tab {
+        flex: 1 1 0;
+      }
+
+      .legend {
+        gap: 6px;
+      }
+
+      .legend-title {
+        width: 100%;
+      }
+    }
+
   </style>
 </head>
 
@@ -2054,6 +2441,35 @@
               </option>
 
             </select>
+
+          </div>
+
+
+          <div class="legend">
+
+            <span class="legend-title">
+              Statuslegenda
+            </span>
+
+            <span class="legend-item legend-new">
+              Nieuw
+            </span>
+
+            <span class="legend-item legend-progress">
+              In behandeling
+            </span>
+
+            <span class="legend-item legend-accepted">
+              Aanvaard
+            </span>
+
+            <span class="legend-item legend-rejected">
+              Geweigerd
+            </span>
+
+            <span class="legend-item legend-brand">
+              Hummie Bear
+            </span>
 
           </div>
 
@@ -3724,6 +4140,25 @@
 
       renderCurrentView();
 
+      const updatedElement =
+        document.getElementById(
+          "lastUpdated"
+        );
+
+      if (updatedElement) {
+        updatedElement.textContent =
+          "Bijgewerkt " +
+          new Intl.DateTimeFormat(
+            "nl-BE",
+            {
+              hour: "2-digit",
+              minute: "2-digit"
+            }
+          ).format(
+            new Date()
+          );
+      }
+
     }
 
 
@@ -4223,12 +4658,17 @@
 
       return `
 
-        <article class="quote-card">
+        <article
+          class="
+            quote-card
+            status-\${quote.status || "new"}-card
+          "
+        >
 
           <div class="quote-grid">
 
 
-            <div>
+            <div class="quote-primary">
 
               <div class="quote-name">
                 ${safeText(
@@ -6014,7 +6454,13 @@
 
       return `
 
-        <article class="event-card">
+        <article
+          class="
+            event-card
+            event-status-\${event.status || "confirmed"}
+            event-edition-\${event.edition || "waffle"}
+          "
+        >
 
           <div class="event-date-box">
 
