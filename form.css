@@ -14,3 +14,141 @@
 .edition-option--combo span{background:linear-gradient(145deg,#fff8ef 0%,#ffe6f0 100%)}
 .edition-option--bags span{background:linear-gradient(145deg,#fff 0%,#f8eee5 100%)}
 @media(max-width:760px){.edition-options{grid-template-columns:1fr}.edition-option span{min-height:185px}}
+
+
+/* =========================================================
+   FIX FORMULEKAARTEN
+   De kaart heeft een buitenste <span>. De kleine kicker is
+   een geneste <span> en mag dus NIET dezelfde kaartstijl krijgen.
+   ========================================================= */
+
+.edition-option {
+  display: block;
+}
+
+.edition-option > span {
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: hidden;
+  min-height: 210px;
+  height: auto !important;
+  padding: 22px !important;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: linear-gradient(145deg,#fff 0%,#fff7fa 100%);
+  cursor: pointer;
+  transition: transform .2s, border-color .2s, box-shadow .2s, background .2s;
+}
+
+.edition-option > span:hover {
+  transform: translateY(-2px);
+  border-color: var(--pink);
+}
+
+.edition-option > span::after {
+  content: "Kies deze formule";
+  position: absolute;
+  right: 17px;
+  bottom: 16px;
+  color: var(--pink-dark);
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+
+.edition-option .edition-option-kicker {
+  display: block !important;
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 0 12px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--pink-dark);
+  font-size: .66rem;
+  line-height: 1.2;
+  font-weight: 900;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.edition-option > span > strong {
+  display: block !important;
+  margin: 0 0 8px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--brown);
+  font-family: "Playfair Display", serif;
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+.edition-option > span > small {
+  display: block !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--muted);
+  font-size: .82rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.edition-option > span > b {
+  display: block !important;
+  margin-top: 15px !important;
+  color: var(--brown);
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.edition-option > span > em {
+  display: block !important;
+  margin-top: 5px !important;
+  color: var(--muted);
+  font-size: .74rem;
+  line-height: 1.4;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.edition-option input:checked + span {
+  background: linear-gradient(145deg,#fff 0%,var(--pink-light) 100%);
+  border-color: var(--pink-dark);
+  box-shadow:
+    0 0 0 3px var(--pink-dark),
+    0 14px 28px rgba(207,94,137,.14);
+}
+
+.edition-option input:checked + span::after {
+  content: "✓ Geselecteerd";
+  color: var(--brown);
+}
+
+.edition-option--combo > span {
+  background: linear-gradient(145deg,#fff8ef 0%,#ffe6f0 100%);
+}
+
+.edition-option--bags > span {
+  background: linear-gradient(145deg,#fff 0%,#f8eee5 100%);
+}
+
+@media(max-width:760px) {
+  .edition-options {
+    grid-template-columns: 1fr;
+  }
+
+  .edition-option > span {
+    min-height: 185px;
+  }
+}
