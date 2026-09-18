@@ -47,3 +47,24 @@
     transform:translateY(0);
   }
 }
+
+/* Make mobile hamburger menu work reliably */
+
+@media(max-width:900px){
+  .menu-toggle{
+    pointer-events:auto !important;
+    cursor:pointer !important;
+    user-select:none !important;
+    -webkit-user-select:none !important;
+    -webkit-touch-callout:none !important;
+    touch-action:manipulation !important;
+  }
+
+  .main-nav{
+    pointer-events:none;
+  }
+
+  .main-nav.open{
+    pointer-events:auto;
+  }
+}
