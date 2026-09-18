@@ -100,6 +100,7 @@
         type="button"
         aria-label="Menu openen"
         aria-expanded="false"
+        onclick="(function(btn){var nav=document.querySelector('.main-nav');if(!nav)return;var open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Menu sluiten':'Menu openen');})(this)"
       >
         ☰
       </button>
@@ -2204,7 +2205,7 @@
        script.js?v=20260917-2 geladen.
   ========================================================== -->
 
-  <script src="script.js?v=20260918-4"></script>
+  <script src="script.js?v=20260918-5"></script>
 
 </body>
 </html>
