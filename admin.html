@@ -59,13 +59,19 @@
     body {
       margin: 0;
       min-height: 100vh;
+
       font-family:
         Inter,
         Arial,
         Helvetica,
         sans-serif;
+
       background: var(--cream);
       color: var(--brown);
+    }
+
+    body.pin-locked {
+      overflow: hidden;
     }
 
     button,
@@ -84,8 +90,173 @@
       opacity: 0.55;
     }
 
-    a {
-      color: inherit;
+    /* =========================================================
+       PIN GATE
+       ========================================================= */
+
+    #pinGate {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      background:
+        radial-gradient(
+          circle at 20% 20%,
+          rgba(239, 160, 189, 0.18),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 80%,
+          rgba(239, 160, 189, 0.14),
+          transparent 30%
+        ),
+        var(--cream);
+    }
+
+    #pinGate.hidden {
+      display: none;
+    }
+
+    .pin-card {
+      width: 100%;
+      max-width: 410px;
+
+      padding: 40px;
+
+      background: #ffffff;
+
+      border: 1px solid var(--line);
+      border-radius: 28px;
+
+      box-shadow:
+        0 25px 80px rgba(61, 42, 32, 0.14);
+
+      text-align: center;
+    }
+
+    .pin-logo {
+      width: 68px;
+      height: 68px;
+
+      margin: 0 auto 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: var(--pink);
+      color: white;
+
+      font-size: 21px;
+      font-weight: 900;
+
+      box-shadow:
+        0 10px 25px rgba(217, 120, 157, 0.25);
+    }
+
+    .pin-card h1 {
+      margin: 0 0 6px;
+
+      font-size: 30px;
+    }
+
+    .pin-card p {
+      margin: 0 0 27px;
+
+      color: var(--brown-light);
+
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .pin-label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      text-align: left;
+
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    #pinInput {
+      width: 100%;
+
+      padding: 15px;
+
+      border: 1px solid #d9ccc2;
+      border-radius: 13px;
+
+      background: white;
+      color: var(--brown);
+
+      text-align: center;
+
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 4px;
+
+      outline: none;
+
+      transition: 0.2s;
+    }
+
+    #pinInput:focus {
+      border-color: var(--pink);
+
+      box-shadow:
+        0 0 0 4px rgba(239, 160, 189, 0.14);
+    }
+
+    #pinButton {
+      width: 100%;
+
+      margin-top: 13px;
+
+      padding: 15px;
+
+      border: 0;
+      border-radius: 13px;
+
+      background: var(--brown);
+      color: white;
+
+      font-weight: 900;
+
+      transition: 0.2s;
+    }
+
+    #pinButton:hover {
+      background: #2f211a;
+      transform: translateY(-1px);
+    }
+
+    #pinError {
+      min-height: 20px;
+
+      margin-top: 12px;
+
+      color: var(--red);
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    #adminApp {
+      display: none;
+    }
+
+    #adminApp.unlocked {
+      display: block;
     }
 
     /* =========================================================
@@ -102,10 +273,12 @@
       justify-content: space-between;
 
       min-height: 72px;
+
       padding: 14px 28px;
 
       background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(15px);
+
+      backdrop-filter: blur(14px);
 
       border-bottom: 1px solid var(--line);
     }
@@ -115,8 +288,8 @@
       align-items: center;
       gap: 12px;
 
-      font-weight: 900;
       font-size: 19px;
+      font-weight: 900;
     }
 
     .brand-mark {
@@ -128,9 +301,10 @@
       justify-content: center;
 
       border-radius: 50%;
-      background: var(--pink);
 
+      background: var(--pink);
       color: white;
+
       font-size: 14px;
       font-weight: 900;
 
@@ -141,7 +315,7 @@
     .topbar-right {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .topbar-button {
@@ -160,14 +334,14 @@
     }
 
     .topbar-button:hover {
+      background: #e8dcd1;
       transform: translateY(-1px);
-      background: #e9ddd1;
     }
 
-    .live-badge {
+    .poc-badge {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
 
       padding: 7px 10px;
 
@@ -176,31 +350,24 @@
       background: var(--orange-light);
       color: var(--orange);
 
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 900;
     }
 
-    .live-badge::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: currentColor;
-    }
-
     /* =========================================================
-       MAIN
+       PAGE
        ========================================================= */
 
     .page {
       max-width: 1480px;
+
       margin: 0 auto;
 
       padding: 34px 24px 70px;
     }
 
     .page-intro {
-      margin-bottom: 28px;
+      margin-bottom: 27px;
     }
 
     .page-intro h1 {
@@ -215,6 +382,7 @@
       margin: 0;
 
       color: var(--brown-light);
+
       line-height: 1.6;
     }
 
@@ -224,21 +392,26 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+
+      grid-template-columns:
+        repeat(6, 1fr);
+
       gap: 14px;
 
-      margin-bottom: 28px;
+      margin-bottom: 27px;
     }
 
     .stat-card {
       position: relative;
+
       overflow: hidden;
 
-      background: var(--white);
+      padding: 20px;
+
+      background: white;
+
       border: 1px solid var(--line);
       border-radius: 18px;
-
-      padding: 20px;
 
       box-shadow: var(--shadow-small);
     }
@@ -248,8 +421,8 @@
 
       position: absolute;
 
-      width: 80px;
-      height: 80px;
+      width: 75px;
+      height: 75px;
 
       right: -25px;
       top: -25px;
@@ -280,12 +453,13 @@
     }
 
     /* =========================================================
-       NAVIGATION TABS
+       NAV
        ========================================================= */
 
     .nav-tabs {
       display: flex;
       flex-wrap: wrap;
+
       gap: 8px;
 
       margin-bottom: 20px;
@@ -300,8 +474,8 @@
       background: white;
       color: var(--brown-light);
 
-      font-weight: 800;
       font-size: 13px;
+      font-weight: 900;
 
       transition: 0.2s;
     }
@@ -312,8 +486,8 @@
     }
 
     .nav-tab.active {
-      background: var(--brown);
       border-color: var(--brown);
+      background: var(--brown);
       color: white;
     }
 
@@ -322,15 +496,16 @@
        ========================================================= */
 
     .panel {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: 22px;
+      margin-bottom: 24px;
 
       overflow: hidden;
 
-      box-shadow: var(--shadow-small);
+      background: white;
 
-      margin-bottom: 24px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+
+      box-shadow: var(--shadow-small);
     }
 
     .panel-header {
@@ -350,6 +525,7 @@
     .panel-header h2,
     .panel-header h3 {
       margin: 0 0 5px;
+
       font-size: 21px;
     }
 
@@ -376,7 +552,7 @@
       display: grid;
 
       grid-template-columns:
-        minmax(240px, 1fr)
+        minmax(220px, 1fr)
         190px
         190px
         190px;
@@ -392,25 +568,6 @@
       position: relative;
     }
 
-    .search-input,
-    .filter-select {
-      width: 100%;
-
-      padding: 12px 13px;
-
-      border-radius: 12px;
-      border: 1px solid #d9ccc2;
-
-      outline: none;
-
-      background: white;
-      color: var(--brown);
-    }
-
-    .search-input {
-      padding-left: 38px;
-    }
-
     .search-icon {
       position: absolute;
 
@@ -423,7 +580,26 @@
 
       pointer-events: none;
 
-      font-size: 13px;
+      font-size: 12px;
+    }
+
+    .search-input,
+    .filter-select {
+      width: 100%;
+
+      padding: 12px 13px;
+
+      border: 1px solid #d9ccc2;
+      border-radius: 12px;
+
+      background: white;
+      color: var(--brown);
+
+      outline: none;
+    }
+
+    .search-input {
+      padding-left: 36px;
     }
 
     .search-input:focus,
@@ -446,12 +622,12 @@
     }
 
     .quote-card {
-      border: 1px solid var(--line);
-      border-radius: 17px;
+      padding: 17px;
 
       background: #fffdfb;
 
-      padding: 17px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
 
       transition: 0.2s;
     }
@@ -469,35 +645,36 @@
       display: grid;
 
       grid-template-columns:
-        minmax(230px, 1.4fr)
-        minmax(160px, 0.9fr)
-        minmax(160px, 0.9fr)
-        minmax(120px, 0.7fr)
+        minmax(220px, 1.4fr)
+        minmax(150px, 0.9fr)
+        minmax(150px, 0.9fr)
+        minmax(110px, 0.7fr)
         auto;
 
-      gap: 18px;
-
       align-items: center;
+
+      gap: 17px;
     }
 
     .quote-name {
+      margin-bottom: 4px;
+
       font-size: 16px;
       font-weight: 900;
-
-      margin-bottom: 4px;
     }
 
     .quote-org {
+      margin-bottom: 8px;
+
       color: var(--brown-light);
 
       font-size: 12px;
-
-      margin-bottom: 8px;
     }
 
     .quote-event-name {
-      font-weight: 800;
       margin-bottom: 4px;
+
+      font-weight: 800;
     }
 
     .quote-muted {
@@ -508,13 +685,14 @@
     }
 
     .quote-price {
-      font-weight: 900;
       font-size: 16px;
+      font-weight: 900;
     }
 
     .quote-actions {
       display: flex;
       flex-wrap: wrap;
+
       justify-content: flex-end;
 
       gap: 6px;
@@ -551,28 +729,28 @@
     }
 
     .status-new {
-      background: var(--blue-light);
       color: var(--blue);
+      background: var(--blue-light);
     }
 
     .status-progress {
-      background: var(--orange-light);
       color: var(--orange);
+      background: var(--orange-light);
     }
 
     .status-accepted {
-      background: var(--green-light);
       color: var(--green);
+      background: var(--green-light);
     }
 
     .status-rejected {
-      background: var(--red-light);
       color: var(--red);
+      background: var(--red-light);
     }
 
     .status-cancelled {
-      background: var(--gray-light);
       color: var(--gray);
+      background: var(--gray-light);
     }
 
     /* =========================================================
@@ -580,10 +758,10 @@
        ========================================================= */
 
     .button {
+      padding: 9px 12px;
+
       border: 0;
       border-radius: 10px;
-
-      padding: 9px 12px;
 
       font-size: 12px;
       font-weight: 900;
@@ -598,10 +776,6 @@
     .button-dark {
       background: var(--brown);
       color: white;
-    }
-
-    .button-dark:hover {
-      background: #2e2019;
     }
 
     .button-light {
@@ -619,24 +793,25 @@
       color: var(--orange);
     }
 
-    .button-red {
-      background: var(--red-light);
-      color: var(--red);
-    }
-
     .button-blue {
       background: var(--blue-light);
       color: var(--blue);
     }
 
+    .button-red {
+      background: var(--red-light);
+      color: var(--red);
+    }
+
     /* =========================================================
-       EVENT LIST
+       EVENTS
        ========================================================= */
 
     .events-list {
-      padding: 18px;
       display: grid;
       gap: 12px;
+
+      padding: 18px;
     }
 
     .event-card {
@@ -646,7 +821,7 @@
         105px
         minmax(200px, 1.2fr)
         minmax(150px, 0.8fr)
-        minmax(150px, 0.8fr)
+        minmax(145px, 0.8fr)
         auto;
 
       align-items: center;
@@ -655,22 +830,21 @@
 
       padding: 15px;
 
+      background: #fffdfb;
+
       border: 1px solid var(--line);
       border-radius: 16px;
-
-      background: #fffdfb;
     }
 
     .event-date-box {
+      padding: 10px;
+
       text-align: center;
 
       background: var(--pink-soft);
 
       border: 1px solid var(--pink-light);
-
       border-radius: 14px;
-
-      padding: 10px;
     }
 
     .event-day {
@@ -682,23 +856,26 @@
     .event-month {
       margin-top: 4px;
 
+      color: var(--pink-dark);
+
       font-size: 11px;
       font-weight: 900;
 
       text-transform: uppercase;
-      color: var(--pink-dark);
     }
 
     .event-name {
+      margin-bottom: 5px;
+
       font-size: 16px;
       font-weight: 900;
-      margin-bottom: 5px;
     }
 
     .event-actions {
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-end;
+
       gap: 6px;
     }
 
@@ -708,7 +885,6 @@
 
     .calendar-toolbar {
       display: flex;
-
       align-items: center;
       justify-content: space-between;
 
@@ -740,7 +916,9 @@
 
     .calendar-grid {
       display: grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
+
+      grid-template-columns:
+        repeat(7, minmax(0, 1fr));
 
       gap: 1px;
 
@@ -752,22 +930,20 @@
 
       background: #faf6f1;
 
-      text-align: center;
-
       color: var(--brown-light);
 
       font-size: 11px;
       font-weight: 900;
+
+      text-align: center;
     }
 
     .calendar-day {
-      min-height: 125px;
+      min-height: 126px;
 
       padding: 8px;
 
       background: white;
-
-      position: relative;
     }
 
     .calendar-day.other-month {
@@ -782,7 +958,6 @@
 
     .calendar-number {
       display: inline-flex;
-
       align-items: center;
       justify-content: center;
 
@@ -815,13 +990,12 @@
       border-radius: 7px;
 
       background: var(--pink-light);
-
       color: var(--brown);
-
-      text-align: left;
 
       font-size: 10px;
       font-weight: 900;
+
+      text-align: left;
 
       overflow: hidden;
       text-overflow: ellipsis;
@@ -856,11 +1030,11 @@
       width: 52px;
       height: 52px;
 
+      margin: 0 auto 14px;
+
       display: flex;
       align-items: center;
       justify-content: center;
-
-      margin: 0 auto 14px;
 
       border-radius: 50%;
 
@@ -868,7 +1042,7 @@
 
       color: var(--pink-dark);
 
-      font-size: 20px;
+      font-size: 17px;
       font-weight: 900;
     }
 
@@ -878,6 +1052,7 @@
 
     .empty p {
       margin: 8px 0 0;
+
       font-size: 13px;
     }
 
@@ -910,12 +1085,13 @@
     }
 
     /* =========================================================
-       MODAL
+       MODALS
        ========================================================= */
 
     .modal-overlay {
       position: fixed;
       inset: 0;
+
       z-index: 300;
 
       display: none;
@@ -955,6 +1131,7 @@
     .modal-header {
       position: sticky;
       top: 0;
+
       z-index: 2;
 
       display: flex;
@@ -984,7 +1161,6 @@
       border-radius: 50%;
 
       background: var(--cream-dark);
-
       color: var(--brown);
 
       font-size: 20px;
@@ -995,13 +1171,8 @@
       padding: 24px;
     }
 
-    /* =========================================================
-       DETAIL HEADER
-       ========================================================= */
-
     .detail-header {
       display: flex;
-
       align-items: flex-start;
       justify-content: space-between;
 
@@ -1009,13 +1180,12 @@
 
       padding: 19px;
 
+      margin-bottom: 18px;
+
       background: var(--pink-soft);
 
       border: 1px solid var(--pink-light);
-
       border-radius: 17px;
-
-      margin-bottom: 18px;
     }
 
     .detail-header h3 {
@@ -1035,16 +1205,17 @@
     .detail-grid {
       display: grid;
 
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
       gap: 13px;
     }
 
     .detail-card {
+      padding: 16px;
+
       border: 1px solid var(--line);
       border-radius: 16px;
-
-      padding: 16px;
     }
 
     .detail-card.full {
@@ -1087,17 +1258,19 @@
 
     .detail-value {
       font-weight: 800;
+
       word-break: break-word;
     }
 
     .detail-text {
-      line-height: 1.65;
       font-size: 13px;
+      line-height: 1.65;
     }
 
     .option-pills {
       display: flex;
       flex-wrap: wrap;
+
       gap: 7px;
     }
 
@@ -1125,13 +1298,14 @@
     }
 
     /* =========================================================
-       FORM
+       FORMS
        ========================================================= */
 
     .form-grid {
       display: grid;
 
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
 
       gap: 14px;
     }
@@ -1155,10 +1329,10 @@
     .form-field textarea {
       width: 100%;
 
+      padding: 12px 13px;
+
       border: 1px solid #d9ccc2;
       border-radius: 12px;
-
-      padding: 12px 13px;
 
       background: white;
       color: var(--brown);
@@ -1168,6 +1342,7 @@
 
     .form-field textarea {
       min-height: 110px;
+
       resize: vertical;
     }
 
@@ -1184,7 +1359,7 @@
       color: var(--brown-light);
 
       font-size: 11px;
-      line-height: 1.45;
+      line-height: 1.5;
     }
 
     /* =========================================================
@@ -1193,6 +1368,7 @@
 
     .toast {
       position: fixed;
+
       right: 20px;
       bottom: 20px;
 
@@ -1239,53 +1415,14 @@
     }
 
     /* =========================================================
-       LIST VIEW
-       ========================================================= */
-
-    .simple-table-wrap {
-      overflow-x: auto;
-    }
-
-    .simple-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .simple-table th,
-    .simple-table td {
-      padding: 12px 14px;
-
-      border-bottom: 1px solid var(--line);
-
-      text-align: left;
-
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
-    .simple-table th {
-      background: #faf6f1;
-
-      color: var(--brown-light);
-
-      font-size: 10px;
-      text-transform: uppercase;
-
-      letter-spacing: 0.6px;
-    }
-
-    .simple-table tr:last-child td {
-      border-bottom: 0;
-    }
-
-    /* =========================================================
        RESPONSIVE
        ========================================================= */
 
     @media (max-width: 1200px) {
 
       .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns:
+          repeat(3, 1fr);
       }
 
       .quote-grid {
@@ -1296,8 +1433,9 @@
       }
 
       .quote-actions {
-        justify-content: flex-start;
         grid-column: 1 / -1;
+
+        justify-content: flex-start;
       }
 
       .event-card {
@@ -1309,6 +1447,7 @@
 
       .event-actions {
         grid-column: 1 / -1;
+
         justify-content: flex-start;
       }
 
@@ -1318,8 +1457,7 @@
 
       .filters {
         grid-template-columns:
-          1fr
-          1fr;
+          1fr 1fr;
       }
 
       .calendar-day {
@@ -1343,7 +1481,7 @@
         height: 39px;
       }
 
-      .live-badge {
+      .poc-badge {
         display: none;
       }
 
@@ -1366,8 +1504,9 @@
       }
 
       .panel-header-row {
-        align-items: flex-start;
         flex-direction: column;
+
+        align-items: flex-start;
       }
 
       .filters {
@@ -1383,7 +1522,9 @@
       }
 
       .event-card {
-        grid-template-columns: 75px 1fr;
+        grid-template-columns:
+          75px
+          1fr;
       }
 
       .event-actions {
@@ -1431,6 +1572,7 @@
 
       .detail-row {
         grid-template-columns: 1fr;
+
         gap: 2px;
       }
 
@@ -1446,13 +1588,19 @@
 
     @media (max-width: 480px) {
 
+      .pin-card {
+        padding: 30px 21px;
+      }
+
       .stats-grid {
         grid-template-columns: 1fr;
       }
 
       .nav-tabs {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+
+        grid-template-columns:
+          1fr 1fr;
       }
 
       .nav-tab {
@@ -1465,6 +1613,7 @@
 
       .modal {
         max-height: 95vh;
+
         border-radius: 18px;
       }
 
@@ -1484,590 +1633,671 @@
   </style>
 </head>
 
-<body>
+
+<body class="pin-locked">
+
 
   <!-- =======================================================
-       TOPBAR
+       PIN
        ======================================================= -->
 
-  <header class="topbar">
+  <div id="pinGate">
 
-    <div class="brand">
+    <div class="pin-card">
 
-      <div class="brand-mark">
+      <div class="pin-logo">
         HB
       </div>
 
-      <span>
-        Hummie Bear Beheer
-      </span>
-
-    </div>
-
-    <div class="topbar-right">
-
-      <span class="live-badge">
-        Proof of concept
-      </span>
-
-      <button
-        class="topbar-button"
-        id="refreshButton"
-        type="button"
-      >
-        Vernieuwen
-      </button>
-
-    </div>
-
-  </header>
-
-
-  <!-- =======================================================
-       MAIN
-       ======================================================= -->
-
-  <main class="page">
-
-    <section class="page-intro">
-
       <h1>
-        Dashboard
+        Hummie Bear
       </h1>
 
       <p>
-        Alle aanvragen, evenementen en planning van Hummie Bear op één plaats.
+        Privé beheeromgeving
       </p>
 
-    </section>
+      <label
+        class="pin-label"
+        for="pinInput"
+      >
+        PIN-code
+      </label>
+
+      <input
+        id="pinInput"
+        type="password"
+        inputmode="numeric"
+        maxlength="8"
+        autocomplete="off"
+        placeholder="Voer je PIN in"
+      >
+
+      <button
+        id="pinButton"
+        type="button"
+      >
+        Binnenkomen
+      </button>
+
+      <div id="pinError"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =======================================================
+       ADMIN APP
+       ======================================================= -->
+
+  <div id="adminApp">
 
 
     <!-- =====================================================
-         STATS
+         TOPBAR
          ===================================================== -->
 
-    <section class="stats-grid">
+    <header class="topbar">
 
-      <div class="stat-card">
+      <div class="brand">
 
-        <div class="stat-label">
-          Nieuwe aanvragen
+        <div class="brand-mark">
+          HB
         </div>
 
-        <div
-          class="stat-value"
-          id="statNew"
-        >
-          —
-        </div>
+        <span>
+          Hummie Bear Beheer
+        </span>
 
       </div>
 
 
-      <div class="stat-card">
+      <div class="topbar-right">
 
-        <div class="stat-label">
-          In behandeling
-        </div>
+        <span class="poc-badge">
+          Proof of concept
+        </span>
 
-        <div
-          class="stat-value"
-          id="statProgress"
+        <button
+          class="topbar-button"
+          id="refreshButton"
+          type="button"
         >
-          —
-        </div>
+          Vernieuwen
+        </button>
+
+        <button
+          class="topbar-button"
+          id="lockButton"
+          type="button"
+        >
+          Vergrendelen
+        </button>
 
       </div>
 
-
-      <div class="stat-card">
-
-        <div class="stat-label">
-          Aanvaard
-        </div>
-
-        <div
-          class="stat-value"
-          id="statAccepted"
-        >
-          —
-        </div>
-
-      </div>
-
-
-      <div class="stat-card">
-
-        <div class="stat-label">
-          Geweigerd
-        </div>
-
-        <div
-          class="stat-value"
-          id="statRejected"
-        >
-          —
-        </div>
-
-      </div>
-
-
-      <div class="stat-card">
-
-        <div class="stat-label">
-          Bevestigde events
-        </div>
-
-        <div
-          class="stat-value"
-          id="statEvents"
-        >
-          —
-        </div>
-
-      </div>
-
-
-      <div class="stat-card">
-
-        <div class="stat-label">
-          Totaal aanvragen
-        </div>
-
-        <div
-          class="stat-value"
-          id="statTotal"
-        >
-          —
-        </div>
-
-      </div>
-
-    </section>
+    </header>
 
 
     <!-- =====================================================
-         NAVIGATION
+         PAGE
          ===================================================== -->
 
-    <nav class="nav-tabs">
+    <main class="page">
 
-      <button
-        class="nav-tab active"
-        data-view="quotes"
-        type="button"
+
+      <section class="page-intro">
+
+        <h1>
+          Dashboard
+        </h1>
+
+        <p>
+          Alle aanvragen, evenementen en planning van Hummie Bear op één plaats.
+        </p>
+
+      </section>
+
+
+      <!-- ===================================================
+           STATS
+           =================================================== -->
+
+      <section class="stats-grid">
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Nieuwe aanvragen
+          </div>
+
+          <div
+            class="stat-value"
+            id="statNew"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            In behandeling
+          </div>
+
+          <div
+            class="stat-value"
+            id="statProgress"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Aanvaard
+          </div>
+
+          <div
+            class="stat-value"
+            id="statAccepted"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Geweigerd
+          </div>
+
+          <div
+            class="stat-value"
+            id="statRejected"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Bevestigde events
+          </div>
+
+          <div
+            class="stat-value"
+            id="statEvents"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-label">
+            Totaal aanvragen
+          </div>
+
+          <div
+            class="stat-value"
+            id="statTotal"
+          >
+            —
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           NAVIGATION
+           =================================================== -->
+
+      <nav class="nav-tabs">
+
+        <button
+          class="nav-tab active"
+          data-view="quotes"
+          type="button"
+        >
+          Aanvragen
+        </button>
+
+        <button
+          class="nav-tab"
+          data-view="events"
+          type="button"
+        >
+          Evenementen
+        </button>
+
+        <button
+          class="nav-tab"
+          data-view="calendar"
+          type="button"
+        >
+          Kalender
+        </button>
+
+        <button
+          class="nav-tab"
+          data-view="upcoming"
+          type="button"
+        >
+          Komend
+        </button>
+
+      </nav>
+
+
+      <!-- ===================================================
+           QUOTES VIEW
+           =================================================== -->
+
+      <section
+        id="quotesView"
+        class="view-panel"
       >
-        Aanvragen
-      </button>
 
-      <button
-        class="nav-tab"
-        data-view="events"
-        type="button"
-      >
-        Evenementen
-      </button>
+        <div class="panel">
 
-      <button
-        class="nav-tab"
-        data-view="calendar"
-        type="button"
-      >
-        Kalender
-      </button>
+          <div class="panel-header">
 
-      <button
-        class="nav-tab"
-        data-view="upcoming"
-        type="button"
-      >
-        Komend
-      </button>
+            <div class="panel-header-row">
 
-    </nav>
+              <div>
+
+                <h2>
+                  Aanvragen
+                </h2>
+
+                <p>
+                  Aanvragen die via de website binnenkomen.
+                </p>
+
+              </div>
 
 
-    <!-- =====================================================
-         QUOTES VIEW
-         ===================================================== -->
+              <div class="panel-actions">
 
-    <section
-      id="quotesView"
-      class="view-panel"
-    >
+                <button
+                  class="button button-dark"
+                  id="newEventFromQuotesButton"
+                  type="button"
+                >
+                  + Evenement
+                </button>
 
-      <div class="panel">
-
-        <div class="panel-header">
-
-          <div class="panel-header-row">
-
-            <div>
-
-              <h2>
-                Aanvragen
-              </h2>
-
-              <p>
-                Aanvragen die via de website binnenkomen.
-              </p>
+              </div>
 
             </div>
 
-            <div class="panel-actions">
+          </div>
 
-              <button
-                class="button button-dark"
-                id="newEventFromQuotesButton"
-                type="button"
+
+          <div class="filters">
+
+            <div class="search-wrap">
+
+              <span class="search-icon">
+                Zoeken
+              </span>
+
+              <input
+                id="quoteSearch"
+                class="search-input"
+                type="search"
+                placeholder="Naam, e-mail, evenement, locatie..."
               >
-                + Evenement toevoegen
-              </button>
 
             </div>
 
-          </div>
 
-        </div>
-
-
-        <!-- FILTERS -->
-
-        <div class="filters">
-
-          <div class="search-wrap">
-
-            <span class="search-icon">
-              Zoeken
-            </span>
-
-            <input
-              id="quoteSearch"
-              class="search-input"
-              type="search"
-              placeholder="Naam, e-mail, evenement, locatie..."
+            <select
+              id="quoteStatusFilter"
+              class="filter-select"
             >
 
-          </div>
+              <option value="all">
+                Alle statussen
+              </option>
+
+              <option value="new">
+                Nieuw
+              </option>
+
+              <option value="in_progress">
+                In behandeling
+              </option>
+
+              <option value="accepted">
+                Aanvaard
+              </option>
+
+              <option value="rejected">
+                Geweigerd
+              </option>
+
+              <option value="cancelled">
+                Geannuleerd
+              </option>
+
+            </select>
 
 
-          <select
-            id="quoteStatusFilter"
-            class="filter-select"
-          >
-
-            <option value="all">
-              Alle statussen
-            </option>
-
-            <option value="new">
-              Nieuw
-            </option>
-
-            <option value="in_progress">
-              In behandeling
-            </option>
-
-            <option value="accepted">
-              Aanvaard
-            </option>
-
-            <option value="rejected">
-              Geweigerd
-            </option>
-
-            <option value="cancelled">
-              Geannuleerd
-            </option>
-
-          </select>
-
-
-          <select
-            id="quoteEditionFilter"
-            class="filter-select"
-          >
-
-            <option value="all">
-              Alle edities
-            </option>
-
-            <option value="waffle">
-              Waffle Edition
-            </option>
-
-            <option value="candy">
-              Candy Edition
-            </option>
-
-            <option value="both">
-              Candy + Waffle
-            </option>
-
-            <option value="bags">
-              Snoepzakken op maat
-            </option>
-
-          </select>
-
-
-          <select
-            id="quoteSort"
-            class="filter-select"
-          >
-
-            <option value="created_desc">
-              Nieuwste eerst
-            </option>
-
-            <option value="created_asc">
-              Oudste eerst
-            </option>
-
-            <option value="date_asc">
-              Evenementdatum oplopend
-            </option>
-
-            <option value="date_desc">
-              Evenementdatum aflopend
-            </option>
-
-            <option value="price_desc">
-              Hoogste prijs eerst
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div
-          class="quotes-list"
-          id="quotesList"
-        >
-
-          <div class="loading">
-
-            <div class="spinner"></div>
-
-            Aanvragen laden...
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         EVENTS VIEW
-         ===================================================== -->
-
-    <section
-      id="eventsView"
-      class="view-panel"
-      style="display:none;"
-    >
-
-      <div class="panel">
-
-        <div class="panel-header">
-
-          <div class="panel-header-row">
-
-            <div>
-
-              <h2>
-                Evenementen
-              </h2>
-
-              <p>
-                Bevestigde en handmatig ingevoerde evenementen.
-              </p>
-
-            </div>
-
-            <div class="panel-actions">
-
-              <button
-                class="button button-dark"
-                id="addEventButton"
-                type="button"
-              >
-                + Nieuw evenement
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="filters">
-
-          <div class="search-wrap">
-
-            <span class="search-icon">
-              Zoeken
-            </span>
-
-            <input
-              id="eventSearch"
-              class="search-input"
-              type="search"
-              placeholder="Evenement, klant, locatie..."
+            <select
+              id="quoteEditionFilter"
+              class="filter-select"
             >
 
-          </div>
+              <option value="all">
+                Alle edities
+              </option>
+
+              <option value="waffle">
+                Waffle Edition
+              </option>
+
+              <option value="candy">
+                Candy Edition
+              </option>
+
+              <option value="both">
+                Candy + Waffle
+              </option>
+
+              <option value="bags">
+                Snoepzakken op maat
+              </option>
+
+            </select>
 
 
-          <select
-            id="eventStatusFilter"
-            class="filter-select"
-          >
-
-            <option value="all">
-              Alle statussen
-            </option>
-
-            <option value="confirmed">
-              Bevestigd
-            </option>
-
-            <option value="cancelled">
-              Geannuleerd
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <div
-          class="events-list"
-          id="eventsList"
-        ></div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         CALENDAR VIEW
-         ===================================================== -->
-
-    <section
-      id="calendarView"
-      class="view-panel"
-      style="display:none;"
-    >
-
-      <div class="panel">
-
-        <div class="calendar-toolbar">
-
-          <div class="calendar-toolbar-left">
-
-            <button
-              class="button button-light"
-              id="calendarPrev"
-              type="button"
+            <select
+              id="quoteSort"
+              class="filter-select"
             >
-              Vorige
-            </button>
 
-            <button
-              class="button button-light"
-              id="calendarToday"
-              type="button"
-            >
-              Vandaag
-            </button>
+              <option value="created_desc">
+                Nieuwste eerst
+              </option>
 
-            <button
-              class="button button-light"
-              id="calendarNext"
-              type="button"
-            >
-              Volgende
-            </button>
+              <option value="created_asc">
+                Oudste eerst
+              </option>
+
+              <option value="date_asc">
+                Evenementdatum ↑
+              </option>
+
+              <option value="date_desc">
+                Evenementdatum ↓
+              </option>
+
+              <option value="price_desc">
+                Hoogste prijs eerst
+              </option>
+
+            </select>
 
           </div>
 
 
           <div
-            class="calendar-title"
-            id="calendarTitle"
+            class="quotes-list"
+            id="quotesList"
           >
-            —
+
+            <div class="loading">
+
+              <div class="spinner"></div>
+
+              Aanvragen laden...
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ===================================================
+           EVENTS VIEW
+           =================================================== -->
+
+      <section
+        id="eventsView"
+        class="view-panel"
+        style="display:none;"
+      >
+
+        <div class="panel">
+
+          <div class="panel-header">
+
+            <div class="panel-header-row">
+
+              <div>
+
+                <h2>
+                  Evenementen
+                </h2>
+
+                <p>
+                  Alle geplande evenementen.
+                </p>
+
+              </div>
+
+
+              <div class="panel-actions">
+
+                <button
+                  class="button button-dark"
+                  id="addEventButton"
+                  type="button"
+                >
+                  + Nieuw evenement
+                </button>
+
+              </div>
+
+            </div>
+
           </div>
 
 
-          <div class="calendar-toolbar-right">
+          <div class="filters">
 
-            <button
-              class="button button-dark"
-              id="calendarAddEvent"
-              type="button"
+            <div class="search-wrap">
+
+              <span class="search-icon">
+                Zoeken
+              </span>
+
+              <input
+                id="eventSearch"
+                class="search-input"
+                type="search"
+                placeholder="Evenement, klant, locatie..."
+              >
+
+            </div>
+
+
+            <select
+              id="eventStatusFilter"
+              class="filter-select"
             >
-              + Evenement
-            </button>
+
+              <option value="all">
+                Alle statussen
+              </option>
+
+              <option value="confirmed">
+                Bevestigd
+              </option>
+
+              <option value="cancelled">
+                Geannuleerd
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div
+            class="events-list"
+            id="eventsList"
+          >
+
+            <div class="loading">
+
+              <div class="spinner"></div>
+
+              Evenementen laden...
+
+            </div>
 
           </div>
 
         </div>
 
-
-        <div
-          class="calendar-grid"
-          id="calendarGrid"
-        ></div>
-
-      </div>
-
-    </section>
+      </section>
 
 
-    <!-- =====================================================
-         UPCOMING VIEW
-         ===================================================== -->
+      <!-- ===================================================
+           CALENDAR VIEW
+           =================================================== -->
 
-    <section
-      id="upcomingView"
-      class="view-panel"
-      style="display:none;"
-    >
+      <section
+        id="calendarView"
+        class="view-panel"
+        style="display:none;"
+      >
 
-      <div class="panel">
+        <div class="panel">
 
-        <div class="panel-header">
+          <div class="calendar-toolbar">
 
-          <h2>
-            Komende evenementen
-          </h2>
+            <div class="calendar-toolbar-left">
 
-          <p>
-            De eerstvolgende bevestigde evenementen.
-          </p>
+              <button
+                class="button button-light"
+                id="calendarPrev"
+                type="button"
+              >
+                Vorige
+              </button>
+
+              <button
+                class="button button-light"
+                id="calendarToday"
+                type="button"
+              >
+                Vandaag
+              </button>
+
+              <button
+                class="button button-light"
+                id="calendarNext"
+                type="button"
+              >
+                Volgende
+              </button>
+
+            </div>
+
+
+            <div
+              class="calendar-title"
+              id="calendarTitle"
+            >
+              —
+            </div>
+
+
+            <div class="calendar-toolbar-right">
+
+              <button
+                class="button button-dark"
+                id="calendarAddEvent"
+                type="button"
+              >
+                + Evenement
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="calendar-grid"
+            id="calendarGrid"
+          ></div>
 
         </div>
 
-
-        <div
-          class="events-list"
-          id="upcomingList"
-        ></div>
-
-      </div>
-
-    </section>
+      </section>
 
 
-  </main>
+      <!-- ===================================================
+           UPCOMING VIEW
+           =================================================== -->
+
+      <section
+        id="upcomingView"
+        class="view-panel"
+        style="display:none;"
+      >
+
+        <div class="panel">
+
+          <div class="panel-header">
+
+            <h2>
+              Komende evenementen
+            </h2>
+
+            <p>
+              De eerstvolgende bevestigde evenementen.
+            </p>
+
+          </div>
+
+
+          <div
+            class="events-list"
+            id="upcomingList"
+          ></div>
+
+        </div>
+
+      </section>
+
+
+    </main>
+
+  </div>
 
 
   <!-- =======================================================
@@ -2133,6 +2363,7 @@
         </button>
 
       </div>
+
 
       <div class="modal-body">
 
@@ -2338,8 +2569,8 @@
               <input
                 id="editEstimatedPrice"
                 type="number"
-                step="0.01"
                 min="0"
+                step="0.01"
               >
 
             </div>
@@ -2354,8 +2585,8 @@
               <input
                 id="editFinalPrice"
                 type="number"
-                step="0.01"
                 min="0"
+                step="0.01"
               >
 
             </div>
@@ -2419,15 +2650,6 @@
 
             </div>
 
-
-            <div class="form-field full">
-
-              <div class="form-help">
-                Wijzigingen worden rechtstreeks opgeslagen in Supabase.
-              </div>
-
-            </div>
-
           </div>
 
 
@@ -2486,6 +2708,7 @@
 
       </div>
 
+
       <div class="modal-body">
 
         <form id="eventForm">
@@ -2499,6 +2722,7 @@
             type="hidden"
             id="eventQuoteId"
           >
+
 
           <div class="form-grid">
 
@@ -2683,8 +2907,8 @@
               <input
                 id="eventPrice"
                 type="number"
-                step="0.01"
                 min="0"
+                step="0.01"
               >
 
             </div>
@@ -2770,10 +2994,11 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
   <script>
 
     /* =========================================================
-       SUPABASE
+       CONFIG
        ========================================================= */
 
     const SUPABASE_URL =
@@ -2781,6 +3006,10 @@
 
     const SUPABASE_KEY =
       "sb_publishable_TjBCB01RHm67xQVm3CtvEw_b0qxklDJ";
+
+    const ADMIN_PIN =
+      "28122004";
+
 
     const supabaseClient =
       window.supabase.createClient(
@@ -2796,7 +3025,8 @@
     let quotes = [];
     let events = [];
 
-    let activeView = "quotes";
+    let activeView =
+      "quotes";
 
     let calendarDate =
       new Date(
@@ -2805,11 +3035,39 @@
         1
       );
 
-    let toastTimer = null;
+    let toastTimer =
+      null;
+
 
     /* =========================================================
        ELEMENTS
        ========================================================= */
+
+    const pinGate =
+      document.getElementById(
+        "pinGate"
+      );
+
+    const adminApp =
+      document.getElementById(
+        "adminApp"
+      );
+
+    const pinInput =
+      document.getElementById(
+        "pinInput"
+      );
+
+    const pinButton =
+      document.getElementById(
+        "pinButton"
+      );
+
+    const pinError =
+      document.getElementById(
+        "pinError"
+      );
+
 
     const quotesList =
       document.getElementById(
@@ -2836,11 +3094,14 @@
         "calendarTitle"
       );
 
+
     /* =========================================================
-       SECURITY / HTML HELPERS
+       HTML SAFETY
        ========================================================= */
 
-    function escapeHtml(value) {
+    function escapeHtml(
+      value
+    ) {
 
       if (
         value === null ||
@@ -2849,16 +3110,36 @@
         return "";
       }
 
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+      return String(
+        value
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
     }
 
 
-    function safeText(value) {
+    function safeText(
+      value
+    ) {
 
       if (
         value === null ||
@@ -2868,27 +3149,30 @@
         return "—";
       }
 
-      return escapeHtml(value);
+      return escapeHtml(
+        value
+      );
+
     }
 
 
     /* =========================================================
-       FORMATTING
+       FORMATTERS
        ========================================================= */
 
     function formatDate(
-      dateValue,
+      value,
       long = false
     ) {
 
-      if (!dateValue) {
+      if (!value) {
         return "—";
       }
 
       const date =
         new Date(
           String(
-            dateValue
+            value
           ).slice(0, 10) +
           "T00:00:00"
         );
@@ -2899,7 +3183,7 @@
         )
       ) {
         return safeText(
-          dateValue
+          value
         );
       }
 
@@ -2907,82 +3191,40 @@
         "nl-BE",
         long
           ? {
-              weekday: "long",
-              day: "numeric",
-              month: "long",
-              year: "numeric"
+              weekday:
+                "long",
+              day:
+                "numeric",
+              month:
+                "long",
+              year:
+                "numeric"
             }
           : {
-              day: "2-digit",
-              month: "2-digit",
-              year: "numeric"
+              day:
+                "2-digit",
+              month:
+                "2-digit",
+              year:
+                "numeric"
             }
-      ).format(date);
-
-    }
-
-
-    function formatDay(
-      dateValue
-    ) {
-
-      if (!dateValue) {
-        return "—";
-      }
-
-      const date =
-        new Date(
-          String(
-            dateValue
-          ).slice(0, 10) +
-          "T00:00:00"
-        );
-
-      return String(
-        date.getDate()
+      ).format(
+        date
       );
 
     }
 
 
-    function formatMonthShort(
-      dateValue
-    ) {
-
-      if (!dateValue) {
-        return "—";
-      }
-
-      const date =
-        new Date(
-          String(
-            dateValue
-          ).slice(0, 10) +
-          "T00:00:00"
-        );
-
-      return new Intl.DateTimeFormat(
-        "nl-BE",
-        {
-          month: "short"
-        }
-      )
-        .format(date)
-        .replace(".", "");
-
-    }
-
-
     function formatTime(
-      timeValue
+      value
     ) {
 
-      if (!timeValue) {
+      if (!value) {
         return "";
       }
 
       return String(
-        timeValue
+        value
       ).slice(0, 5);
 
     }
@@ -2994,12 +3236,19 @@
     ) {
 
       const s =
-        formatTime(start);
+        formatTime(
+          start
+        );
 
       const e =
-        formatTime(end);
+        formatTime(
+          end
+        );
 
-      if (s && e) {
+      if (
+        s &&
+        e
+      ) {
         return (
           s +
           " – " +
@@ -3033,21 +3282,31 @@
       }
 
       const number =
-        Number(value);
+        Number(
+          value
+        );
 
       if (
-        Number.isNaN(number)
+        Number.isNaN(
+          number
+        )
       ) {
-        return safeText(value);
+        return safeText(
+          value
+        );
       }
 
       return new Intl.NumberFormat(
         "nl-BE",
         {
-          style: "currency",
-          currency: "EUR"
+          style:
+            "currency",
+          currency:
+            "EUR"
         }
-      ).format(number);
+      ).format(
+        number
+      );
 
     }
 
@@ -3073,7 +3332,9 @@
       };
 
       return (
-        map[edition] ||
+        map[
+          edition
+        ] ||
         edition ||
         "—"
       );
@@ -3108,7 +3369,9 @@
       };
 
       return (
-        map[status] ||
+        map[
+          status
+        ] ||
         status ||
         "Onbekend"
       );
@@ -3129,9 +3392,9 @@
 
       if (
         status ===
-        "accepted" ||
+          "accepted" ||
         status ===
-        "confirmed"
+          "confirmed"
       ) {
         return "status-accepted";
       }
@@ -3151,18 +3414,6 @@
       }
 
       return "status-new";
-
-    }
-
-
-    function editionClass(
-      edition
-    ) {
-
-      return (
-        edition ||
-        "waffle"
-      );
 
     }
 
@@ -3207,25 +3458,135 @@
 
 
     /* =========================================================
-       GENERAL DATABASE HELPERS
+       PIN
        ========================================================= */
 
-    async function reloadAll() {
+    function unlockAdmin() {
 
-      await Promise.all([
-        loadQuotes(),
-        loadEvents()
-      ]);
+      document.body.classList.remove(
+        "pin-locked"
+      );
 
-      updateStats();
+      pinGate.classList.add(
+        "hidden"
+      );
 
-      renderCurrentView();
+      adminApp.classList.add(
+        "unlocked"
+      );
+
+      localStorage.setItem(
+        "hummieBearAdminUnlocked",
+        "true"
+      );
+
+      pinError.textContent = "";
+
+      initializeDashboard();
 
     }
 
 
+    function lockAdmin() {
+
+      localStorage.removeItem(
+        "hummieBearAdminUnlocked"
+      );
+
+      adminApp.classList.remove(
+        "unlocked"
+      );
+
+      pinGate.classList.remove(
+        "hidden"
+      );
+
+      document.body.classList.add(
+        "pin-locked"
+      );
+
+      pinInput.value =
+        "";
+
+      pinError.textContent =
+        "";
+
+      setTimeout(
+        function () {
+
+          pinInput.focus();
+
+        },
+        50
+      );
+
+    }
+
+
+    function checkPin() {
+
+      const entered =
+        pinInput.value.trim();
+
+
+      if (
+        entered ===
+        ADMIN_PIN
+      ) {
+
+        unlockAdmin();
+
+        return;
+
+      }
+
+
+      pinError.textContent =
+        "Onjuiste PIN-code.";
+
+      pinInput.value =
+        "";
+
+      pinInput.focus();
+
+    }
+
+
+    pinButton.addEventListener(
+      "click",
+      checkPin
+    );
+
+
+    pinInput.addEventListener(
+      "keydown",
+      function (
+        event
+      ) {
+
+        if (
+          event.key ===
+          "Enter"
+        ) {
+
+          checkPin();
+
+        }
+
+      }
+    );
+
+
+    document.getElementById(
+      "lockButton"
+    ).addEventListener(
+      "click",
+      lockAdmin
+    );
+
+
     /* =========================================================
-       LOAD QUOTES
+       DATABASE
        ========================================================= */
 
     async function loadQuotes() {
@@ -3235,8 +3596,12 @@
         error
       } =
         await supabaseClient
-          .from("quotes")
-          .select("*")
+          .from(
+            "quotes"
+          )
+          .select(
+            "*"
+          )
           .order(
             "created_at",
             {
@@ -3244,6 +3609,7 @@
                 false
             }
           );
+
 
       if (error) {
 
@@ -3254,6 +3620,7 @@
 
         quotesList.innerHTML = `
           <div class="empty">
+
             <div class="empty-icon">
               !
             </div>
@@ -3265,9 +3632,10 @@
             <p>
               ${escapeHtml(
                 error.message ||
-                "Onbekende fout"
+                "Onbekende fout."
               )}
             </p>
+
           </div>
         `;
 
@@ -3275,15 +3643,13 @@
 
       }
 
+
       quotes =
-        data || [];
+        data ||
+        [];
 
     }
 
-
-    /* =========================================================
-       LOAD EVENTS
-       ========================================================= */
 
     async function loadEvents() {
 
@@ -3292,8 +3658,12 @@
         error
       } =
         await supabaseClient
-          .from("events")
-          .select("*")
+          .from(
+            "events"
+          )
+          .select(
+            "*"
+          )
           .order(
             "event_date",
             {
@@ -3301,6 +3671,7 @@
                 true
             }
           );
+
 
       if (error) {
 
@@ -3311,6 +3682,7 @@
 
         eventsList.innerHTML = `
           <div class="empty">
+
             <div class="empty-icon">
               !
             </div>
@@ -3322,9 +3694,10 @@
             <p>
               ${escapeHtml(
                 error.message ||
-                "Onbekende fout"
+                "Onbekende fout."
               )}
             </p>
+
           </div>
         `;
 
@@ -3332,8 +3705,24 @@
 
       }
 
+
       events =
-        data || [];
+        data ||
+        [];
+
+    }
+
+
+    async function reloadAll() {
+
+      await Promise.all([
+        loadQuotes(),
+        loadEvents()
+      ]);
+
+      updateStats();
+
+      renderCurrentView();
 
     }
 
@@ -3351,12 +3740,14 @@
             "new"
         ).length;
 
+
       const progressCount =
         quotes.filter(
           q =>
             q.status ===
             "in_progress"
         ).length;
+
 
       const acceptedCount =
         quotes.filter(
@@ -3365,12 +3756,14 @@
             "accepted"
         ).length;
 
+
       const rejectedCount =
         quotes.filter(
           q =>
             q.status ===
             "rejected"
         ).length;
+
 
       const confirmedEvents =
         events.filter(
@@ -3385,25 +3778,30 @@
       ).textContent =
         newCount;
 
+
       document.getElementById(
         "statProgress"
       ).textContent =
         progressCount;
+
 
       document.getElementById(
         "statAccepted"
       ).textContent =
         acceptedCount;
 
+
       document.getElementById(
         "statRejected"
       ).textContent =
         rejectedCount;
 
+
       document.getElementById(
         "statEvents"
       ).textContent =
         confirmedEvents;
+
 
       document.getElementById(
         "statTotal"
@@ -3422,7 +3820,9 @@
         ".nav-tab"
       )
       .forEach(
-        function (tab) {
+        function (
+          tab
+        ) {
 
           tab.addEventListener(
             "click",
@@ -3446,12 +3846,15 @@
       activeView =
         view;
 
+
       document
         .querySelectorAll(
           ".nav-tab"
         )
         .forEach(
-          function (tab) {
+          function (
+            tab
+          ) {
 
             tab.classList.toggle(
               "active",
@@ -3463,45 +3866,43 @@
         );
 
 
-      const views = {
+      const map = {
 
         quotes:
-          document.getElementById(
-            "quotesView"
-          ),
+          "quotesView",
 
         events:
-          document.getElementById(
-            "eventsView"
-          ),
+          "eventsView",
 
         calendar:
-          document.getElementById(
-            "calendarView"
-          ),
+          "calendarView",
 
         upcoming:
-          document.getElementById(
-            "upcomingView"
-          )
+          "upcomingView"
 
       };
 
 
-      Object.values(
-        views
+      Object.entries(
+        map
       ).forEach(
-        function (element) {
+        function (
+          [
+            key,
+            id
+          ]
+        ) {
 
-          element.style.display =
-            "none";
+          document.getElementById(
+            id
+          ).style.display =
+            key ===
+            view
+              ? "block"
+              : "none";
 
         }
       );
-
-
-      views[view].style.display =
-        "block";
 
 
       renderCurrentView();
@@ -3515,43 +3916,35 @@
         activeView ===
         "quotes"
       ) {
-
         renderQuotes();
-
       }
 
       if (
         activeView ===
         "events"
       ) {
-
         renderEvents();
-
       }
 
       if (
         activeView ===
         "calendar"
       ) {
-
         renderCalendar();
-
       }
 
       if (
         activeView ===
         "upcoming"
       ) {
-
         renderUpcoming();
-
       }
 
     }
 
 
     /* =========================================================
-       QUOTE FILTERING
+       QUOTE FILTERS
        ========================================================= */
 
     const quoteSearch =
@@ -3581,7 +3974,9 @@
       quoteEditionFilter,
       quoteSort
     ].forEach(
-      function (element) {
+      function (
+        element
+      ) {
 
         element.addEventListener(
           "input",
@@ -3604,19 +3999,24 @@
           .trim()
           .toLowerCase();
 
+
       const status =
         quoteStatusFilter.value;
 
+
       const edition =
         quoteEditionFilter.value;
+
 
       const sort =
         quoteSort.value;
 
 
-      let filtered =
+      const filtered =
         quotes.filter(
-          function (quote) {
+          function (
+            quote
+          ) {
 
             const combined =
               [
@@ -3629,36 +4029,32 @@
                 quote.event_type,
                 quote.edition
               ]
-                .filter(Boolean)
-                .join(" ")
+                .filter(
+                  Boolean
+                )
+                .join(
+                  " "
+                )
                 .toLowerCase();
 
 
-            const searchMatches =
-              !search ||
-              combined.includes(
-                search
-              );
-
-
-            const statusMatches =
-              status ===
-                "all" ||
-              quote.status ===
-                status;
-
-
-            const editionMatches =
-              edition ===
-                "all" ||
-              quote.edition ===
-                edition;
-
-
             return (
-              searchMatches &&
-              statusMatches &&
-              editionMatches
+              (!search ||
+                combined.includes(
+                  search
+                )) &&
+              (
+                status ===
+                  "all" ||
+                quote.status ===
+                  status
+              ) &&
+              (
+                edition ===
+                  "all" ||
+                quote.edition ===
+                  edition
+              )
             );
 
           }
@@ -3666,7 +4062,10 @@
 
 
       filtered.sort(
-        function (a, b) {
+        function (
+          a,
+          b
+        ) {
 
           if (
             sort ===
@@ -3675,10 +4074,12 @@
 
             return (
               new Date(
-                a.created_at || 0
+                a.created_at ||
+                0
               ) -
               new Date(
-                b.created_at || 0
+                b.created_at ||
+                0
               )
             );
 
@@ -3742,10 +4143,12 @@
 
           return (
             new Date(
-              b.created_at || 0
+              b.created_at ||
+              0
             ) -
             new Date(
-              a.created_at || 0
+              a.created_at ||
+              0
             )
           );
 
@@ -3768,7 +4171,9 @@
         getFilteredQuotes();
 
 
-      if (!filtered.length) {
+      if (
+        !filtered.length
+      ) {
 
         quotesList.innerHTML = `
           <div class="empty">
@@ -3782,7 +4187,7 @@
             </strong>
 
             <p>
-              Pas je zoekopdracht of filters aan.
+              Er zijn geen aanvragen die aan deze filters voldoen.
             </p>
 
           </div>
@@ -3807,7 +4212,17 @@
       quote
     ) {
 
+      const displayPrice =
+        quote.final_price !==
+          null &&
+        quote.final_price !==
+          undefined
+          ? quote.final_price
+          : quote.estimated_price;
+
+
       return `
+
         <article class="quote-card">
 
           <div class="quote-grid">
@@ -3883,9 +4298,12 @@
             <div>
 
               <span
-                class="status ${statusClass(
-                  quote.status
-                )}"
+                class="
+                  status
+                  ${statusClass(
+                    quote.status
+                  )}
+                "
               >
                 ${safeText(
                   statusLabel(
@@ -3925,17 +4343,16 @@
 
               <div class="quote-price">
                 ${formatEuro(
-                  quote.final_price ??
-                  quote.estimated_price
+                  displayPrice
                 )}
               </div>
 
               <div class="quote-muted">
                 ${
                   quote.final_price !==
-                  null &&
+                    null &&
                   quote.final_price !==
-                  undefined
+                    undefined
                     ? "Definitief"
                     : "Schatting"
                 }
@@ -3948,20 +4365,21 @@
 
               <button
                 class="button button-light"
-                type="button"
                 onclick="openQuoteDetail('${escapeHtml(
                   quote.id
                 )}')"
+                type="button"
               >
                 Details
               </button>
 
+
               <button
                 class="button button-blue"
-                type="button"
                 onclick="openQuoteEdit('${escapeHtml(
                   quote.id
                 )}')"
+                type="button"
               >
                 Bewerken
               </button>
@@ -3973,10 +4391,10 @@
                   ? `
                     <button
                       class="button button-green"
-                      type="button"
                       onclick="acceptQuote('${escapeHtml(
                         quote.id
                       )}')"
+                      type="button"
                     >
                       Aanvaarden
                     </button>
@@ -3984,12 +4402,12 @@
                   : `
                     <button
                       class="button button-green"
-                      type="button"
                       onclick="openLinkedEvent('${escapeHtml(
                         quote.id
                       )}')"
+                      type="button"
                     >
-                      Event bekijken
+                      Event
                     </button>
                   `
               }
@@ -3997,16 +4415,16 @@
 
               ${
                 quote.status !==
-                  "in_progress" &&
+                    "in_progress" &&
                 quote.status !==
-                  "accepted"
+                    "accepted"
                   ? `
                     <button
                       class="button button-orange"
-                      type="button"
                       onclick="updateQuoteStatus('${escapeHtml(
                         quote.id
                       )}', 'in_progress')"
+                      type="button"
                     >
                       In behandeling
                     </button>
@@ -4021,10 +4439,10 @@
                   ? `
                     <button
                       class="button button-red"
-                      type="button"
                       onclick="updateQuoteStatus('${escapeHtml(
                         quote.id
                       )}', 'rejected')"
+                      type="button"
                     >
                       Weigeren
                     </button>
@@ -4035,10 +4453,10 @@
 
               <button
                 class="button button-light"
-                type="button"
                 onclick="deleteQuote('${escapeHtml(
                   quote.id
                 )}')"
+                type="button"
               >
                 Verwijderen
               </button>
@@ -4049,13 +4467,14 @@
           </div>
 
         </article>
+
       `;
 
     }
 
 
     /* =========================================================
-       QUOTE DETAIL
+       QUOTE DETAILS
        ========================================================= */
 
     window.openQuoteDetail =
@@ -4070,25 +4489,15 @@
               quoteId
           );
 
+
         if (!quote) {
           return;
         }
 
 
-        const overlay =
-          document.getElementById(
-            "quoteModalOverlay"
-          );
-
         const body =
           document.getElementById(
             "quoteModalBody"
-          );
-
-
-        const optionsHtml =
-          renderOptions(
-            quote.options
           );
 
 
@@ -4123,9 +4532,12 @@
             </div>
 
             <span
-              class="status ${statusClass(
-                quote.status
-              )}"
+              class="
+                status
+                ${statusClass(
+                  quote.status
+                )}
+              "
             >
               ${safeText(
                 statusLabel(
@@ -4270,7 +4682,11 @@
                 Opties
               </h4>
 
-              ${optionsHtml}
+              ${
+                renderOptions(
+                  quote.options
+                )
+              }
 
             </section>
 
@@ -4282,6 +4698,7 @@
               </h4>
 
               <div class="detail-text">
+
                 ${
                   quote.practical_notes
                     ? escapeHtml(
@@ -4292,6 +4709,7 @@
                       )
                     : "Geen praktische opmerkingen."
                 }
+
               </div>
 
             </section>
@@ -4304,6 +4722,7 @@
               </h4>
 
               <div class="detail-text">
+
                 ${
                   quote.message
                     ? escapeHtml(
@@ -4314,6 +4733,7 @@
                       )
                     : "Geen extra bericht."
                 }
+
               </div>
 
             </section>
@@ -4460,7 +4880,9 @@
         );
 
 
-      if (!entries.length) {
+      if (
+        !entries.length
+      ) {
 
         return `
           <div class="detail-text">
@@ -4483,29 +4905,26 @@
                 ]
               ) {
 
-                let display =
-                  value;
-
-                if (
+                const display =
                   typeof value ===
                   "object"
-                ) {
+                    ? JSON.stringify(
+                        value
+                      )
+                    : value;
 
-                  display =
-                    JSON.stringify(
-                      value
-                    );
-
-                }
 
                 return `
                   <span class="option-pill">
+
                     ${safeText(
                       key
                     )}:
+
                     ${safeText(
                       display
                     )}
+
                   </span>
                 `;
 
@@ -4520,7 +4939,7 @@
 
 
     /* =========================================================
-       OPEN QUOTE EDIT
+       QUOTE EDIT
        ========================================================= */
 
     window.openQuoteEdit =
@@ -4535,6 +4954,7 @@
               quoteId
           );
 
+
         if (!quote) {
           return;
         }
@@ -4543,13 +4963,15 @@
         document.getElementById(
           "editQuoteId"
         ).value =
-          quote.id || "";
+          quote.id ||
+          "";
 
 
         document.getElementById(
           "editName"
         ).value =
-          quote.name || "";
+          quote.name ||
+          "";
 
 
         document.getElementById(
@@ -4562,13 +4984,15 @@
         document.getElementById(
           "editEmail"
         ).value =
-          quote.email || "";
+          quote.email ||
+          "";
 
 
         document.getElementById(
           "editPhone"
         ).value =
-          quote.phone || "";
+          quote.phone ||
+          "";
 
 
         document.getElementById(
@@ -4588,13 +5012,15 @@
         document.getElementById(
           "editEventDate"
         ).value =
-          quote.event_date || "";
+          quote.event_date ||
+          "";
 
 
         document.getElementById(
           "editGuests"
         ).value =
-          quote.guests ?? "";
+          quote.guests ??
+          "";
 
 
         document.getElementById(
@@ -4662,9 +5088,8 @@
           "";
 
 
-        closeModal(
-          "quoteModalOverlay"
-        );
+        closeAllModals();
+
 
         openModal(
           "editQuoteModalOverlay"
@@ -4673,15 +5098,13 @@
       };
 
 
-    /* =========================================================
-       SAVE QUOTE EDIT
-       ========================================================= */
-
     document.getElementById(
       "editQuoteForm"
     ).addEventListener(
       "submit",
-      async function (event) {
+      async function (
+        event
+      ) {
 
         event.preventDefault();
 
@@ -4727,7 +5150,8 @@
           event_date:
             document.getElementById(
               "editEventDate"
-            ).value || null,
+            ).value ||
+            null,
 
           guests:
             document.getElementById(
@@ -4743,12 +5167,14 @@
           start_time:
             document.getElementById(
               "editStartTime"
-            ).value || null,
+            ).value ||
+            null,
 
           end_time:
             document.getElementById(
               "editEndTime"
-            ).value || null,
+            ).value ||
+            null,
 
           location:
             document.getElementById(
@@ -4810,7 +5236,9 @@
             error
           } =
             await supabaseClient
-              .from("quotes")
+              .from(
+                "quotes"
+              )
               .update(
                 payload
               )
@@ -4823,7 +5251,6 @@
           if (error) {
 
             console.error(
-              "Quote update error:",
               error
             );
 
@@ -4838,9 +5265,7 @@
           }
 
 
-          closeModal(
-            "editQuoteModalOverlay"
-          );
+          closeAllModals();
 
 
           showToast(
@@ -4851,7 +5276,9 @@
 
           await reloadAll();
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
           console.error(
             error
@@ -4869,7 +5296,7 @@
 
 
     /* =========================================================
-       CHANGE QUOTE STATUS
+       STATUS
        ========================================================= */
 
     window.updateQuoteStatus =
@@ -4878,29 +5305,16 @@
         newStatus
       ) {
 
-        const quote =
-          quotes.find(
-            q =>
-              q.id ===
-              quoteId
-          );
-
-        if (!quote) {
-          return;
-        }
-
-
         if (
           newStatus ===
           "rejected"
         ) {
 
-          const ok =
-            window.confirm(
+          if (
+            !window.confirm(
               "Deze aanvraag weigeren?"
-            );
-
-          if (!ok) {
+            )
+          ) {
             return;
           }
 
@@ -4913,7 +5327,9 @@
             error
           } =
             await supabaseClient
-              .from("quotes")
+              .from(
+                "quotes"
+              )
               .update({
                 status:
                   newStatus,
@@ -4930,12 +5346,9 @@
 
           if (error) {
 
-            console.error(
-              error
-            );
-
             showToast(
-              "Status kon niet worden aangepast.",
+              "Status kon niet worden aangepast: " +
+              error.message,
               "error"
             );
 
@@ -4959,7 +5372,9 @@
 
           await reloadAll();
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
           console.error(
             error
@@ -4991,17 +5406,17 @@
               quoteId
           );
 
+
         if (!quote) {
           return;
         }
 
 
-        const ok =
-          window.confirm(
-            "Deze aanvraag aanvaarden?\n\nEr wordt dan automatisch een evenement aangemaakt."
-          );
-
-        if (!ok) {
+        if (
+          !window.confirm(
+            "Deze aanvraag aanvaarden?\n\nEr wordt een evenement aangemaakt."
+          )
+        ) {
           return;
         }
 
@@ -5009,41 +5424,57 @@
         try {
 
           /*
-           * Eerst kijken of er al een event aan gekoppeld is.
+           * Kijk of er al een event is.
            */
 
-          const {
-            data: linkedEvents,
-            error: linkedError
-          } =
-            await supabaseClient
-              .from("events")
-              .select("*")
-              .eq(
-                "quote_id",
-                quote.id
-              );
+          let existing =
+            [];
 
 
-          if (
-            linkedError
+          try {
+
+            const {
+              data,
+              error
+            } =
+              await supabaseClient
+                .from(
+                  "events"
+                )
+                .select(
+                  "*"
+                )
+                .eq(
+                  "quote_id",
+                  quote.id
+                );
+
+
+            if (!error) {
+              existing =
+                data ||
+                [];
+            }
+
+          } catch (
+            error
           ) {
 
             console.warn(
-              "quote_id lookup could not be completed:",
-              linkedError
+              error
             );
 
           }
 
 
           if (
-            linkedEvents &&
-            linkedEvents.length
+            existing.length
           ) {
 
             await supabaseClient
-              .from("quotes")
+              .from(
+                "quotes"
+              )
               .update({
                 status:
                   "accepted",
@@ -5072,125 +5503,49 @@
 
 
           /*
-           * Controle op bestaande events op dezelfde datum.
+           * Tijdconflict.
            */
 
-          const {
-            data: sameDayEvents,
-            error:
-              sameDayError
-          } =
-            await supabaseClient
-              .from("events")
-              .select("*")
-              .eq(
-                "event_date",
-                quote.event_date
-              )
-              .eq(
-                "status",
-                "confirmed"
-              );
-
-
-          if (
-            sameDayError
-          ) {
-
-            console.warn(
-              "Same-day check error:",
-              sameDayError
+          const conflict =
+            findEventConflict(
+              quote.event_date,
+              quote.start_time,
+              quote.end_time,
+              ""
             );
 
-          }
 
+          if (conflict) {
 
-          /*
-           * Tijd conflict.
-           */
-
-          if (
-            sameDayEvents &&
-            quote.start_time &&
-            quote.end_time
-          ) {
-
-            const newStart =
-              timeToMinutes(
-                quote.start_time
-              );
-
-            const newEnd =
-              timeToMinutes(
-                quote.end_time
+            const proceed =
+              window.confirm(
+                "Let op: er bestaat al een bevestigd evenement op deze datum met overlappende uren.\n\n" +
+                (
+                  conflict.event_name ||
+                  "Bestaand evenement"
+                ) +
+                "\n" +
+                formatTimeRange(
+                  conflict.start_time,
+                  conflict.end_time
+                ) +
+                "\n\nToch aanvaarden?"
               );
 
 
-            const overlap =
-              sameDayEvents.find(
-                function (event) {
+            if (!proceed) {
 
-                  if (
-                    !event.start_time ||
-                    !event.end_time
-                  ) {
-
-                    return false;
-
-                  }
-
-
-                  const oldStart =
-                    timeToMinutes(
-                      event.start_time
-                    );
-
-                  const oldEnd =
-                    timeToMinutes(
-                      event.end_time
-                    );
-
-
-                  return (
-                    newStart <
-                    oldEnd &&
-                    newEnd >
-                    oldStart
-                  );
-
-                }
+              showToast(
+                "Aanvraag niet aanvaard.",
+                "warning"
               );
 
-
-            if (overlap) {
-
-              const proceed =
-                window.confirm(
-                  "Er is al een bevestigd evenement op deze datum met overlappende uren.\n\nWil je toch doorgaan?"
-                );
-
-              if (!proceed) {
-
-                showToast(
-                  "Aanvraag niet aanvaard.",
-                  "warning"
-                );
-
-                return;
-
-              }
+              return;
 
             }
 
           }
 
-
-          /*
-           * Event payload.
-           *
-           * We gebruiken de velden die ook vanuit de offerte
-           * beschikbaar zijn.
-           */
 
           const eventPayload = {
 
@@ -5252,21 +5607,27 @@
           };
 
 
+          /*
+           * Eerst normaal proberen.
+           */
+
           let {
             error:
               eventError
           } =
             await supabaseClient
-              .from("events")
+              .from(
+                "events"
+              )
               .insert(
                 eventPayload
               );
 
 
           /*
-           * Wanneer quote_id nog niet in een oudere
-           * events-tabel zit, proberen we één keer zonder.
-           * Dit maakt de POC toleranter.
+           * Als quote_id niet bestaat in de
+           * huidige events-tabel proberen we
+           * zonder quote_id.
            */
 
           if (
@@ -5281,33 +5642,34 @@
               )
           ) {
 
-            const fallbackPayload = {
-              ...eventPayload
-            };
+            const fallback =
+              {
+                ...eventPayload
+              };
 
-            delete fallbackPayload.quote_id;
+
+            delete fallback.quote_id;
 
 
-            const fallbackResult =
+            const retry =
               await supabaseClient
-                .from("events")
+                .from(
+                  "events"
+                )
                 .insert(
-                  fallbackPayload
+                  fallback
                 );
 
 
             eventError =
-              fallbackResult.error;
+              retry.error;
 
           }
 
 
-          if (
-            eventError
-          ) {
+          if (eventError) {
 
             console.error(
-              "Event creation error:",
               eventError
             );
 
@@ -5323,16 +5685,17 @@
 
 
           /*
-           * Event bestaat nu.
-           * Quote naar accepted.
+           * Quote aanvaarden.
            */
 
           const {
             error:
-              quoteUpdateError
+              quoteError
           } =
             await supabaseClient
-              .from("quotes")
+              .from(
+                "quotes"
+              )
               .update({
                 status:
                   "accepted",
@@ -5347,16 +5710,10 @@
               );
 
 
-          if (
-            quoteUpdateError
-          ) {
-
-            console.error(
-              quoteUpdateError
-            );
+          if (quoteError) {
 
             showToast(
-              "Event aangemaakt, maar de offerte-status kon niet worden aangepast.",
+              "Event aangemaakt, maar status kon niet worden aangepast.",
               "warning"
             );
 
@@ -5378,10 +5735,11 @@
 
           await reloadAll();
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
           console.error(
-            "Accept error:",
             error
           );
 
@@ -5411,17 +5769,17 @@
               quoteId
           );
 
+
         if (!quote) {
           return;
         }
 
 
-        const ok =
-          window.confirm(
+        if (
+          !window.confirm(
             "Deze aanvraag permanent verwijderen?\n\nDit kan niet ongedaan worden gemaakt."
-          );
-
-        if (!ok) {
+          )
+        ) {
           return;
         }
 
@@ -5432,7 +5790,9 @@
             error
           } =
             await supabaseClient
-              .from("quotes")
+              .from(
+                "quotes"
+              )
               .delete()
               .eq(
                 "id",
@@ -5441,10 +5801,6 @@
 
 
           if (error) {
-
-            console.error(
-              error
-            );
 
             showToast(
               "Aanvraag kon niet worden verwijderd: " +
@@ -5468,7 +5824,9 @@
 
           await reloadAll();
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
           console.error(
             error
@@ -5485,7 +5843,7 @@
 
 
     /* =========================================================
-       EVENT SEARCH
+       EVENT FILTERS
        ========================================================= */
 
     const eventSearch =
@@ -5517,49 +5875,75 @@
           .trim()
           .toLowerCase();
 
+
       const status =
         eventStatusFilter.value;
 
 
-      return events.filter(
-        function (event) {
+      return events
+        .filter(
+          function (
+            event
+          ) {
 
-          const combined =
-            [
-              event.event_name,
-              event.name,
-              event.organisation,
-              event.email,
-              event.location,
-              event.event_type,
-              event.edition
-            ]
-              .filter(Boolean)
-              .join(" ")
-              .toLowerCase();
+            const combined =
+              [
+                event.event_name,
+                event.name,
+                event.organisation,
+                event.email,
+                event.location,
+                event.event_type,
+                event.edition
+              ]
+                .filter(
+                  Boolean
+                )
+                .join(
+                  " "
+                )
+                .toLowerCase();
 
 
-          return (
-            (!search ||
-              combined.includes(
-                search
-              )) &&
-            (
-              status ===
-                "all" ||
-              event.status ===
-                status
-            )
-          );
+            return (
+              (!search ||
+                combined.includes(
+                  search
+                )) &&
+              (
+                status ===
+                  "all" ||
+                event.status ===
+                  status
+              )
+            );
 
-        }
-      );
+          }
+        )
+        .sort(
+          function (
+            a,
+            b
+          ) {
+
+            return String(
+              a.event_date ||
+              ""
+            ).localeCompare(
+              String(
+                b.event_date ||
+                ""
+              )
+            );
+
+          }
+        );
 
     }
 
 
     /* =========================================================
-       RENDER EVENTS
+       EVENTS RENDER
        ========================================================= */
 
     function renderEvents() {
@@ -5568,7 +5952,9 @@
         getFilteredEvents();
 
 
-      if (!filtered.length) {
+      if (
+        !filtered.length
+      ) {
 
         eventsList.innerHTML = `
           <div class="empty">
@@ -5582,7 +5968,7 @@
             </strong>
 
             <p>
-              Maak een evenement aan of pas je filters aan.
+              Maak een evenement aan of verander de filters.
             </p>
 
           </div>
@@ -5591,21 +5977,6 @@
         return;
 
       }
-
-
-      filtered.sort(
-        function (a, b) {
-
-          return String(
-            a.event_date || ""
-          ).localeCompare(
-            String(
-              b.event_date || ""
-            )
-          );
-
-        }
-      );
 
 
       eventsList.innerHTML =
@@ -5622,28 +5993,53 @@
       event
     ) {
 
+      const date =
+        event.event_date
+          ? new Date(
+              String(
+                event.event_date
+              ).slice(
+                0,
+                10
+              ) +
+              "T00:00:00"
+            )
+          : null;
+
+
       return `
 
-        <article
-          class="event-card"
-        >
+        <article class="event-card">
 
           <div class="event-date-box">
 
             <div class="event-day">
-              ${safeText(
-                formatDay(
-                  event.event_date
-                )
-              )}
+              ${
+                date
+                  ? date.getDate()
+                  : "—"
+              }
             </div>
 
             <div class="event-month">
-              ${safeText(
-                formatMonthShort(
-                  event.event_date
-                )
-              )}
+              ${
+                date
+                  ? new Intl.DateTimeFormat(
+                      "nl-BE",
+                      {
+                        month:
+                          "short"
+                      }
+                    )
+                      .format(
+                        date
+                      )
+                      .replace(
+                        ".",
+                        ""
+                      )
+                  : "—"
+              }
             </div>
 
           </div>
@@ -5707,9 +6103,12 @@
           <div>
 
             <span
-              class="status ${statusClass(
-                event.status
-              )}"
+              class="
+                status
+                ${statusClass(
+                  event.status
+                )}
+              "
             >
               ${safeText(
                 statusLabel(
@@ -5737,31 +6136,21 @@
           <div class="event-actions">
 
             <button
-              class="button button-light"
-              type="button"
-              onclick="openEventDetail('${escapeHtml(
-                event.id
-              )}')"
-            >
-              Details
-            </button>
-
-            <button
               class="button button-blue"
-              type="button"
               onclick="openEventEdit('${escapeHtml(
                 event.id
               )}')"
+              type="button"
             >
               Bewerken
             </button>
 
             <button
               class="button button-red"
-              type="button"
               onclick="deleteEvent('${escapeHtml(
                 event.id
               )}')"
+              type="button"
             >
               Verwijderen
             </button>
@@ -5776,136 +6165,7 @@
 
 
     /* =========================================================
-       OPEN EVENT DETAIL
-       ========================================================= */
-
-    window.openEventDetail =
-      function (
-        eventId
-      ) {
-
-        const event =
-          events.find(
-            e =>
-              e.id ===
-              eventId
-          );
-
-        if (!event) {
-          return;
-        }
-
-
-        const overlay =
-          document.getElementById(
-            "eventModalOverlay"
-          );
-
-
-        fillEventForm(
-          event
-        );
-
-
-        document.getElementById(
-          "eventModalTitle"
-        ).textContent =
-          "Evenement bewerken";
-
-
-        openModal(
-          "eventModalOverlay"
-        );
-
-      };
-
-
-    /* =========================================================
-       LINKED EVENT
-       ========================================================= */
-
-    window.openLinkedEvent =
-      function (
-        quoteId
-      ) {
-
-        const event =
-          events.find(
-            function (item) {
-
-              return (
-                item.quote_id ===
-                quoteId
-              );
-
-            }
-          );
-
-
-        if (!event) {
-
-          /*
-           * Als quote_id niet bestaat in een oudere
-           * versie van de tabel, zoeken we nog op
-           * naam + datum.
-           */
-
-          const quote =
-            quotes.find(
-              q =>
-                q.id ===
-                quoteId
-            );
-
-
-          const fallbackEvent =
-            quote
-              ? events.find(
-                  e =>
-                    e.event_date ===
-                      quote.event_date &&
-                    (
-                      e.event_name ===
-                        quote.event_name ||
-                      e.name ===
-                        quote.name
-                    )
-                )
-              : null;
-
-
-          if (
-            fallbackEvent
-          ) {
-
-            openEventEdit(
-              fallbackEvent.id
-            );
-
-            return;
-
-          }
-
-
-          showToast(
-            "Gekoppeld evenement niet gevonden.",
-            "warning"
-          );
-
-          return;
-
-        }
-
-
-        openEventEdit(
-          event.id
-        );
-
-      };
-
-
-    /* =========================================================
-       FILL EVENT FORM
+       OPEN EVENT
        ========================================================= */
 
     function fillEventForm(
@@ -5915,7 +6175,8 @@
       document.getElementById(
         "eventId"
       ).value =
-        event?.id || "";
+        event?.id ||
+        "";
 
 
       document.getElementById(
@@ -6027,13 +6288,14 @@
     }
 
 
-    /* =========================================================
-       OPEN NEW EVENT
-       ========================================================= */
-
     function openNewEventForm(
       prefill = {}
     ) {
+
+      fillEventForm(
+        prefill
+      );
+
 
       document.getElementById(
         "eventId"
@@ -6045,106 +6307,6 @@
         "eventQuoteId"
       ).value =
         prefill.quote_id ||
-        "";
-
-
-      document.getElementById(
-        "eventName"
-      ).value =
-        prefill.event_name ||
-        "";
-
-
-      document.getElementById(
-        "eventCustomer"
-      ).value =
-        prefill.name ||
-        "";
-
-
-      document.getElementById(
-        "eventOrganisation"
-      ).value =
-        prefill.organisation ||
-        "";
-
-
-      document.getElementById(
-        "eventEmail"
-      ).value =
-        prefill.email ||
-        "";
-
-
-      document.getElementById(
-        "eventPhone"
-      ).value =
-        prefill.phone ||
-        "";
-
-
-      document.getElementById(
-        "eventDate"
-      ).value =
-        prefill.event_date ||
-        "";
-
-
-      document.getElementById(
-        "eventStartTime"
-      ).value =
-        formatTime(
-          prefill.start_time
-        );
-
-
-      document.getElementById(
-        "eventEndTime"
-      ).value =
-        formatTime(
-          prefill.end_time
-        );
-
-
-      document.getElementById(
-        "eventGuests"
-      ).value =
-        prefill.guests ??
-        "";
-
-
-      document.getElementById(
-        "eventLocation"
-      ).value =
-        prefill.location ||
-        "";
-
-
-      document.getElementById(
-        "eventEdition"
-      ).value =
-        prefill.edition ||
-        "waffle";
-
-
-      document.getElementById(
-        "eventPrice"
-      ).value =
-        prefill.final_price ??
-        prefill.estimated_price ??
-        "";
-
-
-      document.getElementById(
-        "eventStatus"
-      ).value =
-        "confirmed";
-
-
-      document.getElementById(
-        "eventNotes"
-      ).value =
-        prefill.practical_notes ||
         "";
 
 
@@ -6161,12 +6323,131 @@
     }
 
 
+    window.openEventEdit =
+      function (
+        eventId
+      ) {
+
+        const event =
+          events.find(
+            e =>
+              e.id ===
+              eventId
+          );
+
+
+        if (!event) {
+          return;
+        }
+
+
+        fillEventForm(
+          event
+        );
+
+
+        document.getElementById(
+          "eventModalTitle"
+        ).textContent =
+          "Evenement bewerken";
+
+
+        openModal(
+          "eventModalOverlay"
+        );
+
+      };
+
+
+    window.openEventDetail =
+      window.openEventEdit;
+
+
+    window.openLinkedEvent =
+      function (
+        quoteId
+      ) {
+
+        const linked =
+          events.find(
+            e =>
+              e.quote_id ===
+              quoteId
+          );
+
+
+        if (linked) {
+
+          openEventEdit(
+            linked.id
+          );
+
+          return;
+
+        }
+
+
+        const quote =
+          quotes.find(
+            q =>
+              q.id ===
+              quoteId
+          );
+
+
+        const fallback =
+          quote
+            ? events.find(
+                e =>
+                  e.event_date ===
+                    quote.event_date &&
+                  (
+                    e.event_name ===
+                      quote.event_name ||
+                    e.name ===
+                      quote.name
+                  )
+              )
+            : null;
+
+
+        if (fallback) {
+
+          openEventEdit(
+            fallback.id
+          );
+
+          return;
+
+        }
+
+
+        showToast(
+          "Gekoppeld evenement niet gevonden.",
+          "warning"
+        );
+
+      };
+
+
     /* =========================================================
        NEW EVENT BUTTONS
        ========================================================= */
 
     document.getElementById(
       "addEventButton"
+    ).addEventListener(
+      "click",
+      function () {
+
+        openNewEventForm();
+
+      }
+    );
+
+
+    document.getElementById(
+      "newEventFromQuotesButton"
     ).addEventListener(
       "click",
       function () {
@@ -6194,18 +6475,6 @@
     );
 
 
-    document.getElementById(
-      "newEventFromQuotesButton"
-    ).addEventListener(
-      "click",
-      function () {
-
-        openNewEventForm();
-
-      }
-    );
-
-
     /* =========================================================
        SAVE EVENT
        ========================================================= */
@@ -6214,7 +6483,9 @@
       "eventForm"
     ).addEventListener(
       "submit",
-      async function (event) {
+      async function (
+        event
+      ) {
 
         event.preventDefault();
 
@@ -6225,42 +6496,17 @@
           ).value;
 
 
-        const quoteId =
-          document.getElementById(
-            "eventQuoteId"
-          ).value ||
-          null;
-
-
-        const eventDate =
-          document.getElementById(
-            "eventDate"
-          ).value;
-
-
-        const startTime =
-          document.getElementById(
-            "eventStartTime"
-          ).value ||
-          null;
-
-
-        const endTime =
-          document.getElementById(
-            "eventEndTime"
-          ).value ||
-          null;
-
-
-        /*
-         * Conflictcontrole vóór opslaan.
-         */
-
         const conflict =
           findEventConflict(
-            eventDate,
-            startTime,
-            endTime,
+            document.getElementById(
+              "eventDate"
+            ).value,
+            document.getElementById(
+              "eventStartTime"
+            ).value,
+            document.getElementById(
+              "eventEndTime"
+            ).value,
             id
           );
 
@@ -6269,8 +6515,11 @@
 
           const proceed =
             window.confirm(
-              "Er is al een ander evenement met overlappende uren op deze datum.\n\n" +
-              conflict.event_name +
+              "Er bestaat al een bevestigd evenement met overlappende uren.\n\n" +
+              (
+                conflict.event_name ||
+                "Bestaand evenement"
+              ) +
               "\n" +
               formatTimeRange(
                 conflict.start_time,
@@ -6278,6 +6527,7 @@
               ) +
               "\n\nToch opslaan?"
             );
+
 
           if (!proceed) {
             return;
@@ -6289,7 +6539,10 @@
         const payload = {
 
           quote_id:
-            quoteId,
+            document.getElementById(
+              "eventQuoteId"
+            ).value ||
+            null,
 
           name:
             document.getElementById(
@@ -6317,13 +6570,21 @@
             ).value.trim(),
 
           event_date:
-            eventDate,
+            document.getElementById(
+              "eventDate"
+            ).value,
 
           start_time:
-            startTime,
+            document.getElementById(
+              "eventStartTime"
+            ).value ||
+            null,
 
           end_time:
-            endTime,
+            document.getElementById(
+              "eventEndTime"
+            ).value ||
+            null,
 
           location:
             document.getElementById(
@@ -6383,7 +6644,9 @@
 
             const result =
               await supabaseClient
-                .from("events")
+                .from(
+                  "events"
+                )
                 .update(
                   payload
                 )
@@ -6392,6 +6655,7 @@
                   id
                 );
 
+
             error =
               result.error;
 
@@ -6399,19 +6663,17 @@
 
             const result =
               await supabaseClient
-                .from("events")
+                .from(
+                  "events"
+                )
                 .insert(
                   payload
                 );
 
+
             error =
               result.error;
 
-
-            /*
-             * Fallback wanneer quote_id nog niet
-             * beschikbaar is.
-             */
 
             if (
               error &&
@@ -6430,14 +6692,19 @@
                   ...payload
                 };
 
+
               delete fallback.quote_id;
+
 
               const retry =
                 await supabaseClient
-                  .from("events")
+                  .from(
+                    "events"
+                  )
                   .insert(
                     fallback
                   );
+
 
               error =
                 retry.error;
@@ -6448,11 +6715,6 @@
 
 
           if (error) {
-
-            console.error(
-              "Event save error:",
-              error
-            );
 
             showToast(
               "Evenement kon niet worden opgeslagen: " +
@@ -6465,9 +6727,7 @@
           }
 
 
-          closeModal(
-            "eventModalOverlay"
-          );
+          closeAllModals();
 
 
           showToast(
@@ -6480,14 +6740,16 @@
 
           await reloadAll();
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
           console.error(
             error
           );
 
           showToast(
-            "Er ging iets mis bij het opslaan van het evenement.",
+            "Er ging iets mis bij het opslaan.",
             "error"
           );
 
@@ -6495,45 +6757,6 @@
 
       }
     );
-
-
-    /* =========================================================
-       OPEN EVENT EDIT
-       ========================================================= */
-
-    window.openEventEdit =
-      function (
-        eventId
-      ) {
-
-        const event =
-          events.find(
-            e =>
-              e.id ===
-              eventId
-          );
-
-        if (!event) {
-          return;
-        }
-
-
-        fillEventForm(
-          event
-        );
-
-
-        document.getElementById(
-          "eventModalTitle"
-        ).textContent =
-          "Evenement bewerken";
-
-
-        openModal(
-          "eventModalOverlay"
-        );
-
-      };
 
 
     /* =========================================================
@@ -6552,22 +6775,22 @@
               eventId
           );
 
+
         if (!event) {
           return;
         }
 
 
-        const ok =
-          window.confirm(
+        if (
+          !window.confirm(
             "Evenement \"" +
             (
               event.event_name ||
               "Evenement"
             ) +
             "\" verwijderen?"
-          );
-
-        if (!ok) {
+          )
+        ) {
           return;
         }
 
@@ -6578,7 +6801,9 @@
             error
           } =
             await supabaseClient
-              .from("events")
+              .from(
+                "events"
+              )
               .delete()
               .eq(
                 "id",
@@ -6588,12 +6813,9 @@
 
           if (error) {
 
-            console.error(
-              error
-            );
-
             showToast(
-              "Evenement kon niet worden verwijderd.",
+              "Evenement kon niet worden verwijderd: " +
+              error.message,
               "error"
             );
 
@@ -6610,7 +6832,9 @@
 
           await reloadAll();
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
           console.error(
             error
@@ -6639,7 +6863,8 @@
         calendarDate =
           new Date(
             calendarDate.getFullYear(),
-            calendarDate.getMonth() - 1,
+            calendarDate.getMonth() -
+              1,
             1
           );
 
@@ -6658,7 +6883,8 @@
         calendarDate =
           new Date(
             calendarDate.getFullYear(),
-            calendarDate.getMonth() + 1,
+            calendarDate.getMonth() +
+              1,
             1
           );
 
@@ -6677,12 +6903,14 @@
         const now =
           new Date();
 
+
         calendarDate =
           new Date(
             now.getFullYear(),
             now.getMonth(),
             1
           );
+
 
         renderCalendar();
 
@@ -6695,6 +6923,7 @@
       const year =
         calendarDate.getFullYear();
 
+
       const month =
         calendarDate.getMonth();
 
@@ -6703,8 +6932,10 @@
         new Intl.DateTimeFormat(
           "nl-BE",
           {
-            month: "long",
-            year: "numeric"
+            month:
+              "long",
+            year:
+              "numeric"
           }
         ).format(
           calendarDate
@@ -6714,7 +6945,7 @@
       let html = "";
 
 
-      const weekdays = [
+      [
         "Ma",
         "Di",
         "Wo",
@@ -6722,20 +6953,20 @@
         "Vr",
         "Za",
         "Zo"
-      ];
+      ]
+        .forEach(
+          function (
+            day
+          ) {
 
+            html += `
+              <div class="calendar-weekday">
+                ${day}
+              </div>
+            `;
 
-      weekdays.forEach(
-        function (weekday) {
-
-          html += `
-            <div class="calendar-weekday">
-              ${weekday}
-            </div>
-          `;
-
-        }
-      );
+          }
+        );
 
 
       const firstDay =
@@ -6752,19 +6983,20 @@
 
 
       if (
-        firstWeekday < 0
+        firstWeekday <
+        0
       ) {
         firstWeekday = 6;
       }
 
 
-      /*
-       * Vorige maand.
-       */
-
       for (
-        let i = firstWeekday - 1;
+        let i =
+          firstWeekday -
+          1;
+
         i >= 0;
+
         i--
       ) {
 
@@ -6774,6 +7006,7 @@
             month,
             -i
           );
+
 
         html +=
           renderCalendarDay(
@@ -6795,7 +7028,7 @@
       for (
         let day = 1;
         day <=
-        daysInMonth;
+          daysInMonth;
         day++
       ) {
 
@@ -6806,6 +7039,7 @@
             day
           );
 
+
         html +=
           renderCalendarDay(
             date,
@@ -6815,34 +7049,35 @@
       }
 
 
-      /*
-       * Volgende maand opvullen.
-       */
-
       const totalCells =
         firstWeekday +
         daysInMonth;
 
 
       const remaining =
-        (7 -
-          (totalCells % 7)) %
-        7;
+        (
+          7 -
+          (
+            totalCells %
+            7
+          )
+        ) % 7;
 
 
       for (
         let i = 1;
-        i <= remaining;
+        i <=
+          remaining;
         i++
       ) {
 
         const date =
           new Date(
             year,
-            month +
-              1,
+            month + 1,
             i
           );
+
 
         html +=
           renderCalendarDay(
@@ -6878,7 +7113,9 @@
 
       const dayEvents =
         events.filter(
-          function (event) {
+          function (
+            event
+          ) {
 
             return (
               event.event_date ===
@@ -6894,7 +7131,11 @@
         <div
           class="
             calendar-day
-            ${otherMonth ? "other-month" : ""}
+            ${
+              otherMonth
+                ? "other-month"
+                : ""
+            }
             ${
               dateString ===
               today
@@ -6921,19 +7162,21 @@
                     <button
                       class="
                         calendar-event
-                        ${editionClass(
-                          event.edition
-                        )}
+                        ${
+                          event.edition ||
+                          "waffle"
+                        }
                       "
+                      type="button"
+                      onclick="openEventEdit('${escapeHtml(
+                        event.id
+                      )}')"
                       title="${escapeHtml(
                         event.event_name ||
                         "Evenement"
                       )}"
-                      onclick="openEventEdit('${escapeHtml(
-                        event.id
-                      )}')"
-                      type="button"
                     >
+
                       ${
                         event.start_time
                           ? escapeHtml(
@@ -6974,7 +7217,8 @@
         date.getFullYear() +
         "-" +
         String(
-          date.getMonth() + 1
+          date.getMonth() +
+          1
         ).padStart(
           2,
           "0"
@@ -6992,7 +7236,7 @@
 
 
     /* =========================================================
-       UPCOMING EVENTS
+       UPCOMING
        ========================================================= */
 
     function renderUpcoming() {
@@ -7006,7 +7250,9 @@
       const upcoming =
         events
           .filter(
-            function (event) {
+            function (
+              event
+            ) {
 
               return (
                 event.status ===
@@ -7021,7 +7267,10 @@
             }
           )
           .sort(
-            function (a, b) {
+            function (
+              a,
+              b
+            ) {
 
               const dateCompare =
                 String(
@@ -7036,9 +7285,12 @@
 
 
               if (
-                dateCompare !== 0
+                dateCompare !==
+                0
               ) {
+
                 return dateCompare;
+
               }
 
 
@@ -7060,7 +7312,9 @@
           );
 
 
-      if (!upcoming.length) {
+      if (
+        !upcoming.length
+      ) {
 
         upcomingList.innerHTML = `
           <div class="empty">
@@ -7096,14 +7350,14 @@
 
 
     /* =========================================================
-       FIND EVENT CONFLICT
+       CONFLICT
        ========================================================= */
 
     function findEventConflict(
       date,
       startTime,
       endTime,
-      ignoreEventId = ""
+      ignoreId = ""
     ) {
 
       if (
@@ -7121,6 +7375,7 @@
         timeToMinutes(
           startTime
         );
+
 
       const newEnd =
         timeToMinutes(
@@ -7144,15 +7399,15 @@
 
       return (
         events.find(
-          function (event) {
+          function (
+            event
+          ) {
 
             if (
               event.id ===
-              ignoreEventId
+              ignoreId
             ) {
-
               return false;
-
             }
 
 
@@ -7160,9 +7415,7 @@
               event.status !==
               "confirmed"
             ) {
-
               return false;
-
             }
 
 
@@ -7170,9 +7423,7 @@
               event.event_date !==
               date
             ) {
-
               return false;
-
             }
 
 
@@ -7180,9 +7431,7 @@
               !event.start_time ||
               !event.end_time
             ) {
-
               return false;
-
             }
 
 
@@ -7190,6 +7439,7 @@
               timeToMinutes(
                 event.start_time
               );
+
 
             const oldEnd =
               timeToMinutes(
@@ -7213,20 +7463,25 @@
 
 
     function timeToMinutes(
-      time
+      value
     ) {
 
-      if (!time) {
+      if (!value) {
         return null;
       }
 
 
       const parts =
         String(
-          time
+          value
         )
-          .slice(0, 5)
-          .split(":");
+          .slice(
+            0,
+            5
+          )
+          .split(
+            ":"
+          );
 
 
       if (
@@ -7243,6 +7498,7 @@
         Number(
           parts[0]
         );
+
 
       const minutes =
         Number(
@@ -7265,7 +7521,8 @@
 
 
       return (
-        hours * 60 +
+        hours *
+        60 +
         minutes
       );
 
@@ -7280,14 +7537,15 @@
       id
     ) {
 
-      const element =
+      const modal =
         document.getElementById(
           id
         );
 
-      if (element) {
 
-        element.classList.add(
+      if (modal) {
+
+        modal.classList.add(
           "open"
         );
 
@@ -7300,14 +7558,15 @@
       id
     ) {
 
-      const element =
+      const modal =
         document.getElementById(
           id
         );
 
-      if (element) {
 
-        element.classList.remove(
+      if (modal) {
+
+        modal.classList.remove(
           "open"
         );
 
@@ -7323,7 +7582,9 @@
           ".modal-overlay"
         )
         .forEach(
-          function (modal) {
+          function (
+            modal
+          ) {
 
             modal.classList.remove(
               "open"
@@ -7340,7 +7601,9 @@
         "[data-close-modal]"
       )
       .forEach(
-        function (button) {
+        function (
+          button
+        ) {
 
           button.addEventListener(
             "click",
@@ -7363,11 +7626,15 @@
         ".modal-overlay"
       )
       .forEach(
-        function (overlay) {
+        function (
+          overlay
+        ) {
 
           overlay.addEventListener(
             "click",
-            function (event) {
+            function (
+              event
+            ) {
 
               if (
                 event.target ===
@@ -7389,7 +7656,9 @@
 
     document.addEventListener(
       "keydown",
-      function (event) {
+      function (
+        event
+      ) {
 
         if (
           event.key ===
@@ -7431,13 +7700,14 @@
 
           await reloadAll();
 
-
           showToast(
             "Dashboard vernieuwd.",
             "success"
           );
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
           console.error(
             error
@@ -7463,20 +7733,85 @@
 
 
     /* =========================================================
+       INITIALIZATION
+       ========================================================= */
+
+    let dashboardInitialized =
+      false;
+
+
+    async function initializeDashboard() {
+
+      if (
+        dashboardInitialized
+      ) {
+
+        renderCurrentView();
+
+        return;
+
+      }
+
+
+      dashboardInitialized =
+        true;
+
+
+      try {
+
+        await reloadAll();
+
+        setView(
+          "quotes"
+        );
+
+      } catch (
+        error
+      ) {
+
+        console.error(
+          "Dashboard initialization error:",
+          error
+        );
+
+        showToast(
+          "Het dashboard kon niet volledig worden geladen.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
        AUTO REFRESH
        ========================================================= */
 
     setInterval(
       async function () {
 
+        if (
+          !adminApp.classList.contains(
+            "unlocked"
+          )
+        ) {
+
+          return;
+
+        }
+
+
         try {
 
           await reloadAll();
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
           console.warn(
-            "Automatic refresh failed:",
+            "Auto refresh failed:",
             error
           );
 
@@ -7491,34 +7826,31 @@
        START
        ========================================================= */
 
-    async function init() {
+    const alreadyUnlocked =
+      localStorage.getItem(
+        "hummieBearAdminUnlocked"
+      ) ===
+      "true";
 
-      try {
 
-        await reloadAll();
+    if (
+      alreadyUnlocked
+    ) {
 
-        setView(
-          "quotes"
-        );
+      unlockAdmin();
 
-      } catch (error) {
+    } else {
 
-        console.error(
-          "Initialisation error:",
-          error
-        );
+      setTimeout(
+        function () {
 
-        showToast(
-          "Het dashboard kon niet volledig geladen worden.",
-          "error"
-        );
+          pinInput.focus();
 
-      }
+        },
+        100
+      );
 
     }
-
-
-    init();
 
   </script>
 
