@@ -56,35 +56,114 @@
   const menuToggle = $(".menu-toggle");
   const mainNav = $(".main-nav");
 
+  function closeMobileMenu() {
+
+    if (!menuToggle || !mainNav) {
+      return;
+    }
+
+    mainNav.classList.remove("open");
+
+    menuToggle.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+
+    menuToggle.setAttribute(
+      "aria-label",
+      "Menu openen"
+    );
+
+  }
+
+  function toggleMobileMenu(event) {
+
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    if (!menuToggle || !mainNav) {
+      return;
+    }
+
+    const willOpen =
+      !mainNav.classList.contains("open");
+
+    mainNav.classList.toggle(
+      "open",
+      willOpen
+    );
+
+    menuToggle.setAttribute(
+      "aria-expanded",
+      willOpen ? "true" : "false"
+    );
+
+    menuToggle.setAttribute(
+      "aria-label",
+      willOpen
+        ? "Menu sluiten"
+        : "Menu openen"
+    );
+
+  }
+
   if (menuToggle && mainNav) {
 
-    menuToggle.addEventListener("click", () => {
+    menuToggle.addEventListener(
+      "click",
+      toggleMobileMenu,
+      false
+    );
 
-      const isOpen =
-        mainNav.classList.toggle("open");
+    menuToggle.addEventListener(
+      "touchend",
+      (event) => {
+        event.preventDefault();
+        toggleMobileMenu(event);
+      },
+      { passive: false }
+    );
 
-      menuToggle.setAttribute(
-        "aria-expanded",
-        isOpen ? "true" : "false"
+    $(".main-nav a").forEach((link) => {
+
+      link.addEventListener(
+        "click",
+        () => {
+          closeMobileMenu();
+        }
       );
 
     });
 
+    document.addEventListener(
+      "click",
+      (event) => {
 
-    $$(".main-nav a").forEach((link) => {
+        if (
+          mainNav.classList.contains("open") &&
+          !mainNav.contains(event.target) &&
+          !menuToggle.contains(event.target)
+        ) {
 
-      link.addEventListener("click", () => {
+          closeMobileMenu();
 
-        mainNav.classList.remove("open");
+        }
 
-        menuToggle.setAttribute(
-          "aria-expanded",
-          "false"
-        );
+      }
+    );
 
-      });
+    window.addEventListener(
+      "resize",
+      () => {
 
-    });
+        if (window.innerWidth > 900) {
+          closeMobileMenu();
+        }
+
+      }
+    );
 
   }
 
