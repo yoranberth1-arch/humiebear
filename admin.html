@@ -6,18 +6,84 @@
 
   <title>Hummie Bear – Admin</title>
 
+  <meta
+    name="description"
+    content="Privé beheeromgeving van Hummie Bear voor aanvragen en evenementen."
+  >
+
   <style>
+    /* =========================================================
+       HUMMIE BEAR ADMIN
+       Complete admin dashboard
+       ========================================================= */
+
+    :root {
+      --pink: #efa0bd;
+      --pink-dark: #d9789d;
+      --pink-light: #fce4ed;
+      --pink-soft: #fff4f7;
+
+      --cream: #f8f1e8;
+      --cream-dark: #f1e5d9;
+
+      --brown: #3d2a20;
+      --brown-light: #6f5b4f;
+
+      --white: #ffffff;
+      --line: #eadfd5;
+
+      --green: #2f7d4b;
+      --green-bg: #eef9f1;
+
+      --orange: #a86512;
+      --orange-bg: #fff6e8;
+
+      --red: #a32929;
+      --red-bg: #fff0f0;
+
+      --blue: #34689d;
+      --blue-bg: #edf5ff;
+
+      --shadow: 0 14px 40px rgba(61, 42, 32, 0.09);
+      --shadow-small: 0 6px 20px rgba(61, 42, 32, 0.07);
+
+      --radius: 20px;
+    }
+
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f8f1e8;
-      color: #3d2a20;
+      font-family:
+        Inter,
+        Arial,
+        Helvetica,
+        sans-serif;
+      background: var(--cream);
+      color: var(--brown);
       min-height: 100vh;
     }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* =========================================================
+       LOGIN
+       ========================================================= */
 
     .login-page {
       min-height: 100vh;
@@ -25,98 +91,137 @@
       align-items: center;
       justify-content: center;
       padding: 24px;
+      background:
+        radial-gradient(
+          circle at 20% 20%,
+          rgba(239, 160, 189, 0.18),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 80% 80%,
+          rgba(239, 160, 189, 0.15),
+          transparent 30%
+        ),
+        var(--cream);
     }
 
     .login-card {
       width: 100%;
-      max-width: 430px;
-      background: #fff;
-      border-radius: 24px;
-      padding: 38px;
-      box-shadow: 0 18px 50px rgba(61, 42, 32, 0.12);
-      border: 1px solid #eadfd5;
+      max-width: 450px;
+      background: var(--white);
+      border-radius: 28px;
+      padding: 40px;
+      box-shadow: 0 22px 70px rgba(61, 42, 32, 0.13);
+      border: 1px solid var(--line);
     }
 
-    .logo {
-      width: 64px;
-      height: 64px;
+    .login-logo {
+      width: 68px;
+      height: 68px;
       border-radius: 50%;
-      background: #efa0bd;
+      background: var(--pink);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
-      font-weight: 800;
-      font-size: 20px;
-      color: #fff;
+      margin-bottom: 22px;
+      font-weight: 900;
+      font-size: 21px;
+      color: white;
+      box-shadow: 0 10px 25px rgba(217, 120, 157, 0.25);
     }
 
-    h1 {
+    .login-card h1 {
       margin: 0 0 8px;
-      font-size: 30px;
+      font-size: 31px;
+      letter-spacing: -0.5px;
     }
 
-    .subtitle {
-      margin: 0 0 28px;
-      color: #76675e;
+    .login-subtitle {
+      margin: 0 0 30px;
+      color: var(--brown-light);
       line-height: 1.6;
-    }
-
-    label {
-      display: block;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 8px;
     }
 
     .field {
       margin-bottom: 18px;
     }
 
-    input {
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea,
+    .search-input,
+    .filter-select {
       width: 100%;
-      padding: 14px 15px;
       border: 1px solid #d9ccc2;
-      border-radius: 12px;
-      font-size: 16px;
-      outline: none;
-      background: #fff;
-      color: #3d2a20;
-    }
-
-    input:focus {
-      border-color: #efa0bd;
-      box-shadow: 0 0 0 3px rgba(239, 160, 189, 0.18);
-    }
-
-    button {
-      width: 100%;
-      border: 0;
       border-radius: 13px;
-      padding: 15px;
-      background: #3d2a20;
-      color: #fff;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
+      padding: 14px 15px;
+      outline: none;
+      background: white;
+      color: var(--brown);
       transition: 0.2s;
     }
 
-    button:hover {
-      transform: translateY(-1px);
-      background: #2f211a;
+    .field textarea {
+      min-height: 110px;
+      resize: vertical;
     }
 
-    button:disabled {
-      opacity: 0.6;
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus,
+    .search-input:focus,
+    .filter-select:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 4px rgba(239, 160, 189, 0.16);
+    }
+
+    .primary-button {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 15px 18px;
+      background: var(--brown);
+      color: white;
+      font-weight: 800;
+      transition: 0.2s;
+    }
+
+    .primary-button:hover {
+      background: #2f211a;
+      transform: translateY(-1px);
+    }
+
+    .primary-button:disabled {
+      opacity: 0.55;
       cursor: not-allowed;
       transform: none;
     }
 
+    .forgot-password {
+      width: 100%;
+      margin-top: 10px;
+      padding: 11px;
+      border: 0;
+      background: transparent;
+      color: var(--brown-light);
+      font-weight: 700;
+    }
+
+    .forgot-password:hover {
+      color: var(--pink-dark);
+    }
+
     .message {
       margin-top: 16px;
-      padding: 12px 14px;
-      border-radius: 10px;
+      padding: 13px 15px;
+      border-radius: 12px;
       display: none;
       font-size: 14px;
       line-height: 1.5;
@@ -124,17 +229,21 @@
 
     .message.error {
       display: block;
-      background: #fff0f0;
-      color: #a32929;
+      background: var(--red-bg);
+      color: var(--red);
       border: 1px solid #f0caca;
     }
 
     .message.success {
       display: block;
-      background: #effaf2;
-      color: #24723a;
+      background: var(--green-bg);
+      color: var(--green);
       border: 1px solid #c9e8d0;
     }
+
+    /* =========================================================
+       DASHBOARD
+       ========================================================= */
 
     .dashboard {
       display: none;
@@ -142,54 +251,85 @@
     }
 
     .topbar {
-      background: #fff;
-      border-bottom: 1px solid #eadfd5;
-      padding: 18px 28px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+
+      border-bottom: 1px solid var(--line);
+
+      padding: 15px 28px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 800;
-      font-size: 20px;
+      font-weight: 900;
+      font-size: 19px;
     }
 
     .brand-mark {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: #efa0bd;
+      background: var(--pink);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
+      color: white;
+      font-weight: 900;
       font-size: 14px;
+      box-shadow: 0 6px 15px rgba(217, 120, 157, 0.2);
     }
 
-    .logout {
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topbar-button {
       width: auto;
-      padding: 10px 16px;
-      background: #f4ebe3;
-      color: #3d2a20;
-      font-size: 14px;
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 15px;
+      background: var(--cream-dark);
+      color: var(--brown);
+      font-weight: 800;
+      transition: 0.2s;
     }
 
-    .logout:hover {
+    .topbar-button:hover {
       background: #eadfd5;
+      transform: translateY(-1px);
+    }
+
+    .logout-button {
+      width: auto;
+      border: 0;
+      border-radius: 12px;
+      padding: 10px 15px;
+      background: var(--brown);
+      color: white;
+      font-weight: 800;
+    }
+
+    .logout-button:hover {
+      background: #2f211a;
     }
 
     .dashboard-content {
-      max-width: 1250px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 35px 24px 60px;
+      padding: 35px 24px 70px;
     }
 
     .welcome {
@@ -198,87 +338,742 @@
 
     .welcome h2 {
       margin: 0 0 7px;
-      font-size: 32px;
+      font-size: 33px;
+      letter-spacing: -0.5px;
     }
 
     .welcome p {
       margin: 0;
-      color: #76675e;
+      color: var(--brown-light);
+      line-height: 1.6;
     }
+
+    /* =========================================================
+       STATS
+       ========================================================= */
 
     .stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      margin-bottom: 30px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
     }
 
     .stat-card {
-      background: #fff;
-      border: 1px solid #eadfd5;
-      border-radius: 18px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 20px;
       padding: 22px;
+      box-shadow: var(--shadow-small);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: "";
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--pink-soft);
+      right: -25px;
+      top: -25px;
     }
 
     .stat-label {
-      color: #76675e;
-      font-size: 14px;
+      color: var(--brown-light);
+      font-size: 13px;
+      font-weight: 700;
       margin-bottom: 10px;
     }
 
     .stat-number {
-      font-size: 30px;
-      font-weight: 800;
+      font-size: 31px;
+      font-weight: 900;
+      position: relative;
+      z-index: 1;
     }
 
+    /* =========================================================
+       PANELS
+       ========================================================= */
+
     .panel {
-      background: #fff;
-      border: 1px solid #eadfd5;
-      border-radius: 20px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 22px;
       overflow: hidden;
+      box-shadow: var(--shadow-small);
+      margin-bottom: 24px;
     }
 
     .panel-header {
       padding: 22px 24px;
-      border-bottom: 1px solid #eadfd5;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .panel-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
     }
 
     .panel-header h3 {
       margin: 0 0 5px;
-      font-size: 20px;
+      font-size: 21px;
     }
 
     .panel-header p {
       margin: 0;
+      color: var(--brown-light);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* =========================================================
+       FILTERS
+       ========================================================= */
+
+    .filters {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 1fr 190px 190px;
+      gap: 12px;
+    }
+
+    .search-wrapper {
+      position: relative;
+    }
+
+    .search-input {
+      padding-left: 43px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--brown-light);
+      pointer-events: none;
+    }
+
+    /* =========================================================
+       QUOTES LIST
+       ========================================================= */
+
+    .quotes-list {
+      padding: 18px;
+      display: grid;
+      gap: 13px;
+    }
+
+    .quote-card {
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      padding: 18px;
+      background: #fffdfb;
+      transition: 0.2s;
+    }
+
+    .quote-card:hover {
+      border-color: var(--pink);
+      box-shadow: 0 8px 24px rgba(61, 42, 32, 0.07);
+      transform: translateY(-1px);
+    }
+
+    .quote-main {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 150px;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .quote-title {
+      font-weight: 900;
+      font-size: 17px;
+      margin-bottom: 5px;
+    }
+
+    .quote-company {
+      font-size: 13px;
+      color: var(--brown-light);
+      margin-bottom: 8px;
+    }
+
+    .quote-event {
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .quote-meta {
+      font-size: 13px;
+      color: var(--brown-light);
+      line-height: 1.6;
+    }
+
+    .quote-price {
+      font-weight: 900;
+      font-size: 17px;
+    }
+
+    .quote-date {
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .quote-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .small-button {
+      border: 0;
+      border-radius: 10px;
+      padding: 9px 11px;
+      font-size: 12px;
+      font-weight: 800;
+      transition: 0.2s;
+    }
+
+    .small-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button-details {
+      background: var(--cream-dark);
+      color: var(--brown);
+    }
+
+    .button-accept {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .button-progress {
+      background: var(--orange-bg);
+      color: var(--orange);
+    }
+
+    .button-reject {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .button-delete {
+      background: #f3eeee;
+      color: #765e5e;
+    }
+
+    /* =========================================================
+       STATUS
+       ========================================================= */
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .status-new {
+      color: var(--blue);
+      background: var(--blue-bg);
+    }
+
+    .status-in-progress {
+      color: var(--orange);
+      background: var(--orange-bg);
+    }
+
+    .status-accepted {
+      color: var(--green);
+      background: var(--green-bg);
+    }
+
+    .status-rejected {
+      color: var(--red);
+      background: var(--red-bg);
+    }
+
+    .status-cancelled {
       color: #76675e;
+      background: #f3eee9;
+    }
+
+    /* =========================================================
+       EMPTY / LOADING
+       ========================================================= */
+
+    .empty {
+      padding: 55px 24px;
+      text-align: center;
+      color: var(--brown-light);
+    }
+
+    .empty-icon {
+      width: 55px;
+      height: 55px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background: var(--pink-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .loading {
+      padding: 45px;
+      text-align: center;
+      color: var(--brown-light);
+    }
+
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 3px solid var(--pink-light);
+      border-top-color: var(--pink-dark);
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =========================================================
+       MODAL
+       ========================================================= */
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(35, 24, 18, 0.55);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 850px;
+      max-height: 90vh;
+      overflow: auto;
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal-header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: white;
+      border-bottom: 1px solid var(--line);
+      padding: 21px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 21px;
+    }
+
+    .close-modal {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 0;
+      background: var(--cream-dark);
+      color: var(--brown);
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .modal-body {
+      padding: 25px;
+    }
+
+    .detail-header {
+      background: var(--pink-soft);
+      border: 1px solid var(--pink-light);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .detail-header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .detail-header h2 {
+      margin: 0 0 6px;
+      font-size: 25px;
+    }
+
+    .detail-header p {
+      margin: 0;
+      color: var(--brown-light);
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .detail-section {
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      padding: 17px;
+    }
+
+    .detail-section.full {
+      grid-column: 1 / -1;
+    }
+
+    .detail-section h4 {
+      margin: 0 0 13px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--brown-light);
+    }
+
+    .detail-row {
+      display: grid;
+      grid-template-columns: 145px 1fr;
+      gap: 10px;
+      padding: 7px 0;
+      border-bottom: 1px solid #f1e9e2;
       font-size: 14px;
     }
 
-    .empty {
-      padding: 45px 24px;
-      text-align: center;
-      color: #76675e;
+    .detail-row:last-child {
+      border-bottom: 0;
     }
 
-    @media (max-width: 700px) {
-      .login-card {
-        padding: 28px 22px;
+    .detail-label {
+      color: var(--brown-light);
+    }
+
+    .detail-value {
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .options-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .option-pill {
+      background: var(--cream-dark);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+
+    .modal-action {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 17px;
+      font-weight: 800;
+    }
+
+    .modal-action.accept {
+      background: var(--green);
+      color: white;
+    }
+
+    .modal-action.progress {
+      background: var(--orange-bg);
+      color: var(--orange);
+    }
+
+    .modal-action.reject {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .modal-action.close {
+      background: var(--cream-dark);
+      color: var(--brown);
+    }
+
+    /* =========================================================
+       TOAST
+       ========================================================= */
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 200;
+      max-width: 390px;
+      background: var(--brown);
+      color: white;
+      border-radius: 14px;
+      padding: 14px 17px;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+      transform: translateY(130px);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast.success {
+      background: var(--green);
+    }
+
+    .toast.error {
+      background: var(--red);
+    }
+
+    /* =========================================================
+       CALENDAR PREVIEW
+       ========================================================= */
+
+    .calendar-placeholder {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .calendar-day-name {
+      font-size: 11px;
+      text-align: center;
+      color: var(--brown-light);
+      font-weight: 900;
+      padding: 5px;
+    }
+
+    .calendar-day {
+      min-height: 75px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px;
+      background: #fffdfb;
+    }
+
+    .calendar-day-number {
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .calendar-event {
+      margin-top: 6px;
+      padding: 5px 6px;
+      border-radius: 7px;
+      background: var(--pink-light);
+      color: var(--brown);
+      font-size: 10px;
+      font-weight: 800;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* =========================================================
+       MOBILE
+       ========================================================= */
+
+    @media (max-width: 1100px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
       }
 
+      .quote-main {
+        grid-template-columns: 1.5fr 1fr 1fr;
+      }
+
+      .quote-actions {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 800px) {
       .topbar {
-        padding: 14px 16px;
+        padding: 13px 16px;
+      }
+
+      .brand {
+        font-size: 16px;
+      }
+
+      .brand-mark {
+        width: 39px;
+        height: 39px;
+      }
+
+      .topbar-actions {
+        gap: 5px;
+      }
+
+      .topbar-button,
+      .logout-button {
+        padding: 9px 10px;
+        font-size: 12px;
       }
 
       .dashboard-content {
-        padding: 25px 16px 40px;
+        padding: 25px 15px 45px;
+      }
+
+      .welcome h2 {
+        font-size: 27px;
+      }
+
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .quote-main {
+        grid-template-columns: 1fr 1fr;
+        gap: 13px;
+      }
+
+      .quote-primary {
+        grid-column: 1 / -1;
+      }
+
+      .quote-actions {
+        grid-column: 1 / -1;
+      }
+
+      .detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-section.full {
+        grid-column: auto;
+      }
+
+      .calendar-placeholder {
+        padding: 15px;
+        gap: 4px;
+      }
+
+      .calendar-day {
+        min-height: 55px;
+        padding: 5px;
+      }
+
+      .calendar-event {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .login-card {
+        padding: 28px 21px;
       }
 
       .stats {
         grid-template-columns: 1fr;
       }
 
-      .welcome h2 {
-        font-size: 27px;
+      .quote-main {
+        grid-template-columns: 1fr;
+      }
+
+      .quote-primary {
+        grid-column: auto;
+      }
+
+      .quote-actions {
+        grid-column: auto;
+      }
+
+      .quote-actions .small-button {
+        flex: 1 1 45%;
+      }
+
+      .detail-header-top {
+        flex-direction: column;
+      }
+
+      .detail-row {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+
+      .modal-overlay {
+        padding: 8px;
+      }
+
+      .modal {
+        max-height: 94vh;
+        border-radius: 19px;
+      }
+
+      .modal-body {
+        padding: 17px;
+      }
+
+      .modal-actions {
+        flex-direction: column;
+      }
+
+      .modal-action {
+        width: 100%;
+      }
+
+      .calendar-day-name {
+        font-size: 9px;
       }
     }
   </style>
@@ -286,154 +1081,446 @@
 
 <body>
 
-  <!-- LOGIN -->
+  <!-- =========================================================
+       LOGIN
+       ========================================================= -->
+
   <section class="login-page" id="loginPage">
+
     <div class="login-card">
 
-      <div class="logo">HB</div>
+      <div class="login-logo">
+        HB
+      </div>
 
       <h1>Hummie Bear</h1>
 
-      <p class="subtitle">
+      <p class="login-subtitle">
         Privé beheer van aanvragen en evenementen.
       </p>
 
       <form id="loginForm">
 
-  <div class="field">
-    <label for="email">E-mailadres</label>
+        <div class="field">
 
-    <input
-      type="email"
-      id="email"
-      placeholder="Je e-mailadres"
-      autocomplete="email"
-      required
-    >
-  </div>
+          <label for="email">
+            E-mailadres
+          </label>
 
-  <div class="field">
-    <label for="password">Wachtwoord</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Je e-mailadres"
+            autocomplete="email"
+            required
+          >
 
-    <input
-      type="password"
-      id="password"
-      placeholder="Je wachtwoord"
-      autocomplete="current-password"
-      required
-    >
-  </div>
+        </div>
 
-  <button type="submit" id="loginButton">
-    Inloggen
-  </button>
+        <div class="field">
 
-  <button
-    type="button"
-    id="forgotPasswordButton"
-    class="forgot-password"
-  >
-    Wachtwoord vergeten?
-  </button>
+          <label for="password">
+            Wachtwoord
+          </label>
 
-</form>
+          <input
+            type="password"
+            id="password"
+            placeholder="Je wachtwoord"
+            autocomplete="current-password"
+            required
+          >
 
-      <div class="message" id="loginMessage"></div>
+        </div>
+
+        <button
+          type="submit"
+          class="primary-button"
+          id="loginButton"
+        >
+          Inloggen
+        </button>
+
+        <button
+          type="button"
+          class="forgot-password"
+          id="forgotPasswordButton"
+        >
+          Wachtwoord vergeten?
+        </button>
+
+      </form>
+
+      <div
+        class="message"
+        id="loginMessage"
+      ></div>
 
     </div>
+
   </section>
 
 
-  <!-- DASHBOARD -->
-  <section class="dashboard" id="dashboard">
+  <!-- =========================================================
+       DASHBOARD
+       ========================================================= -->
+
+  <section
+    class="dashboard"
+    id="dashboard"
+  >
+
+    <!-- TOPBAR -->
 
     <header class="topbar">
 
       <div class="brand">
-        <div class="brand-mark">HB</div>
-        <span>Hummie Bear Admin</span>
+
+        <div class="brand-mark">
+          HB
+        </div>
+
+        <span>
+          Hummie Bear Admin
+        </span>
+
       </div>
 
-      <button class="logout" id="logoutButton">
-        Uitloggen
-      </button>
+      <div class="topbar-actions">
+
+        <button
+          class="topbar-button"
+          id="refreshButton"
+          type="button"
+        >
+          Vernieuwen
+        </button>
+
+        <button
+          class="logout-button"
+          id="logoutButton"
+          type="button"
+        >
+          Uitloggen
+        </button>
+
+      </div>
 
     </header>
 
+
+    <!-- CONTENT -->
+
     <main class="dashboard-content">
 
+      <!-- WELCOME -->
+
       <div class="welcome">
-        <h2>Welkom terug</h2>
+
+        <h2>
+          Dashboard
+        </h2>
+
         <p>
-          Hier komt straks je volledige Hummie Bear beheeromgeving.
+          Beheer hier alle aanvragen van Hummie Bear.
         </p>
+
       </div>
+
+
+      <!-- STATS -->
 
       <div class="stats">
 
         <div class="stat-card">
+
           <div class="stat-label">
             Nieuwe aanvragen
           </div>
 
-          <div class="stat-number" id="newQuotes">
+          <div
+            class="stat-number"
+            id="newQuotes"
+          >
             —
           </div>
+
         </div>
 
+
         <div class="stat-card">
+
+          <div class="stat-label">
+            In behandeling
+          </div>
+
+          <div
+            class="stat-number"
+            id="progressQuotes"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
           <div class="stat-label">
             Bevestigde evenementen
           </div>
 
-          <div class="stat-number" id="confirmedEvents">
+          <div
+            class="stat-number"
+            id="confirmedEvents"
+          >
             —
           </div>
+
         </div>
 
+
         <div class="stat-card">
+
           <div class="stat-label">
             Totaal aanvragen
           </div>
 
-          <div class="stat-number" id="totalQuotes">
+          <div
+            class="stat-number"
+            id="totalQuotes"
+          >
             —
           </div>
+
         </div>
 
       </div>
 
-      <div class="panel">
+
+      <!-- AANVRAGEN -->
+
+      <section class="panel">
 
         <div class="panel-header">
-          <h3>Nieuwe aanvragen</h3>
+
+          <div class="panel-header-row">
+
+            <div>
+
+              <h3>
+                Aanvragen
+              </h3>
+
+              <p>
+                Alle aanvragen die via de website zijn binnengekomen.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- FILTERS -->
+
+        <div class="filters">
+
+          <div class="search-wrapper">
+
+            <span class="search-icon">
+              🔎
+            </span>
+
+            <input
+              class="search-input"
+              id="searchInput"
+              type="search"
+              placeholder="Zoek op naam, evenement, e-mail, locatie..."
+            >
+
+          </div>
+
+
+          <select
+            class="filter-select"
+            id="statusFilter"
+          >
+
+            <option value="all">
+              Alle statussen
+            </option>
+
+            <option value="new">
+              Nieuw
+            </option>
+
+            <option value="in_progress">
+              In behandeling
+            </option>
+
+            <option value="accepted">
+              Aanvaard
+            </option>
+
+            <option value="rejected">
+              Geweigerd
+            </option>
+
+            <option value="cancelled">
+              Geannuleerd
+            </option>
+
+          </select>
+
+
+          <select
+            class="filter-select"
+            id="editionFilter"
+          >
+
+            <option value="all">
+              Alle edities
+            </option>
+
+            <option value="waffle">
+              Waffle Edition
+            </option>
+
+            <option value="candy">
+              Candy Edition
+            </option>
+
+            <option value="both">
+              Candy + Waffle
+            </option>
+
+            <option value="bags">
+              Snoepzakken op maat
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- LIST -->
+
+        <div
+          class="quotes-list"
+          id="quotesList"
+        >
+
+          <div class="loading">
+
+            <div class="spinner"></div>
+
+            Aanvragen laden...
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- KALENDER BASIS -->
+
+      <section class="panel">
+
+        <div class="panel-header">
+
+          <h3>
+            Kalender
+          </h3>
 
           <p>
-            Hier verschijnen straks automatisch alle aanvragen
-            die via de website binnenkomen.
+            Bevestigde evenementen verschijnen hier.
+            De uitgebreide maand-, week- en dagweergave bouwen we hierop verder.
           </p>
+
         </div>
 
-        <div class="empty">
-          Het aanvraagoverzicht wordt hier toegevoegd.
-        </div>
+        <div
+          class="calendar-placeholder"
+          id="calendarPlaceholder"
+        ></div>
 
-      </div>
+      </section>
 
     </main>
 
   </section>
 
 
-  <!-- SUPABASE -->
+  <!-- =========================================================
+       DETAIL MODAL
+       ========================================================= -->
+
+  <div
+    class="modal-overlay"
+    id="detailModal"
+  >
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <h3>
+          Aanvraagdetails
+        </h3>
+
+        <button
+          class="close-modal"
+          id="closeModalButton"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div
+        class="modal-body"
+        id="modalBody"
+      ></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================================
+       TOAST
+       ========================================================= -->
+
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  <!-- =========================================================
+       SUPABASE
+       ========================================================= -->
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+
   <script>
+
+    /* =========================================================
+       SUPABASE CONFIG
+       ========================================================= */
+
     const SUPABASE_URL =
       "https://yrcajvpstbyupohjbavm.supabase.co";
 
     const SUPABASE_KEY =
       "sb_publishable_TjBCB01RHm67xQVm3CtvEw_b0qxklDJ";
+
 
     const supabaseClient =
       window.supabase.createClient(
@@ -441,6 +1528,10 @@
         SUPABASE_KEY
       );
 
+
+    /* =========================================================
+       DOM ELEMENTS
+       ========================================================= */
 
     const loginPage =
       document.getElementById("loginPage");
@@ -454,86 +1545,289 @@
     const loginButton =
       document.getElementById("loginButton");
 
+    const forgotPasswordButton =
+      document.getElementById("forgotPasswordButton");
+
     const loginMessage =
       document.getElementById("loginMessage");
 
     const logoutButton =
       document.getElementById("logoutButton");
 
+    const refreshButton =
+      document.getElementById("refreshButton");
 
-    function showMessage(text, type) {
-      loginMessage.textContent = text;
-      loginMessage.className =
-        "message " + type;
+    const quotesList =
+      document.getElementById("quotesList");
+
+    const searchInput =
+      document.getElementById("searchInput");
+
+    const statusFilter =
+      document.getElementById("statusFilter");
+
+    const editionFilter =
+      document.getElementById("editionFilter");
+
+    const detailModal =
+      document.getElementById("detailModal");
+
+    const closeModalButton =
+      document.getElementById("closeModalButton");
+
+    const modalBody =
+      document.getElementById("modalBody");
+
+    const toast =
+      document.getElementById("toast");
+
+
+    /* =========================================================
+       GLOBAL STATE
+       ========================================================= */
+
+    let allQuotes = [];
+
+    let selectedQuote = null;
+
+    let toastTimer = null;
+
+
+    /* =========================================================
+       HELPERS
+       ========================================================= */
+
+    function escapeHtml(value) {
+
+      if (
+        value === null ||
+        value === undefined
+      ) {
+        return "";
+      }
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
     }
 
+
+    function formatDate(dateValue) {
+
+      if (!dateValue) {
+        return "—";
+      }
+
+      const date =
+        new Date(
+          dateValue + "T00:00:00"
+        );
+
+      if (
+        Number.isNaN(
+          date.getTime()
+        )
+      ) {
+        return escapeHtml(dateValue);
+      }
+
+      return new Intl.DateTimeFormat(
+        "nl-BE",
+        {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric"
+        }
+      ).format(date);
+
+    }
+
+
+    function formatTime(timeValue) {
+
+      if (!timeValue) {
+        return "—";
+      }
+
+      return String(timeValue)
+        .slice(0, 5);
+
+    }
+
+
+    function formatEuro(value) {
+
+      if (
+        value === null ||
+        value === undefined ||
+        value === ""
+      ) {
+        return "—";
+      }
+
+      const number =
+        Number(value);
+
+      if (
+        Number.isNaN(number)
+      ) {
+        return escapeHtml(value);
+      }
+
+      return new Intl.NumberFormat(
+        "nl-BE",
+        {
+          style: "currency",
+          currency: "EUR"
+        }
+      ).format(number);
+
+    }
+
+
+    function formatEdition(edition) {
+
+      const values = {
+        waffle: "Waffle Edition",
+        candy: "Candy Edition",
+        both: "Candy + Waffle",
+        bags: "Snoepzakken op maat"
+      };
+
+      return (
+        values[edition] ||
+        edition ||
+        "—"
+      );
+
+    }
+
+
+    function formatStatus(status) {
+
+      const values = {
+        new: "Nieuw",
+        in_progress: "In behandeling",
+        accepted: "Aanvaard",
+        rejected: "Geweigerd",
+        cancelled: "Geannuleerd"
+      };
+
+      return (
+        values[status] ||
+        status ||
+        "Onbekend"
+      );
+
+    }
+
+
+    function statusClass(status) {
+
+      if (status === "in_progress") {
+        return "status-in-progress";
+      }
+
+      if (status === "accepted") {
+        return "status-accepted";
+      }
+
+      if (status === "rejected") {
+        return "status-rejected";
+      }
+
+      if (status === "cancelled") {
+        return "status-cancelled";
+      }
+
+      return "status-new";
+    }
+
+
+    function showToast(
+      message,
+      type = ""
+    ) {
+
+      clearTimeout(toastTimer);
+
+      toast.textContent =
+        message;
+
+      toast.className =
+        "toast show " +
+        type;
+
+      toastTimer =
+        setTimeout(
+          function () {
+
+            toast.className =
+              "toast";
+
+          },
+          4000
+        );
+
+    }
+
+
+    function showLoginMessage(
+      message,
+      type
+    ) {
+
+      loginMessage.textContent =
+        message;
+
+      loginMessage.className =
+        "message " + type;
+
+    }
+
+
+    /* =========================================================
+       LOGIN
+       ========================================================= */
 
     async function checkSession() {
 
-      const {
-        data: { session }
-      } = await supabaseClient.auth.getSession();
-
-      if (session) {
-        await showDashboard();
-      }
-
-    }
-
-
-    async function showDashboard() {
-
-      loginPage.style.display = "none";
-      dashboard.style.display = "block";
-
-      await loadStats();
-
-    }
-
-
-    async function loadStats() {
-
       try {
 
-        const { count: totalQuotes } =
+        const {
+          data,
+          error
+        } =
           await supabaseClient
-            .from("quotes")
-            .select("*", {
-              count: "exact",
-              head: true
-            });
+            .auth
+            .getSession();
 
-        const { count: newQuotes } =
-          await supabaseClient
-            .from("quotes")
-            .select("*", {
-              count: "exact",
-              head: true
-            })
-            .eq("status", "new");
+        if (error) {
 
-        const { count: confirmedEvents } =
-          await supabaseClient
-            .from("events")
-            .select("*", {
-              count: "exact",
-              head: true
-            })
-            .eq("status", "confirmed");
+          console.error(
+            "Session error:",
+            error
+          );
 
-        document.getElementById("totalQuotes")
-          .textContent = totalQuotes ?? 0;
+          return;
+        }
 
-        document.getElementById("newQuotes")
-          .textContent = newQuotes ?? 0;
+        if (
+          data &&
+          data.session
+        ) {
 
-        document.getElementById("confirmedEvents")
-          .textContent = confirmedEvents ?? 0;
+          await showDashboard();
+
+        }
 
       } catch (error) {
 
         console.error(
-          "Fout bij laden statistieken:",
+          "Check session error:",
           error
         );
 
@@ -542,71 +1836,261 @@
     }
 
 
+    async function showDashboard() {
+
+      loginPage.style.display =
+        "none";
+
+      dashboard.style.display =
+        "block";
+
+      await loadDashboard();
+
+    }
+
+
+    async function loadDashboard() {
+
+      await Promise.all([
+        loadStats(),
+        loadQuotes(),
+        loadCalendar()
+      ]);
+
+    }
+
+
     loginForm.addEventListener(
       "submit",
-      async function(event) {
+      async function (event) {
 
         event.preventDefault();
 
-        loginButton.disabled = true;
-        loginButton.textContent = "Inloggen...";
+        loginButton.disabled =
+          true;
 
-        loginMessage.className = "message";
+        loginButton.textContent =
+          "Inloggen...";
+
+        loginMessage.className =
+          "message";
 
         const email =
-          document.getElementById("email").value.trim();
+          document
+            .getElementById("email")
+            .value
+            .trim();
 
         const password =
-          document.getElementById("password").value;
+          document
+            .getElementById("password")
+            .value;
 
+        try {
 
-        const {
-          data,
-          error
-        } =
-          await supabaseClient.auth.signInWithPassword({
-            email,
-            password
-          });
+          const {
+            data,
+            error
+          } =
+            await supabaseClient
+              .auth
+              .signInWithPassword({
+                email,
+                password
+              });
 
+          if (error) {
 
-        if (error) {
+            console.error(
+              "Login error:",
+              error
+            );
 
-          console.error(error);
+            showLoginMessage(
+              "Inloggen mislukt. Controleer je e-mailadres en wachtwoord.",
+              "error"
+            );
 
-          showMessage(
-            "Inloggen mislukt. Controleer je e-mailadres en wachtwoord.",
+            return;
+          }
+
+          if (
+            data &&
+            data.session
+          ) {
+
+            showLoginMessage(
+              "Succesvol ingelogd.",
+              "success"
+            );
+
+            await showDashboard();
+
+          }
+
+        } catch (error) {
+
+          console.error(
+            "Login exception:",
+            error
+          );
+
+          showLoginMessage(
+            "Er ging iets mis tijdens het inloggen.",
             "error"
           );
 
-          loginButton.disabled = false;
-          loginButton.textContent = "Inloggen";
+        } finally {
 
-          return;
+          loginButton.disabled =
+            false;
+
+          loginButton.textContent =
+            "Inloggen";
+
         }
-
-
-        await showDashboard();
-
-        loginButton.disabled = false;
-        loginButton.textContent = "Inloggen";
 
       }
     );
 
 
+    /* =========================================================
+       PASSWORD RESET
+       ========================================================= */
+
+    forgotPasswordButton.addEventListener(
+      "click",
+      async function () {
+
+        const email =
+          document
+            .getElementById("email")
+            .value
+            .trim();
+
+        if (!email) {
+
+          showLoginMessage(
+            "Vul eerst je e-mailadres in.",
+            "error"
+          );
+
+          document
+            .getElementById("email")
+            .focus();
+
+          return;
+
+        }
+
+        forgotPasswordButton.disabled =
+          true;
+
+        forgotPasswordButton.textContent =
+          "Resetmail versturen...";
+
+        loginMessage.className =
+          "message";
+
+        try {
+
+          const {
+            error
+          } =
+            await supabaseClient
+              .auth
+              .resetPasswordForEmail(
+                email,
+                {
+                  redirectTo:
+                    "https://hummiebear.be/reset-password.html"
+                }
+              );
+
+          if (error) {
+
+            console.error(
+              "Password reset error:",
+              error
+            );
+
+            if (
+              error.status === 429 ||
+              String(error.message)
+                .toLowerCase()
+                .includes("rate")
+            ) {
+
+              showLoginMessage(
+                "Supabase heeft tijdelijk te veel resetmails ontvangen. Wacht even voordat je opnieuw probeert.",
+                "error"
+              );
+
+            } else {
+
+              showLoginMessage(
+                "De resetmail kon niet worden verstuurd. Controleer het e-mailadres.",
+                "error"
+              );
+
+            }
+
+            return;
+
+          }
+
+          showLoginMessage(
+            "Resetmail verstuurd. Controleer je mailbox en klik op de link.",
+            "success"
+          );
+
+        } catch (error) {
+
+          console.error(
+            "Password reset exception:",
+            error
+          );
+
+          showLoginMessage(
+            "Er ging iets mis bij het versturen van de resetmail.",
+            "error"
+          );
+
+        } finally {
+
+          forgotPasswordButton.disabled =
+            false;
+
+          forgotPasswordButton.textContent =
+            "Wachtwoord vergeten?";
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       LOGOUT
+       ========================================================= */
+
     logoutButton.addEventListener(
       "click",
-      async function() {
+      async function () {
 
-        await supabaseClient.auth.signOut();
+        await supabaseClient
+          .auth
+          .signOut();
 
-        dashboard.style.display = "none";
-        loginPage.style.display = "flex";
+        dashboard.style.display =
+          "none";
+
+        loginPage.style.display =
+          "flex";
 
         loginForm.reset();
 
-        showMessage(
+        showLoginMessage(
           "Je bent uitgelogd.",
           "success"
         );
@@ -615,88 +2099,2135 @@
     );
 
 
-    supabaseClient.auth.onAuthStateChange(
-      async function(event, session) {
+    /* =========================================================
+       AUTH STATE
+       ========================================================= */
 
-        if (event === "SIGNED_IN" && session) {
-          await showDashboard();
+    supabaseClient
+      .auth
+      .onAuthStateChange(
+        async function (
+          event,
+          session
+        ) {
+
+          if (
+            event === "SIGNED_IN" &&
+            session
+          ) {
+
+            await showDashboard();
+
+          }
+
+          if (
+            event === "SIGNED_OUT"
+          ) {
+
+            dashboard.style.display =
+              "none";
+
+            loginPage.style.display =
+              "flex";
+
+          }
+
+        }
+      );
+
+
+    /* =========================================================
+       STATS
+       ========================================================= */
+
+    async function loadStats() {
+
+      try {
+
+        const totalResult =
+          await supabaseClient
+            .from("quotes")
+            .select("*", {
+              count: "exact",
+              head: true
+            });
+
+        const newResult =
+          await supabaseClient
+            .from("quotes")
+            .select("*", {
+              count: "exact",
+              head: true
+            })
+            .eq(
+              "status",
+              "new"
+            );
+
+        const progressResult =
+          await supabaseClient
+            .from("quotes")
+            .select("*", {
+              count: "exact",
+              head: true
+            })
+            .eq(
+              "status",
+              "in_progress"
+            );
+
+        const eventsResult =
+          await supabaseClient
+            .from("events")
+            .select("*", {
+              count: "exact",
+              head: true
+            })
+            .eq(
+              "status",
+              "confirmed"
+            );
+
+        if (
+          totalResult.error
+        ) {
+          console.error(
+            "Total quotes error:",
+            totalResult.error
+          );
         }
 
-        if (event === "SIGNED_OUT") {
-          dashboard.style.display = "none";
-          loginPage.style.display = "flex";
+        if (
+          newResult.error
+        ) {
+          console.error(
+            "New quotes error:",
+            newResult.error
+          );
+        }
+
+        if (
+          progressResult.error
+        ) {
+          console.error(
+            "Progress quotes error:",
+            progressResult.error
+          );
+        }
+
+        if (
+          eventsResult.error
+        ) {
+          console.error(
+            "Events error:",
+            eventsResult.error
+          );
+        }
+
+        document
+          .getElementById("totalQuotes")
+          .textContent =
+          totalResult.count ?? 0;
+
+        document
+          .getElementById("newQuotes")
+          .textContent =
+          newResult.count ?? 0;
+
+        document
+          .getElementById("progressQuotes")
+          .textContent =
+          progressResult.count ?? 0;
+
+        document
+          .getElementById("confirmedEvents")
+          .textContent =
+          eventsResult.count ?? 0;
+
+      } catch (error) {
+
+        console.error(
+          "Stats exception:",
+          error
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       LOAD QUOTES
+       ========================================================= */
+
+    async function loadQuotes() {
+
+      quotesList.innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+          Aanvragen laden...
+        </div>
+      `;
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .from("quotes")
+            .select("*")
+            .order(
+              "created_at",
+              {
+                ascending: false
+              }
+            );
+
+        if (error) {
+
+          console.error(
+            "Quotes error:",
+            error
+          );
+
+          quotesList.innerHTML = `
+            <div class="empty">
+              <div class="empty-icon">!</div>
+              <strong>Aanvragen konden niet worden geladen.</strong>
+              <p>
+                Controleer de Supabase-permissies en probeer opnieuw.
+              </p>
+            </div>
+          `;
+
+          showToast(
+            "Aanvragen konden niet worden geladen.",
+            "error"
+          );
+
+          return;
+
+        }
+
+        allQuotes =
+          data || [];
+
+        renderQuotes();
+
+      } catch (error) {
+
+        console.error(
+          "Quotes exception:",
+          error
+        );
+
+        quotesList.innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">!</div>
+            Er ging iets mis bij het laden van de aanvragen.
+          </div>
+        `;
+
+      }
+
+    }
+
+
+    /* =========================================================
+       FILTER QUOTES
+       ========================================================= */
+
+    function getFilteredQuotes() {
+
+      const search =
+        searchInput.value
+          .trim()
+          .toLowerCase();
+
+      const status =
+        statusFilter.value;
+
+      const edition =
+        editionFilter.value;
+
+      return allQuotes.filter(
+        function (quote) {
+
+          const searchable =
+            [
+              quote.name,
+              quote.organisation,
+              quote.email,
+              quote.phone,
+              quote.event_name,
+              quote.location,
+              quote.event_type,
+              quote.edition
+            ]
+              .filter(Boolean)
+              .join(" ")
+              .toLowerCase();
+
+          const matchesSearch =
+            !search ||
+            searchable.includes(
+              search
+            );
+
+          const matchesStatus =
+            status === "all" ||
+            quote.status === status;
+
+          const matchesEdition =
+            edition === "all" ||
+            quote.edition === edition;
+
+          return (
+            matchesSearch &&
+            matchesStatus &&
+            matchesEdition
+          );
+
+        }
+      );
+
+    }
+
+
+    /* =========================================================
+       RENDER QUOTES
+       ========================================================= */
+
+    function renderQuotes() {
+
+      const quotes =
+        getFilteredQuotes();
+
+      if (!quotes.length) {
+
+        quotesList.innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">
+              ♡
+            </div>
+
+            <strong>
+              Geen aanvragen gevonden
+            </strong>
+
+            <p>
+              Er zijn geen aanvragen die overeenkomen met je filters.
+            </p>
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      quotesList.innerHTML =
+        quotes
+          .map(
+            function (quote) {
+
+              return createQuoteCard(
+                quote
+              );
+
+            }
+          )
+          .join("");
+
+    }
+
+
+    function createQuoteCard(
+      quote
+    ) {
+
+      const date =
+        formatDate(
+          quote.event_date
+        );
+
+      const start =
+        formatTime(
+          quote.start_time
+        );
+
+      const end =
+        formatTime(
+          quote.end_time
+        );
+
+      const time =
+        start !== "—"
+          ? start +
+            (
+              end !== "—"
+                ? " – " + end
+                : ""
+            )
+          : (
+              quote.hours ||
+              "Uren niet opgegeven"
+            );
+
+      return `
+
+        <article
+          class="quote-card"
+          data-id="${escapeHtml(quote.id)}"
+        >
+
+          <div class="quote-main">
+
+            <div class="quote-primary">
+
+              <div class="quote-title">
+                ${escapeHtml(
+                  quote.name ||
+                  "Naam onbekend"
+                )}
+              </div>
+
+              ${
+                quote.organisation
+                  ? `
+                    <div class="quote-company">
+                      ${escapeHtml(
+                        quote.organisation
+                      )}
+                    </div>
+                  `
+                  : ""
+              }
+
+              <div class="quote-event">
+                ${escapeHtml(
+                  quote.event_name ||
+                  "Evenement zonder naam"
+                )}
+              </div>
+
+              <div class="quote-meta">
+                ${
+                  quote.email
+                    ? escapeHtml(
+                        quote.email
+                      )
+                    : ""
+                }
+              </div>
+
+            </div>
+
+
+            <div>
+
+              <div class="quote-date">
+                ${date}
+              </div>
+
+              <div class="quote-meta">
+                ${escapeHtml(time)}
+              </div>
+
+              <div class="quote-meta">
+                ${
+                  quote.location
+                    ? escapeHtml(
+                        quote.location
+                      )
+                    : "Locatie niet opgegeven"
+                }
+              </div>
+
+            </div>
+
+
+            <div>
+
+              <div>
+                <span
+                  class="status ${statusClass(
+                    quote.status
+                  )}"
+                >
+                  ${escapeHtml(
+                    formatStatus(
+                      quote.status
+                    )
+                  )}
+                </span>
+              </div>
+
+              <div
+                class="quote-meta"
+                style="margin-top:8px;"
+              >
+                ${escapeHtml(
+                  formatEdition(
+                    quote.edition
+                  )
+                )}
+              </div>
+
+              <div
+                class="quote-meta"
+                style="margin-top:3px;"
+              >
+                ${
+                  quote.guests
+                    ? escapeHtml(
+                        quote.guests
+                      ) + " gasten"
+                    : "Aantal gasten —"
+                }
+              </div>
+
+            </div>
+
+
+            <div>
+
+              <div class="quote-price">
+                ${formatEuro(
+                  quote.estimated_price
+                )}
+              </div>
+
+              <div
+                class="quote-meta"
+                style="margin-top:4px;"
+              >
+                Schatting
+              </div>
+
+            </div>
+
+
+            <div class="quote-actions">
+
+              <button
+                class="small-button button-details"
+                type="button"
+                onclick="openQuote('${escapeHtml(
+                  quote.id
+                )}')"
+              >
+                Details
+              </button>
+
+              ${
+                quote.status !== "accepted"
+                  ? `
+                    <button
+                      class="small-button button-accept"
+                      type="button"
+                      onclick="changeQuoteStatus('${escapeHtml(
+                        quote.id
+                      )}', 'accepted')"
+                    >
+                      Aanvaarden
+                    </button>
+                  `
+                  : ""
+              }
+
+              ${
+                quote.status !== "in_progress" &&
+                quote.status !== "accepted"
+                  ? `
+                    <button
+                      class="small-button button-progress"
+                      type="button"
+                      onclick="changeQuoteStatus('${escapeHtml(
+                        quote.id
+                      )}', 'in_progress')"
+                    >
+                      In behandeling
+                    </button>
+                  `
+                  : ""
+              }
+
+              ${
+                quote.status !== "rejected"
+                  ? `
+                    <button
+                      class="small-button button-reject"
+                      type="button"
+                      onclick="changeQuoteStatus('${escapeHtml(
+                        quote.id
+                      )}', 'rejected')"
+                    >
+                      Weigeren
+                    </button>
+                  `
+                  : ""
+              }
+
+            </div>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       SEARCH / FILTER EVENTS
+       ========================================================= */
+
+    searchInput.addEventListener(
+      "input",
+      renderQuotes
+    );
+
+    statusFilter.addEventListener(
+      "change",
+      renderQuotes
+    );
+
+    editionFilter.addEventListener(
+      "change",
+      renderQuotes
+    );
+
+
+    /* =========================================================
+       OPEN QUOTE
+       ========================================================= */
+
+    window.openQuote =
+      function (id) {
+
+        const quote =
+          allQuotes.find(
+            function (item) {
+              return item.id === id;
+            }
+          );
+
+        if (!quote) {
+
+          showToast(
+            "Aanvraag niet gevonden.",
+            "error"
+          );
+
+          return;
+
+        }
+
+        selectedQuote =
+          quote;
+
+        renderQuoteDetails(
+          quote
+        );
+
+        detailModal.classList.add(
+          "open"
+        );
+
+      };
+
+
+    function renderQuoteDetails(
+      quote
+    ) {
+
+      const start =
+        formatTime(
+          quote.start_time
+        );
+
+      const end =
+        formatTime(
+          quote.end_time
+        );
+
+      const options =
+        quote.options &&
+        typeof quote.options === "object"
+          ? quote.options
+          : {};
+
+      const optionEntries =
+        Object.entries(
+          options
+        );
+
+
+      let optionsHtml = "";
+
+      if (
+        optionEntries.length
+      ) {
+
+        optionsHtml =
+          optionEntries
+            .map(
+              function (
+                [
+                  key,
+                  value
+                ]
+              ) {
+
+                let displayValue;
+
+                if (
+                  typeof value ===
+                  "object"
+                ) {
+
+                  displayValue =
+                    JSON.stringify(
+                      value
+                    );
+
+                } else {
+
+                  displayValue =
+                    String(value);
+
+                }
+
+                return `
+                  <span class="option-pill">
+                    ${escapeHtml(key)}:
+                    ${escapeHtml(displayValue)}
+                  </span>
+                `;
+
+              }
+            )
+            .join("");
+
+      } else {
+
+        optionsHtml =
+          `<span class="option-pill">Geen extra opties</span>`;
+
+      }
+
+
+      modalBody.innerHTML = `
+
+        <div class="detail-header">
+
+          <div class="detail-header-top">
+
+            <div>
+
+              <h2>
+                ${escapeHtml(
+                  quote.event_name ||
+                  "Aanvraag"
+                )}
+              </h2>
+
+              <p>
+                ${escapeHtml(
+                  quote.name ||
+                  "Onbekende klant"
+                )}
+
+                ${
+                  quote.organisation
+                    ? " · " +
+                      escapeHtml(
+                        quote.organisation
+                      )
+                    : ""
+                }
+              </p>
+
+            </div>
+
+            <span
+              class="status ${statusClass(
+                quote.status
+              )}"
+            >
+              ${escapeHtml(
+                formatStatus(
+                  quote.status
+                )
+              )}
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="detail-grid">
+
+
+          <!-- KLANT -->
+
+          <section class="detail-section">
+
+            <h4>
+              Contactgegevens
+            </h4>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Naam
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  quote.name || "—"
+                )}
+              </span>
+
+            </div>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Organisatie
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  quote.organisation || "—"
+                )}
+              </span>
+
+            </div>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                E-mail
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  quote.email || "—"
+                )}
+              </span>
+
+            </div>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Telefoon
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  quote.phone || "—"
+                )}
+              </span>
+
+            </div>
+
+          </section>
+
+
+          <!-- EVENT -->
+
+          <section class="detail-section">
+
+            <h4>
+              Evenement
+            </h4>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Evenement
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  quote.event_name || "—"
+                )}
+              </span>
+
+            </div>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Type
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  quote.event_type || "—"
+                )}
+              </span>
+
+            </div>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Locatie
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  quote.location || "—"
+                )}
+              </span>
+
+            </div>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Gasten
+              </span>
+
+              <span class="detail-value">
+                ${
+                  quote.guests
+                    ? escapeHtml(
+                        quote.guests
+                      )
+                    : "—"
+                }
+              </span>
+
+            </div>
+
+          </section>
+
+
+          <!-- DATUM -->
+
+          <section class="detail-section">
+
+            <h4>
+              Planning
+            </h4>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Datum
+              </span>
+
+              <span class="detail-value">
+                ${formatDate(
+                  quote.event_date
+                )}
+              </span>
+
+            </div>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Start
+              </span>
+
+              <span class="detail-value">
+                ${start}
+              </span>
+
+            </div>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Einde
+              </span>
+
+              <span class="detail-value">
+                ${end}
+              </span>
+
+            </div>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Uren
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  quote.hours || "—"
+                )}
+              </span>
+
+            </div>
+
+          </section>
+
+
+          <!-- EDITION -->
+
+          <section class="detail-section">
+
+            <h4>
+              Hummie Bear
+            </h4>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Edition
+              </span>
+
+              <span class="detail-value">
+                ${escapeHtml(
+                  formatEdition(
+                    quote.edition
+                  )
+                )}
+              </span>
+
+            </div>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Geschatte prijs
+              </span>
+
+              <span class="detail-value">
+                ${formatEuro(
+                  quote.estimated_price
+                )}
+              </span>
+
+            </div>
+
+            <div class="detail-row">
+
+              <span class="detail-label">
+                Definitieve prijs
+              </span>
+
+              <span class="detail-value">
+                ${formatEuro(
+                  quote.final_price
+                )}
+              </span>
+
+            </div>
+
+          </section>
+
+
+          <!-- OPTIONS -->
+
+          <section class="detail-section full">
+
+            <h4>
+              Opties
+            </h4>
+
+            <div class="options-list">
+              ${optionsHtml}
+            </div>
+
+          </section>
+
+
+          <!-- PRAKTISCH -->
+
+          <section class="detail-section full">
+
+            <h4>
+              Praktische informatie
+            </h4>
+
+            <div class="detail-value">
+
+              ${
+                quote.practical_notes
+                  ? escapeHtml(
+                      quote.practical_notes
+                    ).replace(
+                      /\n/g,
+                      "<br>"
+                    )
+                  : "Geen praktische opmerkingen opgegeven."
+              }
+
+            </div>
+
+          </section>
+
+
+          <!-- BERICHT -->
+
+          <section class="detail-section full">
+
+            <h4>
+              Bericht van klant
+            </h4>
+
+            <div class="detail-value">
+
+              ${
+                quote.message
+                  ? escapeHtml(
+                      quote.message
+                    ).replace(
+                      /\n/g,
+                      "<br>"
+                    )
+                  : "Geen extra bericht."
+              }
+
+            </div>
+
+          </section>
+
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          ${
+            quote.status !== "accepted"
+              ? `
+                <button
+                  class="modal-action accept"
+                  type="button"
+                  onclick="changeQuoteStatus('${escapeHtml(
+                    quote.id
+                  )}', 'accepted')"
+                >
+                  Aanvraag aanvaarden
+                </button>
+              `
+              : ""
+          }
+
+
+          ${
+            quote.status !== "in_progress"
+              ? `
+                <button
+                  class="modal-action progress"
+                  type="button"
+                  onclick="changeQuoteStatus('${escapeHtml(
+                    quote.id
+                  )}', 'in_progress')"
+                >
+                  In behandeling zetten
+                </button>
+              `
+              : ""
+          }
+
+
+          ${
+            quote.status !== "rejected"
+              ? `
+                <button
+                  class="modal-action reject"
+                  type="button"
+                  onclick="changeQuoteStatus('${escapeHtml(
+                    quote.id
+                  )}', 'rejected')"
+                >
+                  Aanvraag weigeren
+                </button>
+              `
+              : ""
+          }
+
+
+          <button
+            class="modal-action close"
+            type="button"
+            onclick="closeQuoteModal()"
+          >
+            Sluiten
+          </button>
+
+        </div>
+
+      `;
+
+    }
+
+
+    /* =========================================================
+       CLOSE MODAL
+       ========================================================= */
+
+    function closeQuoteModal() {
+
+      detailModal.classList.remove(
+        "open"
+      );
+
+      selectedQuote =
+        null;
+
+    }
+
+
+    window.closeQuoteModal =
+      closeQuoteModal;
+
+
+    closeModalButton.addEventListener(
+      "click",
+      closeQuoteModal
+    );
+
+
+    detailModal.addEventListener(
+      "click",
+      function (event) {
+
+        if (
+          event.target ===
+          detailModal
+        ) {
+
+          closeQuoteModal();
+
         }
 
       }
     );
 
 
-    checkSession();
-const forgotPasswordButton =
-  document.getElementById("forgotPasswordButton");
+    document.addEventListener(
+      "keydown",
+      function (event) {
 
-forgotPasswordButton.addEventListener(
-  "click",
-  async function () {
+        if (
+          event.key === "Escape"
+        ) {
 
-    const email =
-      document.getElementById("email").value.trim();
+          closeQuoteModal();
 
-    if (!email) {
-      showMessage(
-        "Vul eerst je e-mailadres in.",
-        "error"
-      );
+        }
 
-      document.getElementById("email").focus();
+      }
+    );
 
-      return;
+
+    /* =========================================================
+       CHANGE STATUS
+       ========================================================= */
+
+    window.changeQuoteStatus =
+      async function (
+        id,
+        newStatus
+      ) {
+
+        const quote =
+          allQuotes.find(
+            function (item) {
+              return item.id === id;
+            }
+          );
+
+        if (!quote) {
+
+          showToast(
+            "Aanvraag niet gevonden.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        if (
+          newStatus === "accepted"
+        ) {
+
+          const confirmed =
+            window.confirm(
+              "Deze aanvraag aanvaarden?\n\nBij een aanvaarding wordt de aanvraag definitief en wordt geprobeerd een evenement aan te maken."
+            );
+
+          if (!confirmed) {
+            return;
+          }
+
+        }
+
+
+        if (
+          newStatus === "rejected"
+        ) {
+
+          const confirmed =
+            window.confirm(
+              "Deze aanvraag weigeren?"
+            );
+
+          if (!confirmed) {
+            return;
+          }
+
+        }
+
+
+        try {
+
+          if (
+            newStatus === "accepted"
+          ) {
+
+            const result =
+              await acceptQuote(
+                quote
+              );
+
+            if (!result.success) {
+
+              showToast(
+                result.message,
+                "error"
+              );
+
+              return;
+
+            }
+
+          } else {
+
+            const {
+              error
+            } =
+              await supabaseClient
+                .from("quotes")
+                .update({
+                  status:
+                    newStatus,
+                  updated_at:
+                    new Date()
+                      .toISOString()
+                })
+                .eq(
+                  "id",
+                  id
+                );
+
+            if (error) {
+
+              console.error(
+                "Status update error:",
+                error
+              );
+
+              showToast(
+                "Status kon niet worden aangepast.",
+                "error"
+              );
+
+              return;
+
+            }
+
+          }
+
+
+          showToast(
+            "Status succesvol aangepast.",
+            "success"
+          );
+
+          closeQuoteModal();
+
+          await loadDashboard();
+
+        } catch (error) {
+
+          console.error(
+            "Change status exception:",
+            error
+          );
+
+          showToast(
+            "Er ging iets mis.",
+            "error"
+          );
+
+        }
+
+      };
+
+
+    /* =========================================================
+       ACCEPT QUOTE
+       ========================================================= */
+
+    async function acceptQuote(
+      quote
+    ) {
+
+      /*
+       * Eerst controleren we of er al een evenement bestaat
+       * voor deze aanvraag.
+       *
+       * Dit voorkomt dubbele events wanneer je bijvoorbeeld
+       * per ongeluk twee keer op "Aanvaarden" klikt.
+       */
+
+      try {
+
+        const {
+          data: existingEvents,
+          error: existingError
+        } =
+          await supabaseClient
+            .from("events")
+            .select("*")
+            .eq(
+              "quote_id",
+              quote.id
+            );
+
+        /*
+         * Als quote_id niet bestaat in events, kan deze query
+         * een databasefout geven. In dat geval proberen we
+         * hieronder op andere gegevens te controleren.
+         */
+
+        if (
+          !existingError &&
+          existingEvents &&
+          existingEvents.length
+        ) {
+
+          /*
+           * Het event bestaat al.
+           * We zetten alleen de quote op accepted.
+           */
+
+          const {
+            error: quoteError
+          } =
+            await supabaseClient
+              .from("quotes")
+              .update({
+                status:
+                  "accepted",
+                updated_at:
+                  new Date()
+                    .toISOString()
+              })
+              .eq(
+                "id",
+                quote.id
+              );
+
+          if (quoteError) {
+
+            return {
+              success: false,
+              message:
+                "Het bestaande evenement is gevonden, maar de aanvraagstatus kon niet worden aangepast."
+            };
+
+          }
+
+          return {
+            success: true,
+            message:
+              "Aanvraag was al gekoppeld aan een evenement."
+          };
+
+        }
+
+
+        /*
+         * Conflictcontrole op datum.
+         *
+         * We halen bevestigde events op dezelfde datum op.
+         */
+
+        let conflictQuery =
+          supabaseClient
+            .from("events")
+            .select("*")
+            .eq(
+              "event_date",
+              quote.event_date
+            )
+            .eq(
+              "status",
+              "confirmed"
+            );
+
+        const {
+          data: sameDayEvents,
+          error: sameDayError
+        } =
+          await conflictQuery;
+
+        if (
+          sameDayError
+        ) {
+
+          console.warn(
+            "Same-day conflict check could not be completed:",
+            sameDayError
+          );
+
+        }
+
+
+        /*
+         * Tijdsoverlap controleren.
+         *
+         * Alleen als de aanvraag en bestaande events
+         * start/eindtijden hebben.
+         */
+
+        if (
+          sameDayEvents &&
+          quote.start_time &&
+          quote.end_time
+        ) {
+
+          const newStart =
+            timeToMinutes(
+              quote.start_time
+            );
+
+          const newEnd =
+            timeToMinutes(
+              quote.end_time
+            );
+
+          const conflict =
+            sameDayEvents.find(
+              function (event) {
+
+                if (
+                  !event.start_time ||
+                  !event.end_time
+                ) {
+                  return false;
+                }
+
+                const existingStart =
+                  timeToMinutes(
+                    event.start_time
+                  );
+
+                const existingEnd =
+                  timeToMinutes(
+                    event.end_time
+                  );
+
+                return (
+                  newStart <
+                  existingEnd &&
+                  newEnd >
+                  existingStart
+                );
+
+              }
+            );
+
+          if (conflict) {
+
+            return {
+              success: false,
+              message:
+                "Er is al een bevestigd evenement op deze datum met overlappende uren."
+            };
+
+          }
+
+        }
+
+
+        /*
+         * Eventobject.
+         *
+         * De belangrijkste gegevens uit de aanvraag worden
+         * naar events gekopieerd.
+         */
+
+        const eventPayload = {
+
+          quote_id:
+            quote.id,
+
+          name:
+            quote.name,
+
+          organisation:
+            quote.organisation,
+
+          email:
+            quote.email,
+
+          phone:
+            quote.phone,
+
+          event_name:
+            quote.event_name,
+
+          event_date:
+            quote.event_date,
+
+          start_time:
+            quote.start_time,
+
+          end_time:
+            quote.end_time,
+
+          location:
+            quote.location,
+
+          guests:
+            quote.guests,
+
+          hours:
+            quote.hours,
+
+          event_type:
+            quote.event_type,
+
+          edition:
+            quote.edition,
+
+          options:
+            quote.options,
+
+          practical_notes:
+            quote.practical_notes,
+
+          final_price:
+            quote.final_price ??
+            quote.estimated_price,
+
+          status:
+            "confirmed"
+
+        };
+
+
+        /*
+         * Event aanmaken.
+         */
+
+        const {
+          error: eventError
+        } =
+          await supabaseClient
+            .from("events")
+            .insert(
+              eventPayload
+            );
+
+
+        if (eventError) {
+
+          console.error(
+            "Event creation error:",
+            eventError
+          );
+
+          /*
+           * We proberen de quote niet stilletjes als
+           * geaccepteerd te markeren wanneer het event
+           * niet kon worden aangemaakt.
+           */
+
+          return {
+            success: false,
+            message:
+              "De aanvraag kon niet worden aanvaard omdat het evenement niet kon worden aangemaakt. Controleer de events-tabel."
+          };
+
+        }
+
+
+        /*
+         * Event is aangemaakt.
+         * Nu quote op accepted zetten.
+         */
+
+        const {
+          error: quoteError
+        } =
+          await supabaseClient
+            .from("quotes")
+            .update({
+              status:
+                "accepted",
+              updated_at:
+                new Date()
+                  .toISOString()
+            })
+            .eq(
+              "id",
+              quote.id
+            );
+
+
+        if (quoteError) {
+
+          console.error(
+            "Quote acceptance update error:",
+            quoteError
+          );
+
+          return {
+            success: false,
+            message:
+              "Het evenement is aangemaakt, maar de aanvraagstatus kon niet worden aangepast."
+          };
+
+        }
+
+
+        return {
+          success: true,
+          message:
+            "Aanvraag aanvaard en evenement aangemaakt."
+        };
+
+
+      } catch (error) {
+
+        console.error(
+          "Accept quote exception:",
+          error
+        );
+
+        return {
+          success: false,
+          message:
+            "Er ging iets mis bij het aanvaarden."
+        };
+
+      }
+
     }
 
-    forgotPasswordButton.disabled = true;
-    forgotPasswordButton.textContent =
-      "Resetmail versturen...";
 
-    loginMessage.className = "message";
+    /* =========================================================
+       TIME HELPERS
+       ========================================================= */
 
-    const { error } =
-      await supabaseClient.auth.resetPasswordForEmail(
-        email,
-        {
-          redirectTo:
-            "https://hummiebear.be/reset-password.html"
+    function timeToMinutes(
+      timeValue
+    ) {
+
+      if (!timeValue) {
+        return null;
+      }
+
+      const parts =
+        String(timeValue)
+          .slice(0, 5)
+          .split(":");
+
+      if (
+        parts.length !== 2
+      ) {
+        return null;
+      }
+
+      const hours =
+        Number(parts[0]);
+
+      const minutes =
+        Number(parts[1]);
+
+      if (
+        Number.isNaN(hours) ||
+        Number.isNaN(minutes)
+      ) {
+        return null;
+      }
+
+      return (
+        hours * 60 +
+        minutes
+      );
+
+    }
+
+
+    /* =========================================================
+       CALENDAR
+       ========================================================= */
+
+    async function loadCalendar() {
+
+      const calendar =
+        document.getElementById(
+          "calendarPlaceholder"
+        );
+
+      calendar.innerHTML = `
+        <div
+          style="
+            grid-column:1/-1;
+            text-align:center;
+            padding:20px;
+            color:#76675e;
+          "
+        >
+          Kalender laden...
+        </div>
+      `;
+
+
+      try {
+
+        const {
+          data,
+          error
+        } =
+          await supabaseClient
+            .from("events")
+            .select("*")
+            .eq(
+              "status",
+              "confirmed"
+            )
+            .order(
+              "event_date",
+              {
+                ascending: true
+              }
+            );
+
+        if (error) {
+
+          console.error(
+            "Calendar error:",
+            error
+          );
+
+          calendar.innerHTML = `
+            <div
+              style="
+                grid-column:1/-1;
+                text-align:center;
+                padding:25px;
+                color:#76675e;
+              "
+            >
+              Bevestigde evenementen konden nog niet worden geladen.
+            </div>
+          `;
+
+          return;
+
+        }
+
+
+        renderCalendar(
+          data || []
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Calendar exception:",
+          error
+        );
+
+      }
+
+    }
+
+
+    function renderCalendar(
+      events
+    ) {
+
+      const calendar =
+        document.getElementById(
+          "calendarPlaceholder"
+        );
+
+
+      const today =
+        new Date();
+
+      const year =
+        today.getFullYear();
+
+      const month =
+        today.getMonth();
+
+
+      const firstDay =
+        new Date(
+          year,
+          month,
+          1
+        );
+
+      const daysInMonth =
+        new Date(
+          year,
+          month + 1,
+          0
+        ).getDate();
+
+
+      /*
+       * Europese week:
+       * maandag = 0
+       * zondag = 6
+       */
+
+      let firstWeekday =
+        firstDay.getDay() - 1;
+
+      if (
+        firstWeekday < 0
+      ) {
+        firstWeekday = 6;
+      }
+
+
+      const monthName =
+        new Intl.DateTimeFormat(
+          "nl-BE",
+          {
+            month: "long"
+          }
+        ).format(
+          firstDay
+        );
+
+
+      let html = "";
+
+
+      html += `
+        <div
+          style="
+            grid-column:1/-1;
+            text-align:center;
+            font-weight:900;
+            font-size:18px;
+            padding:5px 0 12px;
+            text-transform:capitalize;
+          "
+        >
+          ${escapeHtml(
+            monthName
+          )} ${year}
+        </div>
+      `;
+
+
+      const weekdays = [
+        "Ma",
+        "Di",
+        "Wo",
+        "Do",
+        "Vr",
+        "Za",
+        "Zo"
+      ];
+
+
+      weekdays.forEach(
+        function (day) {
+
+          html += `
+            <div class="calendar-day-name">
+              ${day}
+            </div>
+          `;
+
         }
       );
 
-    if (error) {
 
-      console.error(
-        "Hummie Bear password reset error:",
-        error
-      );
+      for (
+        let i = 0;
+        i < firstWeekday;
+        i++
+      ) {
 
-      showMessage(
-        "De resetmail kon niet worden verstuurd. Controleer het e-mailadres.",
-        "error"
-      );
+        html += `
+          <div></div>
+        `;
 
-      forgotPasswordButton.disabled = false;
-      forgotPasswordButton.textContent =
-        "Wachtwoord vergeten?";
+      }
 
-      return;
+
+      for (
+        let day = 1;
+        day <= daysInMonth;
+        day++
+      ) {
+
+        const dateString =
+          year +
+          "-" +
+          String(
+            month + 1
+          ).padStart(
+            2,
+            "0"
+          ) +
+          "-" +
+          String(day)
+            .padStart(
+              2,
+              "0"
+            );
+
+
+        const dayEvents =
+          events.filter(
+            function (event) {
+
+              return (
+                event.event_date ===
+                dateString
+              );
+
+            }
+          );
+
+
+        html += `
+          <div class="calendar-day">
+
+            <div class="calendar-day-number">
+              ${day}
+            </div>
+
+            ${
+              dayEvents
+                .map(
+                  function (
+                    event
+                  ) {
+
+                    return `
+                      <div
+                        class="calendar-event"
+                        title="${escapeHtml(
+                          event.event_name ||
+                          event.name ||
+                          "Evenement"
+                        )}"
+                      >
+                        ${escapeHtml(
+                          event.event_name ||
+                          event.name ||
+                          "Evenement"
+                        )}
+                      </div>
+                    `;
+
+                  }
+                )
+                .join("")
+            }
+
+          </div>
+        `;
+
+      }
+
+
+      calendar.innerHTML =
+        html;
+
     }
 
-    showMessage(
-      "Resetmail verstuurd. Controleer je mailbox en klik op de link in de e-mail.",
-      "success"
+
+    /* =========================================================
+       REFRESH
+       ========================================================= */
+
+    refreshButton.addEventListener(
+      "click",
+      async function () {
+
+        refreshButton.disabled =
+          true;
+
+        refreshButton.textContent =
+          "Laden...";
+
+        await loadDashboard();
+
+        refreshButton.disabled =
+          false;
+
+        refreshButton.textContent =
+          "Vernieuwen";
+
+        showToast(
+          "Dashboard vernieuwd.",
+          "success"
+        );
+
+      }
     );
 
-    forgotPasswordButton.disabled = false;
-    forgotPasswordButton.textContent =
-      "Resetmail opnieuw versturen";
-  }
-);
+
+    /* =========================================================
+       AUTO REFRESH
+       ========================================================= */
+
+    setInterval(
+      async function () {
+
+        const sessionResult =
+          await supabaseClient
+            .auth
+            .getSession();
+
+        if (
+          sessionResult.data &&
+          sessionResult.data.session &&
+          dashboard.style.display !==
+            "none"
+        ) {
+
+          await loadDashboard();
+
+        }
+
+      },
+      60000
+    );
+
+
+    /* =========================================================
+       START
+       ========================================================= */
+
+    checkSession();
+
+
   </script>
 
 </body>
