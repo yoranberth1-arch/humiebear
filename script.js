@@ -142,7 +142,7 @@
      Deze structuur wordt gebruikt door form.css.
   ========================================================= */
 
-  if (editionContainer) {
+  if (editionContainer && !editionContainer.querySelector('input[name="editions"]')) {
 
     editionContainer.innerHTML = `
 
