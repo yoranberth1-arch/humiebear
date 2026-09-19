@@ -931,3 +931,88 @@
     min-width:0 !important;
   }
 }
+
+
+/* =========================================================
+   FORMULEKAARTEN — DEFINITIVE RESPONSIVE BREAKPOINT
+   Twee kaarten naast elkaar worden te smal op compacte
+   schermen. Vanaf 900px gaan ze bewust onder elkaar.
+========================================================= */
+
+@media (max-width: 900px){
+  .edition-options{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    width:100% !important;
+    max-width:100% !important;
+    gap:16px !important;
+  }
+
+  .edition-option{
+    display:block !important;
+    width:100% !important;
+    max-width:100% !important;
+  }
+
+  .edition-option > .edition-option-content{
+    display:flex !important;
+    flex-direction:column !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    height:auto !important;
+    box-sizing:border-box !important;
+    padding:24px !important;
+  }
+
+  .edition-option .edition-option-kicker{
+    width:auto !important;
+    max-width:100% !important;
+  }
+
+  .edition-option > .edition-option-content > strong{
+    width:100% !important;
+    max-width:100% !important;
+    font-size:1.55rem !important;
+    line-height:1.08 !important;
+  }
+
+  .edition-option > .edition-option-content > small{
+    width:100% !important;
+    max-width:100% !important;
+    min-height:0 !important;
+    font-size:.9rem !important;
+    line-height:1.55 !important;
+    overflow-wrap:break-word !important;
+  }
+
+  .edition-price-row{
+    width:100% !important;
+    max-width:100% !important;
+    flex-wrap:wrap !important;
+  }
+
+  .edition-extra-row{
+    width:100% !important;
+    max-width:100% !important;
+    box-sizing:border-box !important;
+    overflow-wrap:break-word !important;
+  }
+}
+
+/* Compact phone: make the cards even cleaner. */
+@media (max-width: 520px){
+  .edition-option > .edition-option-content{
+    padding:22px !important;
+    border-radius:20px !important;
+  }
+
+  .edition-option > .edition-option-content > strong{
+    font-size:1.45rem !important;
+  }
+
+  .edition-option > .edition-option-content > small{
+    font-size:.86rem !important;
+  }
+}
