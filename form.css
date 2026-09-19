@@ -860,3 +860,74 @@
   .edition-summary{display:block}
   .edition-summary strong{display:block;margin-top:3px}
 }
+
+
+/* =========================================================
+   FORMULEKAARTEN — MOBILE FINAL FIX
+   Op kleine schermen krijgt elke formule de volle breedte.
+   Zo blijft alle tekst rustig leesbaar en valt niets buiten
+   de kaart.
+========================================================= */
+
+@media (max-width: 760px){
+  .edition-options{
+    grid-template-columns:1fr !important;
+    gap:14px !important;
+  }
+
+  .edition-option{
+    width:100% !important;
+    min-width:0 !important;
+  }
+
+  .edition-option > .edition-option-content{
+    width:100% !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    height:auto !important;
+    box-sizing:border-box !important;
+    padding:22px !important;
+  }
+
+  .edition-option strong,
+  .edition-option small,
+  .edition-option em,
+  .edition-option b,
+  .edition-option .edition-extra-row,
+  .edition-option .edition-price-row{
+    max-width:100% !important;
+    overflow-wrap:anywhere !important;
+    word-break:normal !important;
+  }
+
+  .edition-option .edition-price-row{
+    display:flex !important;
+    flex-wrap:wrap !important;
+    align-items:baseline !important;
+    gap:6px 10px !important;
+  }
+
+  .edition-option .edition-price-row b{
+    white-space:nowrap !important;
+  }
+
+  .edition-option .edition-extra-row{
+    line-height:1.55 !important;
+  }
+
+  .edition-option > .edition-option-content::after{
+    right:18px !important;
+    bottom:16px !important;
+  }
+}
+
+/* Op iets bredere telefoons/tablets blijft de kaart leesbaar. */
+@media (min-width:761px) and (max-width:1000px){
+  .edition-options{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+
+  .edition-option > .edition-option-content{
+    min-width:0 !important;
+  }
+}
