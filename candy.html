@@ -8,103 +8,92 @@
   <title>Candy Edition | Hummie Bear</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="announcement">Hummie Bear • Sweet experiences on wheels • West-Vlaanderen & omgeving</div>
-
+  <div class="announcement">HUMMIE BEAR <span>•</span> CANDY EDITION <span>•</span> 66 SOORTEN <span>•</span> EVENT CATERING</div>
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="index.html" aria-label="Hummie Bear home">
         <span class="brand-mark">HB</span>
         <span>Hummie <b>Bear</b></span>
       </a>
-
+      <button class="menu-toggle" type="button" aria-label="Menu openen" aria-expanded="false"
+        onclick="(function(btn){var nav=document.querySelector('.main-nav');if(!nav)return;var open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Menu sluiten':'Menu openen');})(this)">☰</button>
       <nav class="main-nav" aria-label="Hoofdnavigatie">
-        <a href="index.html#editions">Edities</a>
+        <a href="index.html">Home</a>
+        <a href="waffle.html">Lollywafel Edition</a>
+        <a href="candy.html">Candy Edition</a>
         <a href="index.html#prijzen">Prijzen</a>
         <a href="index.html#faq">FAQ</a>
         <a href="index.html#contact" class="nav-button">Vraag offerte</a>
       </nav>
     </div>
   </header>
-
-  <main class="detail-page">
-    <section class="detail-hero">
+  <main class="detail-page candy-detail-page">
+    <section class="detail-hero candy-detail">
       <a class="back-link" href="index.html">← Terug naar Hummie Bear</a>
       <span class="eyebrow">CANDY EDITION</span>
-      <h1>66 soorten snoep voor een kleurrijke candybeleving.</h1>
-      <p>
-        Van HARIBO-klassiekers tot kleurrijke favorieten: Hummie Bear brengt een mobiele
-        candybeleving naar jouw feest, vereniging, bedrijfsdag of evenement.
-      </p>
-      <div class="detail-price">€10 per persoon • 2 uur</div>
-      <a class="btn btn-primary" href="index.html#contact">Vraag jouw offerte aan →</a>
+      <h1>66 soorten snoep. <em>Een hele kraam vol keuze.</em></h1>
+      <p>Van HARIBO-klassiekers tot kleurrijke favorieten: Hummie Bear maakt van snoep een echte eventbeleving met een opvallende presentatie, popcorn en 2 uur candy catering.</p>
+      <div class="detail-price">€10 per persoon</div>
+      <a class="btn btn-primary" href="index.html?edition=candy#contact">Candy aanvragen →</a>
     </section>
-
     <section class="detail-grid">
       <div class="detail-panel">
-        <h2>Wat is inbegrepen?</h2>
+        <span class="eyebrow">INBEGREPEN</span>
+        <h2>Veel keuze, één duidelijke formule.</h2>
         <ul>
           <li>66 soorten HARIBO-snoep</li>
           <li>500 gram snoep per persoon</li>
           <li>Popcorn</li>
-          <li>Kleurrijke presentatie</li>
           <li>2 uur candy catering</li>
+          <li>Kleurrijke en opvallende presentatie</li>
           <li>Professionele bediening en opbouw</li>
           <li>Vegan snoep mogelijk</li>
         </ul>
       </div>
-
       <div class="detail-panel">
-        <h2>Praktisch</h2>
+        <span class="eyebrow">PRAKTISCH</span>
+        <h2>Voor groepen en events.</h2>
         <p><strong>Vanaf 35 personen.</strong></p>
-        <p>
-          Van 35 t.e.m. 49 personen geldt een opstartkost van €150.
-          Vanaf 50 personen vervalt de opstartkost.
-        </p>
-        <p>
-          De standaardformule duurt 2 uur en werkt met een totale hoeveelheid
-          van 500 gram snoep per persoon.
-        </p>
-        <p>
-          Frisdranken kunnen als extra optie worden opgenomen in de offerte.
-        </p>
-        <a class="btn btn-primary" href="index.html#contact">Candy aanvragen →</a>
+        <p>Van 35 t.e.m. 49 personen geldt een opstartkost van €150. Vanaf 50 personen vervalt de opstartkost.</p>
+        <p>De standaardformule duurt 2 uur met in totaal 500 gram snoep per persoon.</p>
+        <p>Frisdranken kunnen als extra optie worden opgenomen in de offerte.</p>
+        <a class="btn btn-primary" href="index.html?edition=candy#contact">Vraag jouw offerte aan →</a>
       </div>
     </section>
-
-    <section class="section event-section">
+    <section class="detail-page event-section candy-showcase">
       <div class="experience-intro">
-        <span class="eyebrow">SNOEPZAKJES OP MAAT</span>
-        <h2>Ook apart te bestellen als <em>persoonlijk concept.</em></h2>
-        <p>
-          Voor verjaardagen, verenigingen, clubs en andere gelegenheden kunnen we
-          snoepzakjes op maat samenstellen. De inhoud, het aantal en eventuele
-          personalisatie worden samen besproken.
-        </p>
+        <span class="eyebrow">CANDY BELEVING</span>
+        <h2>Een kleurrijke hoek waar mensen <em>naartoe trekken.</em></h2>
+        <p>De combinatie van veel keuze, een opvallende mobiele presentatie en een duidelijke formule maakt de Candy Edition geschikt voor feesten, verenigingen, bedrijfsdagen en evenementen.</p>
+      </div>
+      <div class="experience-grid">
+        <div class="experience-step"><span>01</span><h3>66 soorten</h3><p>Veel variatie voor verschillende smaken en leeftijden.</p></div>
+        <div class="experience-step"><span>02</span><h3>500 g p.p.</h3><p>De afgesproken totale hoeveelheid wordt vooraf duidelijk bepaald.</p></div>
+        <div class="experience-step"><span>03</span><h3>2 uur</h3><p>Een complete candybeleving met bediening en presentatie.</p></div>
       </div>
     </section>
   </main>
-
   <footer class="site-footer">
-    <div class="footer-top">
-      <a class="brand footer-brand" href="index.html">
-        <span class="brand-mark">HB</span>
-        <span>Hummie <b>Bear</b></span>
-      </a>
-      <p>Sweet experiences on wheels.</p>
-      <div class="footer-links">
-        <a href="index.html#editions">Edities</a>
-        <a href="index.html#prijzen">Prijzen</a>
-        <a href="index.html#contact">Offerte</a>
-      </div>
+  <div class="footer-top">
+    <a class="brand footer-brand" href="index.html">
+      <span class="brand-mark">HB</span>
+      <span>Hummie <b>Bear</b></span>
+    </a>
+    <p>Sweet experiences on wheels.</p>
+    <div class="footer-links">
+      <a href="index.html#editions">Edities</a>
+      <a href="index.html#prijzen">Prijzen</a>
+      <a href="index.html#contact">Offerte</a>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 Hummie Bear</span>
-      <span>Gemaakt in België</span>
-    </div>
-  </footer>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Hummie Bear</span>
+    <span>Gemaakt in België</span>
+  </div>
+</footer>
 </body>
 </html>
