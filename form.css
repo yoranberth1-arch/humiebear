@@ -774,3 +774,89 @@
     line-height: 1.5 !important;
   }
 }
+
+
+/* =========================================================
+   OFFERTEFORMULIER — EENVOUDIGER FORMULE KIEZEN
+========================================================= */
+
+.edition-help{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:0 0 14px;
+  padding:12px 15px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:#fffaf6;
+  color:var(--muted);
+  font-size:.82rem;
+  line-height:1.45;
+}
+.edition-help strong{color:var(--brown)}
+
+.edition-options{
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:14px !important;
+}
+.edition-option > .edition-option-content{
+  min-height:235px !important;
+  padding:22px !important;
+  border-radius:20px !important;
+}
+.edition-option.selected > .edition-option-content{
+  border-color:var(--pink-dark) !important;
+  background:linear-gradient(145deg,#fff 0%,var(--pink-light) 100%) !important;
+  box-shadow:0 0 0 3px var(--pink-dark),0 14px 30px rgba(207,94,137,.14) !important;
+}
+.edition-option.selected > .edition-option-content::after{
+  content:"✓ Gekozen";
+}
+.edition-price-row{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  margin-top:14px;
+}
+.edition-price-row b{
+  margin:0 !important;
+  font-size:1.35rem !important;
+}
+.edition-price-row em{
+  margin:0 !important;
+}
+.edition-extra-row{
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:.72rem;
+  line-height:1.5;
+}
+.edition-extra-row strong{font-weight:900;color:var(--brown)}
+.edition-summary{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:14px;
+  padding:13px 16px;
+  border:1px dashed var(--line);
+  border-radius:14px;
+  background:#fff;
+  color:var(--muted);
+  font-size:.78rem;
+}
+.edition-summary strong{color:var(--brown)}
+.edition-summary.has-selection{
+  border-style:solid;
+  border-color:var(--pink);
+  background:var(--pink-light);
+}
+@media(max-width:760px){
+  .edition-help{display:block}
+  .edition-help span{display:block;margin-top:3px}
+  .edition-option > .edition-option-content{min-height:0 !important}
+  .edition-summary{display:block}
+  .edition-summary strong{display:block;margin-top:3px}
+}
