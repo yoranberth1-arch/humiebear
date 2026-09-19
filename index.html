@@ -1543,167 +1543,66 @@
             form.css zorgt voor de styling.
           -->
 
+          <div class="edition-help">
+            <strong>Maak eerst één keuze.</strong>
+            <span>Daarna tonen we alleen de opties die bij jouw formule horen.</span>
+          </div>
+
           <div class="edition-options">
 
             <label class="edition-option edition-option--waffle">
-
-              <input
-                type="radio"
-                name="editions"
-                value="Hummie Bear Waffle Edition"
-                required
-              >
-
+              <input type="radio" name="editions" value="Hummie Bear Waffle Edition" required>
               <div class="edition-option-content">
-
-                <span class="edition-option-kicker">
-                  WARME DESSERTBELEVING
-                </span>
-
-                <strong>
-                  Lollywafel Edition
-                </strong>
-
-                <small>
-                  Lollywafels met chocolade, Nutella, Oreo en milkshakes.
-                </small>
-
-                <b>
-                  €20 p.p.
-                </b>
-
-                <em>
-                  Vanaf 20 personen · 2 uur
-                </em>
-
-                <span class="edition-choice-text">
-                  Kies deze formule
-                </span>
-
+                <span class="edition-option-kicker">WARME DESSERTBELEVING</span>
+                <strong>Lollywafel Edition</strong>
+                <small>Verse lollywafels, popcorn, milkshakes, ijs, warme chocomelk en toppings.</small>
+                <div class="edition-price-row"><b>€20 p.p.</b><em>Vanaf 20 personen</em></div>
+                <div class="edition-extra-row">Snoepzakje 250 g <strong>+ €5 p.p.</strong> · Frisdrank <strong>+ €2</strong></div>
+                <span class="edition-choice-text">Kies Lollywafel →</span>
               </div>
-
             </label>
-
 
             <label class="edition-option edition-option--candy">
-
-              <input
-                type="radio"
-                name="editions"
-                value="Hummie Bear Candy Edition"
-                required
-              >
-
+              <input type="radio" name="editions" value="Hummie Bear Candy Edition" required>
               <div class="edition-option-content">
-
-                <span class="edition-option-kicker">
-                  KLEURRIJK & VRIJ KIEZEN
-                </span>
-
-                <strong>
-                  Candy Edition
-                </strong>
-
-                <small>
-                  66 soorten snoep, 500 gram per persoon en popcorn.
-                </small>
-
-                <b>
-                  €10 p.p.
-                </b>
-
-                <em>
-                  Vanaf 35 personen · 2 uur
-                </em>
-
-                <span class="edition-choice-text">
-                  Kies deze formule
-                </span>
-
+                <span class="edition-option-kicker">66 SOORTEN SNOEP</span>
+                <strong>Candy Edition</strong>
+                <small>500 gram snoep per persoon, 2 uur catering en een opvallende candy-presentatie.</small>
+                <div class="edition-price-row"><b>€10 p.p.</b><em>Vanaf 35 personen</em></div>
+                <div class="edition-extra-row">Popcorn <strong>+ €2 p.p.</strong> · Vegan mogelijk</div>
+                <span class="edition-choice-text">Kies Candy →</span>
               </div>
-
             </label>
-
 
             <label class="edition-option edition-option--combo">
-
-              <input
-                type="radio"
-                name="editions"
-                value="Beide editions"
-                required
-              >
-
+              <input type="radio" name="editions" value="Beide editions" required>
               <div class="edition-option-content">
-
-                <span class="edition-option-kicker">
-                  DE VOLLEDIGE BELEVING
-                </span>
-
-                <strong>
-                  Lollywafel + Candy
-                </strong>
-
-                <small>
-                  De volledige Lollywafel Edition gecombineerd met de Candy Edition.
-                </small>
-
-                <b>
-                  €29,50 p.p.
-                </b>
-
-                <em>
-                  Vanaf 35 personen · 2 uur
-                </em>
-
-                <span class="edition-choice-text">
-                  Kies deze formule
-                </span>
-
+                <span class="edition-option-kicker">COMPLETE BELEVING</span>
+                <strong>Lollywafel + Candy</strong>
+                <small>De twee Hummie Bear-formules gecombineerd voor één complete zoete beleving.</small>
+                <div class="edition-price-row"><b>€29,50 p.p.</b><em>Vanaf 35 personen</em></div>
+                <div class="edition-extra-row">2 uur · Lollywafel + Candy</div>
+                <span class="edition-choice-text">Kies Combo →</span>
               </div>
-
             </label>
-
 
             <label class="edition-option edition-option--bags">
-
-              <input
-                type="radio"
-                name="editions"
-                value="Snoepzakken op maat"
-                required
-              >
-
+              <input type="radio" name="editions" value="Snoepzakken op maat" required>
               <div class="edition-option-content">
-
-                <span class="edition-option-kicker">
-                  VOLLEDIG OP MAAT
-                </span>
-
-                <strong>
-                  Snoepzakken op maat
-                </strong>
-
-                <small>
-                  Kies het aantal, de snoepmix en eventuele personalisatie.
-                </small>
-
-                <b>
-                  Prijs op maat
-                </b>
-
-                <em>
-                  Vanaf 20 personen · persoonlijke samenstelling
-                </em>
-
-                <span class="edition-choice-text">
-                  Kies deze formule
-                </span>
-
+                <span class="edition-option-kicker">VOLLEDIG OP MAAT</span>
+                <strong>Snoepzakken op maat</strong>
+                <small>Voor traktaties, bedankjes of events met een persoonlijke snoepmix.</small>
+                <div class="edition-price-row"><b>Prijs op maat</b><em>Vanaf 20 personen</em></div>
+                <div class="edition-extra-row">Aantal, samenstelling en personalisatie</div>
+                <span class="edition-choice-text">Kies snoepzakken →</span>
               </div>
-
             </label>
 
+          </div>
+
+          <div id="edition-summary" class="edition-summary" aria-live="polite">
+            <span>Jouw keuze</span>
+            <strong>Nog geen formule gekozen</strong>
           </div>
 
         </div>
@@ -1736,11 +1635,19 @@
 
 
             <div class="included-note">
-              <strong>Snoepzakje inbegrepen</strong>
+              <strong>Optioneel: snoepzakje 250 g + €5 p.p.</strong>
               <span>
-                Iedere bezoeker krijgt een snoepzakje van 250 gram.
+                Voeg dit eenvoudig toe wanneer je het wilt. Het zit niet standaard in de €20.
               </span>
             </div>
+
+            <label class="check-option">
+              <input type="checkbox" name="waffle_options" value="Snoepzakje + €5 p.p.">
+              <span>
+                <strong>Snoepzakje 250 g</strong>
+                <small>+ €5 per persoon</small>
+              </span>
+            </label>
 
 
             <label class="check-option">
@@ -1814,6 +1721,26 @@
 
             </label>
 
+
+            <label class="check-option candy-popcorn-option">
+
+              <input
+                type="checkbox"
+                name="candy_options"
+                value="Popcorn"
+              >
+
+              <span>
+                <strong>
+                  Popcorn + €2 p.p.
+                </strong>
+
+                <small>
+                  Met popcorn wordt de Candy-formule €12 p.p.
+                </small>
+              </span>
+
+            </label>
 
             <label class="check-option">
 
