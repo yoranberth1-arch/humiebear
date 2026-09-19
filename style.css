@@ -805,3 +805,279 @@ body{
   .detail-panel h2{font-size:29px}
   .detail-page .event-section{padding:28px 22px;border-radius:24px}
 }
+
+
+/* =========================================================
+   HOMEPAGE-MATCHING DETAIL PAGES — FINAL POLISH
+   Keeps the existing Hummie Bear design language.
+========================================================= */
+
+.detail-page{
+  max-width:1240px !important;
+  margin:0 auto !important;
+  padding:70px 30px 95px !important;
+}
+
+.detail-hero{
+  max-width:none !important;
+  margin:0 0 28px !important;
+  padding:72px 64px 62px !important;
+  border:1px solid var(--line) !important;
+  border-radius:32px !important;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(239,160,189,.22), transparent 24%),
+    linear-gradient(135deg,#fffaf6 0%,#fff3f7 50%,#f4eadf 100%) !important;
+  box-shadow:var(--shadow-lg) !important;
+}
+
+.detail-hero:before{
+  width:270px !important;
+  height:270px !important;
+  right:-95px !important;
+  top:-110px !important;
+  background:rgba(248,217,229,.72) !important;
+}
+
+.detail-hero:after{
+  width:150px !important;
+  height:150px !important;
+  right:18% !important;
+  bottom:-82px !important;
+}
+
+.detail-hero .back-link{
+  margin-bottom:22px !important;
+  font-size:12px !important;
+  color:var(--pink-dark) !important;
+}
+
+.detail-hero .eyebrow{
+  padding:8px 12px !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.84) !important;
+  border:1px solid rgba(230,216,206,.65) !important;
+  box-shadow:0 8px 20px rgba(51,39,33,.05) !important;
+}
+
+.detail-hero h1{
+  max-width:900px !important;
+  margin:18px 0 20px !important;
+  font-size:clamp(48px,6vw,78px) !important;
+  letter-spacing:-.055em !important;
+}
+
+.detail-hero h1 em{
+  color:var(--pink-dark);
+  font-style:normal;
+}
+
+.detail-hero p{
+  max-width:760px !important;
+  font-size:18px !important;
+  line-height:1.75 !important;
+}
+
+.detail-price{
+  margin:27px 0 21px !important;
+  padding:13px 17px !important;
+  border-radius:15px !important;
+  background:var(--brown) !important;
+  font-size:19px !important;
+  box-shadow:0 16px 34px rgba(51,39,33,.14) !important;
+}
+
+.detail-price:before{
+  background:var(--pink) !important;
+  content:"2 UUR" !important;
+}
+
+.detail-grid{
+  max-width:none !important;
+  padding:0 !important;
+  margin:0 !important;
+  grid-template-columns:1.12fr .88fr !important;
+  gap:22px !important;
+}
+
+.detail-panel{
+  padding:32px !important;
+  border:1px solid var(--border-soft) !important;
+  border-radius:26px !important;
+  background:rgba(255,255,255,.92) !important;
+  box-shadow:var(--shadow-soft) !important;
+}
+
+.detail-panel:before{
+  width:110px !important;
+  height:110px !important;
+  right:-38px !important;
+  top:-38px !important;
+  background:var(--pink-ultra) !important;
+}
+
+.detail-panel h2{
+  margin-bottom:20px !important;
+  font-size:31px !important;
+}
+
+.detail-panel ul{
+  gap:11px !important;
+}
+
+.detail-panel li{
+  gap:10px !important;
+}
+
+.detail-panel li:before{
+  flex-basis:24px !important;
+  width:24px !important;
+  height:24px !important;
+  background:var(--pink-light) !important;
+  color:var(--pink-dark) !important;
+}
+
+.detail-panel p{
+  line-height:1.72 !important;
+}
+
+.detail-page .event-section{
+  max-width:none !important;
+  display:grid !important;
+  grid-template-columns:.9fr 1.1fr !important;
+  gap:40px !important;
+  margin:24px 0 0 !important;
+  padding:44px !important;
+  border:1px solid var(--line) !important;
+  border-radius:28px !important;
+  background:linear-gradient(135deg,#fff,#f8eee5) !important;
+  box-shadow:var(--shadow-soft) !important;
+}
+
+.detail-page .experience-intro h2{
+  margin-top:11px !important;
+  font-size:clamp(41px,5vw,61px) !important;
+}
+
+.detail-page .experience-intro p{
+  font-size:15px !important;
+  line-height:1.75 !important;
+}
+
+.detail-page .experience-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+  gap:12px !important;
+}
+
+.detail-page .experience-step{
+  min-height:185px !important;
+  padding:22px !important;
+  border-top:3px solid var(--pink) !important;
+  border-radius:0 0 16px 16px !important;
+  background:rgba(255,255,255,.82) !important;
+}
+
+.detail-page .experience-step h3{
+  margin:18px 0 7px !important;
+}
+
+.detail-page .experience-step p{
+  font-size:12px !important;
+  line-height:1.6 !important;
+}
+
+.detail-page .experience-step:hover{
+  transform:translateY(-3px);
+  box-shadow:var(--shadow-soft);
+}
+
+@media(max-width:900px){
+  .detail-page{
+    padding:55px 22px 70px !important;
+  }
+
+  .detail-hero{
+    padding:48px 34px 42px !important;
+  }
+
+  .detail-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  .detail-page .event-section{
+    grid-template-columns:1fr !important;
+    gap:30px !important;
+    padding:35px 30px !important;
+  }
+
+  .detail-page .experience-grid{
+    grid-template-columns:1fr 1fr !important;
+  }
+}
+
+@media(max-width:600px){
+  .detail-page{
+    padding:32px 18px 55px !important;
+  }
+
+  .detail-hero{
+    padding:35px 22px 30px !important;
+    border-radius:24px !important;
+  }
+
+  .detail-hero h1{
+    font-size:44px !important;
+  }
+
+  .detail-hero p{
+    font-size:16px !important;
+  }
+
+  .detail-price{
+    font-size:17px !important;
+    flex-wrap:wrap !important;
+  }
+
+  .detail-panel{
+    padding:24px !important;
+    border-radius:22px !important;
+  }
+
+  .detail-panel h2{
+    font-size:28px !important;
+  }
+
+  .detail-page .event-section{
+    padding:28px 22px !important;
+    border-radius:23px !important;
+  }
+
+  .detail-page .experience-intro h2{
+    font-size:42px !important;
+  }
+
+  .detail-page .experience-grid{
+    grid-template-columns:1fr !important;
+  }
+}
+
+/* Distinctive but brand-consistent Candy accent. */
+.candy-detail .detail-hero,
+.candy-detail-page .detail-hero{
+  background:
+    radial-gradient(circle at 88% 12%,rgba(237,207,115,.22),transparent 20%),
+    radial-gradient(circle at 72% 82%,rgba(239,160,189,.18),transparent 28%),
+    linear-gradient(135deg,#fffaf6 0%,#fff7f1 48%,#f8eee5 100%) !important;
+}
+
+.candy-detail .eyebrow,
+.candy-detail .back-link{
+  color:var(--pink-dark) !important;
+}
+
+/* Lollywafel keeps the pink dessert-led identity. */
+.waffle-detail{
+  background:
+    radial-gradient(circle at 88% 10%,rgba(239,160,189,.22),transparent 24%),
+    linear-gradient(135deg,#fffaf6 0%,#fff3f7 50%,#f4eadf 100%) !important;
+}
