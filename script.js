@@ -690,65 +690,42 @@
     formData = null
   ) {
 
-    const startup =
-      guests < 50 ? 150 : 0;
-
-
     if (edition === "waffle") {
 
-      let price =
-        guests * 20;
+      const startup =
+        guests >= 20 && guests < 30 ? 150 : 0;
+
+      let price = guests * 20;
 
       if (formData) {
-
-        const waffleOptions =
-          getValues(
-            formData,
-            "waffle_options"
-          );
-
-
-        if (
-          waffleOptions.includes(
-            "Snoepzakje + €5 p.p."
-          )
-        ) {
-
-          price +=
-            guests * 5;
-
+        const waffleOptions = getValues(formData, "waffle_options");
+        if (waffleOptions.includes("Snoepzakje + €5 p.p.")) {
+          price += guests * 5;
         }
-
       }
 
       return price + startup;
 
     }
 
-
     if (edition === "candy") {
 
-      return (
-        guests * 10 +
-        startup
-      );
+      const startup = guests < 50 ? 150 : 0;
+      const candyOptions = formData
+        ? getValues(formData, "candy_options")
+        : [];
+      const popcornSelected = candyOptions.includes("Popcorn");
+
+      return guests * (popcornSelected ? 12 : 10) + startup;
 
     }
-
 
     if (edition === "both") {
 
-      return (
-        guests * 29.5 +
-        startup
-      );
+      const startup = guests < 50 ? 150 : 0;
+      return guests * 29.5 + startup;
 
     }
-
-
-    /* Snoepzakken:
-       prijs is op maat.
-    */
 
     return null;
 
