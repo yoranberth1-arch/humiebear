@@ -1081,3 +1081,287 @@ body{
     radial-gradient(circle at 88% 10%,rgba(239,160,189,.22),transparent 24%),
     linear-gradient(135deg,#fffaf6 0%,#fff3f7 50%,#f4eadf 100%) !important;
 }
+
+
+/* =========================================================
+   DETAIL PAGES — MOBILE FIX / HOMEPAGE-STYLE LAYOUT
+   Final responsive override for Candy + Lollywafel pages.
+========================================================= */
+
+.detail-page,
+.detail-page *{
+  min-width:0;
+}
+
+.detail-page{
+  width:100%;
+  max-width:1240px !important;
+  margin:0 auto !important;
+  padding:72px 30px 96px !important;
+  overflow:clip;
+}
+
+.detail-hero{
+  width:100%;
+  max-width:100% !important;
+  margin:0 0 24px !important;
+  padding:64px !important;
+  overflow:hidden;
+}
+
+.detail-hero h1{
+  width:100%;
+  max-width:900px !important;
+  overflow-wrap:break-word;
+  word-break:normal;
+  hyphens:none;
+}
+
+.detail-hero p{
+  width:100%;
+  max-width:720px !important;
+}
+
+.detail-grid{
+  width:100%;
+  max-width:100% !important;
+}
+
+.detail-panel{
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
+}
+
+.detail-page .event-section{
+  width:100%;
+  max-width:100% !important;
+  overflow:hidden;
+}
+
+.detail-page .experience-intro,
+.detail-page .experience-grid,
+.detail-page .experience-step{
+  min-width:0;
+  max-width:100%;
+}
+
+@media (max-width: 900px){
+  .detail-page{
+    width:100%;
+    max-width:100%;
+    padding:48px 22px 70px !important;
+  }
+
+  .detail-hero{
+    width:100%;
+    margin:0 0 20px !important;
+    padding:48px 34px 42px !important;
+    border-radius:28px !important;
+  }
+
+  .detail-hero h1{
+    font-size:clamp(42px,9vw,62px) !important;
+    line-height:1.02 !important;
+  }
+
+  .detail-hero p{
+    font-size:16px !important;
+    line-height:1.7 !important;
+  }
+
+  .detail-price{
+    max-width:100%;
+  }
+
+  .detail-grid{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:20px !important;
+  }
+
+  .detail-panel{
+    padding:30px !important;
+  }
+
+  .detail-page .event-section{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:28px !important;
+    margin-top:20px !important;
+    padding:34px 30px !important;
+  }
+
+  .detail-page .experience-grid{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:12px !important;
+  }
+}
+
+@media (max-width: 600px){
+  .detail-page{
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 !important;
+    padding:30px 18px 55px !important;
+  }
+
+  .detail-hero{
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 0 18px !important;
+    padding:28px 22px 30px !important;
+    border-radius:24px !important;
+    box-shadow:var(--shadow) !important;
+  }
+
+  .detail-hero .back-link{
+    display:flex !important;
+    width:max-content;
+    max-width:100%;
+    margin:0 0 18px !important;
+    font-size:11px !important;
+    line-height:1.3 !important;
+  }
+
+  .detail-hero .eyebrow{
+    max-width:100%;
+    padding:7px 10px !important;
+    font-size:9px !important;
+    letter-spacing:.16em !important;
+  }
+
+  .detail-hero h1{
+    width:100% !important;
+    max-width:100% !important;
+    margin:16px 0 16px !important;
+    font-size:40px !important;
+    line-height:1.04 !important;
+    letter-spacing:-.045em !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  .detail-hero p{
+    width:100% !important;
+    max-width:100% !important;
+    margin:0 !important;
+    font-size:15px !important;
+    line-height:1.65 !important;
+  }
+
+  .detail-price{
+    width:max-content;
+    max-width:100%;
+    margin:20px 0 16px !important;
+    padding:11px 14px !important;
+    font-size:16px !important;
+    line-height:1.25 !important;
+  }
+
+  .detail-hero .btn{
+    width:100%;
+    min-height:52px;
+    padding:13px 18px;
+    text-align:center;
+  }
+
+  .detail-grid{
+    width:100% !important;
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:18px !important;
+  }
+
+  .detail-panel{
+    width:100% !important;
+    max-width:100% !important;
+    padding:24px !important;
+    border-radius:22px !important;
+    box-shadow:var(--shadow) !important;
+  }
+
+  .detail-panel h2{
+    font-size:28px !important;
+    line-height:1.08 !important;
+    overflow-wrap:break-word;
+  }
+
+  .detail-panel ul{
+    gap:10px !important;
+  }
+
+  .detail-panel li{
+    font-size:14px !important;
+    line-height:1.5 !important;
+  }
+
+  .detail-panel li:before{
+    flex:0 0 23px !important;
+    width:23px !important;
+    height:23px !important;
+  }
+
+  .detail-panel p{
+    font-size:14px !important;
+    line-height:1.65 !important;
+  }
+
+  .detail-panel .btn{
+    width:100%;
+  }
+
+  .detail-page .event-section{
+    width:100% !important;
+    max-width:100% !important;
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:24px !important;
+    margin:18px 0 0 !important;
+    padding:26px 22px !important;
+    border-radius:22px !important;
+  }
+
+  .detail-page .experience-intro{
+    width:100%;
+    max-width:100%;
+  }
+
+  .detail-page .experience-intro h2{
+    font-size:38px !important;
+    line-height:1.04 !important;
+    overflow-wrap:break-word;
+  }
+
+  .detail-page .experience-intro p{
+    font-size:14px !important;
+    line-height:1.65 !important;
+  }
+
+  .detail-page .experience-grid{
+    width:100% !important;
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:10px !important;
+  }
+
+  .detail-page .experience-step{
+    width:100%;
+    min-height:0 !important;
+    padding:20px !important;
+  }
+}
+
+/* Keep Candy distinctive without breaking the Hummie Bear visual system. */
+.candy-detail .detail-hero,
+.candy-detail-page .detail-hero{
+  background:
+    radial-gradient(circle at 88% 10%,rgba(237,207,115,.20),transparent 22%),
+    radial-gradient(circle at 72% 84%,rgba(239,160,189,.14),transparent 30%),
+    linear-gradient(135deg,#fffaf6 0%,#fff6f2 52%,#f4eadf 100%) !important;
+}
+
+.candy-detail .detail-hero .eyebrow,
+.candy-detail .detail-hero .back-link{
+  color:var(--pink-dark) !important;
+}
