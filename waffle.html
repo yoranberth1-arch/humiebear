@@ -8,45 +8,42 @@
   <title>Lollywafel Edition | Hummie Bear</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="announcement">Hummie Bear • Sweet experiences on wheels • West-Vlaanderen & omgeving</div>
-
+  <div class="announcement">HUMMIE BEAR <span>•</span> LOLLYWAFEL EDITION <span>•</span> 2 UUR ALL-IN <span>•</span> EVENT CATERING</div>
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="index.html" aria-label="Hummie Bear home">
         <span class="brand-mark">HB</span>
         <span>Hummie <b>Bear</b></span>
       </a>
-
+      <button class="menu-toggle" type="button" aria-label="Menu openen" aria-expanded="false"
+        onclick="(function(btn){var nav=document.querySelector('.main-nav');if(!nav)return;var open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Menu sluiten':'Menu openen');})(this)">☰</button>
       <nav class="main-nav" aria-label="Hoofdnavigatie">
-        <a href="index.html#editions">Edities</a>
+        <a href="index.html">Home</a>
+        <a href="waffle.html">Lollywafel Edition</a>
+        <a href="candy.html">Candy Edition</a>
         <a href="index.html#prijzen">Prijzen</a>
         <a href="index.html#faq">FAQ</a>
         <a href="index.html#contact" class="nav-button">Vraag offerte</a>
       </nav>
     </div>
   </header>
-
   <main class="detail-page">
-    <section class="detail-hero">
+    <section class="detail-hero waffle-detail">
       <a class="back-link" href="index.html">← Terug naar Hummie Bear</a>
       <span class="eyebrow">LOLLYWAFEL EDITION</span>
-      <h1>Verse lollywafels & een complete zoete beleving.</h1>
-      <p>
-        Hummie Bear komt naar jouw feest met vers bereide lollywafels op een stokje,
-        popcorn, milkshakes, ijs, warme chocomelk, chocolade en een ruime keuze aan toppings.
-        Ideaal voor verjaardagen, communies, bedrijfsfeesten en evenementen.
-      </p>
-      <div class="detail-price">€20 per persoon • 2 uur all-in</div>
-      <a class="btn btn-primary" href="index.html#contact">Vraag jouw offerte aan →</a>
+      <h1>Verse lollywafels. <em>Veel toppings.</em> Eén grote zoete belevenis.</h1>
+      <p>Hummie Bear komt naar jouw event met verse lollywafels op een stokje, popcorn, milkshakes, ijs, warme chocomelk en een ruime keuze aan toppings.</p>
+      <div class="detail-price">€20 per persoon</div>
+      <a class="btn btn-primary" href="index.html?edition=waffle#contact">Lollywafel aanvragen →</a>
     </section>
-
     <section class="detail-grid">
       <div class="detail-panel">
-        <h2>Wat is inbegrepen?</h2>
+        <span class="eyebrow">INBEGREPEN</span>
+        <h2>Alles voor een complete dessertbeleving.</h2>
         <ul>
           <li>2 uur service op locatie</li>
           <li>Verse lollywafels op een stokje</li>
@@ -54,61 +51,53 @@
           <li>Milkshakes</li>
           <li>IJs met een selectie van smaken</li>
           <li>Warme chocomelk</li>
-          <li>Chocoladesauzen</li>
-          <li>Nutella</li>
+          <li>Chocoladesauzen en Nutella</li>
           <li>Oreo, speculoos, M&amp;M’s en Smarties</li>
           <li>Sprinkles, cookie crumble, marshmallows en gummy bears</li>
           <li>Snoepzakje van 250 gram per bezoeker</li>
           <li>Professionele bediening, opbouw en afwerking</li>
         </ul>
       </div>
-
       <div class="detail-panel">
-        <h2>Praktisch</h2>
+        <span class="eyebrow">PRAKTISCH</span>
+        <h2>Helder geprijsd.</h2>
         <p><strong>Vanaf 20 personen.</strong></p>
-        <p>
-          Van 20 t.e.m. 29 personen geldt een opstartkost van €150.
-          Vanaf 30 personen vervalt de opstartkost.
-        </p>
-        <p>
-          De formule duurt 2 uur en is inclusief het snoepzakje van 250 gram per bezoeker.
-        </p>
-        <p>
-          Frisdranken zijn mogelijk als extra optie voor €2 per blikje.
-        </p>
-        <a class="btn btn-primary" href="index.html#contact">Lollywafel aanvragen →</a>
+        <p>Van 20 t.e.m. 29 personen geldt een opstartkost van €150. Vanaf 30 personen vervalt de opstartkost volledig.</p>
+        <p>De formule duurt 2 uur en het snoepzakje van 250 gram is standaard inbegrepen.</p>
+        <p>Frisdrank kan als extra optie voor €2 per blikje.</p>
+        <a class="btn btn-primary" href="index.html?edition=waffle#contact">Vraag jouw offerte aan →</a>
       </div>
     </section>
-
-    <section class="section event-section">
+    <section class="detail-page event-section topping-showcase">
       <div class="experience-intro">
-        <span class="eyebrow">TOPPINGS</span>
-        <h2>Maak hem helemaal <em>van jou.</em></h2>
-        <p>
-          Van klassieke chocolade tot Oreo, speculoos, M&amp;M’s, Smarties,
-          sprinkles, cookie crumble, marshmallows, gummy bears en verschillende ijssmaken.
-        </p>
+        <span class="eyebrow">TOPPINGS & SMAKEN</span>
+        <h2>Maak jouw lollywafel <em>helemaal eigen.</em></h2>
+        <p>Combineer chocolade, Nutella, Oreo, speculoos, M&amp;M’s, Smarties, sprinkles, cookie crumble, marshmallows en gummy bears. Ook verschillende ijssmaken maken deel uit van de beleving.</p>
+      </div>
+      <div class="experience-grid">
+        <div class="experience-step"><span>01</span><h3>Chocolade</h3><p>Warme sauzen en Nutella voor de klassieke zoete basis.</p></div>
+        <div class="experience-step"><span>02</span><h3>Crunch</h3><p>Oreo, speculoos, cookie crumble, M&amp;M’s en Smarties.</p></div>
+        <div class="experience-step"><span>03</span><h3>Extra fun</h3><p>Marshmallows, gummy bears, sprinkles en ijs.</p></div>
       </div>
     </section>
   </main>
-
   <footer class="site-footer">
-    <div class="footer-top">
-      <a class="brand footer-brand" href="index.html">
-        <span class="brand-mark">HB</span>
-        <span>Hummie <b>Bear</b></span>
-      </a>
-      <p>Sweet experiences on wheels.</p>
-      <div class="footer-links">
-        <a href="index.html#editions">Edities</a>
-        <a href="index.html#prijzen">Prijzen</a>
-        <a href="index.html#contact">Offerte</a>
-      </div>
+  <div class="footer-top">
+    <a class="brand footer-brand" href="index.html">
+      <span class="brand-mark">HB</span>
+      <span>Hummie <b>Bear</b></span>
+    </a>
+    <p>Sweet experiences on wheels.</p>
+    <div class="footer-links">
+      <a href="index.html#editions">Edities</a>
+      <a href="index.html#prijzen">Prijzen</a>
+      <a href="index.html#contact">Offerte</a>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 Hummie Bear</span>
-      <span>Gemaakt in België</span>
-    </div>
-  </footer>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Hummie Bear</span>
+    <span>Gemaakt in België</span>
+  </div>
+</footer>
 </body>
 </html>
