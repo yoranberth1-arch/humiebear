@@ -347,55 +347,39 @@
 
   function updateEditionPanels() {
 
-    const selected =
-      selectedEditions();
-
+    const selected = selectedEditions();
 
     const candySelected =
-      selected.includes(
-        "Hummie Bear Candy Edition"
-      ) ||
-      selected.includes(
-        "Beide editions"
-      );
-
+      selected.includes("Hummie Bear Candy Edition") ||
+      selected.includes("Beide editions");
 
     const waffleSelected =
-      selected.includes(
-        "Hummie Bear Waffle Edition"
-      ) ||
-      selected.includes(
-        "Beide editions"
-      );
-
+      selected.includes("Hummie Bear Waffle Edition") ||
+      selected.includes("Beide editions");
 
     const bagsSelected =
-      selected.includes(
-        "Snoepzakken op maat"
-      );
+      selected.includes("Snoepzakken op maat");
 
+    if (candyFields) candyFields.hidden = !candySelected;
+    if (waffleFields) waffleFields.hidden = !waffleSelected;
+    if (bagFields) bagFields.hidden = !bagsSelected;
 
-    if (candyFields) {
+    editionInputs.forEach((input) => {
+      input.closest(".edition-option")?.classList.toggle("selected", input.checked);
+    });
 
-      candyFields.hidden =
-        !candySelected;
-
-    }
-
-
-    if (waffleFields) {
-
-      waffleFields.hidden =
-        !waffleSelected;
-
-    }
-
-
-    if (bagFields) {
-
-      bagFields.hidden =
-        !bagsSelected;
-
+    const summary = document.getElementById("edition-summary");
+    if (summary) {
+      const labels = {
+        "Hummie Bear Waffle Edition": "Lollywafel Edition",
+        "Hummie Bear Candy Edition": "Candy Edition",
+        "Beide editions": "Lollywafel + Candy",
+        "Snoepzakken op maat": "Snoepzakken op maat"
+      };
+      const selectedInput = editionInputs.find((input) => input.checked);
+      summary.querySelector("strong").textContent =
+        selectedInput ? labels[selectedInput.value] : "Nog geen formule gekozen";
+      summary.classList.toggle("has-selection", Boolean(selectedInput));
     }
 
   }
@@ -411,10 +395,25 @@
       "change",
       () => {
 
-        /* Eén duidelijke formule per aanvraag. De kaarten zijn radio-
-           keuzes, dus de browser beheert de exclusieve selectie. */
         updateEditionPanels();
         updateEstimate();
+
+        const targetPanel =
+          input.value === "Hummie Bear Waffle Edition" || input.value === "Beide editions"
+            ? waffleFields
+            : input.value === "Hummie Bear Candy Edition"
+              ? candyFields
+              : input.value === "Snoepzakken op maat"
+                ? bagFields
+                : null;
+
+        setTimeout(() => {
+          (targetPanel || document.querySelector(".edition-summary"))?.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+          });
+        }, 80);
+
         return;
 
         const bothInput =
