@@ -128,11 +128,11 @@
           </span>
 
           <strong>
-            Wafel Edition
+            Lollywafel Edition
           </strong>
 
           <small>
-            Lollywafels, milkshakes, ijs, koffie en warme chocomelk.
+            Verse lollywafels, popcorn met smaak naar keuze, milkshakes, ijs en chocomousse.
           </small>
 
           <b>
@@ -208,7 +208,7 @@
           </strong>
 
           <small>
-            Alle Wafel Edition-items én 65 soorten snoep.
+            Alle Lollywafel Edition-items én 65 soorten snoep.
           </small>
 
           <b>
