@@ -5455,8 +5455,8 @@ async function loadProductsFromSupabase() {
             item => {
 
               const product =
-                getProductById(
-                  item.id
+                getCartProduct(
+                  item
                 );
 
               return {
