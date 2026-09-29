@@ -964,6 +964,23 @@
 
 
     /* =========================================================
+       CANDY-ONLY DESIGN
+    ========================================================= */
+    .hero-candy-stack{height:100%;min-height:180px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;padding:24px;border-radius:24px;background:radial-gradient(circle at 20% 20%,rgba(239,160,189,.75),transparent 25%),radial-gradient(circle at 80% 70%,rgba(242,201,76,.65),transparent 28%),linear-gradient(135deg,#fff3f7,#fffaf0);font-size:clamp(34px,6vw,56px);box-shadow:inset 0 0 0 1px rgba(89,60,49,.06)}
+.hero-candy-stack span{display:inline-flex;width:64px;height:64px;align-items:center;justify-content:center;border-radius:18px;background:rgba(255,255,255,.78);box-shadow:0 12px 24px rgba(89,60,49,.10);transform:rotate(-5deg)}
+.hero-candy-stack span:nth-child(even){transform:rotate(6deg) translateY(8px)}
+.custom-mix-gift{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;margin-top:18px;padding:18px;border:2px solid #f2c94c;border-radius:22px;background:radial-gradient(circle at 10% 10%,rgba(242,201,76,.28),transparent 30%),linear-gradient(135deg,#fffdf4,#fff5f8);box-shadow:0 12px 28px rgba(89,60,49,.10)}
+.custom-mix-gift-visual{position:relative;min-height:130px;display:flex;align-items:center;justify-content:center}
+.custom-mix-gift-bag{position:relative;width:105px;height:112px;padding:14px 10px;border:3px solid #5d4037;border-radius:12px 12px 22px 22px;background:linear-gradient(145deg,#ffd1e1,#f4a6c2);box-shadow:0 12px 22px rgba(89,60,49,.18);transform:rotate(-4deg)}
+.custom-mix-gift-bag:before{content:"";position:absolute;left:9px;right:9px;top:9px;height:8px;border-radius:999px;background:#5d4037}
+.custom-mix-gift-label{margin-top:28px;text-align:center;color:#5d4037;font-size:12px;font-weight:1000;line-height:1.05}
+.custom-mix-gift-candies{position:absolute;left:12px;right:12px;bottom:13px;display:flex;justify-content:center;gap:3px;font-size:17px}
+.custom-mix-gift-copy strong{display:block;margin-bottom:5px;font-size:20px}
+.custom-mix-gift-copy p{margin:0 0 9px;color:var(--brown-light);font-size:12px;line-height:1.55}
+.custom-mix-gift-badge{display:inline-flex;padding:7px 11px;border-radius:999px;background:var(--brown);color:white;font-size:11px;font-weight:900}
+@media(max-width:760px){.custom-mix-gift{grid-template-columns:1fr;text-align:center}.custom-mix-gift-copy strong{font-size:18px}}
+
+    /* =========================================================
        PRODUCT GRID
     ========================================================= */
 
@@ -2486,10 +2503,6 @@
           Candy Edition
         </a>
 
-        <a href="waffle.html">
-          Lollywafel
-        </a>
-
       </nav>
 
 
@@ -2627,11 +2640,9 @@
 
         <div class="hero-photo-small">
 
-          <img
-            src="https://images.unsplash.com/photo-1560052859-7deb492b0baf?auto=format&fit=crop&w=1200&q=85"
-            alt="Verse Belgische wafel als sweet moment"
-            loading="lazy"
-          >
+          <div class="hero-candy-stack" aria-label="Kleurrijk schepsnoep">
+            <span>🍬</span><span>🍭</span><span>🍓</span><span>🐻</span><span>🍋</span>
+          </div>
 
         </div>
 
@@ -2928,6 +2939,21 @@
           id="shippingProgressBar"
         ></div>
 
+      </div>
+
+
+      <div class="custom-mix-gift" id="customMixGift">
+        <div class="custom-mix-gift-visual" aria-hidden="true">
+          <div class="custom-mix-gift-bag">
+            <div class="custom-mix-gift-label">GRATIS<br>SNOEP</div>
+            <div class="custom-mix-gift-candies">🍬 🐻 🍓 🍭</div>
+          </div>
+        </div>
+        <div class="custom-mix-gift-copy">
+          <strong>500 g gekozen? Dan krijg je een extra zakje schepsnoep cadeau!</strong>
+          <p>Je betaalt alleen voor je gekozen schepsnoep. Vanaf 500 gram voegen we een extra gevuld snoepzakje gratis toe aan je bestelling.</p>
+          <span class="custom-mix-gift-badge">500 g = GRATIS EXTRA ZAKJE</span>
+        </div>
       </div>
 
     </section>
@@ -3521,7 +3547,7 @@
         <div class="footer-text">
 
           Sweetness on Wheels.
-          Hummie Bear brengt candy, lollywafels
+          Hummie Bear brengt kleurrijk schepsnoep
           en sweet moments naar events én online.
 
         </div>
@@ -3543,10 +3569,6 @@
 
           <a href="candy.html">
             Candy Edition
-          </a>
-
-          <a href="waffle.html">
-            Lollywafel Edition
           </a>
 
         </div>
