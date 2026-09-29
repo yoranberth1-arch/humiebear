@@ -1,0 +1,5970 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="description"
+    content="Hummie Bear Shop — bestel snoep, Cuberdons en exclusieve Hummie Bear Live Boxes."
+  >
+
+  <meta
+    name="theme-color"
+    content="#d9789d"
+  >
+
+  <meta
+    property="og:type"
+    content="website"
+  >
+
+  <meta
+    property="og:title"
+    content="Hummie Bear Shop | Sweetness on Wheels"
+  >
+
+  <meta
+    property="og:description"
+    content="Ontdek de Hummie Bear Shop en bestel jouw favoriete snoep en exclusieve Live Boxes."
+  >
+
+  <meta
+    property="og:url"
+    content="https://www.hummiebear.be/shop.html"
+  >
+
+  <title>Hummie Bear Shop | Sweetness on Wheels</title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* =========================================================
+       HUMMIE BEAR SHOP
+       Volledig zelfstandig stylesheet
+    ========================================================= */
+
+    :root {
+      --pink: #efa0bd;
+      --pink-dark: #d9789d;
+      --pink-deep: #bd547e;
+      --pink-light: #fce4ed;
+      --pink-soft: #fff5f8;
+
+      --cream: #fbf7f3;
+      --cream-dark: #f1e5d9;
+      --cream-deep: #e8d8cb;
+
+      --brown: #3d2a20;
+      --brown-light: #76675e;
+
+      --white: #ffffff;
+
+      --green: #2f7d4b;
+      --green-light: #eef8f1;
+
+      --gold: #f2c94c;
+      --red: #a32929;
+      --red-light: #fff0f0;
+
+      --line: #eadfd5;
+
+      --shadow:
+        0 12px 40px rgba(61, 42, 32, 0.08);
+
+      --shadow-lg:
+        0 22px 70px rgba(61, 42, 32, 0.14);
+
+      --radius: 24px;
+
+      --max-width: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--cream);
+      color: var(--brown);
+      font-family: "DM Sans", Arial, sans-serif;
+    }
+
+    body.cart-open {
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--pink-light);
+      color: var(--brown);
+    }
+
+
+    /* =========================================================
+       ACCESSIBILITY
+    ========================================================= */
+
+    .skip-link {
+      position: fixed;
+      left: 16px;
+      top: -100px;
+      z-index: 10000;
+
+      padding: 12px 16px;
+
+      background: var(--brown);
+      color: white;
+
+      border-radius: 12px;
+
+      font-weight: 800;
+    }
+
+    .skip-link:focus {
+      top: 16px;
+    }
+
+
+    /* =========================================================
+       TOP BAR
+    ========================================================= */
+
+    .announcement {
+      background: var(--brown);
+      color: white;
+
+      padding: 11px 18px;
+
+      text-align: center;
+
+      font-size: 10px;
+      line-height: 1.4;
+
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .announcement span {
+      opacity: 0.5;
+      padding: 0 7px;
+    }
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    .shop-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+
+      background: rgba(251, 247, 243, 0.95);
+
+      border-bottom: 1px solid var(--line);
+
+      backdrop-filter: blur(16px);
+    }
+
+    .header-inner {
+      width: min(
+        calc(100% - 36px),
+        var(--max-width)
+      );
+
+      margin: 0 auto;
+
+      min-height: 76px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 10px;
+
+      font-size: 19px;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink),
+          var(--pink-dark)
+        );
+
+      color: white;
+
+      font-size: 12px;
+      font-weight: 900;
+
+      box-shadow:
+        0 10px 25px rgba(207, 94, 137, 0.22);
+    }
+
+    .brand strong {
+      font-weight: 900;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .main-nav a {
+      transition: 0.2s ease;
+    }
+
+    .main-nav a:hover {
+      color: var(--pink-dark);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .header-button {
+      min-height: 44px;
+
+      border: 1px solid var(--line);
+      border-radius: 999px;
+
+      padding: 0 14px;
+
+      background: white;
+      color: var(--brown);
+
+      font-size: 12px;
+      font-weight: 900;
+
+      transition: 0.2s ease;
+    }
+
+    .header-button:hover {
+      border-color: var(--pink);
+      transform: translateY(-1px);
+    }
+
+    .cart-button {
+      position: relative;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 8px;
+
+      min-height: 44px;
+
+      border: 0;
+      border-radius: 999px;
+
+      padding: 0 16px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink),
+          var(--pink-dark)
+        );
+
+      color: white;
+
+      font-size: 12px;
+      font-weight: 900;
+
+      box-shadow:
+        0 12px 28px rgba(207, 94, 137, 0.2);
+    }
+
+    .cart-count {
+      min-width: 22px;
+      height: 22px;
+
+      display: inline-grid;
+      place-items: center;
+
+      padding: 0 6px;
+
+      border-radius: 999px;
+
+      background: rgba(255, 255, 255, 0.24);
+
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .shop-hero {
+      position: relative;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 15% 25%,
+          rgba(239, 160, 189, 0.22),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 85% 80%,
+          rgba(242, 201, 76, 0.18),
+          transparent 24%
+        );
+
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-inner {
+      width: min(
+        calc(100% - 36px),
+        var(--max-width)
+      );
+
+      margin: 0 auto;
+
+      padding: 70px 0 60px;
+
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+
+      align-items: center;
+
+      gap: 50px;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 7px 11px;
+
+      border-radius: 999px;
+
+      background: var(--pink-light);
+      color: var(--pink-deep);
+
+      font-size: 10px;
+      font-weight: 900;
+
+      letter-spacing: 0.15em;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+
+      background: #d92d48;
+
+      box-shadow:
+        0 0 0 5px rgba(217, 45, 72, 0.1);
+    }
+
+    .hero-copy h1 {
+      margin: 18px 0 18px;
+
+      max-width: 700px;
+
+      font-family: "Playfair Display", Georgia, serif;
+
+      font-size:
+        clamp(
+          46px,
+          6vw,
+          82px
+        );
+
+      line-height: 0.98;
+
+      letter-spacing: -0.05em;
+    }
+
+    .hero-copy h1 em {
+      color: var(--pink-dark);
+      font-style: normal;
+    }
+
+    .hero-copy p {
+      max-width: 620px;
+
+      margin: 0;
+
+      color: var(--brown-light);
+
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+
+      margin-top: 28px;
+    }
+
+    .btn {
+      min-height: 50px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      gap: 9px;
+
+      border-radius: 999px;
+
+      padding: 0 19px;
+
+      border: 0;
+
+      font-size: 12px;
+      font-weight: 900;
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink),
+          var(--pink-dark)
+        );
+
+      color: white;
+
+      box-shadow:
+        0 16px 34px rgba(207, 94, 137, 0.2);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--line);
+
+      background: white;
+
+      color: var(--brown);
+    }
+
+    .hero-points {
+      display: flex;
+      flex-wrap: wrap;
+
+      gap: 10px 18px;
+
+      margin-top: 20px;
+
+      color: var(--brown-light);
+
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .hero-visual {
+      position: relative;
+
+      min-height: 470px;
+    }
+
+    .hero-blob {
+      position: absolute;
+      inset: 5% 4%;
+
+      border-radius:
+        48%
+        52%
+        42%
+        58%;
+
+      background:
+        linear-gradient(
+          145deg,
+          var(--pink-light),
+          #f7ecd7
+        );
+
+      transform: rotate(-5deg);
+    }
+
+    .hero-photo-main {
+      position: absolute;
+
+      top: 6%;
+      left: 7%;
+
+      width: 68%;
+      height: 74%;
+
+      overflow: hidden;
+
+      border: 8px solid white;
+
+      border-radius: 32px;
+
+      box-shadow: var(--shadow-lg);
+
+      transform: rotate(-4deg);
+
+      z-index: 2;
+    }
+
+    .hero-photo-main img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-photo-small {
+      position: absolute;
+
+      right: 0;
+      bottom: 0;
+
+      width: 44%;
+      height: 47%;
+
+      overflow: hidden;
+
+      border: 8px solid white;
+
+      border-radius: 28px;
+
+      box-shadow: var(--shadow-lg);
+
+      transform: rotate(6deg);
+
+      z-index: 3;
+    }
+
+    .hero-photo-small img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-badge {
+      position: absolute;
+      z-index: 5;
+
+      display: grid;
+      place-items: center;
+
+      width: 110px;
+      height: 110px;
+
+      border-radius: 50%;
+
+      text-align: center;
+
+      font-size: 11px;
+      line-height: 1.2;
+      font-weight: 900;
+
+      box-shadow:
+        0 15px 30px rgba(61, 42, 32, 0.12);
+    }
+
+    .hero-badge-pink {
+      top: 2%;
+      right: 3%;
+
+      background: var(--pink);
+      color: white;
+
+      transform: rotate(8deg);
+    }
+
+    .hero-badge-yellow {
+      bottom: 0;
+      left: 1%;
+
+      background: var(--gold);
+      color: var(--brown);
+
+      transform: rotate(-8deg);
+    }
+
+
+    /* =========================================================
+       SHOP CONTENT
+    ========================================================= */
+
+    .shop-wrapper {
+      width: min(
+        calc(100% - 36px),
+        var(--max-width)
+      );
+
+      margin: 0 auto;
+
+      padding: 60px 0 90px;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+
+      gap: 30px;
+
+      margin-bottom: 28px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+
+      font-family: "Playfair Display", Georgia, serif;
+
+      font-size:
+        clamp(
+          38px,
+          5vw,
+          62px
+        );
+
+      line-height: 1;
+
+      letter-spacing: -0.04em;
+    }
+
+    .section-heading h2 em {
+      color: var(--pink-dark);
+      font-style: normal;
+    }
+
+    .section-heading p {
+      max-width: 480px;
+
+      margin: 0;
+
+      color: var(--brown-light);
+
+      line-height: 1.65;
+
+      font-size: 14px;
+    }
+
+
+    /* =========================================================
+       CONTROLS
+    ========================================================= */
+
+    .shop-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-bottom: 25px;
+    }
+
+    .category-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .category-button {
+      border: 1px solid var(--line);
+
+      border-radius: 999px;
+
+      padding: 10px 14px;
+
+      background: white;
+
+      color: var(--brown-light);
+
+      font-size: 11px;
+      font-weight: 900;
+
+      transition: 0.2s ease;
+    }
+
+    .category-button:hover {
+      border-color: var(--pink);
+      color: var(--brown);
+    }
+
+    .category-button.active {
+      border-color: var(--brown);
+
+      background: var(--brown);
+
+      color: white;
+    }
+
+    .search-box {
+      position: relative;
+
+      width: min(100%, 280px);
+    }
+
+    .search-box input {
+      width: 100%;
+
+      min-height: 44px;
+
+      padding:
+        0 14px 0 39px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 999px;
+
+      background: white;
+
+      color: var(--brown);
+
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: var(--pink);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(239, 160, 189, 0.12);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .shop-control-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      color: var(--brown-light);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .product-count {
+      font-weight: 800;
+    }
+
+    .sort-select {
+      min-height: 42px;
+      padding: 0 36px 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: white;
+      color: var(--brown);
+      font-size: 11px;
+      font-weight: 800;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .sort-select:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 4px rgba(239, 160, 189, 0.12);
+    }
+
+    .loading-products,
+    .error-products {
+      grid-column: 1 / -1;
+      padding: 60px 25px;
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+      color: var(--brown-light);
+      box-shadow: var(--shadow);
+    }
+
+    .loading-spinner {
+      width: 34px;
+      height: 34px;
+      margin: 0 auto 14px;
+      border: 4px solid var(--pink-light);
+      border-top-color: var(--pink-dark);
+      border-radius: 50%;
+      animation: shopSpin 0.8s linear infinite;
+    }
+
+    @keyframes shopSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .retry-products {
+      margin-top: 16px;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--brown);
+      color: white;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .retry-products:hover {
+      transform: translateY(-1px);
+    }
+
+    .search-icon {
+      position: absolute;
+
+      left: 15px;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      color: var(--brown-light);
+
+      font-size: 12px;
+
+      pointer-events: none;
+    }
+
+
+
+    /* =========================================================
+       CUSTOM SNOEPMIX BUILDER
+    ========================================================= */
+    .custom-mix-builder { margin: 0 0 34px; padding: 30px; border: 1px solid var(--line); border-radius: 30px; background: radial-gradient(circle at 8% 10%, rgba(239,160,189,.18), transparent 24%), radial-gradient(circle at 92% 90%, rgba(242,201,76,.16), transparent 25%), white; box-shadow: var(--shadow); }
+    .custom-mix-head { display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:22px; }
+    .custom-mix-head h2 { margin:0 0 7px; font-family:"Playfair Display",Georgia,serif; font-size:clamp(30px,4vw,46px); line-height:1; letter-spacing:-.04em; }
+    .custom-mix-head h2 em { color:var(--pink-dark); font-style:normal; }
+    .custom-mix-head p { max-width:620px; margin:0; color:var(--brown-light); font-size:13px; line-height:1.65; }
+    .custom-mix-price-chip { flex:0 0 auto; padding:11px 15px; border-radius:999px; background:var(--brown); color:white; font-size:12px; font-weight:900; white-space:nowrap; }
+    .custom-mix-progress { display:grid; grid-template-columns:1fr auto; gap:14px; align-items:center; margin-bottom:22px; padding:16px; border-radius:18px; background:var(--pink-soft); }
+    .custom-mix-progress-copy strong { display:block; margin-bottom:4px; font-size:14px; }
+    .custom-mix-progress-copy span { color:var(--brown-light); font-size:11px; line-height:1.5; }
+    .custom-mix-progress-value { text-align:right; font-size:20px; font-weight:900; }
+    .custom-mix-progress-value small { color:var(--brown-light); font-size:12px; }
+    .custom-mix-bar { height:9px; margin-top:10px; overflow:hidden; border-radius:999px; background:white; }
+    .custom-mix-bar > span { display:block; width:0; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--pink),var(--pink-dark)); transition:width .2s ease; }
+    .custom-mix-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+    .custom-mix-card { display:flex; flex-direction:column; overflow:hidden; border:1px solid var(--line); border-radius:20px; background:white; transition:.2s ease; }
+    .custom-mix-card:hover { border-color:var(--pink); transform:translateY(-2px); box-shadow:var(--shadow); }
+    .custom-mix-card.selected { border-color:var(--pink-dark); box-shadow:0 0 0 3px rgba(239,160,189,.15); }
+    .custom-mix-image { height:155px; padding:12px; background:linear-gradient(135deg,var(--pink-soft),#f7ebdb); }
+    .custom-mix-image img { width:100%; height:100%; object-fit:contain; border-radius:12px; }
+    .custom-mix-card-body { display:flex; flex-direction:column; gap:10px; padding:13px; }
+    .custom-mix-card-title { min-height:38px; font-size:13px; font-weight:900; line-height:1.25; }
+    .custom-mix-card-weight { color:var(--pink-deep); font-size:11px; font-weight:900; }
+    .custom-mix-quantity { display:grid; grid-template-columns:34px 1fr 34px; gap:7px; align-items:center; }
+    .custom-mix-quantity button { width:34px; height:34px; border:1px solid var(--line); border-radius:50%; background:var(--cream); color:var(--brown); font-size:18px; font-weight:900; }
+    .custom-mix-quantity button:hover { border-color:var(--pink); background:var(--pink-soft); }
+    .custom-mix-quantity-value { text-align:center; font-size:10px; font-weight:900; }
+    .custom-mix-footer { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:20px; }
+    .custom-mix-note { min-height:118px; width:100%; padding:13px 14px; resize:vertical; border:1px solid var(--line); border-radius:16px; background:white; color:var(--brown); outline:none; font-size:12px; line-height:1.5; }
+    .custom-mix-note:focus { border-color:var(--pink); box-shadow:0 0 0 4px rgba(239,160,189,.12); }
+    .custom-mix-summary { display:flex; flex-direction:column; justify-content:space-between; gap:14px; padding:17px; border-radius:18px; background:var(--brown); color:white; }
+    .custom-mix-summary-row { display:flex; align-items:center; justify-content:space-between; gap:12px; font-size:12px; }
+    .custom-mix-summary-row strong { font-size:17px; }
+    .custom-mix-free { padding:9px 11px; border-radius:12px; background:rgba(255,255,255,.12); color:#fff; font-size:11px; font-weight:800; }
+    .custom-mix-free.ready { background:rgba(242,201,76,.22); color:#fff4b0; }
+    .custom-mix-add { width:100%; min-height:46px; border:0; border-radius:999px; background:linear-gradient(135deg,var(--pink),var(--pink-dark)); color:white; font-size:12px; font-weight:900; box-shadow:0 12px 25px rgba(207,94,137,.22); }
+    .custom-mix-add:disabled { opacity:.45; cursor:not-allowed; box-shadow:none; }
+    .custom-mix-help { margin-top:12px; color:var(--brown-light); font-size:10px; line-height:1.5; }
+    @media (max-width:1050px) { .custom-mix-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+    @media (max-width:760px) { .custom-mix-builder { padding:20px; border-radius:24px; } .custom-mix-head { align-items:start; flex-direction:column; } .custom-mix-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .custom-mix-footer { grid-template-columns:1fr; } }
+    @media (max-width:480px) { .custom-mix-grid { grid-template-columns:1fr; } .custom-mix-image { height:190px; } }
+
+
+    /* =========================================================
+       CANDY-ONLY DESIGN
+    ========================================================= */
+    .hero-candy-stack{height:100%;min-height:180px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px;padding:24px;border-radius:24px;background:radial-gradient(circle at 20% 20%,rgba(239,160,189,.75),transparent 25%),radial-gradient(circle at 80% 70%,rgba(242,201,76,.65),transparent 28%),linear-gradient(135deg,#fff3f7,#fffaf0);font-size:clamp(34px,6vw,56px);box-shadow:inset 0 0 0 1px rgba(89,60,49,.06)}
+.hero-candy-stack span{display:inline-flex;width:64px;height:64px;align-items:center;justify-content:center;border-radius:18px;background:rgba(255,255,255,.78);box-shadow:0 12px 24px rgba(89,60,49,.10);transform:rotate(-5deg)}
+.hero-candy-stack span:nth-child(even){transform:rotate(6deg) translateY(8px)}
+.custom-mix-gift{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:center;margin-top:18px;padding:18px;border:2px solid #f2c94c;border-radius:22px;background:radial-gradient(circle at 10% 10%,rgba(242,201,76,.28),transparent 30%),linear-gradient(135deg,#fffdf4,#fff5f8);box-shadow:0 12px 28px rgba(89,60,49,.10)}
+.custom-mix-gift-visual{position:relative;min-height:130px;display:flex;align-items:center;justify-content:center}
+.custom-mix-gift-bag{position:relative;width:105px;height:112px;padding:14px 10px;border:3px solid #5d4037;border-radius:12px 12px 22px 22px;background:linear-gradient(145deg,#ffd1e1,#f4a6c2);box-shadow:0 12px 22px rgba(89,60,49,.18);transform:rotate(-4deg)}
+.custom-mix-gift-bag:before{content:"";position:absolute;left:9px;right:9px;top:9px;height:8px;border-radius:999px;background:#5d4037}
+.custom-mix-gift-label{margin-top:28px;text-align:center;color:#5d4037;font-size:12px;font-weight:1000;line-height:1.05}
+.custom-mix-gift-candies{position:absolute;left:12px;right:12px;bottom:13px;display:flex;justify-content:center;gap:3px;font-size:17px}
+.custom-mix-gift-copy strong{display:block;margin-bottom:5px;font-size:20px}
+.custom-mix-gift-copy p{margin:0 0 9px;color:var(--brown-light);font-size:12px;line-height:1.55}
+.custom-mix-gift-badge{display:inline-flex;padding:7px 11px;border-radius:999px;background:var(--brown);color:white;font-size:11px;font-weight:900}
+@media(max-width:760px){.custom-mix-gift{grid-template-columns:1fr;text-align:center}.custom-mix-gift-copy strong{font-size:18px}}
+
+    /* =========================================================
+       PRODUCT GRID
+    ========================================================= */
+
+    .products-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          3,
+          minmax(0, 1fr)
+        );
+
+      gap: 20px;
+    }
+
+    .product-card {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+
+      overflow: hidden;
+
+      background: white;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: var(--radius);
+
+      box-shadow: var(--shadow);
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+
+      box-shadow: var(--shadow-lg);
+    }
+
+    .product-badge {
+      position: absolute;
+
+      top: 15px;
+      left: 15px;
+
+      z-index: 5;
+
+      padding: 7px 10px;
+
+      border-radius: 999px;
+
+      background: var(--pink);
+
+      color: white;
+
+      font-size: 9px;
+      font-weight: 900;
+
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .product-image {
+      position: relative;
+
+      height: 260px;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink-soft),
+          #f7ebdb
+        );
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      transition:
+        transform 0.45s ease;
+    }
+
+    .product-card:hover
+    .product-image img {
+      transform: scale(1.05);
+    }
+
+    .product-content {
+      display: flex;
+      flex-direction: column;
+
+      flex: 1;
+
+      padding: 21px;
+    }
+
+    .product-category {
+      margin-bottom: 7px;
+
+      color: var(--pink-deep);
+
+      font-size: 9px;
+
+      font-weight: 900;
+
+      letter-spacing: 0.15em;
+
+      text-transform: uppercase;
+    }
+
+    .product-title {
+      margin: 0 0 8px;
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size: 26px;
+
+      line-height: 1.05;
+    }
+
+    .product-description {
+      margin: 0;
+
+      min-height: 63px;
+
+      color: var(--brown-light);
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+    .product-bottom {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-top: 18px;
+    }
+
+    .product-price {
+      font-size: 23px;
+      font-weight: 900;
+    }
+
+    .product-unit {
+      display: block;
+
+      margin-top: 2px;
+
+      color: var(--brown-light);
+
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    .add-button {
+      min-height: 44px;
+
+      border: 0;
+
+      border-radius: 999px;
+
+      padding: 0 14px;
+
+      background: var(--brown);
+
+      color: white;
+
+      font-size: 11px;
+      font-weight: 900;
+
+      transition: 0.2s ease;
+    }
+
+    .add-button:hover {
+      background: #2f211a;
+      transform: translateY(-1px);
+    }
+
+    .empty-products {
+      grid-column: 1 / -1;
+
+      padding: 60px 25px;
+
+      text-align: center;
+
+      border:
+        1px dashed
+        var(--cream-deep);
+
+      border-radius: var(--radius);
+
+      background: white;
+
+      color: var(--brown-light);
+    }
+
+
+    /* =========================================================
+       FREE SHIPPING
+    ========================================================= */
+
+    .shipping-banner {
+      margin-top: 30px;
+
+      padding: 22px;
+
+      border:
+        1px solid
+        rgba(47, 125, 75, 0.15);
+
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--green-light),
+          #f8fffa
+        );
+    }
+
+    .shipping-banner-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-bottom: 10px;
+    }
+
+    .shipping-title {
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .shipping-message {
+      color: var(--brown-light);
+
+      font-size: 11px;
+    }
+
+    .shipping-progress {
+      width: 100%;
+      height: 9px;
+
+      overflow: hidden;
+
+      border-radius: 999px;
+
+      background: rgba(47, 125, 75, 0.1);
+    }
+
+    .shipping-progress-bar {
+      width: 0;
+      height: 100%;
+
+      border-radius: inherit;
+
+      background:
+        linear-gradient(
+          90deg,
+          #58a66e,
+          #2f7d4b
+        );
+
+      transition: width 0.3s ease;
+    }
+
+
+    /* =========================================================
+       INFO / LIVE SECTION
+    ========================================================= */
+
+    .live-section {
+      margin-top: 45px;
+
+      padding: 36px;
+
+      border-radius: 28px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #3d2a20,
+          #5c3b2b
+        );
+
+      color: white;
+
+      box-shadow: var(--shadow-lg);
+    }
+
+    .live-section-grid {
+      display: grid;
+
+      grid-template-columns:
+        1.15fr
+        0.85fr;
+
+      gap: 35px;
+
+      align-items: center;
+    }
+
+    .live-section h2 {
+      margin: 0 0 12px;
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size:
+        clamp(
+          32px,
+          4vw,
+          52px
+        );
+
+      line-height: 1.02;
+    }
+
+    .live-section p {
+      max-width: 580px;
+
+      margin: 0;
+
+      color: rgba(255,255,255,.76);
+
+      font-size: 13px;
+
+      line-height: 1.7;
+    }
+
+    .live-box {
+      padding: 24px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.14);
+
+      border-radius: 22px;
+
+      background:
+        rgba(255,255,255,.06);
+    }
+
+    .live-box strong {
+      display: block;
+
+      margin-bottom: 10px;
+
+      font-size: 15px;
+    }
+
+    .live-list {
+      display: grid;
+      gap: 8px;
+
+      color: rgba(255,255,255,.78);
+
+      font-size: 11px;
+    }
+
+
+    /* =========================================================
+       CART OVERLAY
+    ========================================================= */
+
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+
+      z-index: 1000;
+
+      background:
+        rgba(35, 25, 20, 0.42);
+
+      opacity: 0;
+      visibility: hidden;
+
+      transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+    }
+
+    .cart-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+
+    /* =========================================================
+       CART DRAWER
+    ========================================================= */
+
+    .cart-drawer {
+      position: absolute;
+
+      top: 0;
+      right: 0;
+
+      width: min(
+        100%,
+        470px
+      );
+
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+
+      background: white;
+
+      box-shadow:
+        -20px 0 60px
+        rgba(61, 42, 32, 0.18);
+
+      transform: translateX(100%);
+
+      transition:
+        transform 0.3s ease;
+    }
+
+    .cart-overlay.open .cart-drawer {
+      transform: translateX(0);
+    }
+
+    .cart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      padding: 20px;
+
+      border-bottom:
+        1px solid
+        var(--line);
+    }
+
+    .cart-header h2 {
+      margin: 0;
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size: 29px;
+    }
+
+    .close-cart {
+      width: 40px;
+      height: 40px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--line);
+
+      border-radius: 50%;
+
+      background: white;
+
+      color: var(--brown);
+
+      font-size: 18px;
+    }
+
+    .cart-body {
+      flex: 1;
+
+      overflow-y: auto;
+
+      padding: 18px;
+    }
+
+    .cart-empty {
+      padding: 70px 20px;
+
+      text-align: center;
+
+      color: var(--brown-light);
+    }
+
+    .cart-empty-icon {
+      width: 70px;
+      height: 70px;
+
+      display: grid;
+      place-items: center;
+
+      margin: 0 auto 16px;
+
+      border-radius: 50%;
+
+      background: var(--pink-light);
+
+      font-size: 29px;
+    }
+
+    .cart-items {
+      display: grid;
+      gap: 12px;
+    }
+
+    .cart-item {
+      display: grid;
+
+      grid-template-columns:
+        72px
+        1fr
+        auto;
+
+      gap: 12px;
+
+      padding-bottom: 12px;
+
+      border-bottom:
+        1px solid
+        var(--line);
+    }
+
+    .cart-item-image {
+      width: 72px;
+      height: 72px;
+
+      overflow: hidden;
+
+      border-radius: 15px;
+
+      background: var(--pink-soft);
+    }
+
+    .cart-item-image img {
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cart-item-title {
+      margin: 0 0 4px;
+
+      font-size: 13px;
+
+      font-weight: 900;
+    }
+
+    .cart-item-price {
+      color: var(--brown-light);
+
+      font-size: 11px;
+    }
+
+    .quantity-controls {
+      display: inline-flex;
+      align-items: center;
+
+      gap: 7px;
+
+      margin-top: 8px;
+    }
+
+    .quantity-button {
+      width: 27px;
+      height: 27px;
+
+      display: grid;
+      place-items: center;
+
+      border: 1px solid var(--line);
+
+      border-radius: 50%;
+
+      background: white;
+
+      color: var(--brown);
+
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .quantity-number {
+      min-width: 20px;
+
+      text-align: center;
+
+      font-size: 11px;
+
+      font-weight: 900;
+    }
+
+    .cart-item-right {
+      text-align: right;
+    }
+
+    .cart-item-total {
+      margin-bottom: 8px;
+
+      font-size: 13px;
+
+      font-weight: 900;
+    }
+
+    .remove-item {
+      border: 0;
+
+      padding: 0;
+
+      background: transparent;
+
+      color: var(--red);
+
+      font-size: 10px;
+
+      font-weight: 800;
+    }
+
+
+    /* =========================================================
+       CART SUMMARY
+    ========================================================= */
+
+    .cart-summary {
+      padding: 18px;
+
+      border-top:
+        1px solid
+        var(--line);
+
+      background: #fffdfa;
+    }
+
+    .summary-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-bottom: 8px;
+
+      font-size: 12px;
+    }
+
+    .summary-line.muted {
+      color: var(--brown-light);
+    }
+
+    .summary-line.total {
+      padding-top: 11px;
+
+      margin-top: 11px;
+
+      border-top:
+        1px solid
+        var(--line);
+
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    .discount-box {
+      display: flex;
+      gap: 7px;
+
+      margin:
+        14px 0;
+    }
+
+    .discount-box input {
+      flex: 1;
+
+      min-width: 0;
+
+      padding: 11px 12px;
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius: 11px;
+
+      outline: none;
+    }
+
+    .discount-box input:focus {
+      border-color: var(--pink);
+    }
+
+    .discount-box button {
+      border: 0;
+
+      border-radius: 11px;
+
+      padding: 0 13px;
+
+      background: var(--brown);
+
+      color: white;
+
+      font-size: 10px;
+
+      font-weight: 900;
+    }
+
+    .discount-message {
+      min-height: 15px;
+
+      margin-top: -7px;
+
+      margin-bottom: 7px;
+
+      color: var(--green);
+
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .checkout-button {
+      width: 100%;
+
+      min-height: 52px;
+
+      border: 0;
+
+      border-radius: 999px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--pink),
+          var(--pink-dark)
+        );
+
+      color: white;
+
+      font-size: 12px;
+
+      font-weight: 900;
+
+      box-shadow:
+        0 15px 30px
+        rgba(207, 94, 137, 0.2);
+    }
+
+    .checkout-button:disabled {
+      background: #d9d0ca;
+
+      box-shadow: none;
+
+      cursor: not-allowed;
+
+      opacity: 1;
+    }
+
+    .shipping-note {
+      margin-top: 10px;
+
+      color: var(--brown-light);
+
+      font-size: 9px;
+
+      line-height: 1.5;
+
+      text-align: center;
+    }
+
+
+    /* =========================================================
+       CHECKOUT MODAL
+    ========================================================= */
+
+    .checkout-modal {
+      position: fixed;
+      inset: 0;
+
+      z-index: 2000;
+
+      display: none;
+
+      padding: 20px;
+
+      overflow-y: auto;
+
+      background:
+        rgba(35, 25, 20, 0.48);
+    }
+
+    .checkout-modal.open {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+    }
+
+    .checkout-card {
+      width: min(
+        100%,
+        850px
+      );
+
+      overflow: hidden;
+
+      border-radius: 28px;
+
+      background: white;
+
+      box-shadow:
+        0 30px 100px
+        rgba(61, 42, 32, 0.25);
+    }
+
+    .checkout-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      gap: 20px;
+
+      padding: 21px 24px;
+
+      border-bottom:
+        1px solid
+        var(--line);
+    }
+
+    .checkout-header h2 {
+      margin: 0;
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size: 30px;
+    }
+
+    .checkout-close {
+      width: 40px;
+      height: 40px;
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius: 50%;
+
+      background: white;
+
+      color: var(--brown);
+
+      font-size: 18px;
+    }
+
+    .checkout-body {
+      display: grid;
+
+      grid-template-columns:
+        1.15fr
+        0.85fr;
+
+      gap: 0;
+    }
+
+    .checkout-form-wrap {
+      padding: 25px;
+    }
+
+    .checkout-summary-wrap {
+      padding: 25px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fff8fb,
+          #fffdfa
+        );
+
+      border-left:
+        1px solid
+        var(--line);
+    }
+
+    .checkout-intro {
+      margin-bottom: 22px;
+    }
+
+    .checkout-intro h3 {
+      margin: 0 0 5px;
+
+      font-size: 19px;
+    }
+
+    .checkout-intro p {
+      margin: 0;
+
+      color: var(--brown-light);
+
+      font-size: 12px;
+
+      line-height: 1.6;
+    }
+
+    .form-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          2,
+          minmax(0, 1fr)
+        );
+
+      gap: 13px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 11px;
+
+      font-weight: 900;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius: 11px;
+
+      padding: 12px;
+
+      background: white;
+
+      color: var(--brown);
+
+      outline: none;
+    }
+
+    .form-group textarea {
+      min-height: 90px;
+
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--pink);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(239, 160, 189, 0.11);
+    }
+
+    .required {
+      color: var(--pink-deep);
+    }
+
+    .checkout-summary-title {
+      margin: 0 0 17px;
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size: 25px;
+    }
+
+    .checkout-summary-list {
+      display: grid;
+      gap: 10px;
+
+      margin-bottom: 20px;
+    }
+
+    .checkout-summary-item {
+      display: flex;
+      justify-content: space-between;
+
+      gap: 14px;
+
+      font-size: 11px;
+
+      line-height: 1.4;
+    }
+
+    .checkout-summary-item strong {
+      font-weight: 900;
+    }
+
+    .checkout-summary-total {
+      padding-top: 13px;
+
+      border-top:
+        1px solid
+        var(--line);
+    }
+
+    .checkout-summary-total .summary-line {
+      margin-bottom: 9px;
+    }
+
+    .checkout-submit {
+      width: 100%;
+
+      min-height: 52px;
+
+      margin-top: 18px;
+
+      border: 0;
+
+      border-radius: 999px;
+
+      background: var(--brown);
+
+      color: white;
+
+      font-size: 12px;
+
+      font-weight: 900;
+    }
+
+    .checkout-submit:hover {
+      background: #2f211a;
+    }
+
+    .checkout-submit:disabled {
+      opacity: 0.55;
+
+      cursor: not-allowed;
+    }
+
+    .payment-placeholder {
+      margin-top: 14px;
+
+      padding: 12px;
+
+      border:
+        1px solid
+        #e8dccf;
+
+      border-radius: 13px;
+
+      background:
+        #fffbf7;
+
+      color: var(--brown-light);
+
+      font-size: 10px;
+
+      line-height: 1.5;
+
+      text-align: center;
+    }
+
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+
+    .toast {
+      position: fixed;
+
+      left: 50%;
+      bottom: 22px;
+
+      z-index: 5000;
+
+      transform:
+        translate(-50%, 25px);
+
+      opacity: 0;
+      pointer-events: none;
+
+      min-width: min(
+        calc(100% - 30px),
+        360px
+      );
+
+      padding: 13px 16px;
+
+      border-radius: 14px;
+
+      background: var(--brown);
+
+      color: white;
+
+      box-shadow:
+        0 16px 40px
+        rgba(61, 42, 32, 0.22);
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      text-align: center;
+
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+
+      transform:
+        translate(-50%, 0);
+    }
+
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    .shop-footer {
+      margin-top: 50px;
+
+      background: var(--brown);
+
+      color: white;
+    }
+
+    .footer-inner {
+      width: min(
+        calc(100% - 36px),
+        var(--max-width)
+      );
+
+      margin: 0 auto;
+
+      padding: 45px 0;
+
+      display: grid;
+
+      grid-template-columns:
+        1.3fr
+        1fr
+        1fr;
+
+      gap: 35px;
+    }
+
+    .footer-brand {
+      margin-bottom: 10px;
+
+      font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+      font-size: 28px;
+    }
+
+    .footer-text {
+      max-width: 380px;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          .68
+        );
+
+      font-size: 11px;
+
+      line-height: 1.7;
+    }
+
+    .footer-title {
+      margin-bottom: 12px;
+
+      font-size: 11px;
+
+      font-weight: 900;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.13em;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 7px;
+
+      color:
+        rgba(
+          255,
+          255,
+          255,
+          .7
+        );
+
+      font-size: 11px;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 1020px) {
+
+      .main-nav {
+        display: none;
+      }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 430px;
+        max-width: 720px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      .products-grid {
+        grid-template-columns:
+          repeat(
+            2,
+            minmax(0, 1fr)
+          );
+      }
+
+      .live-section-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .checkout-body {
+        grid-template-columns: 1fr;
+      }
+
+      .checkout-summary-wrap {
+        border-left: 0;
+
+        border-top:
+          1px solid
+          var(--line);
+      }
+
+      .footer-inner {
+        grid-template-columns:
+          1fr 1fr;
+      }
+    }
+
+
+    @media (max-width: 700px) {
+
+      .header-inner {
+        width: min(
+          calc(100% - 24px),
+          var(--max-width)
+        );
+      }
+
+      .header-button {
+        display: none;
+      }
+
+      .cart-button {
+        min-height: 42px;
+      }
+
+      .hero-inner {
+        width: min(
+          calc(100% - 24px),
+          var(--max-width)
+        );
+
+        padding: 48px 0 35px;
+      }
+
+      .hero-copy h1 {
+        font-size: 46px;
+      }
+
+      .hero-copy p {
+        font-size: 15px;
+      }
+
+      .hero-visual {
+        min-height: 360px;
+      }
+
+      .hero-photo-main {
+        width: 70%;
+        height: 69%;
+      }
+
+      .hero-photo-small {
+        width: 47%;
+        height: 46%;
+      }
+
+      .hero-badge {
+        width: 90px;
+        height: 90px;
+
+        font-size: 9px;
+      }
+
+      .shop-wrapper {
+        width: min(
+          calc(100% - 24px),
+          var(--max-width)
+        );
+
+        padding-top: 45px;
+      }
+
+      .section-heading {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .section-heading h2 {
+        font-size: 42px;
+      }
+
+      .shop-controls {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .search-box {
+        width: 100%;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .product-image {
+        height: 240px;
+      }
+
+      .shipping-banner-top {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .live-section {
+        padding: 25px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+
+      .checkout-modal {
+        align-items: start;
+      }
+
+      .checkout-card {
+        margin: 10px 0;
+      }
+    }
+
+
+    @media (max-width: 460px) {
+
+      .announcement {
+        font-size: 8px;
+      }
+
+      .brand {
+        font-size: 16px;
+      }
+
+      .brand-mark {
+        width: 39px;
+        height: 39px;
+      }
+
+      .hero-copy h1 {
+        font-size: 40px;
+      }
+
+      .hero-visual {
+        min-height: 310px;
+      }
+
+      .product-content {
+        padding: 18px;
+      }
+
+      .product-title {
+        font-size: 23px;
+      }
+
+      .cart-drawer {
+        width: 100%;
+      }
+
+      .cart-item {
+        grid-template-columns:
+          60px
+          1fr
+          auto;
+      }
+
+      .cart-item-image {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+  <a
+    class="skip-link"
+    href="#shop-content"
+  >
+    Naar webshop
+  </a>
+
+
+  <!-- =======================================================
+       ANNOUNCEMENT
+  ======================================================== -->
+
+  <div class="announcement">
+    <span>🍬</span>
+    HUMMIE BEAR SHOP
+    <span>•</span>
+    SWEETNESS ON WHEELS
+    <span>•</span>
+    GRATIS VERZENDING VANAF €35
+    <span>•</span>
+    LIVE10 = 10% KORTING
+  </div>
+
+
+  <!-- =======================================================
+       HEADER
+  ======================================================== -->
+
+  <header class="shop-header">
+
+    <div class="header-inner">
+
+      <a
+        class="brand"
+        href="index.html"
+        aria-label="Hummie Bear home"
+      >
+
+        <span class="brand-mark">
+          HB
+        </span>
+
+        <span>
+          Hummie <strong>Bear</strong>
+        </span>
+
+      </a>
+
+
+      <nav
+        class="main-nav"
+        aria-label="Hoofdnavigatie"
+      >
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="candy.html">
+          Candy Edition
+        </a>
+
+      </nav>
+
+
+      <div class="header-actions">
+
+        <button
+          type="button"
+          class="header-button"
+          id="scrollShopButton"
+        >
+          Shop
+        </button>
+
+        <button
+          type="button"
+          class="cart-button"
+          id="openCartButton"
+          aria-label="Winkelmandje openen"
+        >
+
+          <span>
+            🛒 Winkelmand
+          </span>
+
+          <span
+            class="cart-count"
+            id="headerCartCount"
+          >
+            0
+          </span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =======================================================
+       HERO
+  ======================================================== -->
+
+  <section class="shop-hero">
+
+    <div class="hero-inner">
+
+      <div class="hero-copy">
+
+        <span class="eyebrow">
+
+          <span class="live-dot"></span>
+
+          LIVE SHOP
+
+        </span>
+
+
+        <h1>
+
+          Sweetness
+
+          <br>
+
+          <em>naar jouw deur.</em>
+
+        </h1>
+
+
+        <p>
+
+          Bestel jouw favoriete snoep, Cuberdons en
+          exclusieve Hummie Bear Live Boxes rechtstreeks
+          vanuit onze kraam of tijdens onze lives.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="heroShopButton"
+          >
+            Bekijk de shop
+            ↓
+          </button>
+
+          <a
+            href="index.html"
+            class="btn btn-secondary"
+          >
+            Naar Hummie Bear
+          </a>
+
+        </div>
+
+
+        <div class="hero-points">
+
+          <span>
+            ✓ Veilig online bestellen
+          </span>
+
+          <span>
+            ✓ Gratis verzending vanaf €35
+          </span>
+
+          <span>
+            ✓ LIVE acties
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="hero-visual">
+
+        <div class="hero-blob"></div>
+
+
+        <div class="hero-photo-main">
+
+          <img
+            src="https://images.unsplash.com/photo-1730139097588-7168c285f0a2?auto=format&fit=crop&w=1400&q=85"
+            alt="Kleurrijke snoepwinkel met snoep en lollies"
+            loading="eager"
+          >
+
+        </div>
+
+
+        <div class="hero-photo-small">
+
+          <div class="hero-candy-stack" aria-label="Kleurrijk schepsnoep">
+            <span>🍬</span><span>🍭</span><span>🍓</span><span>🐻</span><span>🍋</span>
+          </div>
+
+        </div>
+
+
+        <div class="hero-badge hero-badge-pink">
+
+          LIVE
+
+          <br>
+
+          DEALS
+
+        </div>
+
+
+        <div class="hero-badge hero-badge-yellow">
+
+          SWEET
+
+          <br>
+
+          MOMENTS
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       SHOP
+  ======================================================== -->
+
+  <main
+    id="shop-content"
+    class="shop-wrapper"
+  >
+
+    <div class="section-heading">
+
+      <div>
+
+        <span class="eyebrow">
+          HUMMIE BEAR SHOP
+        </span>
+
+        <h2>
+
+          Kies jouw
+
+          <br>
+
+          <em>sweet moment.</em>
+
+        </h2>
+
+      </div>
+
+
+      <p>
+
+        Ontdek onze populairste snoepproducten en
+        exclusieve Live Boxes. Tijdens een live kunnen
+        we extra tijdelijke acties toevoegen.
+
+      </p>
+
+    </div>
+
+
+
+    <!-- CUSTOM SNOEPMIX -->
+
+    <section class="custom-mix-builder" id="customMixBuilder" aria-labelledby="customMixTitle">
+
+      <div class="custom-mix-head">
+        <div>
+          <span class="eyebrow">JOUW EIGEN MIX</span>
+          <h2 id="customMixTitle">Stel je <em>eigen snoepzak</em> samen.</h2>
+          <p>
+            Kies uit 20 bekende snoepsoorten. Je kiest telkens per 100 gram.
+            Vanaf 500 gram krijg je automatisch een extra snoepzakje cadeau.
+          </p>
+        </div>
+
+        <div class="custom-mix-price-chip">€1,95 per 100 g</div>
+      </div>
+
+      <div class="custom-mix-progress">
+        <div class="custom-mix-progress-copy">
+          <strong id="customMixStatus">Kies jouw favoriete snoepjes.</strong>
+          <span>Je hoeft niet van elke soort iets te kiezen. Combineer zoveel soorten als je wilt.</span>
+          <div class="custom-mix-bar" aria-hidden="true">
+            <span id="customMixProgressBar"></span>
+          </div>
+        </div>
+
+        <div class="custom-mix-progress-value">
+          <span id="customMixGrams">0 g</span>
+          <br>
+          <small id="customMixPrice">€0,00</small>
+        </div>
+      </div>
+
+      <div class="custom-mix-grid" id="customMixGrid"></div>
+
+      <div class="custom-mix-footer">
+        <div>
+          <label for="favoriteCandyInput" style="display:block;font-size:12px;font-weight:900;margin-bottom:8px;">
+            Favoriet snoep? (optioneel)
+          </label>
+
+          <textarea
+            class="custom-mix-note"
+            id="favoriteCandyInput"
+            maxlength="250"
+            placeholder="Bijvoorbeeld: mijn favoriete snoep is zure matten. Als die niet tussen de 20 soorten staat, mag je ze hier vermelden."
+          ></textarea>
+
+          <div class="custom-mix-help">
+            We nemen je voorkeur mee als opmerking bij de bestelling. Het is geen extra product en verandert de prijs niet.
+          </div>
+        </div>
+
+        <div class="custom-mix-summary">
+          <div>
+            <div class="custom-mix-summary-row">
+              <span>Totaal gewicht</span>
+              <strong id="customMixSummaryGrams">0 g</strong>
+            </div>
+
+            <div class="custom-mix-summary-row">
+              <span>Prijs</span>
+              <strong id="customMixSummaryPrice">€0,00</strong>
+            </div>
+          </div>
+
+          <div class="custom-mix-free" id="customMixFreeMessage">
+            Nog 500 g nodig voor je gratis snoepzakje.
+          </div>
+
+          <button type="button" class="custom-mix-add" id="addCustomMixButton" disabled>
+            Voeg mijn snoepmix toe
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- CONTROLS -->
+
+    <div class="shop-control-meta">
+      <span class="product-count" id="productCount">
+        Producten laden...
+      </span>
+
+      <label>
+        <span class="sr-only">Sorteer producten</span>
+        <select id="productSort" class="sort-select" aria-label="Sorteer producten">
+          <option value="featured">Aanbevolen</option>
+          <option value="price-low">Prijs laag → hoog</option>
+          <option value="price-high">Prijs hoog → laag</option>
+          <option value="name">Naam A → Z</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="shop-controls">
+
+      <div
+        class="category-tabs"
+        role="tablist"
+        aria-label="Productcategorieën"
+      >
+
+        <button
+          type="button"
+          class="category-button active"
+          data-category="all"
+        >
+          Alles
+        </button>
+
+        <button
+          type="button"
+          class="category-button"
+          data-category="snoep"
+        >
+          Snoep
+        </button>
+
+        <button
+          type="button"
+          class="category-button"
+          data-category="box"
+        >
+          Boxen
+        </button>
+
+        <button
+          type="button"
+          class="category-button"
+          data-category="cuberdon"
+        >
+          Cuberdons
+        </button>
+
+        <button
+          type="button"
+          class="category-button"
+          data-category="live"
+        >
+          LIVE
+        </button>
+
+      </div>
+
+
+      <div class="search-box">
+
+        <span class="search-icon">
+          🔎
+        </span>
+
+        <input
+          type="search"
+          id="productSearch"
+          placeholder="Zoek een product..."
+          autocomplete="off"
+        >
+
+      </div>
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+
+    <section
+      class="products-grid"
+      id="productsGrid"
+      aria-live="polite"
+    >
+      <div class="loading-products">
+        <div class="loading-spinner"></div>
+        <strong>Onze sweet moments worden geladen...</strong>
+        <p>Even geduld, we halen de actuele producten op.</p>
+      </div>
+    </section>
+
+
+    <!-- SHIPPING -->
+
+    <section class="shipping-banner">
+
+      <div class="shipping-banner-top">
+
+        <div>
+
+          <div class="shipping-title">
+            🚚 Gratis verzending vanaf €35
+          </div>
+
+          <div
+            class="shipping-message"
+            id="shippingMessage"
+          >
+            Voeg producten toe om je winkelmandje te zien groeien.
+          </div>
+
+        </div>
+
+        <strong
+          id="shippingRemaining"
+          aria-live="polite"
+        >
+          €35,00
+        </strong>
+
+      </div>
+
+
+      <div
+        class="shipping-progress"
+        aria-hidden="true"
+      >
+
+        <div
+          class="shipping-progress-bar"
+          id="shippingProgressBar"
+        ></div>
+
+      </div>
+
+
+      <div class="custom-mix-gift" id="customMixGift">
+        <div class="custom-mix-gift-visual" aria-hidden="true">
+          <div class="custom-mix-gift-bag">
+            <div class="custom-mix-gift-label">GRATIS<br>SNOEP</div>
+            <div class="custom-mix-gift-candies">🍬 🐻 🍓 🍭</div>
+          </div>
+        </div>
+        <div class="custom-mix-gift-copy">
+          <strong>500 g gekozen? Dan krijg je een extra zakje schepsnoep cadeau!</strong>
+          <p>Je betaalt alleen voor je gekozen schepsnoep. Vanaf 500 gram voegen we een extra gevuld snoepzakje gratis toe aan je bestelling.</p>
+          <span class="custom-mix-gift-badge">500 g = GRATIS EXTRA ZAKJE</span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- LIVE SECTION -->
+
+    <section class="live-section">
+
+      <div class="live-section-grid">
+
+        <div>
+
+          <span class="eyebrow">
+            🔴 LIVE SHOP
+          </span>
+
+          <h2>
+            Bestel terwijl we
+            <br>
+            live zijn.
+          </h2>
+
+          <p>
+
+            Tijdens evenementen kan Hummie Bear live gaan
+            vanuit de snoepkraam. Kijk mee, kies je favoriete
+            producten en bestel rechtstreeks via de shop.
+            Zo kunnen we jouw bestelling meteen klaarmaken.
+
+          </p>
+
+        </div>
+
+
+        <div class="live-box">
+
+          <strong>
+            Wat gebeurt er?
+          </strong>
+
+          <div class="live-list">
+
+            <span>
+              01 — Jij kijkt mee met de live
+            </span>
+
+            <span>
+              02 — Je kiest jouw snoep
+            </span>
+
+            <span>
+              03 — Je bestelt via HummieBear.be
+            </span>
+
+            <span>
+              04 — Je betaling wordt verwerkt
+            </span>
+
+            <span>
+              05 — Wij maken jouw bestelling klaar
+            </span>
+
+            <span>
+              06 — Je pakket gaat naar de post
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =======================================================
+       CART OVERLAY
+  ======================================================== -->
+
+  <div
+    class="cart-overlay"
+    id="cartOverlay"
+    aria-hidden="true"
+  >
+
+    <aside
+      class="cart-drawer"
+      aria-label="Winkelmandje"
+      role="dialog"
+      aria-modal="true"
+    >
+
+      <div class="cart-header">
+
+        <h2>
+          Jouw mandje
+        </h2>
+
+        <button
+          type="button"
+          class="close-cart"
+          id="closeCartButton"
+          aria-label="Winkelmandje sluiten"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="cart-body">
+
+        <div
+          class="cart-empty"
+          id="cartEmpty"
+        >
+
+          <div class="cart-empty-icon">
+            🛒
+          </div>
+
+          <strong>
+            Je mandje is nog leeg.
+          </strong>
+
+          <p>
+            Voeg een paar sweet moments toe.
+          </p>
+
+        </div>
+
+
+        <div
+          class="cart-items"
+          id="cartItems"
+        ></div>
+
+      </div>
+
+
+      <div class="cart-summary">
+
+        <div class="summary-line">
+
+          <span>
+            Subtotaal
+          </span>
+
+          <strong id="cartSubtotal">
+            €0,00
+          </strong>
+
+        </div>
+
+
+        <div class="summary-line muted">
+
+          <span>
+            Verzending
+          </span>
+
+          <strong id="cartShipping">
+            €0,00
+          </strong>
+
+        </div>
+
+
+        <div
+          class="discount-box"
+          id="discountBox"
+        >
+
+          <input
+            type="text"
+            id="discountInput"
+            placeholder="Kortingscode"
+            maxlength="30"
+            autocomplete="off"
+          >
+
+          <button
+            type="button"
+            id="discountButton"
+          >
+            Toepassen
+          </button>
+
+        </div>
+
+
+        <div
+          class="discount-message"
+          id="discountMessage"
+          aria-live="polite"
+        ></div>
+
+
+        <div class="summary-line total">
+
+          <span>
+            Totaal
+          </span>
+
+          <strong id="cartTotal">
+            €0,00
+          </strong>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="checkout-button"
+          id="checkoutButton"
+          disabled
+        >
+          Ga naar bestellen
+        </button>
+
+
+        <div class="shipping-note">
+
+          Gratis verzending vanaf €35.
+          Onder €35 rekenen we voorlopig €5,95 verzending
+          binnen België.
+
+        </div>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+
+  <!-- =======================================================
+       CHECKOUT
+  ======================================================== -->
+
+  <div
+    class="checkout-modal"
+    id="checkoutModal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="checkout-card"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="checkoutTitle"
+    >
+
+      <div class="checkout-header">
+
+        <h2 id="checkoutTitle">
+          Bestelling plaatsen
+        </h2>
+
+        <button
+          type="button"
+          class="checkout-close"
+          id="checkoutCloseButton"
+          aria-label="Bestelling sluiten"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <div class="checkout-body">
+
+        <!-- FORM -->
+
+        <div class="checkout-form-wrap">
+
+          <div class="checkout-intro">
+
+            <h3>
+              Jouw gegevens
+            </h3>
+
+            <p>
+              Vul je gegevens in zodat we jouw bestelling
+              kunnen verwerken en verzenden.
+            </p>
+
+          </div>
+
+
+          <form
+            id="checkoutForm"
+            novalidate
+          >
+
+            <div class="form-grid">
+
+              <div class="form-group">
+
+                <label for="firstName">
+                  Voornaam
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  autocomplete="given-name"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="lastName">
+                  Familienaam
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  autocomplete="family-name"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <label for="email">
+                  E-mailadres
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <label for="phone">
+                  Telefoonnummer
+                </label>
+
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  autocomplete="tel"
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="street">
+                  Straat
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="street"
+                  name="street"
+                  type="text"
+                  autocomplete="street-address"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="houseNumber">
+                  Huisnummer
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="houseNumber"
+                  name="houseNumber"
+                  type="text"
+                  autocomplete="address-line1"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="postalCode">
+                  Postcode
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="postalCode"
+                  name="postalCode"
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="postal-code"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="city">
+                  Gemeente
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  id="city"
+                  name="city"
+                  type="text"
+                  autocomplete="address-level2"
+                  required
+                >
+
+              </div>
+
+
+              <div class="form-group">
+
+                <label for="country">
+                  Land
+                </label>
+
+                <select
+                  id="country"
+                  name="country"
+                  autocomplete="country"
+                >
+
+                  <option value="BE" selected>
+                    België
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <div class="form-group full">
+
+                <label for="note">
+                  Opmerking
+                </label>
+
+                <textarea
+                  id="note"
+                  name="note"
+                  placeholder="Bijvoorbeeld: graag extra zure snoep."
+                ></textarea>
+
+              </div>
+
+            </div>
+
+
+            <button
+              type="submit"
+              class="checkout-submit"
+              id="checkoutSubmit"
+            >
+              Controleer bestelling
+            </button>
+
+
+            <div class="payment-placeholder">
+
+              <strong>
+                Betaling
+              </strong>
+
+              <br>
+
+              De echte betaalpagina met Bancontact,
+              kaart en andere betaalmethodes koppelen
+              we in de volgende stap via Mollie.
+
+            </div>
+
+          </form>
+
+        </div>
+
+
+        <!-- SUMMARY -->
+
+        <aside class="checkout-summary-wrap">
+
+          <h3 class="checkout-summary-title">
+            Jouw bestelling
+          </h3>
+
+
+          <div
+            class="checkout-summary-list"
+            id="checkoutSummaryList"
+          ></div>
+
+
+          <div class="checkout-summary-total">
+
+            <div class="summary-line">
+
+              <span>
+                Subtotaal
+              </span>
+
+              <strong id="checkoutSubtotal">
+                €0,00
+              </strong>
+
+            </div>
+
+
+            <div class="summary-line muted">
+
+              <span>
+                Verzending
+              </span>
+
+              <strong id="checkoutShipping">
+                €0,00
+              </strong>
+
+            </div>
+
+
+            <div class="summary-line total">
+
+              <span>
+                Totaal
+              </span>
+
+              <strong id="checkoutTotal">
+                €0,00
+              </strong>
+
+            </div>
+
+          </div>
+
+        </aside>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =======================================================
+       FOOTER
+  ======================================================== -->
+
+  <footer class="shop-footer">
+
+    <div class="footer-inner">
+
+      <div>
+
+        <div class="footer-brand">
+          Hummie Bear
+        </div>
+
+        <div class="footer-text">
+
+          Sweetness on Wheels.
+          Hummie Bear brengt kleurrijk schepsnoep
+          en sweet moments naar events én online.
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <div class="footer-title">
+          Shop
+        </div>
+
+        <div class="footer-links">
+
+          <a href="#shop-content">
+            Webshop
+          </a>
+
+          <a href="candy.html">
+            Candy Edition
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <div class="footer-title">
+          Hummie Bear
+        </div>
+
+        <div class="footer-links">
+
+          <a href="index.html">
+            Home
+          </a>
+
+          <a href="index.html#contact">
+            Contact
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =======================================================
+       TOAST
+  ======================================================== -->
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+
+ <script src="supabase-config.js"></script>
+
+<script>
+
+  "use strict";
+
+
+    /* =========================================================
+       CONFIGURATIE
+    ========================================================= */
+
+    const SHOP_CONFIG = {
+
+      currency: "EUR",
+
+      locale: "nl-BE",
+
+      freeShippingThreshold: 35,
+
+      shippingCost: 5.95,
+
+      storageKey: "hummieBearShopCart",
+
+      discountCode: "LIVE10",
+
+      discountPercentage: 10,
+
+      customMixPricePer100g: 1.95,
+
+      customMixFreeBagGrams: 500
+
+    };
+
+
+    /* =========================================================
+       PRODUCTEN
+       Hier kunnen we later eenvoudig prijzen aanpassen.
+    ========================================================= */
+
+
+let PRODUCTS = [];
+
+    const CUSTOM_MIX_ID = "custom-snoepmix";
+
+    const CUSTOM_MIX_CHOICES = [
+      { id: "goudberen", name: "Goudberen", image: "https://assets.haribo.com/image/upload/s--vz-1M1zL--/ar_2637%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_746/v1/consumer-sites/nl-be/Products/Goudberen-250g-5996379305912.png" },
+      { id: "happy-cola", name: "Happy Cola", image: "https://assets.haribo.com/image/upload/s--k4fmIjvM--/ar_2637%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_747/v1/consumer-sites/nl-be/Products/Happy-cola-250g-5996379315959.png" },
+      { id: "happy-cherries", name: "Happy Cherries", image: "https://assets.haribo.com/image/upload/s--qatBWpFv--/ar_2641%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_743/v1/consumer-sites/nl-be/Products/Happy-Cherries-250g-4001686309599.png" },
+      { id: "happy-peaches", name: "Happy Peaches", image: "https://assets.haribo.com/image/upload/s--sLJWHgZe--/ar_2658%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_749/v1/consumer-sites/nl-be/Products/Happy-Peaches-250g-5996379380803.png" },
+      { id: "dragibus-soft", name: "Dragibus Soft", image: "https://assets.haribo.com/image/upload/s--b-i-5Xtv--/ar_2900%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_749/v1/consumer-sites/nl-be/Products/Dragibus-Soft-200g-3103220039588.png" },
+      { id: "kikkers", name: "Kikkers", image: "https://assets.haribo.com/image/upload/s--71CH2Ve6--/ar_2658%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_738/v1/consumer-sites/nl-nl/Products/Kikkers-250g-4001686472620.png" },
+      { id: "bananas", name: "Bananas", image: "https://assets.haribo.com/image/upload/s--PZOgvQC1--/ar_2580%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_735/v1/consumer-sites/nl-be/Products/Bananas-240g-4001686423189.png" },
+      { id: "chamallows-ruitspek", name: "Chamallows Ruitspek", image: "https://assets.haribo.com/image/upload/s--qO7ZDS3Z--/ar_2814%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_766/v1/consumer-sites/nl-be/Products/Chamallows-Ruitspek-260g-5410358442493.png" },
+      { id: "soda-straws-fizz", name: "Soda Straws F!ZZ", image: "https://assets.haribo.com/image/upload/s--02pwUwcl--/ar_2770%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_747/v1/consumer-sites/nl-be/Products/Soda-Straws-FZZ-180g-3103220043325.png" },
+      { id: "tongue-fizz", name: "Tongue F!ZZ", image: "https://assets.haribo.com/image/upload/s--3TiwSEc7--/ar_2900%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_817/v1/consumer-sites/nl-be/Products/Tongue-FZZ-185g-4001686369722.png" },
+      { id: "pasta-frutta-fizz", name: "Pasta Frutta F!ZZ", image: "https://assets.haribo.com/image/upload/s--Qn4IaLLF--/ar_2900%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_752/v1/consumer-sites/nl-nl/Products/Pasta-Frutta-FIZZ-200g-4001686358023.png" },
+      { id: "sour-mix-fizz", name: "Sour Mix F!ZZ", image: "https://assets.haribo.com/image/upload/s--UHaIIL07--/ar_2642%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_818/v1/consumer-sites/nl-nl/Products/Sour-Mix-FZZ-200g-4001686007952.png" },
+      { id: "tangfastics", name: "Tangfastics", image: "https://assets.haribo.com/image/upload/s--iMJgWrt8--/ar_2658%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_749/v1/consumer-sites/nl-be/Products/Tanfastics-250g-5012035924034.png" },
+      { id: "twin-snakes", name: "Twin Snakes", image: "https://assets.haribo.com/image/upload/s--3Ver7eGb--/ar_2658%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_747/v1/consumer-sites/nl-be/Products/Twinsnakes-220g-4001686022016.png" },
+      { id: "worms-fizz", name: "Worms F!ZZ", image: "https://assets.haribo.com/image/upload/s--FnjUq7vE--/ar_2900%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_818/v1/consumer-sites/nl-be/Products/504587146-P.png" },
+      { id: "stixx-strawberry", name: "Stixx Strawberry", image: "https://assets.haribo.com/image/upload/s--fFAEcXNN--/ar_2546%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_807/v1/consumer-sites/nl-be/Products/Stixx-Strawberry-160g-8426617004989.png" },
+      { id: "stixx-rainbow", name: "Stixx Rainbow", image: "https://assets.haribo.com/image/upload/s--tdEe31Pn--/ar_2546%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_809/v1/consumer-sites/nl-be/Products/Stixx-Rainbow-160g-8426617005207.png" },
+      { id: "stixx-cola", name: "Stixx Cola", image: "https://assets.haribo.com/image/upload/s--N3X5RSw---/ar_2570%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_805/v1/consumer-sites/nl-be/Products/Stixx-Cola-160g-8426617005092.png" },
+      { id: "world-mix", name: "World Mix", image: "https://assets.haribo.com/image/upload/s--ZSiGjst8--/ar_2919%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_741/v1/consumer-sites/nl-be/Products/World-Mix-225g-4001686713778.png" },
+      { id: "funny-mix", name: "Funny Mix", image: "https://assets.haribo.com/image/upload/s--z3PKsb3r--/ar_2658%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_746/v1/consumer-sites/nl-be/Products/Funny-mix-250g-4001686712023.png" }
+    ];
+
+    let customMixSelections = {};
+
+
+/* =========================================================
+   PRODUCTEN LADEN UIT SUPABASE
+========================================================= */
+
+async function loadProductsFromSupabase() {
+
+  productsGrid.innerHTML = `
+    <div class="loading-products">
+      <div class="loading-spinner"></div>
+      <strong>Onze sweet moments worden geladen...</strong>
+      <p>Even geduld, we halen de actuele producten op.</p>
+    </div>
+  `;
+
+  if (productCount) {
+    productCount.textContent = "Producten laden...";
+  }
+
+  try {
+
+    const response =
+      await fetch(
+        `${window.HUMMIE_SUPABASE_URL}/rest/v1/shop_products?select=*&active=eq.true&order=created_at.asc`,
+        {
+          method: "GET",
+
+          headers: {
+            "apikey":
+              window.HUMMIE_SUPABASE_PUBLISHABLE_KEY,
+
+            "Authorization":
+              `Bearer ${window.HUMMIE_SUPABASE_PUBLISHABLE_KEY}`
+          }
+        }
+      );
+
+
+    if (!response.ok) {
+
+      const errorText =
+        await response.text();
+
+      throw new Error(
+        `Supabase fout ${response.status}: ${errorText}`
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    PRODUCTS =
+      data.map(
+        product => ({
+
+          id:
+            product.id,
+
+          name:
+            product.name,
+
+          description:
+            product.description || "",
+
+          price:
+            Number(product.price),
+
+          image:
+            product.image_url ||
+            product.image ||
+            "",
+
+          category:
+            product.category || "all",
+
+          unit:
+            product.unit_label || "",
+
+          badge:
+            product.badge || ""
+
+        })
+      );
+
+
+    renderProducts();
+
+    renderCart();
+
+
+  } catch (error) {
+
+    console.error(
+      "Producten konden niet uit Supabase worden geladen:",
+      error
+    );
+
+    if (productCount) {
+      productCount.textContent = "Producten niet geladen";
+    }
+
+    productsGrid.innerHTML = `
+      <div class="error-products">
+        <strong>Oeps, de shop kon de producten niet laden.</strong>
+        <p>Controleer je internetverbinding en probeer opnieuw.</p>
+        <button
+          type="button"
+          class="retry-products"
+          data-retry-products
+        >
+          Opnieuw proberen
+        </button>
+      </div>
+    `;
+
+    showToast(
+      "De producten konden niet worden geladen."
+    );
+
+  }
+
+}
+  
+
+    /* =========================================================
+       STATE
+    ========================================================= */
+
+    let cart = loadCart();
+
+    let activeCategory = "all";
+
+    let searchTerm = "";
+
+    let sortOption = "featured";
+
+    let appliedDiscount = 0;
+
+
+    /* =========================================================
+       DOM
+    ========================================================= */
+
+    const productsGrid =
+      document.getElementById(
+        "productsGrid"
+      );
+
+    const productSearch =
+      document.getElementById(
+        "productSearch"
+      );
+
+    const productSort =
+      document.getElementById(
+        "productSort"
+      );
+
+    const productCount =
+      document.getElementById(
+        "productCount"
+      );
+
+    const customMixGrid = document.getElementById("customMixGrid");
+    const customMixStatus = document.getElementById("customMixStatus");
+    const customMixProgressBar = document.getElementById("customMixProgressBar");
+    const customMixGrams = document.getElementById("customMixGrams");
+    const customMixPrice = document.getElementById("customMixPrice");
+    const customMixSummaryGrams = document.getElementById("customMixSummaryGrams");
+    const customMixSummaryPrice = document.getElementById("customMixSummaryPrice");
+    const customMixFreeMessage = document.getElementById("customMixFreeMessage");
+    const favoriteCandyInput = document.getElementById("favoriteCandyInput");
+    const addCustomMixButton = document.getElementById("addCustomMixButton");
+
+    const categoryButtons =
+      document.querySelectorAll(
+        ".category-button"
+      );
+
+    const cartOverlay =
+      document.getElementById(
+        "cartOverlay"
+      );
+
+    const openCartButton =
+      document.getElementById(
+        "openCartButton"
+      );
+
+    const closeCartButton =
+      document.getElementById(
+        "closeCartButton"
+      );
+
+    const headerCartCount =
+      document.getElementById(
+        "headerCartCount"
+      );
+
+    const cartItems =
+      document.getElementById(
+        "cartItems"
+      );
+
+    const cartEmpty =
+      document.getElementById(
+        "cartEmpty"
+      );
+
+    const cartSubtotal =
+      document.getElementById(
+        "cartSubtotal"
+      );
+
+    const cartShipping =
+      document.getElementById(
+        "cartShipping"
+      );
+
+    const cartTotal =
+      document.getElementById(
+        "cartTotal"
+      );
+
+    const checkoutButton =
+      document.getElementById(
+        "checkoutButton"
+      );
+
+    const shippingMessage =
+      document.getElementById(
+        "shippingMessage"
+      );
+
+    const shippingRemaining =
+      document.getElementById(
+        "shippingRemaining"
+      );
+
+    const shippingProgressBar =
+      document.getElementById(
+        "shippingProgressBar"
+      );
+
+    const discountInput =
+      document.getElementById(
+        "discountInput"
+      );
+
+    const discountButton =
+      document.getElementById(
+        "discountButton"
+      );
+
+    const discountMessage =
+      document.getElementById(
+        "discountMessage"
+      );
+
+    const checkoutModal =
+      document.getElementById(
+        "checkoutModal"
+      );
+
+    const checkoutCloseButton =
+      document.getElementById(
+        "checkoutCloseButton"
+      );
+
+    const checkoutForm =
+      document.getElementById(
+        "checkoutForm"
+      );
+
+    const checkoutSubmit =
+      document.getElementById(
+        "checkoutSubmit"
+      );
+
+    const checkoutSummaryList =
+      document.getElementById(
+        "checkoutSummaryList"
+      );
+
+    const checkoutSubtotal =
+      document.getElementById(
+        "checkoutSubtotal"
+      );
+
+    const checkoutShipping =
+      document.getElementById(
+        "checkoutShipping"
+      );
+
+    const checkoutTotal =
+      document.getElementById(
+        "checkoutTotal"
+      );
+
+    const toast =
+      document.getElementById(
+        "toast"
+      );
+
+    const heroShopButton =
+      document.getElementById(
+        "heroShopButton"
+      );
+
+    const scrollShopButton =
+      document.getElementById(
+        "scrollShopButton"
+      );
+
+
+    /* =========================================================
+       HELPERS
+    ========================================================= */
+
+    function formatCurrency(value) {
+
+      return new Intl.NumberFormat(
+        SHOP_CONFIG.locale,
+        {
+          style: "currency",
+          currency: SHOP_CONFIG.currency
+        }
+      ).format(value);
+
+    }
+
+
+    function escapeHtml(value) {
+
+      return String(value)
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    function showToast(message) {
+
+      toast.textContent = message;
+
+      toast.classList.add(
+        "show"
+      );
+
+      clearTimeout(
+        showToast.timer
+      );
+
+      showToast.timer =
+        setTimeout(
+          () => {
+            toast.classList.remove(
+              "show"
+            );
+          },
+          2600
+        );
+
+    }
+
+
+    function saveCart() {
+
+      try {
+
+        localStorage.setItem(
+          SHOP_CONFIG.storageKey,
+          JSON.stringify(cart)
+        );
+
+      } catch (error) {
+
+        console.warn(
+          "Winkelmandje kon niet worden opgeslagen.",
+          error
+        );
+
+      }
+
+    }
+
+
+    function loadCart() {
+
+      try {
+
+        const stored =
+          localStorage.getItem(
+            SHOP_CONFIG.storageKey
+          );
+
+        if (!stored) {
+          return [];
+        }
+
+        const parsed =
+          JSON.parse(stored);
+
+        if (!Array.isArray(parsed)) {
+          return [];
+        }
+
+        return parsed.filter(
+          item =>
+            item &&
+            typeof item.id === "string" &&
+            Number.isInteger(item.quantity) &&
+            item.quantity > 0
+        );
+
+      } catch (error) {
+
+        console.warn(
+          "Winkelmandje kon niet worden geladen.",
+          error
+        );
+
+        return [];
+
+      }
+
+    }
+
+
+    function getProductById(id) {
+
+      return PRODUCTS.find(
+        product =>
+          product.id === id
+      );
+
+    }
+
+
+
+    function getCustomMixTotalGrams(selections) {
+      const source = selections || customMixSelections;
+      return Object.values(source).reduce(
+        (total, grams) => total + Math.max(0, Number(grams) || 0),
+        0
+      );
+    }
+
+    function getCustomMixPrice(grams) {
+      return (Number(grams) / 100) * SHOP_CONFIG.customMixPricePer100g;
+    }
+
+    function getCustomMixSelectionsList(selections) {
+      const source = selections || customMixSelections;
+
+      return CUSTOM_MIX_CHOICES
+        .filter(choice => Number(source[choice.id]) > 0)
+        .map(choice => ({
+          id: choice.id,
+          name: choice.name,
+          grams: Number(source[choice.id])
+        }));
+    }
+
+    function createCustomMixProduct(customMix) {
+      const selections = {};
+      (customMix?.selections || []).forEach(item => {
+        selections[item.id] = Number(item.grams) || 0;
+      });
+
+      const grams =
+        Number(customMix?.totalGrams) ||
+        getCustomMixTotalGrams(selections);
+
+      const selectedCount = getCustomMixSelectionsList(selections).length;
+
+      return {
+        id: CUSTOM_MIX_ID,
+        name: "Jouw eigen snoepmix",
+        description: grams + " g zelf samengesteld snoep met " + selectedCount + " soorten.",
+        price: getCustomMixPrice(grams),
+        image:
+          (customMix?.selections || []).length
+            ? (CUSTOM_MIX_CHOICES.find(choice => choice.id === customMix.selections[0].id)?.image || CUSTOM_MIX_CHOICES[0].image)
+            : CUSTOM_MIX_CHOICES[0].image,
+        category: "snoepmix",
+        unit: grams + " g mix",
+        badge: grams >= SHOP_CONFIG.customMixFreeBagGrams ? "Gratis zakje" : "Eigen mix"
+      };
+    }
+
+    function getCartProduct(item) {
+      if (item && item.id === CUSTOM_MIX_ID) {
+        return createCustomMixProduct(item.customMix || {});
+      }
+      return getProductById(item?.id);
+    }
+
+    function getCustomMixDetailsHtml(item) {
+      if (!item || item.id !== CUSTOM_MIX_ID || !item.customMix) {
+        return "";
+      }
+
+      const selections = (item.customMix.selections || [])
+        .map(selected => escapeHtml(selected.name) + ": " + (Number(selected.grams) || 0) + " g")
+        .join(" · ");
+
+      const favorite = item.customMix.favoriteCandy
+        ? "<br>Favoriet: " + escapeHtml(item.customMix.favoriteCandy)
+        : "";
+
+      const freeBag = item.customMix.freeBag
+        ? '<br><strong style="color:var(--green)">Gratis snoepzakje inbegrepen</strong>'
+        : "";
+
+      return '<div style="margin-top:7px;color:var(--brown-light);font-size:10px;line-height:1.45;">' +
+        selections + favorite + freeBag + "</div>";
+    }
+
+    function getCartCount() {
+
+      return cart.reduce(
+        (total, item) =>
+          total + item.quantity,
+        0
+      );
+
+    }
+
+
+    function getSubtotal() {
+
+      return cart.reduce(
+        (total, item) => {
+
+          const product =
+            getCartProduct(
+              item
+            );
+
+          if (!product) {
+            return total;
+          }
+
+          return (
+            total +
+            product.price *
+            item.quantity
+          );
+
+        },
+        0
+      );
+
+    }
+
+
+    function getDiscountAmount() {
+
+      const subtotal =
+        getSubtotal();
+
+      if (
+        appliedDiscount <= 0
+      ) {
+        return 0;
+      }
+
+      return (
+        subtotal *
+        appliedDiscount
+      );
+
+    }
+
+
+    function getShippingCost() {
+
+      const subtotal =
+        getSubtotal();
+
+      const afterDiscount =
+        Math.max(
+          0,
+          subtotal -
+          getDiscountAmount()
+        );
+
+      if (
+        afterDiscount <= 0
+      ) {
+        return 0;
+      }
+
+      if (
+        afterDiscount >=
+        SHOP_CONFIG.freeShippingThreshold
+      ) {
+        return 0;
+      }
+
+      return SHOP_CONFIG.shippingCost;
+
+    }
+
+
+    function getTotal() {
+
+      const subtotal =
+        getSubtotal();
+
+      const discount =
+        getDiscountAmount();
+
+      const shipping =
+        getShippingCost();
+
+      return Math.max(
+        0,
+        subtotal -
+        discount +
+        shipping
+      );
+
+    }
+
+
+
+    function renderCustomMixBuilder() {
+      customMixGrid.innerHTML = CUSTOM_MIX_CHOICES.map(function(choice) {
+        const grams = Number(customMixSelections[choice.id]) || 0;
+
+        return [
+          '<article class="custom-mix-card' + (grams > 0 ? ' selected' : '') + '" data-custom-choice="' + escapeHtml(choice.id) + '">',
+          '  <div class="custom-mix-image">',
+          '    <img src="' + escapeHtml(choice.image) + '" alt="' + escapeHtml(choice.name) + '" loading="lazy">',
+          '  </div>',
+          '  <div class="custom-mix-card-body">',
+          '    <div class="custom-mix-card-title">' + escapeHtml(choice.name) + '</div>',
+          '    <div class="custom-mix-card-weight">' + grams + ' g</div>',
+          '    <div class="custom-mix-quantity">',
+          '      <button type="button" data-mix-minus="' + escapeHtml(choice.id) + '" aria-label="' + escapeHtml(choice.name) + ' met 100 gram verminderen">−</button>',
+          '      <span class="custom-mix-quantity-value">' + (grams === 0 ? 'Niet gekozen' : grams + ' g') + '</span>',
+          '      <button type="button" data-mix-plus="' + escapeHtml(choice.id) + '" aria-label="' + escapeHtml(choice.name) + ' met 100 gram verhogen">+</button>',
+          '    </div>',
+          '  </div>',
+          '</article>'
+        ].join("");
+      }).join("");
+
+      updateCustomMixSummary();
+    }
+
+    function updateCustomMixSummary() {
+      const grams = getCustomMixTotalGrams();
+      const price = getCustomMixPrice(grams);
+      const target = SHOP_CONFIG.customMixFreeBagGrams;
+
+      customMixGrams.textContent = grams + " g";
+      customMixPrice.textContent = formatCurrency(price);
+      customMixSummaryGrams.textContent = grams + " g";
+      customMixSummaryPrice.textContent = formatCurrency(price);
+      customMixProgressBar.style.width = Math.min(100, (grams / target) * 100) + "%";
+
+      if (grams === 0) {
+        customMixStatus.textContent = "Kies jouw favoriete snoepjes.";
+        customMixFreeMessage.textContent = "Nog " + target + " g nodig voor je gratis snoepzakje.";
+        customMixFreeMessage.classList.remove("ready");
+      } else if (grams < target) {
+        const remaining = target - grams;
+        customMixStatus.textContent = "Je hebt " + grams + " g gekozen. Nog " + remaining + " g voor je gratis snoepzakje.";
+        customMixFreeMessage.textContent = "Nog " + remaining + " g nodig voor je gratis snoepzakje.";
+        customMixFreeMessage.classList.remove("ready");
+      } else {
+        customMixStatus.textContent = "Top! Je hebt " + grams + " g gekozen en krijgt een gratis snoepzakje.";
+        customMixFreeMessage.textContent = "Gratis snoepzakje toegevoegd aan je sweet moment.";
+        customMixFreeMessage.classList.add("ready");
+      }
+
+      addCustomMixButton.disabled = grams < 100;
+    }
+
+    function changeCustomMixGrams(choiceId, delta) {
+      const current = Number(customMixSelections[choiceId]) || 0;
+      const next = Math.max(0, current + delta);
+
+      if (next === 0) {
+        delete customMixSelections[choiceId];
+      } else {
+        customMixSelections[choiceId] = next;
+      }
+
+      renderCustomMixBuilder();
+    }
+
+    function addCustomMixToCart() {
+      const grams = getCustomMixTotalGrams();
+
+      if (grams < 100) {
+        showToast("Kies minstens 100 gram snoep.");
+        return;
+      }
+
+      const customMix = {
+        selections: getCustomMixSelectionsList(),
+        favoriteCandy: String(favoriteCandyInput.value || "").trim(),
+        totalGrams: grams,
+        freeBag: grams >= SHOP_CONFIG.customMixFreeBagGrams
+      };
+
+      cart.push({
+        id: CUSTOM_MIX_ID,
+        quantity: 1,
+        customMix: customMix
+      });
+
+      saveCart();
+      renderCart();
+
+      showToast(
+        grams >= SHOP_CONFIG.customMixFreeBagGrams
+          ? "Je eigen snoepmix is toegevoegd + gratis snoepzakje!"
+          : "Je eigen snoepmix is toegevoegd aan je mandje."
+      );
+
+      openCart();
+    }
+
+
+    /* =========================================================
+       PRODUCT FILTERING
+    ========================================================= */
+
+    function getFilteredProducts() {
+
+      const filtered =
+        PRODUCTS.filter(
+          product => {
+
+            const categoryMatch =
+              activeCategory === "all" ||
+              product.category ===
+              activeCategory ||
+              (
+                activeCategory === "box" &&
+                product.category === "live"
+              );
+
+            const searchable =
+              [
+                product.name,
+                product.description,
+                product.category,
+                product.unit
+              ]
+                .join(" ")
+                .toLowerCase();
+
+            const searchMatch =
+              !searchTerm ||
+              searchable.includes(
+                searchTerm
+              );
+
+            return (
+              categoryMatch &&
+              searchMatch
+            );
+
+          }
+        );
+
+      if (sortOption === "price-low") {
+        filtered.sort(
+          (a, b) => a.price - b.price
+        );
+      } else if (sortOption === "price-high") {
+        filtered.sort(
+          (a, b) => b.price - a.price
+        );
+      } else if (sortOption === "name") {
+        filtered.sort(
+          (a, b) =>
+            a.name.localeCompare(
+              b.name,
+              "nl-BE"
+            )
+        );
+      }
+
+      return filtered;
+
+    }
+
+
+    /* =========================================================
+       RENDER PRODUCTS
+    ========================================================= */
+
+    function renderProducts() {
+
+      const products =
+        getFilteredProducts();
+
+      if (productCount) {
+        productCount.textContent =
+          products.length +
+          (products.length === 1 ? " product" : " producten");
+      }
+
+      if (
+        products.length === 0
+      ) {
+
+        productsGrid.innerHTML = `
+
+          <div class="empty-products">
+
+            <strong>
+              Geen producten gevonden.
+            </strong>
+
+            <p>
+              Probeer een andere zoekopdracht of categorie.
+            </p>
+
+          </div>
+
+        `;
+
+        return;
+      }
+
+
+      productsGrid.innerHTML =
+        products.map(
+          product => `
+
+            <article
+              class="product-card"
+              data-product-id="${escapeHtml(product.id)}"
+            >
+
+              ${
+                product.badge
+                  ? `
+                    <span class="product-badge">
+                      ${escapeHtml(product.badge)}
+                    </span>
+                  `
+                  : ""
+              }
+
+
+              <div class="product-image">
+
+                <img
+                  src="${escapeHtml(product.image)}"
+                  alt="${escapeHtml(product.name)}"
+                  loading="lazy"
+                >
+
+              </div>
+
+
+              <div class="product-content">
+
+                <div class="product-category">
+                  ${escapeHtml(product.category)}
+                </div>
+
+
+                <h3 class="product-title">
+                  ${escapeHtml(product.name)}
+                </h3>
+
+
+                <p class="product-description">
+                  ${escapeHtml(product.description)}
+                </p>
+
+
+                <div class="product-bottom">
+
+                  <div>
+
+                    <div class="product-price">
+                      ${formatCurrency(product.price)}
+                    </div>
+
+                    <span class="product-unit">
+                      ${escapeHtml(product.unit)}
+                    </span>
+
+                  </div>
+
+
+                  <button
+                    type="button"
+                    class="add-button"
+                    data-add-to-cart="${escapeHtml(product.id)}"
+                  >
+                    + Toevoegen
+                  </button>
+
+                </div>
+
+              </div>
+
+            </article>
+
+          `
+        )
+        .join("");
+
+    }
+
+
+    /* =========================================================
+       CART ACTIONS
+    ========================================================= */
+
+    function addToCart(productId) {
+
+      const product =
+        getProductById(
+          productId
+        );
+
+      if (!product) {
+        return;
+      }
+
+      const existing =
+        cart.find(
+          item =>
+            item.id === productId
+        );
+
+      if (existing) {
+
+        existing.quantity += 1;
+
+      } else {
+
+        cart.push({
+          id: productId,
+          quantity: 1
+        });
+
+      }
+
+      saveCart();
+
+      renderCart();
+
+      showToast(
+        `${product.name} toegevoegd aan je mandje.`
+      );
+
+      openCart();
+
+    }
+
+
+    function updateCartQuantity(
+      productId,
+      quantity
+    ) {
+
+      const item =
+        cart.find(
+          cartItem =>
+            cartItem.id ===
+            productId
+        );
+
+      if (!item) {
+        return;
+      }
+
+      const safeQuantity =
+        Math.max(
+          0,
+          Number(quantity)
+        );
+
+      if (
+        safeQuantity === 0
+      ) {
+
+        cart =
+          cart.filter(
+            cartItem =>
+              cartItem.id !==
+              productId
+          );
+
+      } else {
+
+        item.quantity =
+          safeQuantity;
+
+      }
+
+      saveCart();
+
+      renderCart();
+
+    }
+
+
+    function removeFromCart(
+      productId
+    ) {
+
+      const product =
+        getCartProduct({ id: productId });
+
+      cart =
+        cart.filter(
+          item =>
+            item.id !== productId
+        );
+
+      saveCart();
+
+      renderCart();
+
+      if (product) {
+
+        showToast(
+          `${product.name} verwijderd.`
+        );
+
+      }
+
+    }
+
+
+    /* =========================================================
+       CART RENDER
+    ========================================================= */
+
+    function renderCart() {
+
+      const count =
+        getCartCount();
+
+      headerCartCount.textContent =
+        String(count);
+
+
+      const subtotal =
+        getSubtotal();
+
+      const discount =
+        getDiscountAmount();
+
+      const shipping =
+        getShippingCost();
+
+      const total =
+        getTotal();
+
+
+      cartEmpty.style.display =
+        cart.length === 0
+          ? "block"
+          : "none";
+
+
+      cartItems.innerHTML =
+        cart.map(
+          item => {
+
+            const product =
+              getCartProduct(
+                item
+              );
+
+            if (!product) {
+              return "";
+            }
+
+            const lineTotal =
+              product.price *
+              item.quantity;
+
+
+            return `
+
+              <div class="cart-item">
+
+                <div class="cart-item-image">
+
+                  <img
+                    src="${escapeHtml(product.image)}"
+                    alt="${escapeHtml(product.name)}"
+                  >
+
+                </div>
+
+
+                <div>
+
+                  <h3 class="cart-item-title">
+                    ${escapeHtml(product.name)}
+                  </h3>
+
+                  <div class="cart-item-price">
+                    ${formatCurrency(product.price)}
+                    ${item.id === CUSTOM_MIX_ID ? "voor deze mix" : "per stuk"}
+                  </div>
+
+                  ${getCustomMixDetailsHtml(item)}
+
+
+                  <div class="quantity-controls">
+
+                    <button
+                      type="button"
+                      class="quantity-button"
+                      data-minus="${escapeHtml(product.id)}"
+                      aria-label="Aantal verminderen"
+                    >
+                      −
+                    </button>
+
+                    <span
+                      class="quantity-number"
+                    >
+                      ${item.quantity}
+                    </span>
+
+                    <button
+                      type="button"
+                      class="quantity-button"
+                      data-plus="${escapeHtml(product.id)}"
+                      aria-label="Aantal verhogen"
+                    >
+                      +
+                    </button>
+
+                  </div>
+
+                </div>
+
+
+                <div class="cart-item-right">
+
+                  <div class="cart-item-total">
+                    ${formatCurrency(lineTotal)}
+                  </div>
+
+                  <button
+                    type="button"
+                    class="remove-item"
+                    data-remove="${escapeHtml(product.id)}"
+                  >
+                    Verwijderen
+                  </button>
+
+                </div>
+
+              </div>
+
+            `;
+
+          }
+        )
+        .join("");
+
+
+      cartSubtotal.textContent =
+        formatCurrency(
+          subtotal
+        );
+
+
+      cartShipping.textContent =
+        shipping === 0 && subtotal > 0
+          ? "GRATIS"
+          : formatCurrency(
+              shipping
+            );
+
+
+      cartTotal.textContent =
+        formatCurrency(
+          total
+        );
+
+
+      checkoutButton.disabled =
+        cart.length === 0;
+
+
+      updateShippingProgress();
+
+      updateCheckoutSummary();
+
+    }
+
+
+    /* =========================================================
+       SHIPPING PROGRESS
+    ========================================================= */
+
+    function updateShippingProgress() {
+
+      const subtotal =
+        getSubtotal();
+
+      const discounted =
+        Math.max(
+          0,
+          subtotal -
+          getDiscountAmount()
+        );
+
+
+      if (
+        discounted <= 0
+      ) {
+
+        shippingProgressBar.style.width =
+          "0%";
+
+        shippingRemaining.textContent =
+          formatCurrency(
+            SHOP_CONFIG.freeShippingThreshold
+          );
+
+        shippingMessage.textContent =
+          "Voeg producten toe om gratis verzending te verdienen.";
+
+        return;
+      }
+
+
+      if (
+        discounted >=
+        SHOP_CONFIG.freeShippingThreshold
+      ) {
+
+        shippingProgressBar.style.width =
+          "100%";
+
+        shippingRemaining.textContent =
+          "GRATIS";
+
+        shippingMessage.textContent =
+          "Top! Je bestelling komt in aanmerking voor gratis verzending.";
+
+        return;
+      }
+
+
+      const remaining =
+        SHOP_CONFIG.freeShippingThreshold -
+        discounted;
+
+
+      const percentage =
+        Math.min(
+          100,
+          (
+            discounted /
+            SHOP_CONFIG.freeShippingThreshold
+          ) *
+          100
+        );
+
+
+      shippingProgressBar.style.width =
+        `${percentage}%`;
+
+      shippingRemaining.textContent =
+        formatCurrency(
+          remaining
+        );
+
+      shippingMessage.textContent =
+        `Nog ${formatCurrency(remaining)} en je krijgt gratis verzending.`;
+
+    }
+
+
+    /* =========================================================
+       DISCOUNT
+    ========================================================= */
+
+    function applyDiscount() {
+
+      const code =
+        discountInput.value
+          .trim()
+          .toUpperCase();
+
+
+      if (!code) {
+
+        appliedDiscount = 0;
+
+        discountMessage.textContent =
+          "";
+
+        renderCart();
+
+        return;
+
+      }
+
+
+      if (
+        code ===
+        SHOP_CONFIG.discountCode
+      ) {
+
+        appliedDiscount =
+          SHOP_CONFIG.discountPercentage /
+          100;
+
+        discountMessage.textContent =
+          `${SHOP_CONFIG.discountPercentage}% korting toegepast.`;
+
+        showToast(
+          "Live korting toegepast!"
+        );
+
+      } else {
+
+        appliedDiscount = 0;
+
+        discountMessage.textContent =
+          "Deze kortingscode is niet geldig.";
+
+        discountMessage.style.color =
+          "var(--red)";
+
+        renderCart();
+
+        return;
+
+      }
+
+
+      discountMessage.style.color =
+        "var(--green)";
+
+      renderCart();
+
+    }
+
+
+    /* =========================================================
+       CHECKOUT SUMMARY
+    ========================================================= */
+
+    function updateCheckoutSummary() {
+
+      checkoutSummaryList.innerHTML =
+        cart.map(
+          item => {
+
+            const product =
+              getCartProduct(
+                item
+              );
+
+            if (!product) {
+              return "";
+            }
+
+            const itemTotal =
+              product.price *
+              item.quantity;
+
+
+            return `
+
+              <div class="checkout-summary-item">
+
+                <span>
+
+                  ${escapeHtml(product.name)}
+
+                  <br>
+
+                  <small>
+                    ${item.id === CUSTOM_MIX_ID ? product.unit : item.quantity + " × " + formatCurrency(product.price)}
+                  </small>
+
+                </span>
+
+                <strong>
+                  ${formatCurrency(itemTotal)}
+                </strong>
+
+              </div>
+
+            `;
+
+          }
+        )
+        .join("");
+
+
+      checkoutSubtotal.textContent =
+        formatCurrency(
+          getSubtotal()
+        );
+
+
+      const shipping =
+        getShippingCost();
+
+      checkoutShipping.textContent =
+        shipping === 0 && getSubtotal() > 0
+          ? "GRATIS"
+          : formatCurrency(
+              shipping
+            );
+
+
+      checkoutTotal.textContent =
+        formatCurrency(
+          getTotal()
+        );
+
+    }
+
+
+    /* =========================================================
+       OPEN / CLOSE CART
+    ========================================================= */
+
+    function openCart() {
+
+      cartOverlay.classList.add(
+        "open"
+      );
+
+      cartOverlay.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.classList.add(
+        "cart-open"
+      );
+
+      closeCartButton.focus();
+
+    }
+
+
+    function closeCart() {
+
+      cartOverlay.classList.remove(
+        "open"
+      );
+
+      cartOverlay.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.classList.remove(
+        "cart-open"
+      );
+
+    }
+
+
+    /* =========================================================
+       OPEN / CLOSE CHECKOUT
+    ========================================================= */
+
+    function openCheckout() {
+
+      if (
+        cart.length === 0
+      ) {
+
+        showToast(
+          "Je winkelmandje is nog leeg."
+        );
+
+        return;
+
+      }
+
+
+      updateCheckoutSummary();
+
+      checkoutModal.classList.add(
+        "open"
+      );
+
+      checkoutModal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.classList.add(
+        "cart-open"
+      );
+
+      setTimeout(
+        () => {
+
+          const firstName =
+            document.getElementById(
+              "firstName"
+            );
+
+          if (firstName) {
+            firstName.focus();
+          }
+
+        },
+        50
+      );
+
+    }
+
+
+    function closeCheckout() {
+
+      checkoutModal.classList.remove(
+        "open"
+      );
+
+      checkoutModal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.classList.remove(
+        "cart-open"
+      );
+
+    }
+
+
+    /* =========================================================
+       FORM VALIDATION
+    ========================================================= */
+
+    function validateCheckoutForm() {
+
+      const requiredFields =
+        checkoutForm.querySelectorAll(
+          "[required]"
+        );
+
+
+      let valid = true;
+
+      let firstInvalid = null;
+
+
+      requiredFields.forEach(
+        field => {
+
+          const value =
+            String(
+              field.value || ""
+            ).trim();
+
+
+          let fieldValid =
+            value.length > 0;
+
+
+          if (
+            field.type ===
+            "email" &&
+            fieldValid
+          ) {
+
+            const emailPattern =
+              /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            fieldValid =
+              emailPattern.test(
+                value
+              );
+
+          }
+
+
+          field.setAttribute(
+            "aria-invalid",
+            fieldValid
+              ? "false"
+              : "true"
+          );
+
+
+          if (!fieldValid) {
+
+            valid = false;
+
+            if (!firstInvalid) {
+              firstInvalid = field;
+            }
+
+          }
+
+        }
+      );
+
+
+      if (
+        firstInvalid
+      ) {
+
+        firstInvalid.focus();
+
+        showToast(
+          "Controleer de verplichte velden."
+        );
+
+      }
+
+
+      return valid;
+
+    }
+
+
+    /* =========================================================
+       FORM DATA
+    ========================================================= */
+
+    function getCheckoutData() {
+
+      const formData =
+        new FormData(
+          checkoutForm
+        );
+
+
+      return {
+
+        customer: {
+
+          firstName:
+            String(
+              formData.get(
+                "firstName"
+              ) || ""
+            ).trim(),
+
+          lastName:
+            String(
+              formData.get(
+                "lastName"
+              ) || ""
+            ).trim(),
+
+          email:
+            String(
+              formData.get(
+                "email"
+              ) || ""
+            ).trim(),
+
+          phone:
+            String(
+              formData.get(
+                "phone"
+              ) || ""
+            ).trim()
+
+        },
+
+
+        shippingAddress: {
+
+          street:
+            String(
+              formData.get(
+                "street"
+              ) || ""
+            ).trim(),
+
+          houseNumber:
+            String(
+              formData.get(
+                "houseNumber"
+              ) || ""
+            ).trim(),
+
+          postalCode:
+            String(
+              formData.get(
+                "postalCode"
+              ) || ""
+            ).trim(),
+
+          city:
+            String(
+              formData.get(
+                "city"
+              ) || ""
+            ).trim(),
+
+          country:
+            String(
+              formData.get(
+                "country"
+              ) || "BE"
+            ).trim()
+
+        },
+
+
+        note:
+          String(
+            formData.get(
+              "note"
+            ) || ""
+          ).trim()
+
+      };
+
+    }
+
+
+    /* =========================================================
+       CHECKOUT SUBMIT
+       Dit maakt momenteel nog GEEN betaling.
+    ========================================================= */
+
+    function handleCheckoutSubmit(
+      event
+    ) {
+
+      event.preventDefault();
+
+
+      if (
+        !validateCheckoutForm()
+      ) {
+        return;
+      }
+
+
+      if (
+        cart.length === 0
+      ) {
+
+        showToast(
+          "Je winkelmandje is leeg."
+        );
+
+        closeCheckout();
+
+        return;
+
+      }
+
+
+      const orderData = {
+
+        items:
+          cart.map(
+            item => {
+
+              const product =
+                getCartProduct(
+                  item
+                );
+
+              return {
+
+                productId:
+                  item.id,
+
+                productName:
+                  product
+                    ? product.name
+                    : "",
+
+                quantity:
+                  item.quantity,
+
+                unitPrice:
+                  product
+                    ? product.price
+                    : 0,
+
+                customMix:
+                  item.customMix || null
+
+              };
+
+            }
+          ),
+
+        customer:
+          getCheckoutData(),
+
+        subtotal:
+          getSubtotal(),
+
+        discount:
+          getDiscountAmount(),
+
+        shipping:
+          getShippingCost(),
+
+        total:
+          getTotal(),
+
+        createdAt:
+          new Date()
+            .toISOString()
+
+      };
+
+
+      /*
+        TEMPORAIRE TESTOPSLAG
+
+        We slaan de checkout tijdelijk op in
+        localStorage zodat we nu eerst de voorkant
+        kunnen testen.
+
+        Later vervangen we dit door:
+        Supabase + Mollie + echte orderstatus.
+      */
+
+      try {
+
+        localStorage.setItem(
+          "hummieBearLastCheckout",
+          JSON.stringify(
+            orderData
+          )
+        );
+
+      } catch (error) {
+
+        console.warn(
+          "Testbestelling kon niet lokaal worden opgeslagen.",
+          error
+        );
+
+      }
+
+
+      checkoutSubmit.disabled =
+        true;
+
+      checkoutSubmit.textContent =
+        "Bestelling gecontroleerd...";
+
+
+      setTimeout(
+        () => {
+
+          checkoutSubmit.disabled =
+            false;
+
+          checkoutSubmit.textContent =
+            "Controleer bestelling";
+
+          showToast(
+            "Je bestelling is gecontroleerd. Betaling komt in de volgende stap."
+          );
+
+        },
+        900
+      );
+
+    }
+
+
+    /* =========================================================
+       EVENT LISTENERS
+    ========================================================= */
+
+    productsGrid.addEventListener(
+      "click",
+      event => {
+
+        const button =
+          event.target.closest(
+            "[data-add-to-cart]"
+          );
+
+        if (!button) {
+          return;
+        }
+
+        addToCart(
+          button.dataset.addToCart
+        );
+
+      }
+    );
+
+
+    cartItems.addEventListener(
+      "click",
+      event => {
+
+        const minus =
+          event.target.closest(
+            "[data-minus]"
+          );
+
+        const plus =
+          event.target.closest(
+            "[data-plus]"
+          );
+
+        const remove =
+          event.target.closest(
+            "[data-remove]"
+          );
+
+
+        if (minus) {
+
+          const id =
+            minus.dataset.minus;
+
+          const item =
+            cart.find(
+              cartItem =>
+                cartItem.id === id
+            );
+
+          if (item) {
+
+            updateCartQuantity(
+              id,
+              item.quantity - 1
+            );
+
+          }
+
+          return;
+
+        }
+
+
+        if (plus) {
+
+          const id =
+            plus.dataset.plus;
+
+          const item =
+            cart.find(
+              cartItem =>
+                cartItem.id === id
+            );
+
+          if (item) {
+
+            updateCartQuantity(
+              id,
+              item.quantity + 1
+            );
+
+          }
+
+          return;
+
+        }
+
+
+        if (remove) {
+
+          removeFromCart(
+            remove.dataset.remove
+          );
+
+        }
+
+      }
+    );
+
+
+    categoryButtons.forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            activeCategory =
+              button.dataset.category;
+
+            categoryButtons.forEach(
+              otherButton => {
+
+                otherButton.classList.toggle(
+                  "active",
+                  otherButton ===
+                  button
+                );
+
+              }
+            );
+
+            renderProducts();
+
+          }
+        );
+
+      }
+    );
+
+
+    productSearch.addEventListener(
+      "input",
+      () => {
+
+        searchTerm =
+          productSearch.value
+            .trim()
+            .toLowerCase();
+
+        renderProducts();
+
+      }
+    );
+
+
+    productSort.addEventListener(
+      "change",
+      () => {
+
+        sortOption =
+          productSort.value;
+
+        renderProducts();
+
+      }
+    );
+
+
+    productsGrid.addEventListener(
+      "click",
+      event => {
+
+        const retry =
+          event.target.closest(
+            "[data-retry-products]"
+          );
+
+        if (!retry) {
+          return;
+        }
+
+        loadProductsFromSupabase();
+
+      }
+    );
+
+
+    openCartButton.addEventListener(
+      "click",
+      openCart
+    );
+
+
+    closeCartButton.addEventListener(
+      "click",
+      closeCart
+    );
+
+
+    cartOverlay.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          cartOverlay
+        ) {
+
+          closeCart();
+
+        }
+
+      }
+    );
+
+
+    checkoutButton.addEventListener(
+      "click",
+      openCheckout
+    );
+
+
+    checkoutCloseButton.addEventListener(
+      "click",
+      closeCheckout
+    );
+
+
+    checkoutModal.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target ===
+          checkoutModal
+        ) {
+
+          closeCheckout();
+
+        }
+
+      }
+    );
+
+
+    discountButton.addEventListener(
+      "click",
+      applyDiscount
+    );
+
+
+    discountInput.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key ===
+          "Enter"
+        ) {
+
+          event.preventDefault();
+
+          applyDiscount();
+
+        }
+
+      }
+    );
+
+
+    checkoutForm.addEventListener(
+      "submit",
+      handleCheckoutSubmit
+    );
+
+
+    customMixGrid.addEventListener(
+      "click",
+      event => {
+        const minus = event.target.closest("[data-mix-minus]");
+        const plus = event.target.closest("[data-mix-plus]");
+
+        if (minus) {
+          changeCustomMixGrams(minus.dataset.mixMinus, -100);
+          return;
+        }
+
+        if (plus) {
+          changeCustomMixGrams(plus.dataset.mixPlus, 100);
+        }
+      }
+    );
+
+
+    addCustomMixButton.addEventListener(
+      "click",
+      addCustomMixToCart
+    );
+
+
+    heroShopButton.addEventListener(
+      "click",
+      () => {
+
+        document
+          .getElementById(
+            "shop-content"
+          )
+          .scrollIntoView({
+            behavior: "smooth"
+          });
+
+      }
+    );
+
+
+    scrollShopButton.addEventListener(
+      "click",
+      () => {
+
+        document
+          .getElementById(
+            "shop-content"
+          )
+          .scrollIntoView({
+            behavior: "smooth"
+          });
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key ===
+          "Escape"
+        ) {
+
+          if (
+            checkoutModal.classList.contains(
+              "open"
+            )
+          ) {
+
+            closeCheckout();
+
+            return;
+
+          }
+
+
+          if (
+            cartOverlay.classList.contains(
+              "open"
+            )
+          ) {
+
+            closeCart();
+
+          }
+
+        }
+
+      }
+    );
+
+
+    /* =========================================================
+       INITIALISATION
+    ========================================================= */
+
+    renderCustomMixBuilder();
+
+    loadProductsFromSupabase();
+
+    renderCart();
+
+  </script>
+
+</body>
+</html>
