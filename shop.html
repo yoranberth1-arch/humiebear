@@ -3354,9 +3354,11 @@
   ></div>
 
 
-  <script>
+ <script src="supabase-config.js"></script>
 
-    "use strict";
+<script>
+
+  "use strict";
 
 
     /* =========================================================
@@ -3389,6 +3391,103 @@
 
 
 let PRODUCTS = [];
+
+
+/* =========================================================
+   PRODUCTEN LADEN UIT SUPABASE
+========================================================= */
+
+async function loadProductsFromSupabase() {
+
+  try {
+
+    const response =
+      await fetch(
+        `${window.HUMMIE_SUPABASE_URL}/rest/v1/shop_products?select=*&active=eq.true&order=created_at.asc`,
+        {
+          method: "GET",
+
+          headers: {
+            "apikey":
+              window.HUMMIE_SUPABASE_PUBLISHABLE_KEY,
+
+            "Authorization":
+              `Bearer ${window.HUMMIE_SUPABASE_PUBLISHABLE_KEY}`
+          }
+        }
+      );
+
+
+    if (!response.ok) {
+
+      const errorText =
+        await response.text();
+
+      throw new Error(
+        `Supabase fout ${response.status}: ${errorText}`
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    PRODUCTS =
+      data.map(
+        product => ({
+
+          id:
+            product.id,
+
+          name:
+            product.name,
+
+          description:
+            product.description || "",
+
+          price:
+            Number(product.price),
+
+          image:
+            product.image_url ||
+            product.image ||
+            "",
+
+          category:
+            product.category || "all",
+
+          unit:
+            product.unit || "",
+
+          badge:
+            product.badge || ""
+
+        })
+      );
+
+
+    renderProducts();
+
+    renderCart();
+
+
+  } catch (error) {
+
+    console.error(
+      "Producten konden niet uit Supabase worden geladen:",
+      error
+    );
+
+    showToast(
+      "De producten konden niet worden geladen."
+    );
+
+  }
+
+}
+  
 
     /* =========================================================
        STATE
