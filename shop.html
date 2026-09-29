@@ -814,6 +814,93 @@
         rgba(239, 160, 189, 0.12);
     }
 
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .shop-control-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      color: var(--brown-light);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .product-count {
+      font-weight: 800;
+    }
+
+    .sort-select {
+      min-height: 42px;
+      padding: 0 36px 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: white;
+      color: var(--brown);
+      font-size: 11px;
+      font-weight: 800;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .sort-select:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 4px rgba(239, 160, 189, 0.12);
+    }
+
+    .loading-products,
+    .error-products {
+      grid-column: 1 / -1;
+      padding: 60px 25px;
+      text-align: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+      color: var(--brown-light);
+      box-shadow: var(--shadow);
+    }
+
+    .loading-spinner {
+      width: 34px;
+      height: 34px;
+      margin: 0 auto 14px;
+      border: 4px solid var(--pink-light);
+      border-top-color: var(--pink-dark);
+      border-radius: 50%;
+      animation: shopSpin 0.8s linear infinite;
+    }
+
+    @keyframes shopSpin {
+      to { transform: rotate(360deg); }
+    }
+
+    .retry-products {
+      margin-top: 16px;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--brown);
+      color: white;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .retry-products:hover {
+      transform: translateY(-1px);
+    }
+
     .search-icon {
       position: absolute;
 
@@ -2310,6 +2397,8 @@
     SWEETNESS ON WHEELS
     <span>•</span>
     GRATIS VERZENDING VANAF €35
+    <span>•</span>
+    LIVE10 = 10% KORTING
   </div>
 
 
@@ -2482,8 +2571,8 @@
         <div class="hero-photo-main">
 
           <img
-            src="images/candy-display.png"
-            alt="Kleurrijke snoeppresentatie van Hummie Bear"
+            src="https://images.unsplash.com/photo-1730139097588-7168c285f0a2?auto=format&fit=crop&w=1400&q=85"
+            alt="Kleurrijke snoepwinkel met snoep en lollies"
             loading="eager"
           >
 
@@ -2493,8 +2582,8 @@
         <div class="hero-photo-small">
 
           <img
-            src="images/waffle-lollipop-closeup.png"
-            alt="Lollywafel van Hummie Bear"
+            src="https://images.unsplash.com/photo-1560052859-7deb492b0baf?auto=format&fit=crop&w=1200&q=85"
+            alt="Verse Belgische wafel als sweet moment"
             loading="lazy"
           >
 
@@ -2572,6 +2661,22 @@
 
     <!-- CONTROLS -->
 
+    <div class="shop-control-meta">
+      <span class="product-count" id="productCount">
+        Producten laden...
+      </span>
+
+      <label>
+        <span class="sr-only">Sorteer producten</span>
+        <select id="productSort" class="sort-select" aria-label="Sorteer producten">
+          <option value="featured">Aanbevolen</option>
+          <option value="price-low">Prijs laag → hoog</option>
+          <option value="price-high">Prijs hoog → laag</option>
+          <option value="name">Naam A → Z</option>
+        </select>
+      </label>
+    </div>
+
     <div class="shop-controls">
 
       <div
@@ -2647,7 +2752,13 @@
       class="products-grid"
       id="productsGrid"
       aria-live="polite"
-    ></section>
+    >
+      <div class="loading-products">
+        <div class="loading-spinner"></div>
+        <strong>Onze sweet moments worden geladen...</strong>
+        <p>Even geduld, we halen de actuele producten op.</p>
+      </div>
+    </section>
 
 
     <!-- SHIPPING -->
@@ -3399,6 +3510,18 @@ let PRODUCTS = [];
 
 async function loadProductsFromSupabase() {
 
+  productsGrid.innerHTML = `
+    <div class="loading-products">
+      <div class="loading-spinner"></div>
+      <strong>Onze sweet moments worden geladen...</strong>
+      <p>Even geduld, we halen de actuele producten op.</p>
+    </div>
+  `;
+
+  if (productCount) {
+    productCount.textContent = "Producten laden...";
+  }
+
   try {
 
     const response =
@@ -3480,6 +3603,24 @@ async function loadProductsFromSupabase() {
       error
     );
 
+    if (productCount) {
+      productCount.textContent = "Producten niet geladen";
+    }
+
+    productsGrid.innerHTML = `
+      <div class="error-products">
+        <strong>Oeps, de shop kon de producten niet laden.</strong>
+        <p>Controleer je internetverbinding en probeer opnieuw.</p>
+        <button
+          type="button"
+          class="retry-products"
+          data-retry-products
+        >
+          Opnieuw proberen
+        </button>
+      </div>
+    `;
+
     showToast(
       "De producten konden niet worden geladen."
     );
@@ -3499,6 +3640,8 @@ async function loadProductsFromSupabase() {
 
     let searchTerm = "";
 
+    let sortOption = "featured";
+
     let appliedDiscount = 0;
 
 
@@ -3514,6 +3657,16 @@ async function loadProductsFromSupabase() {
     const productSearch =
       document.getElementById(
         "productSearch"
+      );
+
+    const productSort =
+      document.getElementById(
+        "productSort"
+      );
+
+    const productCount =
+      document.getElementById(
+        "productCount"
       );
 
     const categoryButtons =
@@ -3913,41 +4066,62 @@ async function loadProductsFromSupabase() {
 
     function getFilteredProducts() {
 
-      return PRODUCTS.filter(
-        product => {
+      const filtered =
+        PRODUCTS.filter(
+          product => {
 
-          const categoryMatch =
-            activeCategory === "all" ||
-            product.category ===
-            activeCategory ||
-            (
-              activeCategory === "box" &&
-              product.category === "live"
+            const categoryMatch =
+              activeCategory === "all" ||
+              product.category ===
+              activeCategory ||
+              (
+                activeCategory === "box" &&
+                product.category === "live"
+              );
+
+            const searchable =
+              [
+                product.name,
+                product.description,
+                product.category,
+                product.unit
+              ]
+                .join(" ")
+                .toLowerCase();
+
+            const searchMatch =
+              !searchTerm ||
+              searchable.includes(
+                searchTerm
+              );
+
+            return (
+              categoryMatch &&
+              searchMatch
             );
 
-          const searchable =
-            [
-              product.name,
-              product.description,
-              product.category,
-              product.unit
-            ]
-              .join(" ")
-              .toLowerCase();
+          }
+        );
 
-          const searchMatch =
-            !searchTerm ||
-            searchable.includes(
-              searchTerm
-            );
+      if (sortOption === "price-low") {
+        filtered.sort(
+          (a, b) => a.price - b.price
+        );
+      } else if (sortOption === "price-high") {
+        filtered.sort(
+          (a, b) => b.price - a.price
+        );
+      } else if (sortOption === "name") {
+        filtered.sort(
+          (a, b) =>
+            a.name.localeCompare(
+              b.name,
+              "nl-BE"
+            )
+        );
+      }
 
-          return (
-            categoryMatch &&
-            searchMatch
-          );
-
-        }
-      );
+      return filtered;
 
     }
 
@@ -3960,6 +4134,12 @@ async function loadProductsFromSupabase() {
 
       const products =
         getFilteredProducts();
+
+      if (productCount) {
+        productCount.textContent =
+          products.length +
+          (products.length === 1 ? " product" : " producten");
+      }
 
       if (
         products.length === 0
@@ -5180,6 +5360,38 @@ async function loadProductsFromSupabase() {
             .toLowerCase();
 
         renderProducts();
+
+      }
+    );
+
+
+    productSort.addEventListener(
+      "change",
+      () => {
+
+        sortOption =
+          productSort.value;
+
+        renderProducts();
+
+      }
+    );
+
+
+    productsGrid.addEventListener(
+      "click",
+      event => {
+
+        const retry =
+          event.target.closest(
+            "[data-retry-products]"
+          );
+
+        if (!retry) {
+          return;
+        }
+
+        loadProductsFromSupabase();
 
       }
     );
