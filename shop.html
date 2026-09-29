@@ -674,33 +674,51 @@
        SHOP CONTENT
     ========================================================= */
 
-    /* POPULAIRE SNOEPMIXEN */
+    /* POPULAIRE VASTE SNOEPMIXEN */
     .popular-mixes { margin: 0 0 34px; }
     .popular-mixes-head { display:flex; align-items:end; justify-content:space-between; gap:20px; margin-bottom:18px; }
     .popular-mixes-head h2 { margin:0 0 6px; font-family:"Playfair Display",Georgia,serif; font-size:clamp(30px,4vw,46px); line-height:1; letter-spacing:-.04em; }
     .popular-mixes-head h2 em { color:var(--pink-dark); font-style:normal; }
-    .popular-mixes-head p { margin:0; max-width:560px; color:var(--brown-light); font-size:13px; line-height:1.6; }
-    .popular-mixes-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; }
-    .popular-mix-card { overflow:hidden; border:1px solid var(--line); border-radius:26px; background:white; box-shadow:var(--shadow); transition:.2s ease; }
-    .popular-mix-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:var(--pink); }
-    .popular-mix-visuals { display:grid; grid-template-columns:1.45fr .75fr; height:210px; background:var(--pink-soft); }
-    .popular-mix-candy { position:relative; overflow:hidden; }
-    .popular-mix-candy img { width:100%; height:100%; object-fit:cover; }
-    .popular-mix-badge { position:absolute; left:12px; top:12px; padding:8px 11px; border-radius:999px; background:var(--pink-dark); color:white; font-size:9px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; box-shadow:0 8px 20px rgba(61,42,32,.15); }
-    .popular-mix-gift { display:grid; place-items:center; padding:12px; background:linear-gradient(145deg,#f8e2a7,#f3c95d); }
-    .popular-mix-gift-art { width:92px; height:82px; position:relative; display:grid; place-items:center; border:4px solid white; border-radius:15px; background:#fff7e8; box-shadow:0 12px 22px rgba(61,42,32,.14); font-size:42px; }
-    .popular-mix-gift-art::before { content:""; position:absolute; left:50%; top:0; bottom:0; width:7px; transform:translateX(-50%); background:var(--pink-dark); border-radius:0 0 4px 4px; }
-    .popular-mix-gift-art::after { content:""; position:absolute; top:-12px; left:25%; width:50%; height:22px; border:5px solid var(--pink-dark); border-bottom:0; border-radius:18px 18px 0 0; }
-    .popular-mix-content { padding:18px; }
+    .popular-mixes-head p { margin:0; max-width:590px; color:var(--brown-light); font-size:13px; line-height:1.6; }
+    .popular-mixes-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+    .popular-mix-card { position:relative; overflow:hidden; border:1px solid var(--line); border-radius:28px; background:white; box-shadow:var(--shadow); transition:.22s ease; }
+    .popular-mix-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--pink); }
+    .popular-mix-visuals { position:relative; height:245px; overflow:hidden; background:var(--pink-soft); }
+    .popular-mix-candy { position:absolute; inset:0; overflow:hidden; }
+    .popular-mix-candy img { width:100%; height:100%; object-fit:cover; transition:transform .45s ease; }
+    .popular-mix-card:hover .popular-mix-candy img { transform:scale(1.05); }
+    .popular-mix-visuals::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(61,42,32,.02) 35%,rgba(61,42,32,.62) 100%); pointer-events:none; }
+    .popular-mix-badge { position:absolute; z-index:2; left:13px; top:13px; padding:8px 11px; border-radius:999px; background:var(--pink-dark); color:white; font-size:9px; font-weight:900; letter-spacing:.08em; text-transform:uppercase; box-shadow:0 8px 20px rgba(61,42,32,.15); }
+    .popular-mix-price-sticker { position:absolute; z-index:3; right:13px; bottom:13px; min-width:76px; padding:9px 11px; border:2px solid white; border-radius:15px; background:var(--brown); color:white; text-align:center; box-shadow:0 8px 20px rgba(61,42,32,.18); }
+    .popular-mix-price-sticker strong { display:block; font-size:18px; line-height:1; }
+    .popular-mix-price-sticker span { font-size:8px; opacity:.75; font-weight:800; }
+    .popular-mix-content { padding:19px; }
     .popular-mix-tag { color:var(--pink-deep); font-size:9px; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }
     .popular-mix-content h3 { margin:7px 0 7px; font-family:"Playfair Display",Georgia,serif; font-size:25px; line-height:1.05; }
-    .popular-mix-content p { min-height:42px; margin:0 0 13px; color:var(--brown-light); font-size:12px; line-height:1.55; }
-    .popular-mix-meta { display:flex; justify-content:space-between; gap:12px; margin-bottom:14px; padding:11px 12px; border-radius:15px; background:var(--cream); font-size:11px; font-weight:800; }
+    .popular-mix-content p { min-height:58px; margin:0 0 13px; color:var(--brown-light); font-size:12px; line-height:1.55; }
+    .popular-mix-features { display:grid; gap:7px; margin:0 0 15px; }
+    .popular-mix-feature { display:flex; align-items:center; gap:8px; color:var(--brown-light); font-size:10px; font-weight:800; }
+    .popular-mix-feature b { color:var(--pink-dark); font-size:13px; }
+    .popular-mix-meta { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; padding:11px 12px; border-radius:15px; background:var(--cream); font-size:11px; font-weight:800; }
     .popular-mix-meta strong { color:var(--pink-deep); }
-    .popular-mix-button { width:100%; min-height:46px; border:0; border-radius:999px; background:var(--brown); color:white; font-size:11px; font-weight:900; }
-    .popular-mix-button:hover { background:var(--pink-dark); transform:translateY(-1px); }
-    @media (max-width: 900px) { .popular-mixes-grid { grid-template-columns:1fr; } .popular-mixes-head { align-items:start; flex-direction:column; } }
-    @media (max-width: 560px) { .popular-mix-visuals { height:190px; } }
+    .popular-mix-button { width:100%; min-height:48px; border:0; border-radius:999px; background:linear-gradient(135deg,var(--pink),var(--pink-dark)); color:white; font-size:11px; font-weight:900; box-shadow:0 10px 24px rgba(207,94,137,.18); }
+    .popular-mix-button:hover { transform:translateY(-1px); box-shadow:0 14px 28px rgba(207,94,137,.25); }
+    .popular-mix-gift-line { display:flex; align-items:center; gap:8px; margin-top:10px; color:var(--green); font-size:10px; font-weight:900; }
+    .popular-mix-gift-line span { display:inline-grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--green-light); }
+    @media (max-width: 900px) { .popular-mixes-grid { grid-template-columns:1fr; } .popular-mixes-head { align-items:start; flex-direction:column; } .popular-mix-visuals { height:250px; } }
+    @media (max-width: 560px) { .popular-mix-visuals { height:220px; } .popular-mix-content h3 { font-size:23px; } }
+
+    /* FLOATING 500 G PROMO */
+    .floating-candy-promo { position:fixed; z-index:650; right:20px; top:50%; width:min(330px,calc(100vw - 32px)); transform:translateY(-50%); display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:center; padding:14px; border:2px solid #f2c94c; border-radius:22px; background:linear-gradient(135deg,#fffdf3,#fff1f7); box-shadow:0 22px 55px rgba(61,42,32,.22); animation:floatingPromoIn .45s ease both; }
+    .floating-candy-promo-icon { width:52px; height:52px; display:grid; place-items:center; border-radius:17px; background:linear-gradient(135deg,#ffd86b,#f2c94c); font-size:28px; box-shadow:0 8px 18px rgba(61,42,32,.12); }
+    .floating-candy-promo span { display:block; color:var(--pink-deep); font-size:8px; font-weight:1000; letter-spacing:.14em; }
+    .floating-candy-promo strong { display:block; margin-top:2px; font-family:"Playfair Display",Georgia,serif; font-size:19px; line-height:1.05; }
+    .floating-candy-promo p { margin:5px 0 0; color:var(--brown-light); font-size:10px; line-height:1.4; }
+    .floating-candy-promo-cta { grid-column:1 / -1; width:100%; min-height:38px; border:0; border-radius:999px; background:var(--brown); color:white; font-size:10px; font-weight:900; }
+    .floating-candy-promo-cta:hover { background:var(--pink-dark); }
+    .floating-candy-promo-close { position:absolute; top:-10px; right:-10px; width:28px; height:28px; border:2px solid white; border-radius:50%; background:var(--brown); color:white; font-size:18px; line-height:1; box-shadow:0 5px 15px rgba(61,42,32,.18); }
+    @keyframes floatingPromoIn { from { opacity:0; transform:translateY(-50%) translateX(30px) scale(.96); } to { opacity:1; transform:translateY(-50%) translateX(0) scale(1); } }
+    @media (max-width:700px) { .floating-candy-promo { right:12px; left:12px; top:auto; bottom:14px; width:auto; transform:none; grid-template-columns:auto 1fr auto; padding:11px; border-radius:18px; } .floating-candy-promo-icon { width:44px; height:44px; font-size:23px; } .floating-candy-promo strong { font-size:16px; } .floating-candy-promo-cta { grid-column:auto; min-height:40px; padding:0 12px; } .floating-candy-promo-close { top:-9px; right:-7px; } @keyframes floatingPromoIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } } }
 
     /* PICK & MIX SHOP ONLY */
     .shop-control-meta,
@@ -958,7 +976,7 @@
     /* =========================================================
        CUSTOM SNOEPMIX BUILDER
     ========================================================= */
-    .custom-mix-builder { margin: 0 0 34px; padding: 30px; border: 1px solid var(--line); border-radius: 30px; background: radial-gradient(circle at 8% 10%, rgba(239,160,189,.18), transparent 24%), radial-gradient(circle at 92% 90%, rgba(242,201,76,.16), transparent 25%), white; box-shadow: var(--shadow); }
+    .custom-mix-builder { display:none !important; margin: 0 0 34px; padding: 30px; border: 1px solid var(--line); border-radius: 30px; background: radial-gradient(circle at 8% 10%, rgba(239,160,189,.18), transparent 24%), radial-gradient(circle at 92% 90%, rgba(242,201,76,.16), transparent 25%), white; box-shadow: var(--shadow); }
     .custom-mix-head { display:flex; align-items:end; justify-content:space-between; gap:24px; margin-bottom:22px; }
     .custom-mix-head h2 { margin:0 0 7px; font-family:"Playfair Display",Georgia,serif; font-size:clamp(30px,4vw,46px); line-height:1; letter-spacing:-.04em; }
     .custom-mix-head h2 em { color:var(--pink-dark); font-style:normal; }
@@ -2752,55 +2770,87 @@
 
 
 
-    <!-- POPULAIRE SNOEPMIXEN -->
+    <!-- POPULAIRE VASTE SNOEPMIXEN -->
     <section class="popular-mixes" aria-labelledby="popularMixesTitle">
       <div class="popular-mixes-head">
         <div>
-          <span class="eyebrow">LIVE FAVORIETEN</span>
-          <h2 id="popularMixesTitle">Populaire <em>snoepmixen.</em></h2>
+          <span class="eyebrow">DOOR HUMMIE BEAR SAMENGESTELD</span>
+          <h2 id="popularMixesTitle">Onze vaste <em>snoepmixen.</em></h2>
         </div>
-        <p>Kies een populaire mix en pas hem daarna zelf aan. Zo kun je tijdens een live snel starten met een vaste favoriet en toch jouw eigen snoep samenstellen.</p>
+        <p>Geen gedoe met kiezen: wij stellen elke mix zelf samen met een lekkere combinatie van schepsnoep. Je kiest alleen het formaat. De samenstelling en kwaliteit regelen wij.</p>
       </div>
+
       <div class="popular-mixes-grid">
+
         <article class="popular-mix-card">
           <div class="popular-mix-visuals">
-            <div class="popular-mix-candy"><span class="popular-mix-badge">Meest gekozen</span><img src="https://assets.haribo.com/image/upload/s--vz-1M1zL--/ar_2637%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_746/v1/consumer-sites/nl-be/Products/Goudberen-250g-5996379305912.png" alt="Kleurrijk schepsnoep voor Hummie Bear Classic Mix" loading="lazy"></div>
-            <div class="popular-mix-gift"><div class="popular-mix-gift-art" aria-label="Cadeau">🎁</div></div>
+            <div class="popular-mix-candy">
+              <span class="popular-mix-badge">Meest gekozen</span>
+              <img src="images/gummy-candy.png" alt="Hummie Bear Classic Mix met kleurrijk schepsnoep" loading="lazy">
+            </div>
+            <div class="popular-mix-price-sticker"><strong>€9,75</strong><span>500 g</span></div>
           </div>
           <div class="popular-mix-content">
-            <span class="popular-mix-tag">Classic</span>
-            <h3>Hummie Bear Classic Mix</h3>
-            <p>500 g met 5 populaire snoepsoorten. Ideaal als kleine traktatie of om samen te delen.</p>
-            <div class="popular-mix-meta"><span>500 g</span><strong>€9,75</strong></div>
-            <button type="button" class="popular-mix-button" data-mix-preset="classic">Zelf samenstellen</button>
+            <span class="popular-mix-tag">Classic Mix</span>
+            <h3>Hummie Bear Classic</h3>
+            <p>Een vrolijke vaste mix van populaire snoepjes. Door Hummie Bear samengesteld en klaar om cadeau te geven of zelf te delen.</p>
+            <div class="popular-mix-features">
+              <div class="popular-mix-feature"><b>✓</b> Vaste samenstelling</div>
+              <div class="popular-mix-feature"><b>✓</b> 500 g schepsnoep</div>
+              <div class="popular-mix-feature"><b>✓</b> Geen keuze nodig</div>
+            </div>
+            <div class="popular-mix-meta"><span>500 g</span><strong>€9,75 vast</strong></div>
+            <button type="button" class="popular-mix-button" data-fixed-mix="classic-mix">+ Toevoegen aan mandje</button>
+            <div class="popular-mix-gift-line"><span>🎁</span> Extra snoepzakje gratis vanaf 500 g</div>
           </div>
         </article>
+
         <article class="popular-mix-card">
           <div class="popular-mix-visuals">
-            <div class="popular-mix-candy"><span class="popular-mix-badge">Extra veel snoep</span><img src="https://assets.haribo.com/image/upload/s--sLJWHgZe--/ar_2658%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_749/v1/consumer-sites/nl-be/Products/Happy-Peaches-250g-5996379380803.png" alt="Kleurrijk schepsnoep voor Hummie Bear Mega Mix" loading="lazy"></div>
-            <div class="popular-mix-gift"><div class="popular-mix-gift-art" aria-label="Cadeau">🎁</div></div>
+            <div class="popular-mix-candy">
+              <span class="popular-mix-badge">Extra veel snoep</span>
+              <img src="images/candy-display.png" alt="Hummie Bear Mega Mix met kleurrijk schepsnoep" loading="lazy">
+            </div>
+            <div class="popular-mix-price-sticker"><strong>€19,50</strong><span>1 kg</span></div>
           </div>
           <div class="popular-mix-content">
-            <span class="popular-mix-tag">Mega</span>
-            <h3>Hummie Bear Mega Mix</h3>
-            <p>1 kg met 10 populaire snoepsoorten. Veel variatie voor feestjes, gezinnen en echte snoepliefhebbers.</p>
-            <div class="popular-mix-meta"><span>1 kg</span><strong>€19,50</strong></div>
-            <button type="button" class="popular-mix-button" data-mix-preset="mega">Zelf samenstellen</button>
+            <span class="popular-mix-tag">Mega Mix</span>
+            <h3>Hummie Bear Mega</h3>
+            <p>Een grotere vaste mix voor feestjes, gezinnen en echte snoepliefhebbers. Wij zorgen voor de combinatie, jij kiest het formaat.</p>
+            <div class="popular-mix-features">
+              <div class="popular-mix-feature"><b>✓</b> Vaste samenstelling</div>
+              <div class="popular-mix-feature"><b>✓</b> 1 kg schepsnoep</div>
+              <div class="popular-mix-feature"><b>✓</b> Extra voordelig per gram</div>
+            </div>
+            <div class="popular-mix-meta"><span>1 kg</span><strong>€19,50 vast</strong></div>
+            <button type="button" class="popular-mix-button" data-fixed-mix="mega-mix">+ Toevoegen aan mandje</button>
+            <div class="popular-mix-gift-line"><span>🎁</span> Extra snoepzakje gratis vanaf 500 g</div>
           </div>
         </article>
+
         <article class="popular-mix-card">
           <div class="popular-mix-visuals">
-            <div class="popular-mix-candy"><span class="popular-mix-badge">20 soorten</span><img src="https://assets.haribo.com/image/upload/s--qO7ZDS3Z--/ar_2814%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_766/v1/consumer-sites/nl-be/Products/Chamallows-Ruitspek-260g-5410358442493.png" alt="Kleurrijk schepsnoep voor Hummie Bear Deluxe Mix" loading="lazy"></div>
-            <div class="popular-mix-gift"><div class="popular-mix-gift-art" aria-label="Luxe cadeau">🎁</div></div>
+            <div class="popular-mix-candy">
+              <span class="popular-mix-badge">Luxe formaat</span>
+              <img src="https://assets.haribo.com/image/upload/ar_1%3A1%2Cc_fill%2Cf_auto%2Cq_80/w_1200/v1/consumer-sites/nl-be/Products/World-Mix-175g-4001686310603.png" alt="Hummie Bear Deluxe Mix met uitgebreid schepsnoep" loading="lazy">
+            </div>
+            <div class="popular-mix-price-sticker"><strong>€29,25</strong><span>1,5 kg</span></div>
           </div>
           <div class="popular-mix-content">
-            <span class="popular-mix-tag">Deluxe</span>
-            <h3>Hummie Bear Deluxe Mix</h3>
-            <p>1,5 kg met 15 populaire snoepsoorten. Voor grote momenten, feestjes of een stevig voorraadje.</p>
-            <div class="popular-mix-meta"><span>1,5 kg</span><strong>€29,25</strong></div>
-            <button type="button" class="popular-mix-button" data-mix-preset="deluxe">Zelf samenstellen</button>
+            <span class="popular-mix-tag">Deluxe Mix</span>
+            <h3>Hummie Bear Deluxe</h3>
+            <p>Onze grootste vaste mix voor verjaardagen, feestjes en cadeau-momenten. Extra veel variatie, samengesteld door Hummie Bear.</p>
+            <div class="popular-mix-features">
+              <div class="popular-mix-feature"><b>✓</b> Vaste samenstelling</div>
+              <div class="popular-mix-feature"><b>✓</b> 1,5 kg schepsnoep</div>
+              <div class="popular-mix-feature"><b>✓</b> Perfect voor delen</div>
+            </div>
+            <div class="popular-mix-meta"><span>1,5 kg</span><strong>€29,25 vast</strong></div>
+            <button type="button" class="popular-mix-button" data-fixed-mix="deluxe-mix">+ Toevoegen aan mandje</button>
+            <div class="popular-mix-gift-line"><span>🎁</span> Extra snoepzakje gratis vanaf 500 g</div>
           </div>
         </article>
+
       </div>
     </section>
 
@@ -2872,7 +2922,7 @@
           </div>
 
           <div class="custom-mix-free" id="customMixFreeMessage">
-            Nog 500 g nodig voor je gratis snoepzakje.
+            Vanaf 500 g: gratis extra snoepzakje inbegrepen.
           </div>
 
           <button type="button" class="custom-mix-add" id="addCustomMixButton" disabled>
@@ -3039,7 +3089,7 @@
         </div>
         <div class="custom-mix-gift-copy">
           <strong>500 g gekozen? Dan krijg je een extra zakje schepsnoep cadeau!</strong>
-          <p>Je betaalt alleen voor je gekozen schepsnoep. Vanaf 500 gram voegen we een extra gevuld snoepzakje gratis toe aan je bestelling.</p>
+          <p>Vanaf 500 gram schepsnoepmix voegen we automatisch een extra gevuld snoepzakje gratis toe aan je bestelling. De mixen hebben een vaste samenstelling.</p>
           <span class="custom-mix-gift-badge">500 g = GRATIS EXTRA ZAKJE</span>
         </div>
       </div>
@@ -3618,6 +3668,19 @@
   </div>
 
 
+  <!-- FLOATING PROMO -->
+  <aside class="floating-candy-promo" id="floatingCandyPromo" aria-label="Promotie gratis snoepzakje">
+    <button type="button" class="floating-candy-promo-close" id="closeFloatingCandyPromo" aria-label="Promotie sluiten">×</button>
+    <div class="floating-candy-promo-icon" aria-hidden="true">🎁</div>
+    <div>
+      <span>GRATIS EXTRA</span>
+      <strong>Snoepzakje cadeau</strong>
+      <p>Bij elke bestelling vanaf <b>500 g</b>.</p>
+    </div>
+    <button type="button" class="floating-candy-promo-cta" id="floatingCandyPromoCta">Bekijk mixen</button>
+  </aside>
+
+
   <!-- =======================================================
        FOOTER
   ======================================================== -->
@@ -3741,7 +3804,45 @@
     ========================================================= */
 
 
-let PRODUCTS = [];
+const FIXED_MIX_PRODUCTS = [
+      {
+        id: "classic-mix",
+        name: "Hummie Bear Classic",
+        description: "500 g vaste schepsnoepmix, door Hummie Bear samengesteld.",
+        price: 9.75,
+        image: "images/gummy-candy.png",
+        category: "snoepmix",
+        unit: "500 g vaste mix",
+        badge: "Meest gekozen",
+        freeBag: true
+      },
+      {
+        id: "mega-mix",
+        name: "Hummie Bear Mega",
+        description: "1 kg vaste schepsnoepmix met extra veel variatie.",
+        price: 19.50,
+        image: "images/candy-display.png",
+        category: "snoepmix",
+        unit: "1 kg vaste mix",
+        badge: "Extra veel snoep",
+        freeBag: true
+      },
+      {
+        id: "deluxe-mix",
+        name: "Hummie Bear Deluxe",
+        description: "1,5 kg vaste schepsnoepmix voor grote momenten.",
+        price: 29.25,
+        image: "https://assets.haribo.com/image/upload/ar_1%3A1%2Cc_fill%2Cf_auto%2Cq_80/w_1200/v1/consumer-sites/nl-be/Products/World-Mix-175g-4001686310603.png",
+        category: "snoepmix",
+        unit: "1,5 kg vaste mix",
+        badge: "Luxe formaat",
+        freeBag: true
+      }
+    ];
+
+    let PRODUCTS = FIXED_MIX_PRODUCTS.slice();
+
+
 
     const CUSTOM_MIX_ID = "custom-snoepmix";
 
@@ -3776,126 +3877,14 @@ let PRODUCTS = [];
 ========================================================= */
 
 async function loadProductsFromSupabase() {
-
-  productsGrid.innerHTML = `
-    <div class="loading-products">
-      <div class="loading-spinner"></div>
-      <strong>Onze sweet moments worden geladen...</strong>
-      <p>Even geduld, we halen de actuele producten op.</p>
-    </div>
-  `;
-
-  if (productCount) {
-    productCount.textContent = "Producten laden...";
-  }
-
-  try {
-
-    const response =
-      await fetch(
-        `${window.HUMMIE_SUPABASE_URL}/rest/v1/shop_products?select=*&active=eq.true&order=created_at.asc`,
-        {
-          method: "GET",
-
-          headers: {
-            "apikey":
-              window.HUMMIE_SUPABASE_PUBLISHABLE_KEY,
-
-            "Authorization":
-              `Bearer ${window.HUMMIE_SUPABASE_PUBLISHABLE_KEY}`
-          }
-        }
-      );
-
-
-    if (!response.ok) {
-
-      const errorText =
-        await response.text();
-
-      throw new Error(
-        `Supabase fout ${response.status}: ${errorText}`
-      );
-
+      // De webshop gebruikt bewust vaste, door Hummie Bear samengestelde mixen.
+      // Supabase blijft beschikbaar voor de toekomstige bestel-/betaalflow,
+      // maar bepaalt niet welke producten de klant ziet.
+      PRODUCTS = FIXED_MIX_PRODUCTS.slice();
+      renderProducts();
+      renderCart();
     }
 
-
-    const data =
-      await response.json();
-
-
-    PRODUCTS =
-      data.map(
-        product => ({
-
-          id:
-            product.id,
-
-          name:
-            product.name,
-
-          description:
-            product.description || "",
-
-          price:
-            Number(product.price),
-
-          image:
-            product.image_url ||
-            product.image ||
-            "",
-
-          category:
-            product.category || "all",
-
-          unit:
-            product.unit_label || "",
-
-          badge:
-            product.badge || ""
-
-        })
-      );
-
-
-    renderProducts();
-
-    renderCart();
-
-
-  } catch (error) {
-
-    console.error(
-      "Producten konden niet uit Supabase worden geladen:",
-      error
-    );
-
-    if (productCount) {
-      productCount.textContent = "Producten niet geladen";
-    }
-
-    productsGrid.innerHTML = `
-      <div class="error-products">
-        <strong>Oeps, de shop kon de producten niet laden.</strong>
-        <p>Controleer je internetverbinding en probeer opnieuw.</p>
-        <button
-          type="button"
-          class="retry-products"
-          data-retry-products
-        >
-          Opnieuw proberen
-        </button>
-      </div>
-    `;
-
-    showToast(
-      "De producten konden niet worden geladen."
-    );
-
-  }
-
-}
-  
 
     /* =========================================================
        STATE
@@ -4221,12 +4210,8 @@ async function loadProductsFromSupabase() {
 
 
     function getProductById(id) {
-
-      return PRODUCTS.find(
-        product =>
-          product.id === id
-      );
-
+      return FIXED_MIX_PRODUCTS.find(product => product.id === id)
+        || PRODUCTS.find(product => product.id === id);
     }
 
 
@@ -4919,7 +4904,7 @@ async function loadProductsFromSupabase() {
 
                   <div class="cart-item-price">
                     ${formatCurrency(product.price)}
-                    ${item.id === CUSTOM_MIX_ID ? "voor deze mix" : "per stuk"}
+                    ${product.unit || "per stuk"}
                   </div>
 
                   ${getCustomMixDetailsHtml(item)}
@@ -5198,7 +5183,7 @@ async function loadProductsFromSupabase() {
                   <br>
 
                   <small>
-                    ${item.id === CUSTOM_MIX_ID ? product.unit : item.quantity + " × " + formatCurrency(product.price)}
+                    ${product.unit || (item.quantity + " × " + formatCurrency(product.price))}
                   </small>
 
                 </span>
@@ -5964,9 +5949,33 @@ async function loadProductsFromSupabase() {
     );
 
 
-    document.querySelectorAll("[data-mix-preset]").forEach(button => {
-      button.addEventListener("click", () => applyPopularMixPreset(button.dataset.mixPreset));
+    document.querySelectorAll("[data-fixed-mix]").forEach(button => {
+      button.addEventListener("click", () => {
+        addToCart(button.dataset.fixedMix);
+      });
     });
+
+    const floatingCandyPromo = document.getElementById("floatingCandyPromo");
+    const closeFloatingCandyPromo = document.getElementById("closeFloatingCandyPromo");
+    const floatingCandyPromoCta = document.getElementById("floatingCandyPromoCta");
+
+    if (closeFloatingCandyPromo && floatingCandyPromo) {
+      closeFloatingCandyPromo.addEventListener("click", () => {
+        floatingCandyPromo.remove();
+        try { sessionStorage.setItem("hummieBearPromoClosed", "1"); } catch (error) {}
+      });
+      try {
+        if (sessionStorage.getItem("hummieBearPromoClosed") === "1") {
+          floatingCandyPromo.remove();
+        }
+      } catch (error) {}
+    }
+
+    if (floatingCandyPromoCta) {
+      floatingCandyPromoCta.addEventListener("click", () => {
+        document.getElementById("popularMixesTitle")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
 
 
     customMixGrid.addEventListener(
@@ -6066,8 +6075,6 @@ async function loadProductsFromSupabase() {
     /* =========================================================
        INITIALISATION
     ========================================================= */
-
-    renderCustomMixBuilder();
 
     loadProductsFromSupabase();
 
