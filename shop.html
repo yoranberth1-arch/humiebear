@@ -2478,10 +2478,14 @@
     .pick-candy-info{min-width:0}
     .pick-candy-info strong{display:block;font-size:11px;line-height:1.2}
     .pick-candy-info span{display:block;margin-top:4px;color:var(--brown-light);font-size:9px;font-weight:700}
-    .pick-weight{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .pick-weight span{color:var(--brown-light);font-size:9px;font-weight:800}
-    .pick-weight select{width:100px;min-height:34px;padding:0 9px;border:1px solid var(--line);border-radius:10px;background:var(--cream);color:var(--brown);font-size:10px;font-weight:900;outline:none}
-    .pick-weight select:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(239,160,189,.12)}
+    .pick-weight{grid-column:1/-1;display:grid;grid-template-columns:42px 1fr 42px;align-items:center;gap:8px}
+    .pick-qty-button{width:42px;height:38px;border:1px solid var(--line);border-radius:12px;background:white;color:var(--brown);font-size:21px;font-weight:900;line-height:1;cursor:pointer;transition:.18s ease;touch-action:manipulation}
+    .pick-qty-button:hover{border-color:var(--pink);background:var(--pink-soft);transform:translateY(-1px)}
+    .pick-qty-button:active{transform:scale(.95)}
+    .pick-qty-value{display:flex;align-items:center;justify-content:center;min-height:38px;border-radius:12px;background:var(--cream);color:var(--brown);font-size:12px;font-weight:900}
+    .pick-candy-card.is-selected{border-color:var(--pink);box-shadow:0 8px 22px rgba(207,94,137,.10)}
+    .pick-candy-card.is-selected .pick-candy-icon{background:var(--pink);background:var(--pink-soft)}
+
     .pick-mix-bottom{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
     .pick-mix-summary{color:var(--brown-light);font-size:11px;line-height:1.55}
     .pick-mix-summary strong{color:var(--brown)}
@@ -2781,7 +2785,7 @@
         <div>
           <span class="eyebrow">PICK &amp; MIX</span>
           <h2 id="pickMixTitle">Stel jouw <em>eigen snoepmix</em> samen.</h2>
-          <p>Kies zelf je favoriete soorten en bepaal per soort hoeveel je wilt. Alles gaat per 100 g. Je ziet het totaal en de prijs meteen.</p>
+          <p>Kies je favoriete soorten. Met één druk op <strong>+</strong> voeg je 100 g toe en met <strong>−</strong> haal je 100 g weg. Zo stel je jouw mix supersnel samen.</p>
         </div>
         <div class="pick-mix-price-card">
           <span>PRIJS</span>
@@ -2798,10 +2802,12 @@
             <strong>Goudberen</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="goudberen" aria-label="Goudberen gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Goudberen hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="goudberen" aria-label="Goudberen 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="goudberen">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="goudberen" aria-label="Goudberen 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🥤</div>
@@ -2809,10 +2815,12 @@
             <strong>Happy Cola flesjes</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="happy-cola" aria-label="Happy Cola flesjes gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Happy Cola flesjes hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="happy-cola" aria-label="Happy Cola flesjes 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="happy-cola">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="happy-cola" aria-label="Happy Cola flesjes 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🍒</div>
@@ -2820,10 +2828,12 @@
             <strong>Happy Cherries</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="happy-cherries" aria-label="Happy Cherries gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Happy Cherries hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="happy-cherries" aria-label="Happy Cherries 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="happy-cherries">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="happy-cherries" aria-label="Happy Cherries 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🍑</div>
@@ -2831,10 +2841,12 @@
             <strong>Happy Peaches</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="happy-peaches" aria-label="Happy Peaches gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Happy Peaches hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="happy-peaches" aria-label="Happy Peaches 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="happy-peaches">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="happy-peaches" aria-label="Happy Peaches 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🐸</div>
@@ -2842,10 +2854,12 @@
             <strong>Kikkers</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="kikkers" aria-label="Kikkers gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Kikkers hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="kikkers" aria-label="Kikkers 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="kikkers">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="kikkers" aria-label="Kikkers 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🍌</div>
@@ -2853,10 +2867,12 @@
             <strong>Banaantjes</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="bananas" aria-label="Banaantjes gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Banaantjes hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="bananas" aria-label="Banaantjes 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="bananas">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="bananas" aria-label="Banaantjes 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🪱</div>
@@ -2864,10 +2880,12 @@
             <strong>Zure wormen</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="zure-wormen" aria-label="Zure wormen gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Zure wormen hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="zure-wormen" aria-label="Zure wormen 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="zure-wormen">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="zure-wormen" aria-label="Zure wormen 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🍓</div>
@@ -2875,10 +2893,12 @@
             <strong>Zure aardbeien</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="zure-aardbeien" aria-label="Zure aardbeien gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Zure aardbeien hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="zure-aardbeien" aria-label="Zure aardbeien 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="zure-aardbeien">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="zure-aardbeien" aria-label="Zure aardbeien 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🍓</div>
@@ -2886,10 +2906,12 @@
             <strong>Aardbei schijfjes</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="aardbei-schijfjes" aria-label="Aardbei schijfjes gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Aardbei schijfjes hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="aardbei-schijfjes" aria-label="Aardbei schijfjes 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="aardbei-schijfjes">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="aardbei-schijfjes" aria-label="Aardbei schijfjes 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🍬</div>
@@ -2897,10 +2919,12 @@
             <strong>Zure matten aardbei</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="zure-matten" aria-label="Zure matten aardbei gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Zure matten aardbei hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="zure-matten" aria-label="Zure matten aardbei 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="zure-matten">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="zure-matten" aria-label="Zure matten aardbei 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">👅</div>
@@ -2908,10 +2932,12 @@
             <strong>Zure tongen</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="zure-tongen" aria-label="Zure tongen gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Zure tongen hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="zure-tongen" aria-label="Zure tongen 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="zure-tongen">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="zure-tongen" aria-label="Zure tongen 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🥤</div>
@@ -2919,10 +2945,12 @@
             <strong>Zure cola flesjes</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="zure-cola" aria-label="Zure cola flesjes gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Zure cola flesjes hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="zure-cola" aria-label="Zure cola flesjes 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="zure-cola">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="zure-cola" aria-label="Zure cola flesjes 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">💋</div>
@@ -2930,10 +2958,12 @@
             <strong>Rode lippen</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="rode-lippen" aria-label="Rode lippen gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Rode lippen hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="rode-lippen" aria-label="Rode lippen 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="rode-lippen">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="rode-lippen" aria-label="Rode lippen 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🔵</div>
@@ -2941,10 +2971,12 @@
             <strong>Smurfen</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="smurfen" aria-label="Smurfen gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Smurfen hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="smurfen" aria-label="Smurfen 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="smurfen">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="smurfen" aria-label="Smurfen 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🍭</div>
@@ -2952,10 +2984,12 @@
             <strong>Tangfastics</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="tangfastics" aria-label="Tangfastics gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Tangfastics hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="tangfastics" aria-label="Tangfastics 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="tangfastics">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="tangfastics" aria-label="Tangfastics 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🍓</div>
@@ -2963,10 +2997,12 @@
             <strong>Balla Balla aardbei</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="balla-balla" aria-label="Balla Balla aardbei gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Balla Balla aardbei hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="balla-balla" aria-label="Balla Balla aardbei 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="balla-balla">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="balla-balla" aria-label="Balla Balla aardbei 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🍉</div>
@@ -2974,10 +3010,12 @@
             <strong>Watermeloen schijfjes</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="watermeloen" aria-label="Watermeloen schijfjes gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Watermeloen schijfjes hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="watermeloen" aria-label="Watermeloen schijfjes 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="watermeloen">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="watermeloen" aria-label="Watermeloen schijfjes 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🌈</div>
@@ -2985,10 +3023,12 @@
             <strong>Jelly Beans</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="jelly-beans" aria-label="Jelly Beans gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Jelly Beans hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="jelly-beans" aria-label="Jelly Beans 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="jelly-beans">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="jelly-beans" aria-label="Jelly Beans 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🖤</div>
@@ -2996,10 +3036,12 @@
             <strong>Engelse drop</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="engelse-drop" aria-label="Engelse drop gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Engelse drop hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="engelse-drop" aria-label="Engelse drop 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="engelse-drop">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="engelse-drop" aria-label="Engelse drop 100 gram meer">+</button>
+          </div>
         </article>
         <article class="pick-candy-card">
           <div class="pick-candy-icon" aria-hidden="true">🍬</div>
@@ -3007,10 +3049,12 @@
             <strong>Harlekijntjes</strong>
             <span>€2,00 per 100 g</span>
           </div>
-          <label class="pick-weight">
-            <span>Gewicht</span>
-            <select data-candy-weight="harlekijntjes" aria-label="Harlekijntjes gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
-          </label>
+          
+          <div class="pick-weight" aria-label="Harlekijntjes hoeveelheid">
+            <button type="button" class="pick-qty-button pick-qty-minus" data-candy-minus="harlekijntjes" aria-label="Harlekijntjes 100 gram minder">−</button>
+            <span class="pick-qty-value" data-candy-grams="harlekijntjes">0 g</span>
+            <button type="button" class="pick-qty-button pick-qty-plus" data-candy-plus="harlekijntjes" aria-label="Harlekijntjes 100 gram meer">+</button>
+          </div>
         </article>
       </div>
 
@@ -4048,12 +4092,26 @@ function addToCart(productId) {
   openCart();
 }
 
+const pickMixWeights = Object.fromEntries(PICK_MIX_CANDIES.map(candy => [candy.id, 0]));
+
 function getSelectedPickMix() {
   return PICK_MIX_CANDIES.map(candy => {
-    const select = document.querySelector('[data-candy-weight="' + candy.id + '"]');
-    const grams = select ? Number(select.value) || 0 : 0;
+    const grams = Number(pickMixWeights[candy.id]) || 0;
     return grams > 0 ? { id: candy.id, name: candy.name, grams } : null;
   }).filter(Boolean);
+}
+
+function updatePickMixWeight(id, delta) {
+  if (!(id in pickMixWeights)) return;
+  pickMixWeights[id] = Math.max(0, (Number(pickMixWeights[id]) || 0) + delta);
+
+  const value = document.querySelector('[data-candy-grams="' + id + '"]');
+  const card = value?.closest('.pick-candy-card');
+
+  if (value) value.textContent = pickMixWeights[id] + " g";
+  if (card) card.classList.toggle("is-selected", pickMixWeights[id] > 0);
+
+  updatePickMixPreview();
 }
 
 function getPickMixWeight(parts) {
@@ -4405,10 +4463,19 @@ document.querySelectorAll("[data-fixed-mix]").forEach(button => {
   button.addEventListener("click", () => addToCart(button.dataset.fixedMix));
 });
 
-// Pick & Mix selectors.
-document.querySelectorAll("[data-candy-weight]").forEach(select => {
-  select.addEventListener("change", updatePickMixPreview);
+// Pick & Mix +/- controls: every click changes the amount by exactly 100 g.
+document.querySelectorAll("[data-candy-minus]").forEach(button => {
+  button.addEventListener("click", () => {
+    updatePickMixWeight(button.dataset.candyMinus, -100);
+  });
 });
+
+document.querySelectorAll("[data-candy-plus]").forEach(button => {
+  button.addEventListener("click", () => {
+    updatePickMixWeight(button.dataset.candyPlus, 100);
+  });
+});
+
 addPickMixButton.addEventListener("click", addPickMixToCart);
 
 // Cart controls.
