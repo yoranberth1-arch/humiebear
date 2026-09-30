@@ -2474,7 +2474,8 @@
     .pick-mix-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
     .pick-candy-card{display:grid;grid-template-columns:42px 1fr;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:18px;background:white;transition:.2s ease}
     .pick-candy-card:focus-within,.pick-candy-card:has(select:not([value="0"])){border-color:var(--pink)}
-    .pick-candy-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:var(--pink-soft);font-size:22px}
+    .pick-candy-photo{width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:16px;background:var(--pink-soft);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+    .pick-candy-photo img{width:100%;height:100%;object-fit:cover}
     .pick-candy-info{min-width:0}
     .pick-candy-info strong{display:block;font-size:11px;line-height:1.2}
     .pick-candy-info span{display:block;margin-top:4px;color:var(--brown-light);font-size:9px;font-weight:700}
@@ -2484,7 +2485,7 @@
     .pick-qty-button:active{transform:scale(.95)}
     .pick-qty-value{display:flex;align-items:center;justify-content:center;min-height:38px;border-radius:12px;background:var(--cream);color:var(--brown);font-size:12px;font-weight:900}
     .pick-candy-card.is-selected{border-color:var(--pink);box-shadow:0 8px 22px rgba(207,94,137,.10)}
-    .pick-candy-card.is-selected .pick-candy-icon{background:var(--pink);background:var(--pink-soft)}
+    .pick-candy-card.is-selected .pick-candy-photo{border-color:var(--pink);box-shadow:0 0 0 2px rgba(239,160,189,.18)}
 
     .pick-mix-bottom{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
     .pick-mix-summary{color:var(--brown-light);font-size:11px;line-height:1.55}
@@ -2797,10 +2798,12 @@
       <div class="pick-mix-grid">
 
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🐻</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Goudberen</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Goudberen hoeveelheid">
@@ -2810,10 +2813,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🥤</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Happy Cola flesjes</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Happy Cola flesjes hoeveelheid">
@@ -2823,10 +2828,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🍒</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Happy Cherries</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Happy Cherries hoeveelheid">
@@ -2836,10 +2843,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🍑</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Happy Peaches</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Happy Peaches hoeveelheid">
@@ -2849,10 +2858,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🐸</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Kikkers</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Kikkers hoeveelheid">
@@ -2862,10 +2873,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🍌</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Banaantjes</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Banaantjes hoeveelheid">
@@ -2875,10 +2888,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🪱</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Zure wormen</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Zure wormen hoeveelheid">
@@ -2888,10 +2903,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🍓</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Zure aardbeien</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Zure aardbeien hoeveelheid">
@@ -2901,10 +2918,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🍓</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Aardbei schijfjes</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Aardbei schijfjes hoeveelheid">
@@ -2914,10 +2933,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🍬</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Zure matten aardbei</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Zure matten aardbei hoeveelheid">
@@ -2927,10 +2948,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">👅</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Zure tongen</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Zure tongen hoeveelheid">
@@ -2940,10 +2963,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🥤</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Zure cola flesjes</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Zure cola flesjes hoeveelheid">
@@ -2953,10 +2978,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">💋</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Rode lippen</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Rode lippen hoeveelheid">
@@ -2966,10 +2993,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🔵</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Smurfen</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Smurfen hoeveelheid">
@@ -2979,10 +3008,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🍭</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Tangfastics</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Tangfastics hoeveelheid">
@@ -2992,10 +3023,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🍓</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Balla Balla aardbei</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Balla Balla aardbei hoeveelheid">
@@ -3005,10 +3038,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🍉</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Watermeloen schijfjes</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Watermeloen schijfjes hoeveelheid">
@@ -3018,10 +3053,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🌈</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Jelly Beans</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Jelly Beans hoeveelheid">
@@ -3031,10 +3068,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🖤</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Engelse drop</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Engelse drop hoeveelheid">
@@ -3044,10 +3083,12 @@
           </div>
         </article>
         <article class="pick-candy-card">
-          <div class="pick-candy-icon" aria-hidden="true">🍬</div>
+          <div class="pick-candy-photo" aria-hidden="true">
+            <img src="images/gummy-candy.png" alt="Schepsnoep">
+          </div>
           <div class="pick-candy-info">
             <strong>Harlekijntjes</strong>
-            <span>€2,00 per 100 g</span>
+            <span>€1,70 per 100 g</span>
           </div>
           
           <div class="pick-weight" aria-label="Harlekijntjes hoeveelheid">
@@ -3066,7 +3107,7 @@
           + Mijn mix toevoegen aan winkelmand
         </button>
       </div>
-      <div class="pick-mix-note">Prijs: <strong>€2,00 per 100 g</strong> · Vanaf 500 g krijg je automatisch een extra snoepzakje cadeau.</div>
+      <div class="pick-mix-note">Prijs: <strong>€1,70 per 100 g</strong> · Vanaf 500 g krijg je automatisch een extra snoepzakje cadeau.</div>
     </section>
 
     <!-- POPULAIRE VASTE SNOEPMIXEN -->
@@ -3912,7 +3953,7 @@ const SHOP_CONFIG = {
   storageKey: "hummieBearShopCart",
   discountCode: "LIVE10",
   discountPercentage: 10,
-  pickMixPricePer100g: 2.00,
+  pickMixPricePer100g: 1.70,
   pickMixFreeBagGrams: 500
 };
 
