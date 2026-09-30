@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hummie Bear Abonnement — Elke maand snoep</title>
+<meta name="description" content="Ontvang elke maand jouw Hummie Bear snoepbox. Kies je favoriete mix of laat je verrassen.">
+<link rel="stylesheet" href="webshop.css">
+</head>
+<body>
+<div class="topbar"><div class="container topbar-inner">
+<span>🍬 Elke maand een sweet moment</span>
+<span>🚚 België</span>
+<span>🎁 Gratis verzending inbegrepen</span>
+</div></div>
+
+<header class="site-header">
+<div class="container header-inner">
+<a class="brand" href="shop.html"><span class="brand-mark">HB</span>Hummie Bear</a>
+<nav class="main-nav">
+<a href="shop.html">Shop</a>
+<a href="snoepzak.html">Snoepzak maken</a>
+<a href="snoepdozen.html">Snoepdozen</a>
+<a class="active" href="abonnement.html">Abonnement</a>
+<a href="live.html">TikTok LIVE</a>
+<a href="index.html">Eventcatering</a>
+</nav>
+<div class="header-actions"><a class="header-pill" href="shop.html">← Shop</a></div>
+</div>
+</header>
+
+<main>
+<section class="sub-hero">
+<div class="container sub-hero-grid">
+<div>
+<span class="eyebrow">HUMMIE BEAR SWEET CLUB</span>
+<h1 class="display">Elke maand een doos vol <em>sweetness.</em></h1>
+<p class="sub-lead">Kies jouw maandbox, vertel ons wat je lekker vindt en ontvang iedere maand een nieuwe snoepselectie aan huis.</p>
+<div class="sub-hero-points">
+<span>✓ Maandelijks geleverd</span>
+<span>✓ Gratis verzending</span>
+<span>✓ Opzegbaar</span>
+</div>
+</div>
+<div class="sub-hero-card">
+<div class="sub-hero-card-badge">NIEUW</div>
+<strong>Jouw maandelijkse sweet moment</strong>
+<p>Geen zin om elke keer opnieuw te bestellen? Wij regelen de snoepbox.</p>
+</div>
+</div>
+</section>
+
+<section class="section" id="abonnementen">
+<div class="container">
+<div class="section-head">
+<div><span class="eyebrow">KIES JE BOX</span><h2>Welke past bij jou?</h2></div>
+<p>Beide formules zijn maandelijks. Je kunt je voorkeuren doorgeven en later aanpassen.</p>
+</div>
+
+<div class="sub-plans">
+<article class="sub-plan" data-plan-card="sweet">
+<div class="sub-plan-top"><span class="sub-plan-tag">SWEET BOX</span><span class="sub-plan-price">€19,95<small>/ maand</small></span></div>
+<h3>Sweet Box</h3>
+<p>Een maandelijkse selectie van ongeveer 1 kg snoep.</p>
+<ul>
+<li>± 1 kg snoep</li>
+<li>Mix van populaire soorten</li>
+<li>Gratis verzending in België</li>
+<li>Maandelijks automatisch herhaald</li>
+</ul>
+<button class="btn btn-primary btn-block" type="button" data-select-plan="sweet">Kies Sweet Box</button>
+</article>
+
+<article class="sub-plan sub-plan-featured" data-plan-card="plus">
+<div class="sub-plan-ribbon">MEEST GEKOZEN</div>
+<div class="sub-plan-top"><span class="sub-plan-tag">SWEET BOX PLUS</span><span class="sub-plan-price">€29,95<small>/ maand</small></span></div>
+<h3>Sweet Box Plus</h3>
+<p>Meer snoep en meer persoonlijke keuze voor echte snoepliefhebbers.</p>
+<ul>
+<li>± 1,5 kg snoep</li>
+<li>Persoonlijke favorieten</li>
+<li>Gratis verzending in België</li>
+<li>Extra sweet surprise</li>
+</ul>
+<button class="btn btn-yellow btn-block" type="button" data-select-plan="plus">Kies Sweet Box Plus</button>
+</article>
+</div>
+</div>
+</section>
+
+<section class="section sub-config-section" id="voorkeuren">
+<div class="container">
+<div class="sub-config">
+<div class="section-head">
+<div><span class="eyebrow">JOUW VOORKEUREN</span><h2>Maak je abonnement persoonlijk.</h2></div>
+<p>Deze gegevens worden samen met je abonnementsaanvraag bewaard zodat je maandbox niet volledig willekeurig is.</p>
+</div>
+
+<form id="subscriptionForm" class="sub-form">
+<div class="sub-selected">
+<span>Gekozen formule</span>
+<strong id="selectedPlanLabel">Nog geen formule gekozen</strong>
+<strong id="selectedPlanPrice">—</strong>
+</div>
+
+<div class="sub-form-grid">
+<label class="field"><span>Voornaam *</span><input name="firstName" autocomplete="given-name" required></label>
+<label class="field"><span>Achternaam *</span><input name="lastName" autocomplete="family-name" required></label>
+<label class="field"><span>E-mailadres *</span><input type="email" name="email" autocomplete="email" required></label>
+<label class="field"><span>Telefoonnummer</span><input name="phone" autocomplete="tel"></label>
+<label class="field sub-full"><span>Adres *</span><input name="address" autocomplete="street-address" required></label>
+<label class="field"><span>Postcode *</span><input name="postalCode" autocomplete="postal-code" required></label>
+<label class="field"><span>Gemeente *</span><input name="city" autocomplete="address-level2" required></label>
+</div>
+
+<div class="sub-choice-group">
+<h3>Hoe wil je je box?</h3>
+<label class="sub-choice"><input type="radio" name="style" value="surprise" checked><span><strong>Verras mij</strong><small>Elke maand een andere mix.</small></span></label>
+<label class="sub-choice"><input type="radio" name="style" value="favorites"><span><strong>Mijn favorieten</strong><small>Vooral soorten die ik lekker vind.</small></span></label>
+<label class="sub-choice"><input type="radio" name="style" value="sour"><span><strong>Zuur & pittig</strong><small>Voor de liefhebbers van zuur snoep.</small></span></label>
+</div>
+
+<div class="sub-choice-group">
+<h3>Wat eet je liever niet?</h3>
+<textarea name="avoid" rows="3" placeholder="Bijvoorbeeld: geen drop, geen zure snoepjes..."></textarea>
+</div>
+
+<label class="sub-consent"><input type="checkbox" name="terms" required><span>Ik begrijp dat dit een maandelijks abonnement is en dat de definitieve automatische betaling pas wordt geactiveerd via de beveiligde betaalpagina.</span></label>
+
+<div class="sub-checkout">
+<div><small>Maandelijks</small><strong id="checkoutPrice">Kies eerst een box</strong></div>
+<button class="btn btn-primary" type="submit" id="subscriptionButton">Verder naar betaling</button>
+</div>
+<p id="subscriptionMessage" class="sub-message" role="status" aria-live="polite"></p>
+</form>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+<div class="sub-info-grid">
+<div><span>01</span><h3>Kies je box</h3><p>Selecteer Sweet Box of Sweet Box Plus.</p></div>
+<div><span>02</span><h3>Geef je voorkeuren</h3><p>Vertel ons wat je graag eet en wat je liever overslaat.</p></div>
+<div><span>03</span><h3>Betaal veilig</h3><p>Voor de echte automatische maandbetaling gaat de klant via Mollie.</p></div>
+</div>
+</div>
+</section>
+</main>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-grid">
+<div><div class="brand"><span class="brand-mark">HB</span>Hummie Bear</div><p style="max-width:330px">Sweetness on Wheels — jouw maandelijkse sweet moment.</p></div>
+<div><h3>Shop</h3><a href="shop.html">Schepsnoep</a><a href="snoepzak.html">Snoepzak maken</a><a href="snoepdozen.html">Snoepdozen</a></div>
+<div><h3>Beleving</h3><a href="abonnement.html">Abonnement</a><a href="live.html">TikTok LIVE</a><a href="index.html">Eventcatering</a></div>
+<div><h3>Volgen</h3><a href="https://www.tiktok.com/@hummiebear" target="_blank" rel="noopener">TikTok</a><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a><a href="mailto:hummiebearbusiness@gmail.com">E-mail</a></div>
+</div>
+<div class="footer-bottom"><span>© Hummie Bear — Sweetness on Wheels</span><span>Abonnementen · België</span></div>
+</div>
+</footer>
+
+<script src="abonnement.js?v=20260930-1"></script>
+</body>
+</html>
