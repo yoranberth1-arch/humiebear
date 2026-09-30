@@ -30,7 +30,7 @@
 
   <meta
     property="og:description"
-    content="Ontdek vaste Hummie Bear schepsnoepmixen, door ons samengesteld voor elk sweet moment."
+    content="Stel je eigen Hummie Bear Pick & Mix samen per 100 g, of kies een voorgemaakte snoepmix."
   >
 
   <meta
@@ -2458,6 +2458,42 @@
       }
     }
 
+  
+    /* =========================================================
+       PICK & MIX BUILDER
+    ========================================================= */
+    .pick-mix-builder{margin:0 0 34px;padding:28px;border:1px solid var(--line);border-radius:30px;background:linear-gradient(135deg,#fff,#fff6fa);box-shadow:var(--shadow)}
+    .pick-mix-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:20px}
+    .pick-mix-head h2{margin:8px 0 9px;font-family:"Playfair Display",Georgia,serif;font-size:clamp(31px,4vw,48px);line-height:1;letter-spacing:-.045em}
+    .pick-mix-head h2 em{color:var(--pink-dark);font-style:normal}
+    .pick-mix-head p{max-width:700px;margin:0;color:var(--brown-light);font-size:12px;line-height:1.65}
+    .pick-mix-price-card{flex:0 0 155px;padding:16px 18px;border-radius:20px;background:var(--brown);color:white;text-align:right;box-shadow:0 14px 30px rgba(61,42,32,.16)}
+    .pick-mix-price-card span{display:block;font-size:8px;font-weight:900;letter-spacing:.14em;opacity:.65}
+    .pick-mix-price-card strong{display:block;margin-top:4px;font-size:25px;line-height:1}
+    .pick-mix-price-card small{display:block;margin-top:6px;font-size:9px;opacity:.7}
+    .pick-mix-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+    .pick-candy-card{display:grid;grid-template-columns:42px 1fr;gap:10px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:18px;background:white;transition:.2s ease}
+    .pick-candy-card:focus-within,.pick-candy-card:has(select:not([value="0"])){border-color:var(--pink)}
+    .pick-candy-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:14px;background:var(--pink-soft);font-size:22px}
+    .pick-candy-info{min-width:0}
+    .pick-candy-info strong{display:block;font-size:11px;line-height:1.2}
+    .pick-candy-info span{display:block;margin-top:4px;color:var(--brown-light);font-size:9px;font-weight:700}
+    .pick-weight{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .pick-weight span{color:var(--brown-light);font-size:9px;font-weight:800}
+    .pick-weight select{width:100px;min-height:34px;padding:0 9px;border:1px solid var(--line);border-radius:10px;background:var(--cream);color:var(--brown);font-size:10px;font-weight:900;outline:none}
+    .pick-weight select:focus{border-color:var(--pink);box-shadow:0 0 0 3px rgba(239,160,189,.12)}
+    .pick-mix-bottom{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+    .pick-mix-summary{color:var(--brown-light);font-size:11px;line-height:1.55}
+    .pick-mix-summary strong{color:var(--brown)}
+    .pick-mix-add-button{min-height:50px;padding:0 20px;border:0;border-radius:999px;background:linear-gradient(135deg,var(--pink),var(--pink-dark));color:white;font-size:11px;font-weight:900;box-shadow:0 12px 25px rgba(207,94,137,.2)}
+    .pick-mix-add-button:hover:not(:disabled){transform:translateY(-2px)}
+    .pick-mix-add-button:disabled{background:#d9d0ca;box-shadow:none;cursor:not-allowed}
+    .pick-mix-note{margin-top:11px;color:var(--brown-light);font-size:9px;text-align:right}
+    .pick-mix-note strong{color:var(--pink-deep)}
+    @media(max-width:1050px){.pick-mix-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:760px){.pick-mix-builder{padding:20px}.pick-mix-head{align-items:stretch;flex-direction:column}.pick-mix-price-card{flex-basis:auto;text-align:left}.pick-mix-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pick-mix-bottom{grid-template-columns:1fr}.pick-mix-add-button{width:100%}.pick-mix-note{text-align:left}}
+    @media(max-width:500px){.pick-mix-grid{grid-template-columns:1fr}.pick-candy-card{grid-template-columns:46px 1fr}.pick-mix-head h2{font-size:34px}}
+
   </style>
 </head>
 
@@ -2730,7 +2766,7 @@
 
       <p>
 
-        Kies jouw formaat vaste Hummie Bear snoepmix. Wij stellen de snoepsoorten zelf samen en vanaf 500 g krijg je een extra snoepzakje cadeau.
+        Stel zelf jouw snoepmix samen per 100 g uit 20 populaire soorten, of kies één van onze voorgemaakte Hummie Bear mixen. Vanaf 500 g krijg je een extra snoepzakje cadeau.
 
       </p>
 
@@ -2738,14 +2774,265 @@
 
 
 
+
+    <!-- PICK & MIX -->
+    <section class="pick-mix-builder" id="pickMixBuilder" aria-labelledby="pickMixTitle">
+      <div class="pick-mix-head">
+        <div>
+          <span class="eyebrow">PICK &amp; MIX</span>
+          <h2 id="pickMixTitle">Stel jouw <em>eigen snoepmix</em> samen.</h2>
+          <p>Kies zelf je favoriete soorten en bepaal per soort hoeveel je wilt. Alles gaat per 100 g. Je ziet het totaal en de prijs meteen.</p>
+        </div>
+        <div class="pick-mix-price-card">
+          <span>PRIJS</span>
+          <strong id="pickMixTotalPrice">€0,00</strong>
+          <small id="pickMixTotalWeight">0 g gekozen</small>
+        </div>
+      </div>
+
+      <div class="pick-mix-grid">
+
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🐻</div>
+          <div class="pick-candy-info">
+            <strong>Goudberen</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="goudberen" aria-label="Goudberen gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🥤</div>
+          <div class="pick-candy-info">
+            <strong>Happy Cola flesjes</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="happy-cola" aria-label="Happy Cola flesjes gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🍒</div>
+          <div class="pick-candy-info">
+            <strong>Happy Cherries</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="happy-cherries" aria-label="Happy Cherries gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🍑</div>
+          <div class="pick-candy-info">
+            <strong>Happy Peaches</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="happy-peaches" aria-label="Happy Peaches gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🐸</div>
+          <div class="pick-candy-info">
+            <strong>Kikkers</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="kikkers" aria-label="Kikkers gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🍌</div>
+          <div class="pick-candy-info">
+            <strong>Banaantjes</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="bananas" aria-label="Banaantjes gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🪱</div>
+          <div class="pick-candy-info">
+            <strong>Zure wormen</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="zure-wormen" aria-label="Zure wormen gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🍓</div>
+          <div class="pick-candy-info">
+            <strong>Zure aardbeien</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="zure-aardbeien" aria-label="Zure aardbeien gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🍓</div>
+          <div class="pick-candy-info">
+            <strong>Aardbei schijfjes</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="aardbei-schijfjes" aria-label="Aardbei schijfjes gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🍬</div>
+          <div class="pick-candy-info">
+            <strong>Zure matten aardbei</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="zure-matten" aria-label="Zure matten aardbei gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">👅</div>
+          <div class="pick-candy-info">
+            <strong>Zure tongen</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="zure-tongen" aria-label="Zure tongen gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🥤</div>
+          <div class="pick-candy-info">
+            <strong>Zure cola flesjes</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="zure-cola" aria-label="Zure cola flesjes gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">💋</div>
+          <div class="pick-candy-info">
+            <strong>Rode lippen</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="rode-lippen" aria-label="Rode lippen gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🔵</div>
+          <div class="pick-candy-info">
+            <strong>Smurfen</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="smurfen" aria-label="Smurfen gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🍭</div>
+          <div class="pick-candy-info">
+            <strong>Tangfastics</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="tangfastics" aria-label="Tangfastics gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🍓</div>
+          <div class="pick-candy-info">
+            <strong>Balla Balla aardbei</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="balla-balla" aria-label="Balla Balla aardbei gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🍉</div>
+          <div class="pick-candy-info">
+            <strong>Watermeloen schijfjes</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="watermeloen" aria-label="Watermeloen schijfjes gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🌈</div>
+          <div class="pick-candy-info">
+            <strong>Jelly Beans</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="jelly-beans" aria-label="Jelly Beans gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🖤</div>
+          <div class="pick-candy-info">
+            <strong>Engelse drop</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="engelse-drop" aria-label="Engelse drop gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+        <article class="pick-candy-card">
+          <div class="pick-candy-icon" aria-hidden="true">🍬</div>
+          <div class="pick-candy-info">
+            <strong>Harlekijntjes</strong>
+            <span>€2,00 per 100 g</span>
+          </div>
+          <label class="pick-weight">
+            <span>Gewicht</span>
+            <select data-candy-weight="harlekijntjes" aria-label="Harlekijntjes gewicht"><option value="0">0 g</option><option value="100">100 g</option><option value="200">200 g</option><option value="300">300 g</option><option value="400">400 g</option><option value="500">500 g</option><option value="600">600 g</option><option value="700">700 g</option><option value="800">800 g</option><option value="900">900 g</option><option value="1000">1000 g</option></select>
+          </label>
+        </article>
+      </div>
+
+      <div class="pick-mix-bottom">
+        <div class="pick-mix-summary" id="pickMixSummary" aria-live="polite">
+          Kies minstens 100 g om jouw mix toe te voegen.
+        </div>
+        <button type="button" class="pick-mix-add-button" id="addPickMixButton" disabled>
+          + Mijn mix toevoegen aan winkelmand
+        </button>
+      </div>
+      <div class="pick-mix-note">Prijs: <strong>€2,00 per 100 g</strong> · Vanaf 500 g krijg je automatisch een extra snoepzakje cadeau.</div>
+    </section>
+
     <!-- POPULAIRE VASTE SNOEPMIXEN -->
     <section class="popular-mixes" aria-labelledby="popularMixesTitle">
       <div class="popular-mixes-head">
         <div>
-          <span class="eyebrow">DOOR HUMMIE BEAR SAMENGESTELD</span>
-          <h2 id="popularMixesTitle">Onze vaste <em>snoepmixen.</em></h2>
+          <span class="eyebrow">VOORGEMAAKTE MIXEN</span>
+          <h2 id="popularMixesTitle">Onze voorgemaakte <em>snoepmixen.</em></h2>
         </div>
-        <p>Geen gedoe met kiezen: wij stellen elke mix zelf samen met een lekkere combinatie van schepsnoep. Je kiest alleen het formaat. De samenstelling en kwaliteit regelen wij.</p>
+        <p>Liever snel klaar? Kies een voorgemaakte mix. De samenstelling staat vast en je voegt hem met één druk rechtstreeks toe aan je winkelmand.</p>
       </div>
 
       <div class="popular-mixes-grid">
@@ -2838,106 +3125,7 @@
     </section>
 
 
-    <!-- CONTROLS -->
-
-    <div class="shop-control-meta">
-      <span class="product-count" id="productCount">
-        Producten laden...
-      </span>
-
-      <label>
-        <span class="sr-only">Sorteer producten</span>
-        <select id="productSort" class="sort-select" aria-label="Sorteer producten">
-          <option value="featured">Aanbevolen</option>
-          <option value="price-low">Prijs laag → hoog</option>
-          <option value="price-high">Prijs hoog → laag</option>
-          <option value="name">Naam A → Z</option>
-        </select>
-      </label>
-    </div>
-
-    <div class="shop-controls">
-
-      <div
-        class="category-tabs"
-        role="tablist"
-        aria-label="Productcategorieën"
-      >
-
-        <button
-          type="button"
-          class="category-button active"
-          data-category="all"
-        >
-          Alles
-        </button>
-
-        <button
-          type="button"
-          class="category-button"
-          data-category="snoep"
-        >
-          Snoep
-        </button>
-
-        <button
-          type="button"
-          class="category-button"
-          data-category="box"
-        >
-          Boxen
-        </button>
-
-        <button
-          type="button"
-          class="category-button"
-          data-category="cuberdon"
-        >
-          Cuberdons
-        </button>
-
-        <button
-          type="button"
-          class="category-button"
-          data-category="live"
-        >
-          LIVE
-        </button>
-
-      </div>
-
-
-      <div class="search-box">
-
-        <span class="search-icon">
-          🔎
-        </span>
-
-        <input
-          type="search"
-          id="productSearch"
-          placeholder="Zoek een product..."
-          autocomplete="off"
-        >
-
-      </div>
-
-    </div>
-
-
-    <!-- PRODUCTS -->
-
-    <section
-      class="products-grid"
-      id="productsGrid"
-      aria-live="polite"
-    >
-      <div class="loading-products">
-        <div class="loading-spinner"></div>
-        <strong>Onze sweet moments worden geladen...</strong>
-        <p>Even geduld, we halen de actuele producten op.</p>
-      </div>
-    </section>
+    <!-- VOORGEMAAKTE MIXEN WORDEN HIERBOVEN GETOOND -->
 
 
     <!-- SHIPPING -->
@@ -2993,7 +3181,7 @@
         </div>
         <div class="custom-mix-gift-copy">
           <strong>500 g gekozen? Dan krijg je een extra zakje schepsnoep cadeau!</strong>
-          <p>Vanaf 500 gram schepsnoepmix voegen we automatisch een extra gevuld snoepzakje gratis toe aan je bestelling. De mixen hebben een vaste samenstelling.</p>
+          <p>Vanaf 500 gram schepsnoep voegen we automatisch een extra gevuld snoepzakje gratis toe aan je bestelling. Dit geldt ook voor jouw zelf samengestelde Pick & Mix.</p>
           <span class="custom-mix-gift-badge">500 g = GRATIS EXTRA ZAKJE</span>
         </div>
       </div>
@@ -3669,1749 +3857,636 @@
 
 
  <script src="supabase-config.js"></script>
-
 <script>
+"use strict";
 
-  "use strict";
+const SHOP_CONFIG = {
+  currency: "EUR",
+  locale: "nl-BE",
+  freeShippingThreshold: 35,
+  shippingCost: 5.95,
+  storageKey: "hummieBearShopCart",
+  discountCode: "LIVE10",
+  discountPercentage: 10,
+  pickMixPricePer100g: 2.00,
+  pickMixFreeBagGrams: 500
+};
 
-
-    /* =========================================================
-       CONFIGURATIE
-    ========================================================= */
-
-    const SHOP_CONFIG = {
-
-      currency: "EUR",
-
-      locale: "nl-BE",
-
-      freeShippingThreshold: 35,
-
-      shippingCost: 5.95,
-
-      storageKey: "hummieBearShopCart",
-
-      discountCode: "LIVE10",
-
-      discountPercentage: 10,
-
-      customMixFreeBagGrams: 500
-
-    };
-
-
-    /* =========================================================
-       PRODUCTEN
-       Hier kunnen we later eenvoudig prijzen aanpassen.
-    ========================================================= */
-
+const PICK_MIX_CANDIES = [{"id":"goudberen","name":"Goudberen","icon":"🐻"},{"id":"happy-cola","name":"Happy Cola flesjes","icon":"🥤"},{"id":"happy-cherries","name":"Happy Cherries","icon":"🍒"},{"id":"happy-peaches","name":"Happy Peaches","icon":"🍑"},{"id":"kikkers","name":"Kikkers","icon":"🐸"},{"id":"bananas","name":"Banaantjes","icon":"🍌"},{"id":"zure-wormen","name":"Zure wormen","icon":"🪱"},{"id":"zure-aardbeien","name":"Zure aardbeien","icon":"🍓"},{"id":"aardbei-schijfjes","name":"Aardbei schijfjes","icon":"🍓"},{"id":"zure-matten","name":"Zure matten aardbei","icon":"🍬"},{"id":"zure-tongen","name":"Zure tongen","icon":"👅"},{"id":"zure-cola","name":"Zure cola flesjes","icon":"🥤"},{"id":"rode-lippen","name":"Rode lippen","icon":"💋"},{"id":"smurfen","name":"Smurfen","icon":"🔵"},{"id":"tangfastics","name":"Tangfastics","icon":"🍭"},{"id":"balla-balla","name":"Balla Balla aardbei","icon":"🍓"},{"id":"watermeloen","name":"Watermeloen schijfjes","icon":"🍉"},{"id":"jelly-beans","name":"Jelly Beans","icon":"🌈"},{"id":"engelse-drop","name":"Engelse drop","icon":"🖤"},{"id":"harlekijntjes","name":"Harlekijntjes","icon":"🍬"}];
 
 const FIXED_MIX_PRODUCTS = [
-      {
-        id: "classic-mix",
-        name: "Hummie Bear Classic",
-        description: "500 g vaste schepsnoepmix, door Hummie Bear samengesteld.",
-        price: 9.75,
-        image: "images/gummy-candy.png",
-        category: "snoepmix",
-        unit: "500 g vaste mix",
-        badge: "Meest gekozen",
-        freeBag: true
-      },
-      {
-        id: "mega-mix",
-        name: "Hummie Bear Mega",
-        description: "1 kg vaste schepsnoepmix met extra veel variatie.",
-        price: 19.50,
-        image: "images/candy-display.png",
-        category: "snoepmix",
-        unit: "1 kg vaste mix",
-        badge: "Extra veel snoep",
-        freeBag: true
-      },
-      {
-        id: "deluxe-mix",
-        name: "Hummie Bear Deluxe",
-        description: "1,5 kg vaste schepsnoepmix voor grote momenten.",
-        price: 29.25,
-        image: "https://assets.haribo.com/image/upload/ar_1%3A1%2Cc_fill%2Cf_auto%2Cq_80/w_1200/v1/consumer-sites/nl-be/Products/World-Mix-175g-4001686310603.png",
-        category: "snoepmix",
-        unit: "1,5 kg vaste mix",
-        badge: "Luxe formaat",
-        freeBag: true
-      }
-    ];
+  {
+    id: "classic-mix",
+    name: "Hummie Bear Classic",
+    description: "500 g vaste schepsnoepmix, door Hummie Bear samengesteld.",
+    price: 9.75,
+    image: "images/gummy-candy.png",
+    category: "snoepmix",
+    unit: "500 g vaste mix",
+    badge: "Meest gekozen",
+    freeBag: true
+  },
+  {
+    id: "mega-mix",
+    name: "Hummie Bear Mega",
+    description: "1 kg vaste schepsnoepmix met extra veel variatie.",
+    price: 19.50,
+    image: "images/candy-display.png",
+    category: "snoepmix",
+    unit: "1 kg vaste mix",
+    badge: "Extra veel snoep",
+    freeBag: true
+  },
+  {
+    id: "deluxe-mix",
+    name: "Hummie Bear Deluxe",
+    description: "1,5 kg vaste schepsnoepmix voor grote momenten.",
+    price: 29.25,
+    image: "https://assets.haribo.com/image/upload/ar_1%3A1%2Cc_fill%2Cf_auto%2Cq_80/w_1200/v1/consumer-sites/nl-be/Products/World-Mix-175g-4001686310603.png",
+    category: "snoepmix",
+    unit: "1,5 kg vaste mix",
+    badge: "Luxe formaat",
+    freeBag: true
+  }
+];
 
-    let PRODUCTS = FIXED_MIX_PRODUCTS.slice();
+let cart = [];
+let appliedDiscount = 0;
 
+const $ = (id) => document.getElementById(id);
 
+const headerCartCount = $("headerCartCount");
+const cartOverlay = $("cartOverlay");
+const cartItems = $("cartItems");
+const cartEmpty = $("cartEmpty");
+const cartSubtotal = $("cartSubtotal");
+const cartShipping = $("cartShipping");
+const cartTotal = $("cartTotal");
+const checkoutButton = $("checkoutButton");
+const checkoutModal = $("checkoutModal");
+const checkoutForm = $("checkoutForm");
+const checkoutSubmit = $("checkoutSubmit");
+const checkoutSummaryList = $("checkoutSummaryList");
+const checkoutSubtotal = $("checkoutSubtotal");
+const checkoutShipping = $("checkoutShipping");
+const checkoutTotal = $("checkoutTotal");
+const discountInput = $("discountInput");
+const discountButton = $("discountButton");
+const discountMessage = $("discountMessage");
+const shippingProgressBar = $("shippingProgressBar");
+const shippingRemaining = $("shippingRemaining");
+const shippingMessage = $("shippingMessage");
+const pickMixTotalPrice = $("pickMixTotalPrice");
+const pickMixTotalWeight = $("pickMixTotalWeight");
+const pickMixSummary = $("pickMixSummary");
+const addPickMixButton = $("addPickMixButton");
 
-    function getCartCount() {
+function formatCurrency(value) {
+  return new Intl.NumberFormat(SHOP_CONFIG.locale, {
+    style: "currency",
+    currency: SHOP_CONFIG.currency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(Number(value) || 0);
+}
 
-      return cart.reduce(
-        (total, item) =>
-          total + item.quantity,
-        0
-      );
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
-    }
+function getFixedProduct(id) {
+  return FIXED_MIX_PRODUCTS.find(product => product.id === id) || null;
+}
 
+function getCartProduct(item) {
+  if (item && Array.isArray(item.customMix)) {
+    const grams = item.customMix.reduce((sum, part) => sum + Number(part.grams || 0), 0);
+    const price = (grams / 100) * SHOP_CONFIG.pickMixPricePer100g;
+    return {
+      id: item.id,
+      name: "Mijn Hummie Bear Mix",
+      description: "Zelf samengesteld uit onze 20 populaire soorten.",
+      price,
+      image: "images/gummy-candy.png",
+      unit: grams + " g Pick & Mix",
+      customMix: item.customMix,
+      freeBag: grams >= SHOP_CONFIG.pickMixFreeBagGrams
+    };
+  }
+  return getFixedProduct(item?.id);
+}
 
-    function getSubtotal() {
+function getCartCount() {
+  return cart.reduce((sum, item) => sum + Math.max(1, Number(item.quantity) || 1), 0);
+}
 
-      return cart.reduce(
-        (total, item) => {
+function getSubtotal() {
+  return cart.reduce((sum, item) => {
+    const product = getCartProduct(item);
+    return product ? sum + product.price * item.quantity : sum;
+  }, 0);
+}
 
-          const product =
-            getCartProduct(
-              item
-            );
+function getDiscountAmount() {
+  return appliedDiscount > 0 ? getSubtotal() * appliedDiscount : 0;
+}
 
-          if (!product) {
-            return total;
-          }
+function getShippingCost() {
+  const afterDiscount = Math.max(0, getSubtotal() - getDiscountAmount());
+  if (afterDiscount <= 0 || afterDiscount >= SHOP_CONFIG.freeShippingThreshold) return 0;
+  return SHOP_CONFIG.shippingCost;
+}
 
-          return (
-            total +
-            product.price *
-            item.quantity
-          );
+function getTotal() {
+  return Math.max(0, getSubtotal() - getDiscountAmount() + getShippingCost());
+}
 
-        },
-        0
-      );
+function saveCart() {
+  try {
+    localStorage.setItem(SHOP_CONFIG.storageKey, JSON.stringify(cart));
+  } catch (error) {
+    console.warn("Winkelmand kon niet lokaal worden opgeslagen.", error);
+  }
+}
 
-    }
+function loadCart() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(SHOP_CONFIG.storageKey) || "[]");
+    if (!Array.isArray(saved)) return;
+    cart = saved
+      .filter(item => item && typeof item.id === "string")
+      .map(item => ({
+        id: item.id,
+        quantity: Math.max(1, Number(item.quantity) || 1),
+        ...(Array.isArray(item.customMix) ? { customMix: item.customMix } : {})
+      }))
+      .filter(item => item.customMix ? item.customMix.length > 0 : Boolean(getFixedProduct(item.id)));
+  } catch (error) {
+    cart = [];
+  }
+}
 
+function addToCart(productId) {
+  const product = getFixedProduct(productId);
+  if (!product) return;
 
-    function getDiscountAmount() {
+  const existing = cart.find(item => item.id === productId && !item.customMix);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({ id: productId, quantity: 1 });
+  }
 
-      const subtotal =
-        getSubtotal();
+  saveCart();
+  renderCart();
+  showToast(product.name + " toegevoegd aan je winkelmand.");
+  openCart();
+}
 
-      if (
-        appliedDiscount <= 0
-      ) {
-        return 0;
-      }
+function getSelectedPickMix() {
+  return PICK_MIX_CANDIES.map(candy => {
+    const select = document.querySelector('[data-candy-weight="' + candy.id + '"]');
+    const grams = select ? Number(select.value) || 0 : 0;
+    return grams > 0 ? { id: candy.id, name: candy.name, grams } : null;
+  }).filter(Boolean);
+}
 
-      return (
-        subtotal *
-        appliedDiscount
-      );
+function getPickMixWeight(parts) {
+  return parts.reduce((sum, part) => sum + part.grams, 0);
+}
 
-    }
+function getPickMixPrice(parts) {
+  return (getPickMixWeight(parts) / 100) * SHOP_CONFIG.pickMixPricePer100g;
+}
 
+function pickMixSignature(parts) {
+  return parts.map(part => part.id + ":" + part.grams).sort().join("|");
+}
 
-    function getShippingCost() {
+function updatePickMixPreview() {
+  const parts = getSelectedPickMix();
+  const grams = getPickMixWeight(parts);
+  const price = getPickMixPrice(parts);
 
-      const subtotal =
-        getSubtotal();
+  pickMixTotalPrice.textContent = formatCurrency(price);
+  pickMixTotalWeight.textContent = grams + " g gekozen";
+  addPickMixButton.disabled = grams === 0;
 
-      const afterDiscount =
-        Math.max(
-          0,
-          subtotal -
-          getDiscountAmount()
-        );
+  if (parts.length === 0) {
+    pickMixSummary.textContent = "Kies minstens 100 g om jouw mix toe te voegen.";
+    return;
+  }
 
-      if (
-        afterDiscount <= 0
-      ) {
-        return 0;
-      }
+  const detail = parts.map(part => part.name + " (" + part.grams + " g)").join(" · ");
+  const gift = grams >= SHOP_CONFIG.pickMixFreeBagGrams
+    ? " 🎁 Extra snoepzakje inbegrepen."
+    : " Nog " + (SHOP_CONFIG.pickMixFreeBagGrams - grams) + " g tot je gratis extra snoepzakje.";
 
-      if (
-        afterDiscount >=
-        SHOP_CONFIG.freeShippingThreshold
-      ) {
-        return 0;
-      }
+  pickMixSummary.innerHTML =
+    "<strong>" + grams + " g · " + formatCurrency(price) + "</strong><br>" +
+    escapeHtml(detail) + gift;
+}
 
-      return SHOP_CONFIG.shippingCost;
+function addPickMixToCart() {
+  const parts = getSelectedPickMix();
+  const grams = getPickMixWeight(parts);
 
-    }
+  if (grams < 100) {
+    showToast("Kies minstens 100 g snoep.");
+    return;
+  }
 
+  const signature = pickMixSignature(parts);
+  const existing = cart.find(item => item.customMix && pickMixSignature(item.customMix) === signature);
 
-    function getTotal() {
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({
+      id: "custom-mix-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8),
+      quantity: 1,
+      customMix: parts
+    });
+  }
 
-      const subtotal =
-        getSubtotal();
+  saveCart();
+  renderCart();
+  showToast("Jouw eigen snoepmix is toegevoegd aan je winkelmand.");
+  openCart();
+}
 
-      const discount =
-        getDiscountAmount();
+function updateCartQuantity(id, quantity) {
+  const item = cart.find(entry => entry.id === id);
+  if (!item) return;
 
-      const shipping =
-        getShippingCost();
+  const safeQuantity = Math.max(0, Number(quantity) || 0);
+  if (safeQuantity === 0) {
+    cart = cart.filter(entry => entry.id !== id);
+  } else {
+    item.quantity = safeQuantity;
+  }
 
-      return Math.max(
-        0,
-        subtotal -
-        discount +
-        shipping
-      );
+  saveCart();
+  renderCart();
+}
 
-    }
+function removeFromCart(id) {
+  cart = cart.filter(item => item.id !== id);
+  saveCart();
+  renderCart();
+}
 
+function renderCustomMixDetails(parts) {
+  return parts.map(part =>
+    "<span>" + escapeHtml(part.name) + " " + part.grams + " g</span>"
+  ).join("<br>");
+}
 
+function renderCart() {
+  const count = getCartCount();
+  headerCartCount.textContent = String(count);
 
-    /* =========================================================
-       PRODUCT FILTERING
-    ========================================================= */
+  cartEmpty.style.display = cart.length ? "none" : "block";
 
-    function getFilteredProducts() {
+  cartItems.innerHTML = cart.map(item => {
+    const product = getCartProduct(item);
+    if (!product) return "";
 
-      const filtered =
-        PRODUCTS.filter(
-          product => {
+    const lineTotal = product.price * item.quantity;
+    const customDetails = product.customMix
+      ? '<div style="margin-top:6px;color:var(--brown-light);font-size:9px;line-height:1.5;">' + renderCustomMixDetails(product.customMix) + "</div>"
+      : "";
 
-            const categoryMatch =
-              activeCategory === "all" ||
-              product.category ===
-              activeCategory ||
-              (
-                activeCategory === "box" &&
-                product.category === "live"
-              );
+    const gift = product.freeBag
+      ? '<div style="margin-top:6px;color:var(--green);font-size:10px;font-weight:900;">🎁 Gratis extra snoepzakje inbegrepen</div>'
+      : "";
 
-            const searchable =
-              [
-                product.name,
-                product.description,
-                product.category,
-                product.unit
-              ]
-                .join(" ")
-                .toLowerCase();
-
-            const searchMatch =
-              !searchTerm ||
-              searchable.includes(
-                searchTerm
-              );
-
-            return (
-              categoryMatch &&
-              searchMatch
-            );
-
-          }
-        );
-
-      if (sortOption === "price-low") {
-        filtered.sort(
-          (a, b) => a.price - b.price
-        );
-      } else if (sortOption === "price-high") {
-        filtered.sort(
-          (a, b) => b.price - a.price
-        );
-      } else if (sortOption === "name") {
-        filtered.sort(
-          (a, b) =>
-            a.name.localeCompare(
-              b.name,
-              "nl-BE"
-            )
-        );
-      }
-
-      return filtered;
-
-    }
-
-
-    /* =========================================================
-       RENDER PRODUCTS
-    ========================================================= */
-
-    function renderProducts() {
-
-      const products =
-        getFilteredProducts();
-
-      if (productCount) {
-        productCount.textContent =
-          products.length +
-          (products.length === 1 ? " product" : " producten");
-      }
-
-      if (
-        products.length === 0
-      ) {
-
-        productsGrid.innerHTML = `
-
-          <div class="empty-products">
-
-            <strong>
-              Geen producten gevonden.
-            </strong>
-
-            <p>
-              Probeer een andere zoekopdracht of categorie.
-            </p>
-
+    return `
+      <div class="cart-item">
+        <div class="cart-item-image">
+          <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">
+        </div>
+        <div>
+          <h3 class="cart-item-title">${escapeHtml(product.name)}</h3>
+          <div class="cart-item-price">${formatCurrency(product.price)} · ${escapeHtml(product.unit || "per stuk")}</div>
+          ${customDetails}
+          ${gift}
+          <div class="quantity-controls">
+            <button type="button" class="quantity-button" data-minus="${escapeHtml(item.id)}" aria-label="Aantal verminderen">−</button>
+            <span class="quantity-number">${item.quantity}</span>
+            <button type="button" class="quantity-button" data-plus="${escapeHtml(item.id)}" aria-label="Aantal verhogen">+</button>
           </div>
-
-        `;
-
-        return;
-      }
-
-
-      productsGrid.innerHTML =
-        products.map(
-          product => `
-
-            <article
-              class="product-card"
-              data-product-id="${escapeHtml(product.id)}"
-            >
-
-              ${
-                product.badge
-                  ? `
-                    <span class="product-badge">
-                      ${escapeHtml(product.badge)}
-                    </span>
-                  `
-                  : ""
-              }
-
-
-              <div class="product-image">
-
-                <img
-                  src="${escapeHtml(product.image)}"
-                  alt="${escapeHtml(product.name)}"
-                  loading="lazy"
-                >
-
-              </div>
-
-
-              <div class="product-content">
-
-                <div class="product-category">
-                  ${escapeHtml(product.category)}
-                </div>
-
-
-                <h3 class="product-title">
-                  ${escapeHtml(product.name)}
-                </h3>
-
-
-                <p class="product-description">
-                  ${escapeHtml(product.description)}
-                </p>
-
-
-                <div class="product-bottom">
-
-                  <div>
-
-                    <div class="product-price">
-                      ${formatCurrency(product.price)}
-                    </div>
-
-                    <span class="product-unit">
-                      ${escapeHtml(product.unit)}
-                    </span>
-
-                  </div>
-
-
-                  <button
-                    type="button"
-                    class="add-button"
-                    data-add-to-cart="${escapeHtml(product.id)}"
-                  >
-                    + Toevoegen
-                  </button>
-
-                </div>
-
-              </div>
-
-            </article>
-
-          `
-        )
-        .join("");
-
-    }
-
-
-    /* =========================================================
-       CART ACTIONS
-    ========================================================= */
-
-    function addToCart(productId) {
-
-      const product =
-        getProductById(
-          productId
-        );
-
-      if (!product) {
-        return;
-      }
-
-      const existing =
-        cart.find(
-          item =>
-            item.id === productId
-        );
-
-      if (existing) {
-
-        existing.quantity += 1;
-
-      } else {
-
-        cart.push({
-          id: productId,
-          quantity: 1
-        });
-
-      }
-
-      saveCart();
-
-      renderCart();
-
-      showToast(
-        `${product.name} toegevoegd aan je mandje.`
-      );
-
-      openCart();
-
-    }
-
-
-    function updateCartQuantity(
-      productId,
-      quantity
-    ) {
-
-      const item =
-        cart.find(
-          cartItem =>
-            cartItem.id ===
-            productId
-        );
-
-      if (!item) {
-        return;
-      }
-
-      const safeQuantity =
-        Math.max(
-          0,
-          Number(quantity)
-        );
-
-      if (
-        safeQuantity === 0
-      ) {
-
-        cart =
-          cart.filter(
-            cartItem =>
-              cartItem.id !==
-              productId
-          );
-
-      } else {
-
-        item.quantity =
-          safeQuantity;
-
-      }
-
-      saveCart();
-
-      renderCart();
-
-    }
-
-
-    function removeFromCart(
-      productId
-    ) {
-
-      const product =
-        getCartProduct({ id: productId });
-
-      cart =
-        cart.filter(
-          item =>
-            item.id !== productId
-        );
-
-      saveCart();
-
-      renderCart();
-
-      if (product) {
-
-        showToast(
-          `${product.name} verwijderd.`
-        );
-
-      }
-
-    }
-
-
-    /* =========================================================
-       CART RENDER
-    ========================================================= */
-
-    function renderCart() {
-
-      const count =
-        getCartCount();
-
-      headerCartCount.textContent =
-        String(count);
-
-
-      const subtotal =
-        getSubtotal();
-
-      const discount =
-        getDiscountAmount();
-
-      const shipping =
-        getShippingCost();
-
-      const total =
-        getTotal();
-
-
-      cartEmpty.style.display =
-        cart.length === 0
-          ? "block"
-          : "none";
-
-
-      cartItems.innerHTML =
-        cart.map(
-          item => {
-
-            const product =
-              getCartProduct(
-                item
-              );
-
-            if (!product) {
-              return "";
-            }
-
-            const lineTotal =
-              product.price *
-              item.quantity;
-
-
-            return `
-
-              <div class="cart-item">
-
-                <div class="cart-item-image">
-
-                  <img
-                    src="${escapeHtml(product.image)}"
-                    alt="${escapeHtml(product.name)}"
-                  >
-
-                </div>
-
-
-                <div>
-
-                  <h3 class="cart-item-title">
-                    ${escapeHtml(product.name)}
-                  </h3>
-
-                  <div class="cart-item-price">
-                    ${formatCurrency(product.price)} · ${escapeHtml(product.unit || "per stuk")}
-                  </div>
-
-                  ${product.freeBag ? '<div style="margin-top:6px;color:var(--green);font-size:10px;font-weight:900;">🎁 Gratis extra snoepzakje inbegrepen</div>' : ""}
-
-
-                  <div class="quantity-controls">
-
-                    <button
-                      type="button"
-                      class="quantity-button"
-                      data-minus="${escapeHtml(product.id)}"
-                      aria-label="Aantal verminderen"
-                    >
-                      −
-                    </button>
-
-                    <span
-                      class="quantity-number"
-                    >
-                      ${item.quantity}
-                    </span>
-
-                    <button
-                      type="button"
-                      class="quantity-button"
-                      data-plus="${escapeHtml(product.id)}"
-                      aria-label="Aantal verhogen"
-                    >
-                      +
-                    </button>
-
-                  </div>
-
-                </div>
-
-
-                <div class="cart-item-right">
-
-                  <div class="cart-item-total">
-                    ${formatCurrency(lineTotal)}
-                  </div>
-
-                  <button
-                    type="button"
-                    class="remove-item"
-                    data-remove="${escapeHtml(product.id)}"
-                  >
-                    Verwijderen
-                  </button>
-
-                </div>
-
-              </div>
-
-            `;
-
-          }
-        )
-        .join("");
-
-
-      cartSubtotal.textContent =
-        formatCurrency(
-          subtotal
-        );
-
-
-      cartShipping.textContent =
-        shipping === 0 && subtotal > 0
-          ? "GRATIS"
-          : formatCurrency(
-              shipping
-            );
-
-
-      cartTotal.textContent =
-        formatCurrency(
-          total
-        );
-
-
-      checkoutButton.disabled =
-        cart.length === 0;
-
-
-      updateShippingProgress();
-
-      updateCheckoutSummary();
-
-    }
-
-
-    /* =========================================================
-       SHIPPING PROGRESS
-    ========================================================= */
-
-    function updateShippingProgress() {
-
-      const subtotal =
-        getSubtotal();
-
-      const discounted =
-        Math.max(
-          0,
-          subtotal -
-          getDiscountAmount()
-        );
-
-
-      if (
-        discounted <= 0
-      ) {
-
-        shippingProgressBar.style.width =
-          "0%";
-
-        shippingRemaining.textContent =
-          formatCurrency(
-            SHOP_CONFIG.freeShippingThreshold
-          );
-
-        shippingMessage.textContent =
-          "Voeg producten toe om gratis verzending te verdienen.";
-
-        return;
-      }
-
-
-      if (
-        discounted >=
-        SHOP_CONFIG.freeShippingThreshold
-      ) {
-
-        shippingProgressBar.style.width =
-          "100%";
-
-        shippingRemaining.textContent =
-          "GRATIS";
-
-        shippingMessage.textContent =
-          "Top! Je bestelling komt in aanmerking voor gratis verzending.";
-
-        return;
-      }
-
-
-      const remaining =
-        SHOP_CONFIG.freeShippingThreshold -
-        discounted;
-
-
-      const percentage =
-        Math.min(
-          100,
-          (
-            discounted /
-            SHOP_CONFIG.freeShippingThreshold
-          ) *
-          100
-        );
-
-
-      shippingProgressBar.style.width =
-        `${percentage}%`;
-
-      shippingRemaining.textContent =
-        formatCurrency(
-          remaining
-        );
-
-      shippingMessage.textContent =
-        `Nog ${formatCurrency(remaining)} en je krijgt gratis verzending.`;
-
-    }
-
-
-    /* =========================================================
-       DISCOUNT
-    ========================================================= */
-
-    function applyDiscount() {
-
-      const code =
-        discountInput.value
-          .trim()
-          .toUpperCase();
-
-
-      if (!code) {
-
-        appliedDiscount = 0;
-
-        discountMessage.textContent =
-          "";
-
-        renderCart();
-
-        return;
-
-      }
-
-
-      if (
-        code ===
-        SHOP_CONFIG.discountCode
-      ) {
-
-        appliedDiscount =
-          SHOP_CONFIG.discountPercentage /
-          100;
-
-        discountMessage.textContent =
-          `${SHOP_CONFIG.discountPercentage}% korting toegepast.`;
-
-        showToast(
-          "Live korting toegepast!"
-        );
-
-      } else {
-
-        appliedDiscount = 0;
-
-        discountMessage.textContent =
-          "Deze kortingscode is niet geldig.";
-
-        discountMessage.style.color =
-          "var(--red)";
-
-        renderCart();
-
-        return;
-
-      }
-
-
-      discountMessage.style.color =
-        "var(--green)";
-
-      renderCart();
-
-    }
-
-
-    /* =========================================================
-       CHECKOUT SUMMARY
-    ========================================================= */
-
-    function updateCheckoutSummary() {
-
-      checkoutSummaryList.innerHTML =
-        cart.map(
-          item => {
-
-            const product =
-              getCartProduct(
-                item
-              );
-
-            if (!product) {
-              return "";
-            }
-
-            const itemTotal =
-              product.price *
-              item.quantity;
-
-
-            return `
-
-              <div class="checkout-summary-item">
-
-                <span>
-
-                  ${escapeHtml(product.name)}
-
-                  <br>
-
-                  <small>
-                    ${product.unit || (item.quantity + " × " + formatCurrency(product.price))}
-                  </small>
-
-                </span>
-
-                <strong>
-                  ${formatCurrency(itemTotal)}
-                </strong>
-
-              </div>
-
-            `;
-
-          }
-        )
-        .join("");
-
-
-      checkoutSubtotal.textContent =
-        formatCurrency(
-          getSubtotal()
-        );
-
-
-      const shipping =
-        getShippingCost();
-
-      checkoutShipping.textContent =
-        shipping === 0 && getSubtotal() > 0
-          ? "GRATIS"
-          : formatCurrency(
-              shipping
-            );
-
-
-      checkoutTotal.textContent =
-        formatCurrency(
-          getTotal()
-        );
-
-    }
-
-
-    /* =========================================================
-       OPEN / CLOSE CART
-    ========================================================= */
-
-    function openCart() {
-
-      cartOverlay.classList.add(
-        "open"
-      );
-
-      cartOverlay.setAttribute(
-        "aria-hidden",
-        "false"
-      );
-
-      document.body.classList.add(
-        "cart-open"
-      );
-
-      closeCartButton.focus();
-
-    }
-
-
-    function closeCart() {
-
-      cartOverlay.classList.remove(
-        "open"
-      );
-
-      cartOverlay.setAttribute(
-        "aria-hidden",
-        "true"
-      );
-
-      document.body.classList.remove(
-        "cart-open"
-      );
-
-    }
-
-
-    /* =========================================================
-       OPEN / CLOSE CHECKOUT
-    ========================================================= */
-
-    function openCheckout() {
-
-      if (
-        cart.length === 0
-      ) {
-
-        showToast(
-          "Je winkelmandje is nog leeg."
-        );
-
-        return;
-
-      }
-
-
-      updateCheckoutSummary();
-
-      checkoutModal.classList.add(
-        "open"
-      );
-
-      checkoutModal.setAttribute(
-        "aria-hidden",
-        "false"
-      );
-
-      document.body.classList.add(
-        "cart-open"
-      );
-
-      setTimeout(
-        () => {
-
-          const firstName =
-            document.getElementById(
-              "firstName"
-            );
-
-          if (firstName) {
-            firstName.focus();
-          }
-
-        },
-        50
-      );
-
-    }
-
-
-    function closeCheckout() {
-
-      checkoutModal.classList.remove(
-        "open"
-      );
-
-      checkoutModal.setAttribute(
-        "aria-hidden",
-        "true"
-      );
-
-      document.body.classList.remove(
-        "cart-open"
-      );
-
-    }
-
-
-    /* =========================================================
-       FORM VALIDATION
-    ========================================================= */
-
-    function validateCheckoutForm() {
-
-      const requiredFields =
-        checkoutForm.querySelectorAll(
-          "[required]"
-        );
-
-
-      let valid = true;
-
-      let firstInvalid = null;
-
-
-      requiredFields.forEach(
-        field => {
-
-          const value =
-            String(
-              field.value || ""
-            ).trim();
-
-
-          let fieldValid =
-            value.length > 0;
-
-
-          if (
-            field.type ===
-            "email" &&
-            fieldValid
-          ) {
-
-            const emailPattern =
-              /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-            fieldValid =
-              emailPattern.test(
-                value
-              );
-
-          }
-
-
-          field.setAttribute(
-            "aria-invalid",
-            fieldValid
-              ? "false"
-              : "true"
-          );
-
-
-          if (!fieldValid) {
-
-            valid = false;
-
-            if (!firstInvalid) {
-              firstInvalid = field;
-            }
-
-          }
-
-        }
-      );
-
-
-      if (
-        firstInvalid
-      ) {
-
-        firstInvalid.focus();
-
-        showToast(
-          "Controleer de verplichte velden."
-        );
-
-      }
-
-
-      return valid;
-
-    }
-
-
-    /* =========================================================
-       FORM DATA
-    ========================================================= */
-
-    function getCheckoutData() {
-
-      const formData =
-        new FormData(
-          checkoutForm
-        );
-
-
-      return {
-
-        customer: {
-
-          firstName:
-            String(
-              formData.get(
-                "firstName"
-              ) || ""
-            ).trim(),
-
-          lastName:
-            String(
-              formData.get(
-                "lastName"
-              ) || ""
-            ).trim(),
-
-          email:
-            String(
-              formData.get(
-                "email"
-              ) || ""
-            ).trim(),
-
-          phone:
-            String(
-              formData.get(
-                "phone"
-              ) || ""
-            ).trim()
-
-        },
-
-
-        shippingAddress: {
-
-          street:
-            String(
-              formData.get(
-                "street"
-              ) || ""
-            ).trim(),
-
-          houseNumber:
-            String(
-              formData.get(
-                "houseNumber"
-              ) || ""
-            ).trim(),
-
-          postalCode:
-            String(
-              formData.get(
-                "postalCode"
-              ) || ""
-            ).trim(),
-
-          city:
-            String(
-              formData.get(
-                "city"
-              ) || ""
-            ).trim(),
-
-          country:
-            String(
-              formData.get(
-                "country"
-              ) || "BE"
-            ).trim()
-
-        },
-
-
-        note:
-          String(
-            formData.get(
-              "note"
-            ) || ""
-          ).trim()
-
-      };
-
-    }
-
-
-    /* =========================================================
-       CHECKOUT SUBMIT
-       Dit maakt momenteel nog GEEN betaling.
-    ========================================================= */
-
-    function handleCheckoutSubmit(
-      event
-    ) {
-
-      event.preventDefault();
-
-
-      if (
-        !validateCheckoutForm()
-      ) {
-        return;
-      }
-
-
-      if (
-        cart.length === 0
-      ) {
-
-        showToast(
-          "Je winkelmandje is leeg."
-        );
-
-        closeCheckout();
-
-        return;
-
-      }
-
-
-      const orderData = {
-
-        items:
-          cart.map(
-            item => {
-
-              const product =
-                getCartProduct(
-                  item
-                );
-
-              return {
-
-                productId:
-                  item.id,
-
-                productName:
-                  product
-                    ? product.name
-                    : "",
-
-                quantity:
-                  item.quantity,
-
-                unitPrice:
-                  product
-                    ? product.price
-                    : 0,
-
-                      };
-
-            }
-          ),
-
-        customer:
-          getCheckoutData(),
-
-        subtotal:
-          getSubtotal(),
-
-        discount:
-          getDiscountAmount(),
-
-        shipping:
-          getShippingCost(),
-
-        total:
-          getTotal(),
-
-        createdAt:
-          new Date()
-            .toISOString()
-
-      };
-
-
-      /*
-        TEMPORAIRE TESTOPSLAG
-
-        We slaan de checkout tijdelijk op in
-        localStorage zodat we nu eerst de voorkant
-        kunnen testen.
-
-        Later vervangen we dit door:
-        Supabase + Mollie + echte orderstatus.
-      */
-
-      try {
-
-        localStorage.setItem(
-          "hummieBearLastCheckout",
-          JSON.stringify(
-            orderData
-          )
-        );
-
-      } catch (error) {
-
-        console.warn(
-          "Testbestelling kon niet lokaal worden opgeslagen.",
-          error
-        );
-
-      }
-
-
-      checkoutSubmit.disabled =
-        true;
-
-      checkoutSubmit.textContent =
-        "Bestelling gecontroleerd...";
-
-
-      setTimeout(
-        () => {
-
-          checkoutSubmit.disabled =
-            false;
-
-          checkoutSubmit.textContent =
-            "Controleer bestelling";
-
-          showToast(
-            "Je bestelling is gecontroleerd. Betaling komt in de volgende stap."
-          );
-
-        },
-        900
-      );
-
-    }
-
-
-    /* =========================================================
-       EVENT LISTENERS
-    ========================================================= */
-
-    productsGrid.addEventListener(
-      "click",
-      event => {
-
-        const button =
-          event.target.closest(
-            "[data-add-to-cart]"
-          );
-
-        if (!button) {
-          return;
-        }
-
-        addToCart(
-          button.dataset.addToCart
-        );
-
-      }
-    );
-
-
-    cartItems.addEventListener(
-      "click",
-      event => {
-
-        const minus =
-          event.target.closest(
-            "[data-minus]"
-          );
-
-        const plus =
-          event.target.closest(
-            "[data-plus]"
-          );
-
-        const remove =
-          event.target.closest(
-            "[data-remove]"
-          );
-
-
-        if (minus) {
-
-          const id =
-            minus.dataset.minus;
-
-          const item =
-            cart.find(
-              cartItem =>
-                cartItem.id === id
-            );
-
-          if (item) {
-
-            updateCartQuantity(
-              id,
-              item.quantity - 1
-            );
-
-          }
-
-          return;
-
-        }
-
-
-        if (plus) {
-
-          const id =
-            plus.dataset.plus;
-
-          const item =
-            cart.find(
-              cartItem =>
-                cartItem.id === id
-            );
-
-          if (item) {
-
-            updateCartQuantity(
-              id,
-              item.quantity + 1
-            );
-
-          }
-
-          return;
-
-        }
-
-
-        if (remove) {
-
-          removeFromCart(
-            remove.dataset.remove
-          );
-
-        }
-
-      }
-    );
-
-
-    categoryButtons.forEach(
-      button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            activeCategory =
-              button.dataset.category;
-
-            categoryButtons.forEach(
-              otherButton => {
-
-                otherButton.classList.toggle(
-                  "active",
-                  otherButton ===
-                  button
-                );
-
-              }
-            );
-
-            renderProducts();
-
-          }
-        );
-
-      }
-    );
-
-
-    productSearch.addEventListener(
-      "input",
-      () => {
-
-        searchTerm =
-          productSearch.value
-            .trim()
-            .toLowerCase();
-
-        renderProducts();
-
-      }
-    );
-
-
-    productSort.addEventListener(
-      "change",
-      () => {
-
-        sortOption =
-          productSort.value;
-
-        renderProducts();
-
-      }
-    );
-
-
-    productsGrid.addEventListener(
-      "click",
-      event => {
-
-        const retry =
-          event.target.closest(
-            "[data-retry-products]"
-          );
-
-        if (!retry) {
-          return;
-        }
-
-        loadProductsFromSupabase();
-
-      }
-    );
-
-
-    openCartButton.addEventListener(
-      "click",
-      openCart
-    );
-
-
-    closeCartButton.addEventListener(
-      "click",
-      closeCart
-    );
-
-
-    cartOverlay.addEventListener(
-      "click",
-      event => {
-
-        if (
-          event.target ===
-          cartOverlay
-        ) {
-
-          closeCart();
-
-        }
-
-      }
-    );
-
-
-    checkoutButton.addEventListener(
-      "click",
-      openCheckout
-    );
-
-
-    checkoutCloseButton.addEventListener(
-      "click",
-      closeCheckout
-    );
-
-
-    checkoutModal.addEventListener(
-      "click",
-      event => {
-
-        if (
-          event.target ===
-          checkoutModal
-        ) {
-
-          closeCheckout();
-
-        }
-
-      }
-    );
-
-
-    discountButton.addEventListener(
-      "click",
-      applyDiscount
-    );
-
-
-    discountInput.addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          event.key ===
-          "Enter"
-        ) {
-
-          event.preventDefault();
-
-          applyDiscount();
-
-        }
-
-      }
-    );
-
-
-    checkoutForm.addEventListener(
-      "submit",
-      handleCheckoutSubmit
-    );
-
-
-    document.querySelectorAll("[data-fixed-mix]").forEach(button => {
-      button.addEventListener("click", () => {
-        addToCart(button.dataset.fixedMix);
-      });
-    });
-
-    const floatingCandyPromo = document.getElementById("floatingCandyPromo");
-    const closeFloatingCandyPromo = document.getElementById("closeFloatingCandyPromo");
-    const floatingCandyPromoCta = document.getElementById("floatingCandyPromoCta");
-
-    if (closeFloatingCandyPromo && floatingCandyPromo) {
-      closeFloatingCandyPromo.addEventListener("click", () => {
-        floatingCandyPromo.remove();
-        try { sessionStorage.setItem("hummieBearPromoClosed", "1"); } catch (error) {}
-      });
-      try {
-        if (sessionStorage.getItem("hummieBearPromoClosed") === "1") {
-          floatingCandyPromo.remove();
-        }
-      } catch (error) {}
-    }
-
-    if (floatingCandyPromoCta) {
-      floatingCandyPromoCta.addEventListener("click", () => {
-        document.getElementById("popularMixesTitle")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    }
-
-
-    document.querySelectorAll("[data-fixed-mix]").forEach(button => {
-      button.addEventListener("click", () => addToCart(button.dataset.fixedMix));
-    });
-
-    const floatingCandyPromo = document.getElementById("floatingCandyPromo");
-    const closeFloatingCandyPromo = document.getElementById("closeFloatingCandyPromo");
-    const floatingCandyPromoCta = document.getElementById("floatingCandyPromoCta");
-
-    if (closeFloatingCandyPromo && floatingCandyPromo) {
-      closeFloatingCandyPromo.addEventListener("click", () => {
-        floatingCandyPromo.remove();
-        try { sessionStorage.setItem("hummieBearPromoClosed", "1"); } catch (error) {}
-      });
-      try {
-        if (sessionStorage.getItem("hummieBearPromoClosed") === "1") floatingCandyPromo.remove();
-      } catch (error) {}
-    }
-
-    if (floatingCandyPromoCta) {
-      floatingCandyPromoCta.addEventListener("click", () => {
-        document.getElementById("popularMixesTitle")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    }
-
-
-    heroShopButton.addEventListener(
-      "click",
-      () => {
-
-        document
-          .getElementById(
-            "shop-content"
-          )
-          .scrollIntoView({
-            behavior: "smooth"
-          });
-
-      }
-    );
-
-
-    scrollShopButton.addEventListener(
-      "click",
-      () => {
-
-        document
-          .getElementById(
-            "shop-content"
-          )
-          .scrollIntoView({
-            behavior: "smooth"
-          });
-
-      }
-    );
-
-
-    document.addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          event.key ===
-          "Escape"
-        ) {
-
-          if (
-            checkoutModal.classList.contains(
-              "open"
-            )
-          ) {
-
-            closeCheckout();
-
-            return;
-
-          }
-
-
-          if (
-            cartOverlay.classList.contains(
-              "open"
-            )
-          ) {
-
-            closeCart();
-
-          }
-
-        }
-
-      }
-    );
-
-
-    /* =========================================================
-       INITIALISATION
-    ========================================================= */
-
-    loadProductsFromSupabase();
-
+        </div>
+        <div class="cart-item-right">
+          <div class="cart-item-total">${formatCurrency(lineTotal)}</div>
+          <button type="button" class="remove-item" data-remove="${escapeHtml(item.id)}">Verwijderen</button>
+        </div>
+      </div>`;
+  }).join("");
+
+  const subtotal = getSubtotal();
+  const shipping = getShippingCost();
+
+  cartSubtotal.textContent = formatCurrency(subtotal);
+  cartShipping.textContent = shipping === 0 && subtotal > 0 ? "GRATIS" : formatCurrency(shipping);
+  cartTotal.textContent = formatCurrency(getTotal());
+  checkoutButton.disabled = cart.length === 0;
+
+  updateShippingProgress();
+  updateCheckoutSummary();
+}
+
+function updateShippingProgress() {
+  const discounted = Math.max(0, getSubtotal() - getDiscountAmount());
+
+  if (discounted <= 0) {
+    shippingProgressBar.style.width = "0%";
+    shippingRemaining.textContent = formatCurrency(SHOP_CONFIG.freeShippingThreshold);
+    shippingMessage.textContent = "Voeg producten toe om gratis verzending te verdienen.";
+    return;
+  }
+
+  if (discounted >= SHOP_CONFIG.freeShippingThreshold) {
+    shippingProgressBar.style.width = "100%";
+    shippingRemaining.textContent = "GRATIS";
+    shippingMessage.textContent = "Top! Je bestelling komt in aanmerking voor gratis verzending.";
+    return;
+  }
+
+  const remaining = SHOP_CONFIG.freeShippingThreshold - discounted;
+  shippingProgressBar.style.width = Math.min(100, discounted / SHOP_CONFIG.freeShippingThreshold * 100) + "%";
+  shippingRemaining.textContent = formatCurrency(remaining);
+  shippingMessage.textContent = "Nog " + formatCurrency(remaining) + " en je krijgt gratis verzending.";
+}
+
+function updateCheckoutSummary() {
+  checkoutSummaryList.innerHTML = cart.map(item => {
+    const product = getCartProduct(item);
+    if (!product) return "";
+
+    const details = product.customMix
+      ? product.customMix.map(part => part.name + " " + part.grams + " g").join(", ")
+      : product.unit;
+
+    return `
+      <div class="checkout-summary-item">
+        <span>${escapeHtml(product.name)} × ${item.quantity}<br><small>${escapeHtml(details)}</small></span>
+        <strong>${formatCurrency(product.price * item.quantity)}</strong>
+      </div>`;
+  }).join("");
+
+  checkoutSubtotal.textContent = formatCurrency(getSubtotal());
+  const shipping = getShippingCost();
+  checkoutShipping.textContent = shipping === 0 && getSubtotal() > 0 ? "GRATIS" : formatCurrency(shipping);
+  checkoutTotal.textContent = formatCurrency(getTotal());
+}
+
+function applyDiscount() {
+  const code = discountInput.value.trim().toUpperCase();
+  discountMessage.style.color = "var(--green)";
+
+  if (!code) {
+    appliedDiscount = 0;
+    discountMessage.textContent = "";
     renderCart();
+    return;
+  }
 
-  </script>
+  if (code === SHOP_CONFIG.discountCode) {
+    appliedDiscount = SHOP_CONFIG.discountPercentage / 100;
+    discountMessage.textContent = SHOP_CONFIG.discountPercentage + "% korting toegepast.";
+    showToast("Live korting toegepast!");
+  } else {
+    appliedDiscount = 0;
+    discountMessage.style.color = "var(--red)";
+    discountMessage.textContent = "Deze kortingscode is niet geldig.";
+  }
 
+  renderCart();
+}
+
+function openCart() {
+  cartOverlay.classList.add("open");
+  cartOverlay.setAttribute("aria-hidden", "false");
+  document.body.classList.add("cart-open");
+}
+
+function closeCart() {
+  cartOverlay.classList.remove("open");
+  cartOverlay.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("cart-open");
+}
+
+function openCheckout() {
+  if (!cart.length) {
+    showToast("Je winkelmandje is nog leeg.");
+    return;
+  }
+
+  updateCheckoutSummary();
+  checkoutModal.classList.add("open");
+  checkoutModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("cart-open");
+  setTimeout(() => $("firstName")?.focus(), 50);
+}
+
+function closeCheckout() {
+  checkoutModal.classList.remove("open");
+  checkoutModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("cart-open");
+}
+
+function validateCheckoutForm() {
+  let valid = true;
+  let firstInvalid = null;
+
+  checkoutForm.querySelectorAll("[required]").forEach(field => {
+    const value = String(field.value || "").trim();
+    let ok = value.length > 0;
+
+    if (ok && field.type === "email") {
+      ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    field.setAttribute("aria-invalid", ok ? "false" : "true");
+    if (!ok) {
+      valid = false;
+      if (!firstInvalid) firstInvalid = field;
+    }
+  });
+
+  if (firstInvalid) {
+    firstInvalid.focus();
+    showToast("Controleer de verplichte velden.");
+  }
+
+  return valid;
+}
+
+function getCheckoutData() {
+  const data = new FormData(checkoutForm);
+  return {
+    customer: {
+      firstName: String(data.get("firstName") || "").trim(),
+      lastName: String(data.get("lastName") || "").trim(),
+      email: String(data.get("email") || "").trim(),
+      phone: String(data.get("phone") || "").trim()
+    },
+    shippingAddress: {
+      street: String(data.get("street") || "").trim(),
+      houseNumber: String(data.get("houseNumber") || "").trim(),
+      postalCode: String(data.get("postalCode") || "").trim(),
+      city: String(data.get("city") || "").trim(),
+      country: String(data.get("country") || "BE").trim()
+    },
+    note: String(data.get("note") || "").trim()
+  };
+}
+
+function handleCheckoutSubmit(event) {
+  event.preventDefault();
+
+  if (!validateCheckoutForm() || !cart.length) {
+    if (!cart.length) showToast("Je winkelmandje is leeg.");
+    return;
+  }
+
+  const orderData = {
+    items: cart.map(item => {
+      const product = getCartProduct(item);
+      return {
+        productId: item.id,
+        productName: product?.name || "",
+        quantity: item.quantity,
+        unitPrice: product?.price || 0,
+        customMix: product?.customMix || null
+      };
+    }),
+    customer: getCheckoutData(),
+    subtotal: getSubtotal(),
+    discount: getDiscountAmount(),
+    shipping: getShippingCost(),
+    total: getTotal(),
+    createdAt: new Date().toISOString()
+  };
+
+  try {
+    localStorage.setItem("hummieBearLastCheckout", JSON.stringify(orderData));
+  } catch (error) {
+    console.warn("Checkout kon niet lokaal worden opgeslagen.", error);
+  }
+
+  checkoutSubmit.disabled = true;
+  checkoutSubmit.textContent = "Bestelling gecontroleerd...";
+
+  setTimeout(() => {
+    checkoutSubmit.disabled = false;
+    checkoutSubmit.textContent = "Controleer bestelling";
+    showToast("Je bestelling staat klaar. De echte betaalstap wordt later gekoppeld.");
+  }, 700);
+}
+
+function showToast(message) {
+  const toast = $("toast");
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(showToast.timeout);
+  showToast.timeout = setTimeout(() => toast.classList.remove("show"), 3500);
+}
+
+// Fixed mix buttons.
+document.querySelectorAll("[data-fixed-mix]").forEach(button => {
+  button.addEventListener("click", () => addToCart(button.dataset.fixedMix));
+});
+
+// Pick & Mix selectors.
+document.querySelectorAll("[data-candy-weight]").forEach(select => {
+  select.addEventListener("change", updatePickMixPreview);
+});
+addPickMixButton.addEventListener("click", addPickMixToCart);
+
+// Cart controls.
+$("openCartButton").addEventListener("click", openCart);
+$("closeCartButton").addEventListener("click", closeCart);
+cartOverlay.addEventListener("click", event => {
+  if (event.target === cartOverlay) closeCart();
+});
+
+cartItems.addEventListener("click", event => {
+  const minus = event.target.closest("[data-minus]");
+  const plus = event.target.closest("[data-plus]");
+  const remove = event.target.closest("[data-remove]");
+
+  if (minus) {
+    const item = cart.find(entry => entry.id === minus.dataset.minus);
+    if (item) updateCartQuantity(item.id, item.quantity - 1);
+  } else if (plus) {
+    const item = cart.find(entry => entry.id === plus.dataset.plus);
+    if (item) updateCartQuantity(item.id, item.quantity + 1);
+  } else if (remove) {
+    removeFromCart(remove.dataset.remove);
+  }
+});
+
+// Checkout.
+checkoutButton.addEventListener("click", openCheckout);
+$("checkoutCloseButton").addEventListener("click", closeCheckout);
+checkoutModal.addEventListener("click", event => {
+  if (event.target === checkoutModal) closeCheckout();
+});
+checkoutForm.addEventListener("submit", handleCheckoutSubmit);
+
+// Discount.
+discountButton.addEventListener("click", applyDiscount);
+discountInput.addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    applyDiscount();
+  }
+});
+
+// Hero / shop navigation.
+$("heroShopButton").addEventListener("click", () => $("pickMixBuilder").scrollIntoView({behavior:"smooth", block:"start"}));
+$("scrollShopButton").addEventListener("click", () => $("pickMixBuilder").scrollIntoView({behavior:"smooth", block:"start"}));
+
+// Floating promotion.
+const floatingCandyPromo = $("floatingCandyPromo");
+const closeFloatingCandyPromo = $("closeFloatingCandyPromo");
+const floatingCandyPromoCta = $("floatingCandyPromoCta");
+
+if (closeFloatingCandyPromo && floatingCandyPromo) {
+  closeFloatingCandyPromo.addEventListener("click", () => {
+    floatingCandyPromo.remove();
+    try { sessionStorage.setItem("hummieBearPromoClosed", "1"); } catch (error) {}
+  });
+  try {
+    if (sessionStorage.getItem("hummieBearPromoClosed") === "1") floatingCandyPromo.remove();
+  } catch (error) {}
+}
+
+if (floatingCandyPromoCta) {
+  floatingCandyPromoCta.addEventListener("click", () => {
+    $("pickMixBuilder")?.scrollIntoView({behavior:"smooth", block:"start"});
+  });
+}
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") {
+    if (checkoutModal.classList.contains("open")) closeCheckout();
+    else if (cartOverlay.classList.contains("open")) closeCart();
+  }
+});
+
+loadCart();
+renderCart();
+updatePickMixPreview();
+
+</script>
 </body>
 </html>
