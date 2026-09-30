@@ -43,3 +43,5 @@ html{scroll-behavior:smooth;scroll-padding-top:150px}
 .shipping-strip-inner strong{font-weight:900}
 .cart-shipping-note{display:block;text-align:right;color:var(--hb-pink-2);font-size:9px;font-weight:900;margin-top:-2px}
 @media(max-width:620px){.shipping-strip-inner{justify-content:flex-start;gap:8px 18px;padding:11px 0;font-size:12px}.shipping-strip-inner span{width:100%}.cart-shipping-note{text-align:left}}
+
+.cart-ready-mix{padding:20px;margin:8px 0 16px;border:2px solid var(--hb-pink);border-radius:22px;background:linear-gradient(135deg,#fff,#fff0f6)}.cart-ready-mix-badge{font-size:9px;font-weight:900;letter-spacing:.12em;color:var(--hb-pink-2);margin-bottom:8px}.cart-ready-mix h3{font-size:22px;margin:0 0 7px}.cart-ready-mix p{font-size:11px;line-height:1.6;color:var(--hb-muted);margin:0 0 12px}.cart-ready-mix-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:13px}.cart-ready-mix-total strong{font-size:20px}
