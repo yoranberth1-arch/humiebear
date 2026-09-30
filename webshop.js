@@ -2,34 +2,44 @@
 "use strict";
 const CONFIG={pricePer100g:1.70,freeBagFrom:500,currency:"EUR",locale:"nl-BE",storageKey:"hummieBearShopCartV2",email:"hummiebearbusiness@gmail.com",tiktokUrl:"https://www.tiktok.com/@hummiebear"};
 const PRODUCTS=[
-["goudberen","Goudberen","Fruitgum","fruit","🐻","images/gummy-candy.png"],
-["happy-cola","Happy Cola flesjes","Colasmaak","fruit","🥤","images/gummy-candy.png"],
-["happy-cherries","Happy Cherries","Kers","fruit","🍒","images/candy-display.png"],
-["happy-peaches","Happy Peaches","Perzik","fruit","🍑","images/gummy-candy.png"],
-["kikkers","Kikkers","Fruitgum","fruit","🐸","images/gummy-candy.png"],
-["banaantjes","Banaantjes","Banaan","fruit","🍌","images/gummy-candy.png"],
-["zure-wormen","Zure wormen","Zuur","zuur","🪱","images/gummy-candy.png"],
-["zure-aardbeien","Zure aardbeien","Zuur fruit","zuur","🍓","images/candy-display.png"],
-["aardbei-schijfjes","Aardbei schijfjes","Fruit","fruit","🍓","images/candy-display.png"],
-["zure-matten","Zure matten aardbei","Zuur","zuur","🍬","images/gummy-candy.png"],
-["zure-tongen","Zure tongen","Zuur","zuur","👅","images/gummy-candy.png"],
-["zure-cola","Zure cola flesjes","Zuur / cola","zuur","🥤","images/gummy-candy.png"],
-["rode-lippen","Rode lippen","Zacht snoep","fruit","💋","images/gummy-candy.png"],
-["smurfen","Smurfen","Fruitgum","fruit","🔵","images/candy-display.png"],
-["tangfastics","Tangfastics","Zuur & fruit","zuur","🍭","images/gummy-candy.png"],
-["balla-balla","Balla Balla aardbei","Aardbei","fruit","🍓","images/candy-display.png"],
-["watermeloen","Watermeloen schijfjes","Watermeloen","fruit","🍉","images/candy-display.png"],
-["jelly-beans","Jelly Beans","Bonte mix","mix","🌈","images/candy-display.png"],
-["engelse-drop","Engelse drop","Drop","drop","🖤","images/gummy-candy.png"],
-["harlekijntjes","Harlekijntjes","Drop / zoet","drop","🍬","images/gummy-candy.png"]
+["goudberen","Goudberen","Fruitgum","fruit","🐻","https://assets.haribo.com/image/upload/s--2uTBijQI--/ar_2637%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_814/v1/consumer-sites/nl-be/Products/Goudberen-250g-5996379305912.png"],
+["happy-cola","Happy Cola flesjes","Colasmaak","fruit","🥤","https://assets.haribo.com/image/upload/s--_UwD_mEq--/ar_2637%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_816/v1/consumer-sites/nl-be/Products/Happy-cola-250g-5996379315959.png"],
+["happy-cherries","Happy Cherries","Kers","fruit","🍒","https://assets.haribo.com/image/upload/s--b76Ao2wS--/ar_2641%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_812/v1/consumer-sites/nl-be/Products/Happy-Cherries-250g-4001686309599.png"],
+["happy-peaches","Happy Peaches","Perzik","fruit","🍑","https://assets.haribo.com/image/upload/s--TcX6WJCF--/ar_2658%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_819/v1/consumer-sites/nl-be/Products/Happy-Peaches-250g-5996379380803.png"],
+["kikkers","Kikkers","Fruitgum","fruit","🐸","https://assets.haribo.com/image/upload/s--wJAD9dud--/ar_2658%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_807/v1/consumer-sites/nl-nl/Products/Kikkers-250g-4001686472620.png"],
+["banaantjes","Banaantjes","Banaan","fruit","🍌","https://assets.haribo.com/image/upload/s--ubpSn0by--/ar_2580%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_804/v1/consumer-sites/nl-be/Products/Bananas-240g-4001686423189.png"],
+["zure-wormen","Zure wormen","Zuur","zuur","🪱","https://shop.r10s.jp/gobuykorea/cabinet/food/haribo/haribo-worms-80g-1.jpg"],
+["zure-aardbeien","Zure aardbeien","Zuur fruit","zuur","🍓","https://media.cdn.kaufland.de/product-images/2048x2048/dd01b46b261c1d96a43d2aadc797b295.webp"],
+["aardbei-schijfjes","Aardbei schijfjes","Fruit","fruit","🍓","https://candytown.fi/cdn/shop/files/mansikka-viipale-100g.jpg?v=1729116130"],
+["zure-matten","Zure matten aardbei","Zuur","zuur","🍬","https://media.s-bol.com/B6plEKW72Bw2/1200x793.jpg"],
+["zure-tongen","Zure tongen","Zuur","zuur","👅","https://assets.haribo.com/image/upload/s--3TiwSEc7--/ar_2900%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_817/v1/consumer-sites/nl-be/Products/Tongue-FZZ-185g-4001686369722.png"],
+["zure-cola","Zure cola flesjes","Zuur / cola","zuur","🥤","https://media.s-bol.com/NGm9jrWzgqpv/ZNgZRw/550x542.jpg"],
+["rode-lippen","Rode lippen","Zacht snoep","fruit","💋","https://media.s-bol.com/B6plEKW72Bw2/1200x793.jpg"],
+["smurfen","Smurfen","Fruitgum","fruit","🔵","https://www.lebensmittel-sonderposten.de/media/bf/53/a8/1731924744/haribo_die_schl-mpfe_1350g_front_96dpi.jpg?ts=1731924744"],
+["tangfastics","Tangfastics","Zuur & fruit","zuur","🍭","https://assets.haribo.com/image/upload/s--YyLhJmWw--/ar_2658%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_817/v1/consumer-sites/nl-be/Products/Tanfastics-250g-5012035924034.png"],
+["balla-balla","Balla Balla aardbei","Aardbei","fruit","🍓","https://alfacreme.com/wp-content/uploads/2024/08/haribo-balla-balla-100g-c18.jpg"],
+["watermeloen","Watermeloen schijfjes","Watermeloen","fruit","🍉","https://clickandcollect.scandipark.dk/media/image/product/12978/lg/haribo-vandmelon-150styk-dase.jpg"],
+["jelly-beans","Jelly Beans","Bonte mix","mix","🌈","https://www.hancocks.co.uk/_next/image?q=75&url=https%3A%2F%2Fapi.hancocks.co.uk%2Fmedia%2Fcatalog%2Fproduct%2F3%2F0%2F307115_a_24_1.jpg&w=1200"],
+["engelse-drop","Engelse drop","Drop","drop","🖤","https://www.aldi.nl/.imaging/mte/aldi/nl/dam/jcr:1a4f1b0d-2bd9-4b86-a9ab-3f58d7e8f3b7/engelse-drop.png/jcr:content/engelse-drop.png"],
+["harlekijntjes","Harlekijntjes","Drop / zoet","drop","🍬","https://d3vricquk1sjgf.cloudfront.net/product-images/2562c68c-ad61-4c9e-bc60-ba5b92a586c1.png?height=400&width=400"]
 ].map(([id,name,desc,category,emoji,image])=>({id,name,desc,category,emoji,image}));
 let cart=loadCart(),currentFilter="all",searchTerm="";
+const DEAL_BOXES = [
+  {id:"deal-sweet-500",name:"Sweet Deal 500 g",grams:500,price:7.95,badge:"-€0,55",desc:"500 g vaste Hummie Bear mix. €0,55 goedkoper dan los schepsnoep.",image:"https://assets.haribo.com/image/upload/s--2uTBijQI--/ar_2637%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_814/v1/consumer-sites/nl-be/Products/Goudberen-250g-5996379305912.png"},
+  {id:"deal-party-1000",name:"Party Box 1 kg",grams:1000,price:15.90,badge:"-€1,10",desc:"1 kg vaste mix voor feestjes, filmavond of familie.",image:"https://assets.haribo.com/image/upload/s--YyLhJmWw--/ar_2658%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_817/v1/consumer-sites/nl-be/Products/Tanfastics-250g-5012035924034.png"},
+  {id:"deal-mega-1500",name:"Mega Sweet 1,5 kg",grams:1500,price:23.75,badge:"-€1,75",desc:"1,5 kg vaste mix voor echte snoepliefhebbers.",image:"images/candy-display.png"}
+];
+function addDeal(id){
+  const deal=DEAL_BOXES.find(x=>x.id===id); if(!deal)return;
+  addCustomMix([{id:deal.id,name:deal.name,grams:deal.grams,image:deal.image}],{type:"deal",dealName:deal.name,priceOverride:deal.price,image:deal.image});
+}
+
 const q=(s,r=document)=>r.querySelector(s),qa=(s,r=document)=>[...r.querySelectorAll(s)];
 function eur(v){return new Intl.NumberFormat(CONFIG.locale,{style:"currency",currency:CONFIG.currency,minimumFractionDigits:2}).format(Number(v)||0)}
 function getProduct(id){return PRODUCTS.find(p=>p.id===id)||null}
 function saveCart(){try{localStorage.setItem(CONFIG.storageKey,JSON.stringify(cart))}catch(e){}renderCart()}
 function loadCart(){try{const d=JSON.parse(localStorage.getItem(CONFIG.storageKey)||"[]");return Array.isArray(d)?d.filter(x=>x&&x.id):[]}catch(e){return[]}}
-function cartItemsDetailed(){return cart.map(item=>{if(item.customMix){const grams=item.customMix.reduce((a,b)=>a+Number(b.grams||0),0);return{id:item.id,name:"Mijn gepersonaliseerde snoepzak",grams,price:Number(item.meta?.priceOverride ?? ((grams/100)*CONFIG.pricePer100g)),image:"images/gummy-candy.png",quantity:item.quantity||1,meta:item.meta||{},customMix:item.customMix}}const p=getProduct(item.id);return p?{...p,quantity:item.quantity||1,grams:Number(item.grams||100),price:(Number(item.grams||100)/100)*CONFIG.pricePer100g}:null}).filter(Boolean)}
+function cartItemsDetailed(){return cart.map(item=>{if(item.customMix){const grams=item.customMix.reduce((a,b)=>a+Number(b.grams||0),0);const meta=item.meta||{};return{id:item.id,name:meta.dealName||(meta.type==="gift-box"?"Gepersonaliseerde snoepdoos":meta.type==="personalized-bag"?"Mijn gepersonaliseerde snoepzak":"Mijn gepersonaliseerde snoepmix"),grams,price:Number(meta.priceOverride ?? ((grams/100)*CONFIG.pricePer100g)),image:(item.customMix?.[0]?.image||meta.image||"images/gummy-candy.png"),quantity:item.quantity||1,meta,customMix:item.customMix}}const p=getProduct(item.id);return p?{...p,quantity:item.quantity||1,grams:Number(item.grams||100),price:(Number(item.grams||100)/100)*CONFIG.pricePer100g}:null}).filter(Boolean)}
 function cartSubtotal(){return cartItemsDetailed().reduce((s,i)=>s+i.price*i.quantity,0)}
 function openCart(){q("#cartModal")?.classList.add("open");document.body.style.overflow="hidden";renderCart()}
 function closeCart(){q("#cartModal")?.classList.remove("open");document.body.style.overflow=""}
@@ -46,7 +56,7 @@ function initPickMix(){const wrap=q("#pickMixBuilder");if(!wrap)return;const wei
 function initBagBuilder(){const form=q("#bagBuilderForm");if(!form)return;const state={size:500,sticker:"Sweetness on Wheels",note:"",bagColor:"Transparant"};qa("[data-bag-option]").forEach(el=>el.addEventListener("click",()=>{qa('[data-bag-option="'+el.dataset.bagOption+'"]').forEach(x=>x.classList.remove("active"));el.classList.add("active");state[el.dataset.bagOption]=el.dataset.bagOption==="size"?Number(el.dataset.value):el.dataset.value;update()}));qa("[data-bag-row] select,[data-bag-row] input").forEach(el=>el.addEventListener("input",update));form.querySelectorAll("[data-bag-note]").forEach(el=>el.addEventListener("input",()=>state.note=el.value||""));function update(){const rows=qa("[data-bag-row]").map(row=>({id:q("select",row).value,name:getProduct(q("select",row).value)?.name||"",grams:Number(q("[data-bag-grams]",row).value)||0})).filter(x=>x.grams>0),grams=rows.reduce((a,b)=>a+b.grams,0),max=state.size,price=(max/100)*CONFIG.pricePer100g;q("#bagPrice").textContent=eur(price);q("#bagPriceBottom")&&(q("#bagPriceBottom").textContent=eur(price));q("#bagWeight").textContent=grams+" / "+max+" g ingevuld";q("#bagRemaining").textContent=grams===max?"Perfect gevuld!":grams<max?Math.max(0,max-grams)+" g over":"Je hebt "+(grams-max)+" g te veel.";q("#bagGift").textContent=grams>=CONFIG.freeBagFrom?"🎁 Extra snoepzakje inbegrepen":"";q("#bagAdd").disabled=grams!==max}q("#bagAdd")?.addEventListener("click",()=>{const rows=qa("[data-bag-row]").map(row=>({id:q("select",row).value,name:getProduct(q("select",row).value)?.name||"",grams:Number(q("[data-bag-grams]",row).value)||0})).filter(x=>x.grams>0),grams=rows.reduce((a,b)=>a+b.grams,0);if(grams!==state.size){toast("Vul de zak exact tot "+state.size+" g.");return}addCustomMix(rows,{type:"personalized-bag",size:state.size,sticker:state.sticker,note:state.note,bagColor:state.bagColor})});update()}
 function initGiftBoxes(){const form=q("#giftBoxForm");if(!form)return;let size=500,sticker="Voor jou",note="";qa("[data-box-size]").forEach(b=>b.addEventListener("click",()=>{qa("[data-box-size]").forEach(x=>x.classList.remove("active"));b.classList.add("active");size=Number(b.dataset.boxSize);update()}));qa("[data-box-sticker]").forEach(b=>b.addEventListener("click",()=>{qa("[data-box-sticker]").forEach(x=>x.classList.remove("active"));b.classList.add("active");sticker=b.dataset.boxSticker}));q("#boxNote")?.addEventListener("input",e=>note=e.target.value);function update(){q("#boxPrice").textContent=eur(3.5+(size/100)*CONFIG.pricePer100g);q("#boxSize").textContent=size+" g"}q("#boxAdd")?.addEventListener("click",()=>addCustomMix([{name:"Gepersonaliseerde snoepdoos",id:"gift-box",grams:size}],{type:"gift-box",size,sticker,note,priceOverride:3.5+(size/100)*CONFIG.pricePer100g}));update()}
 function initPopup(){const p=q("#firstOrderPopup");if(!p)return;let seen=false;try{seen=sessionStorage.getItem("hbFirstPopupSeen")==="1"}catch(e){}if(!seen)setTimeout(()=>p.classList.add("open"),1200);q("#popupClose")?.addEventListener("click",()=>{p.classList.remove("open");try{sessionStorage.setItem("hbFirstPopupSeen","1")}catch(e){}});q("#popupForm")?.addEventListener("submit",e=>{e.preventDefault();const d=Object.fromEntries(new FormData(e.currentTarget).entries());if(!d.consent){toast("Vink de marketingtoestemming aan.");return}try{localStorage.setItem("hbLead",JSON.stringify(d))}catch(err){}p.classList.remove("open");toast("Welkom! Code SWEET10 geeft 10% korting.");try{sessionStorage.setItem("hbFirstPopupSeen","1")}catch(err){}})}
-document.addEventListener("click",e=>{if(e.target.closest("[data-open-cart]"))openCart();if(e.target.closest("#cartClose"))closeCart();const qty=e.target.closest("[data-qty]");if(qty)updateQty(qty.dataset.id,Number(qty.dataset.qty));if(e.target.closest("#checkoutButton"))checkout()});
+document.addEventListener("click",e=>{const deal=e.target.closest("[data-deal]");if(deal)addDeal(deal.dataset.deal);if(e.target.closest("[data-open-cart]"))openCart();if(e.target.closest("#cartClose"))closeCart();const qty=e.target.closest("[data-qty]");if(qty)updateQty(qty.dataset.id,Number(qty.dataset.qty));if(e.target.closest("#checkoutButton"))checkout()});
 q("#cartModal")?.addEventListener("click",e=>{if(e.target===e.currentTarget)closeCart()});
 document.addEventListener("DOMContentLoaded",()=>{initShop();initPickMix();initBagBuilder();initGiftBoxes();initPopup();renderCart();q("#tiktokLiveButton")?.addEventListener("click",()=>window.open(CONFIG.tiktokUrl,"_blank","noopener"));});
 })();
