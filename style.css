@@ -1365,3 +1365,9 @@ body{
 .candy-detail .detail-hero .back-link{
   color:var(--pink-dark) !important;
 }
+
+
+/* Webshop navigation */
+.nav-shop-link{font-weight:900!important;color:#d75e8f!important;white-space:nowrap}
+.nav-shop-link:hover{color:#39261d!important}
+@media (max-width:900px){.nav-shop-link{display:block}}
