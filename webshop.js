@@ -69,13 +69,26 @@ const PRODUCTS=[
 ].map(([id,name,desc,category,emoji,image,brand])=>({id,name,desc,category,emoji,image,brand}));
 let cart=loadCart(),currentFilter="all",searchTerm="";
 const DEAL_BOXES = [
-  {id:"deal-sweet-500",name:"Sweet Deal 500 g",grams:500,price:7.95,badge:"-€0,55",desc:"500 g vaste Hummie Bear mix. €0,55 goedkoper dan los schepsnoep.",image:"https://assets.haribo.com/image/upload/s--2uTBijQI--/ar_2637%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_814/v1/consumer-sites/nl-be/Products/Goudberen-250g-5996379305912.png"},
-  {id:"deal-party-1000",name:"Party Box 1 kg",grams:1000,price:15.90,badge:"-€1,10",desc:"1 kg vaste mix voor feestjes, filmavond of familie.",image:"https://assets.haribo.com/image/upload/s--YyLhJmWw--/ar_2658%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_817/v1/consumer-sites/nl-be/Products/Tanfastics-250g-5012035924034.png"},
-  {id:"deal-mega-1500",name:"Mega Sweet 1,5 kg",grams:1500,price:23.75,badge:"-€1,75",desc:"1,5 kg vaste mix voor echte snoepliefhebbers.",image:"images/candy-display.png"}
+{id:"deal-sweet-500",type:"sweet",name:"Zoete Snoepbox 500 g",grams:500,price:7.95,badge:"-€0,55",desc:"500 g zoete klassiekers.",image:"images/gummy-candy.png"},
+{id:"deal-sweet-1000",type:"sweet",name:"Zoete Snoepbox 1 kg",grams:1000,price:15.90,badge:"-€1,10",desc:"1 kg zoete snoepmix.",image:"images/gummy-candy.png"},
+{id:"deal-sweet-1500",type:"sweet",name:"Zoete Snoepbox 1,5 kg",grams:1500,price:23.75,badge:"-€1,75",desc:"1,5 kg zoete snoepmix.",image:"images/gummy-candy.png"},
+{id:"deal-sweet-2000",type:"sweet",name:"Zoete Snoepbox 2 kg",grams:2000,price:31.50,badge:"-€2,50",desc:"2 kg zoete snoepmix.",image:"images/gummy-candy.png"},
+{id:"deal-sour-500",type:"sour",name:"Zure Snoepbox 500 g",grams:500,price:7.95,badge:"-€0,55",desc:"500 g zure snoepmix.",image:"https://cdn.webshopapp.com/shops/255156/files/494875785/heerlijke-zure-beertjes-van-belgische-snoepfabrika.jpg"},
+{id:"deal-sour-1000",type:"sour",name:"Zure Snoepbox 1 kg",grams:1000,price:15.90,badge:"-€1,10",desc:"1 kg zure snoepmix.",image:"https://cdn.webshopapp.com/shops/255156/files/494875785/heerlijke-zure-beertjes-van-belgische-snoepfabrika.jpg"},
+{id:"deal-sour-1500",type:"sour",name:"Zure Snoepbox 1,5 kg",grams:1500,price:23.75,badge:"-€1,75",desc:"1,5 kg zure snoepmix.",image:"https://cdn.webshopapp.com/shops/255156/files/494875785/heerlijke-zure-beertjes-van-belgische-snoepfabrika.jpg"},
+{id:"deal-sour-2000",type:"sour",name:"Zure Snoepbox 2 kg",grams:2000,price:31.50,badge:"-€2,50",desc:"2 kg zure snoepmix.",image:"https://cdn.webshopapp.com/shops/255156/files/494875785/heerlijke-zure-beertjes-van-belgische-snoepfabrika.jpg"},
+{id:"deal-mix-500",type:"mix",name:"Zoet & Zuur Mix 500 g",grams:500,price:7.95,badge:"-€0,55",desc:"500 g zoet en zuur.",image:"images/candy-display.png"},
+{id:"deal-mix-1000",type:"mix",name:"Zoet & Zuur Mix 1 kg",grams:1000,price:15.90,badge:"-€1,10",desc:"1 kg zoet en zuur.",image:"images/candy-display.png"},
+{id:"deal-mix-1500",type:"mix",name:"Zoet & Zuur Mix 1,5 kg",grams:1500,price:23.75,badge:"-€1,75",desc:"1,5 kg zoet en zuur.",image:"images/candy-display.png"},
+{id:"deal-mix-2000",type:"mix",name:"Zoet & Zuur Mix 2 kg",grams:2000,price:31.50,badge:"-€2,50",desc:"2 kg zoet en zuur.",image:"images/candy-display.png"}
 ];
 function addDeal(id){
-  const deal=DEAL_BOXES.find(x=>x.id===id); if(!deal)return;
-  addCustomMix([{id:deal.id,name:deal.name,grams:deal.grams,image:deal.image}],{type:"deal",dealName:deal.name,priceOverride:deal.price,image:deal.image});
+  const deal=DEAL_BOXES.find(x=>x.id===id);
+  if(!deal){toast("Deze box kon niet worden gevonden.");return;}
+  addCustomMix(
+    [{id:deal.id,name:deal.name,grams:deal.grams,image:deal.image}],
+    {type:"deal",dealName:deal.name,dealType:deal.type,priceOverride:deal.price,image:deal.image}
+  );
 }
 
 const q=(s,r=document)=>r.querySelector(s),qa=(s,r=document)=>[...r.querySelectorAll(s)];
