@@ -158,7 +158,7 @@ async function checkout(){
    meta:i.meta||null
  }));
  try{
-   const response=await fetch("/api/create-payment",{
+   const response=await fetch("https://humiebear.vercel.app/api/create-payment",{
      method:"POST",
      headers:{"Content-Type":"application/json","Accept":"application/json"},
      body:JSON.stringify({
