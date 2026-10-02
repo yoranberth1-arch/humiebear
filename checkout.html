@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Afrekenen | Hummie Bear</title>
+<meta name="description" content="Vul je gegevens in en betaal veilig je Hummie Bear bestelling via Mollie.">
+<link rel="stylesheet" href="checkout.css?v=20261002-1">
+</head>
+<body>
+<header class="top"><div class="container top-inner"><a class="brand" href="shop.html"><span class="brand-mark">HB</span>Hummie Bear</a><a class="back" href="shop.html">← Terug naar webshop</a></div></header>
+<main class="page"><div class="container">
+<div id="checkoutEmpty" class="card empty" style="display:none"><h2>Je mandje is leeg.</h2><p>Voeg eerst iets toe aan je winkelmandje.</p><a href="shop.html">Ga naar de webshop</a></div>
+<div id="checkoutContent">
+<div class="grid">
+<section class="card">
+<div class="eyebrow">AFREKENEN</div>
+<h1>Jouw gegevens</h1>
+<p>Vul hieronder je leveringsgegevens in. Daarna ga je door naar de beveiligde betaalpagina van Mollie.</p>
+<form id="checkoutForm">
+<div class="form-grid">
+<div class="field full"><label for="name">Naam *</label><input id="name" name="name" autocomplete="name" required placeholder="Voor- en achternaam"></div>
+<div class="field"><label for="email">E-mailadres *</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="jouw@email.be"></div>
+<div class="field"><label for="phone">Telefoonnummer *</label><input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="+32 ..."></div>
+<div class="field"><label for="street">Straat *</label><input id="street" name="street" autocomplete="street-address" required placeholder="Straatnaam"></div>
+<div class="field"><label for="houseNumber">Huisnummer *</label><input id="houseNumber" name="houseNumber" autocomplete="address-line2" required placeholder="12 bus 3"></div>
+<div class="field"><label for="postalCode">Postcode *</label><input id="postalCode" name="postalCode" autocomplete="postal-code" required placeholder="8870"></div>
+<div class="field"><label for="city">Gemeente *</label><input id="city" name="city" autocomplete="address-level2" required placeholder="Gemeente"></div>
+</div>
+<div class="coupon">
+<div class="coupon-top"><div><strong>10% korting op je eerste bestelling</strong><br><small>Gebruik code SWEET10. We controleren automatisch of dit je eerste betaalde bestelling is.</small></div><strong>10%</strong></div>
+<div class="coupon-row"><input id="discountCode" name="discountCode" inputmode="text" autocomplete="off" placeholder="Promotiecode"><button type="button" id="couponApply">Toepassen</button></div>
+<div id="couponMessage" class="coupon-message"></div>
+</div>
+<div id="checkoutError" class="error" role="alert"></div>
+<button class="pay" id="payButton" type="submit">Betaal veilig via Mollie</button>
+<div class="secure">Je betaling wordt uitgevoerd op de beveiligde betaalomgeving van Mollie.</div>
+</form>
+</section>
+<aside class="card summary">
+<div class="eyebrow">JOUW BESTELLING</div>
+<h2>Overzicht</h2>
+<div id="checkoutItems" class="summary-list"></div>
+<div class="totals">
+<div class="row"><span>Subtotaal</span><strong id="subtotal">€0,00</strong></div>
+<div class="row discount" id="discountRow" style="display:none"><span>10% korting</span><strong id="discountAmount">- €0,00</strong></div>
+<div class="row"><span>Verzending</span><strong id="shipping">€0,00</strong></div>
+<div class="row total"><span>Totaal</span><strong id="total">€0,00</strong></div>
+</div>
+</aside>
+</div>
+</div>
+</div></main>
+<script src="checkout.js?v=20261002-1"></script>
+</body>
+</html>
