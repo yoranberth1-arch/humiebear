@@ -149,21 +149,37 @@ async function checkout(){
  const items=cartItemsDetailed();
  if(!items.length){toast("Je mandje is leeg.");return}
  const button=q("#checkoutButton");
- if(button){button.disabled=true;button.textContent="Betaling starten…"}
+ const customer={
+   name:q("#checkoutName")?.value.trim()||"",
+   email:q("#checkoutEmail")?.value.trim()||"",
+   phone:q("#checkoutPhone")?.value.trim()||"",
+   street:q("#checkoutStreet")?.value.trim()||"",
+   houseNumber:q("#checkoutHouseNumber")?.value.trim()||"",
+   postalCode:q("#checkoutPostalCode")?.value.trim()||"",
+   city:q("#checkoutCity")?.value.trim()||"",
+   country:"BE"
+ };
+ if(!customer.name||!customer.email||!customer.street||!customer.houseNumber||!customer.postalCode||!customer.city){
+   toast("Vul je naam, e-mail en volledige leveradres in.");
+   q("#checkoutName")?.focus();
+   return;
+ }
+ if(button){button.disabled=true;button.textContent="Bestelling voorbereiden…"}
  const orderItems=items.map(i=>({
+   id:i.id,
    name:i.name,
    quantity:i.quantity,
    grams:i.grams,
    price:Number(i.price),
-   meta:i.meta||null
+   meta:i.meta||null,
+   customMix:i.customMix||null
  }));
  try{
-   const response=await fetch("https://humiebear.vercel.app/api/create-payment",{
+   const response=await fetch("/api/create-payment",{
      method:"POST",
      headers:{"Content-Type":"application/json","Accept":"application/json"},
      body:JSON.stringify({
-       amount:cartTotal(),
-       description:"Hummie Bear webshop bestelling",
+       customer,
        items:orderItems
      })
    });
