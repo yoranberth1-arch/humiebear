@@ -294,7 +294,7 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 14px;
       margin-bottom: 27px;
     }
@@ -813,6 +813,110 @@
       color: var(--brown-light);
       font-size: 11px;
     }
+
+
+    .order-list {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+    }
+
+    .order-card {
+      padding: 17px;
+      background: #fffdfb;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      transition: 0.2s;
+    }
+
+    .order-card:hover {
+      border-color: var(--pink);
+      box-shadow: 0 8px 25px rgba(61, 42, 32, 0.06);
+      transform: translateY(-1px);
+    }
+
+    .order-grid {
+      display: grid;
+      grid-template-columns:
+        minmax(220px, 1.25fr)
+        minmax(190px, 1fr)
+        minmax(150px, 0.8fr)
+        minmax(130px, 0.7fr)
+        auto;
+      align-items: start;
+      gap: 17px;
+    }
+
+    .order-number {
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .order-customer {
+      margin-top: 4px;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .order-items {
+      margin-top: 8px;
+      color: var(--brown-light);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .order-items strong {
+      color: var(--brown);
+    }
+
+    .order-address {
+      color: var(--brown-light);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .order-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+
+    .status-paid {
+      color: var(--green);
+      background: var(--green-light);
+    }
+
+    .status-pending {
+      color: var(--orange);
+      background: var(--orange-light);
+    }
+
+    .status-failed {
+      color: var(--red);
+      background: var(--red-light);
+    }
+
+    .status-processing {
+      color: var(--orange);
+      background: var(--orange-light);
+    }
+
+    .status-shipped {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .status-completed {
+      color: var(--green);
+      background: var(--green-light);
+    }
+
+    .order-total {
+      font-size: 18px;
+      font-weight: 900;
+    }
+
 
     .modal-overlay {
       position: fixed;
@@ -1407,6 +1511,42 @@
           </div>
         </div>
 
+        <div class="stat-card">
+          <div class="stat-label">
+            Bestellingen
+          </div>
+          <div
+            class="stat-value"
+            id="statOrders"
+          >
+            0
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">
+            Betaald
+          </div>
+          <div
+            class="stat-value"
+            id="statPaidOrders"
+          >
+            0
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">
+            Te verwerken
+          </div>
+          <div
+            class="stat-value"
+            id="statToProcess"
+          >
+            0
+          </div>
+        </div>
+
       </section>
 
 
@@ -1426,6 +1566,14 @@
           type="button"
         >
           Evenementen
+        </button>
+
+        <button
+          class="nav-tab"
+          data-view="orders"
+          type="button"
+        >
+          Bestellingen
         </button>
 
         <button
@@ -1602,6 +1750,97 @@
 
       </section>
 
+
+
+
+      <section
+        class="panel"
+        id="ordersPanel"
+        style="display:none;"
+      >
+
+        <div class="panel-header">
+
+          <div class="panel-header-row">
+
+            <div>
+              <h2>
+                Bestellingen
+              </h2>
+
+              <p>
+                Webshopbestellingen met klantgegevens, betaling, levering en verwerkingsstatus.
+              </p>
+            </div>
+
+            <div class="database-status">
+              Webshop live
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="filters">
+
+          <div class="search-wrap">
+
+            <span class="search-icon">
+              Zoeken
+            </span>
+
+            <input
+              class="search-input"
+              id="orderSearch"
+              type="search"
+              placeholder="Zoek ordernummer, naam, e-mail, adres..."
+            >
+
+          </div>
+
+          <select
+            class="filter-select"
+            id="orderPaymentFilter"
+          >
+            <option value="all">Alle betalingen</option>
+            <option value="paid">Betaald</option>
+            <option value="open">Open</option>
+            <option value="pending">In afwachting</option>
+            <option value="failed">Mislukt</option>
+            <option value="canceled">Geannuleerd</option>
+            <option value="expired">Verlopen</option>
+          </select>
+
+          <select
+            class="filter-select"
+            id="orderFulfillmentFilter"
+          >
+            <option value="all">Alle verwerkingen</option>
+            <option value="new">Nieuw</option>
+            <option value="processing">In behandeling</option>
+            <option value="shipped">Verzonden</option>
+            <option value="completed">Afgerond</option>
+            <option value="cancelled">Geannuleerd</option>
+          </select>
+
+          <select
+            class="filter-select"
+            id="orderSort"
+          >
+            <option value="newest">Nieuwste eerst</option>
+            <option value="oldest">Oudste eerst</option>
+            <option value="highest">Hoogste bedrag</option>
+            <option value="lowest">Laagste bedrag</option>
+          </select>
+
+        </div>
+
+        <div
+          class="order-list"
+          id="ordersList"
+        ></div>
+
+      </section>
 
       <section
         class="panel"
@@ -2162,6 +2401,43 @@
   </div>
 
 
+
+
+  <div
+    class="modal-overlay"
+    id="orderModalOverlay"
+  >
+
+    <div class="modal modal-large">
+
+      <div class="modal-header">
+
+        <div>
+          <h2>
+            Bestelling
+          </h2>
+
+          <p>
+            Volledige bestelling en klantgegevens.
+          </p>
+        </div>
+
+        <button
+          class="modal-close"
+          data-close-modal="orderModalOverlay"
+          type="button"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div id="orderDetailsContent"></div>
+
+    </div>
+
+  </div>
+
   <div
     class="modal-overlay"
     id="eventModalOverlay"
@@ -2510,6 +2786,7 @@
 
     let quotes = [];
     let events = [];
+    let orders = [];
     let activeView = "quotes";
 
     let calendarDate =
@@ -2555,6 +2832,11 @@
     const eventsList =
       document.getElementById(
         "eventsList"
+      );
+
+    const ordersList =
+      document.getElementById(
+        "ordersList"
       );
 
     const upcomingList =
@@ -2649,6 +2931,61 @@
 
     }
 
+
+    function formatDateTime(value) {
+      if (!value) return "-";
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return String(value);
+      return new Intl.DateTimeFormat(
+        "nl-BE",
+        {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit"
+        }
+      ).format(date);
+    }
+
+    function paymentStatusLabel(status) {
+      const map = {
+        paid: "Betaald",
+        open: "Open",
+        pending: "In afwachting",
+        failed: "Mislukt",
+        canceled: "Geannuleerd",
+        expired: "Verlopen",
+        creation_failed: "Betaling mislukt"
+      };
+      return map[status] || status || "Onbekend";
+    }
+
+    function paymentStatusClass(status) {
+      if (status === "paid") return "status-paid";
+      if (status === "failed" || status === "canceled" || status === "expired" || status === "creation_failed") return "status-failed";
+      if (status === "open") return "status-new";
+      return "status-pending";
+    }
+
+    function fulfillmentStatusLabel(status) {
+      const map = {
+        new: "Nieuw",
+        processing: "In behandeling",
+        shipped: "Verzonden",
+        completed: "Afgerond",
+        cancelled: "Geannuleerd"
+      };
+      return map[status] || status || "Nieuw";
+    }
+
+    function fulfillmentStatusClass(status) {
+      if (status === "processing") return "status-processing";
+      if (status === "shipped") return "status-shipped";
+      if (status === "completed") return "status-completed";
+      if (status === "cancelled") return "status-cancelled";
+      return "status-new";
+    }
 
     function formatPrice(
       value
@@ -3164,6 +3501,55 @@
     }
 
 
+
+
+    async function loadOrders() {
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .from(
+            "orders"
+          )
+          .select(
+            "*"
+          )
+          .order(
+            "created_at",
+            {
+              ascending:
+                false
+            }
+          );
+
+      if (
+        error
+      ) {
+
+        console.error(
+          error
+        );
+
+        orders = [];
+
+        showToast(
+          "Bestellingen konden niet worden geladen: " +
+          error.message,
+          "error"
+        );
+
+        return;
+
+      }
+
+      orders =
+        data ||
+        [];
+
+    }
+
     function updateStats() {
 
       document.getElementById(
@@ -3215,6 +3601,32 @@
         "statTotal"
       ).textContent =
         quotes.length;
+
+      document.getElementById(
+        "statOrders"
+      ).textContent =
+        orders.length;
+
+      document.getElementById(
+        "statPaidOrders"
+      ).textContent =
+        orders.filter(
+          order =>
+            order.payment_status ===
+            "paid"
+        ).length;
+
+      document.getElementById(
+        "statToProcess"
+      ).textContent =
+        orders.filter(
+          order =>
+            order.payment_status ===
+              "paid" &&
+            !["completed","cancelled"].includes(
+              order.fulfillment_status
+            )
+        ).length;
 
     }
 
@@ -4922,6 +5334,545 @@
       };
 
 
+
+    function getFilteredOrders() {
+
+      const search =
+        document.getElementById(
+          "orderSearch"
+        ).value
+          .trim()
+          .toLowerCase();
+
+      const payment =
+        document.getElementById(
+          "orderPaymentFilter"
+        ).value;
+
+      const fulfillment =
+        document.getElementById(
+          "orderFulfillmentFilter"
+        ).value;
+
+      const sort =
+        document.getElementById(
+          "orderSort"
+        ).value;
+
+      const filtered =
+        orders.filter(
+          function (
+            order
+          ) {
+
+            const combined =
+              [
+                order.id,
+                order.customer_name,
+                order.customer_email,
+                order.customer_phone,
+                order.delivery_street,
+                order.delivery_number,
+                order.delivery_postal_code,
+                order.delivery_city
+              ]
+                .filter(Boolean)
+                .join(" ")
+                .toLowerCase();
+
+            return (
+              (!search || combined.includes(search)) &&
+              (payment === "all" || order.payment_status === payment) &&
+              (fulfillment === "all" || order.fulfillment_status === fulfillment)
+            );
+
+          }
+        );
+
+      filtered.sort(
+        function (
+          a,
+          b
+        ) {
+
+          if (sort === "highest") {
+            return Number(b.total || 0) - Number(a.total || 0);
+          }
+
+          if (sort === "lowest") {
+            return Number(a.total || 0) - Number(b.total || 0);
+          }
+
+          if (sort === "oldest") {
+            return String(a.created_at || "").localeCompare(String(b.created_at || ""));
+          }
+
+          return String(b.created_at || "").localeCompare(String(a.created_at || ""));
+
+        }
+      );
+
+      return filtered;
+
+    }
+
+
+    function renderOrders() {
+
+      const filtered =
+        getFilteredOrders();
+
+      if (!filtered.length) {
+
+        ordersList.innerHTML =
+          `
+            <div class="empty-state">
+              <strong>Geen bestellingen gevonden</strong>
+              Er zijn momenteel geen bestellingen die aan de filters voldoen.
+            </div>
+          `;
+
+        return;
+
+      }
+
+      ordersList.innerHTML =
+        filtered.map(
+          function (
+            order
+          ) {
+
+            const items =
+              Array.isArray(order.items)
+                ? order.items
+                : [];
+
+            const itemSummary =
+              items
+                .slice(0, 5)
+                .map(
+                  item =>
+                    `${escapeHtml(item.name || "Artikel")} × ${Number(item.quantity || 1)}`
+                )
+                .join("<br>") +
+              (items.length > 5
+                ? "<br>+ " + (items.length - 5) + " extra artikel(s)"
+                : "");
+
+            const address =
+              [
+                order.delivery_street,
+                order.delivery_number,
+                order.delivery_postal_code,
+                order.delivery_city
+              ]
+                .filter(Boolean)
+                .join(" ");
+
+            const paid =
+              order.payment_status === "paid";
+
+            return `
+              <article class="order-card">
+
+                <div class="order-grid">
+
+                  <div>
+                    <div class="order-number">
+                      ${escapeHtml(order.id)}
+                    </div>
+
+                    <div class="order-customer">
+                      ${escapeHtml(order.customer_name || "Naam onbekend")}
+                    </div>
+
+                    <div class="quote-muted">
+                      ${escapeHtml(order.customer_email || "")}
+                    </div>
+
+                    ${order.customer_phone
+                      ? `<div class="quote-muted">${escapeHtml(order.customer_phone)}</div>`
+                      : ""}
+
+                    <div class="quote-muted" style="margin-top:6px;">
+                      ${formatDateTime(order.created_at)}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="order-items">
+                      ${itemSummary || "Geen artikelen"}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="order-address">
+                      <strong>Levering</strong><br>
+                      ${escapeHtml(address || "-")}<br>
+                      ${escapeHtml(order.delivery_country || "BE")}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="order-total">
+                      ${formatPrice(order.total)}
+                    </div>
+
+                    <div style="margin-top:7px;">
+                      <span class="status ${paymentStatusClass(order.payment_status)}">
+                        ${escapeHtml(paymentStatusLabel(order.payment_status))}
+                      </span>
+                    </div>
+
+                    <div style="margin-top:6px;">
+                      <span class="status ${fulfillmentStatusClass(order.fulfillment_status)}">
+                        ${escapeHtml(fulfillmentStatusLabel(order.fulfillment_status))}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="order-actions">
+
+                    <button
+                      class="button button-light"
+                      type="button"
+                      onclick="window.showOrderDetails('${escapeHtml(order.id)}')"
+                    >
+                      Details
+                    </button>
+
+                    ${
+                      paid && order.fulfillment_status === "new"
+                        ? `
+                          <button
+                            class="button button-orange"
+                            type="button"
+                            onclick="window.setOrderFulfillment('${escapeHtml(order.id)}','processing')"
+                          >
+                            In behandeling
+                          </button>
+                        `
+                        : ""
+                    }
+
+                    ${
+                      paid && order.fulfillment_status === "processing"
+                        ? `
+                          <button
+                            class="button button-blue"
+                            type="button"
+                            onclick="window.setOrderFulfillment('${escapeHtml(order.id)}','shipped')"
+                          >
+                            Verzonden
+                          </button>
+                        `
+                        : ""
+                    }
+
+                    ${
+                      paid && order.fulfillment_status === "shipped"
+                        ? `
+                          <button
+                            class="button button-green"
+                            type="button"
+                            onclick="window.setOrderFulfillment('${escapeHtml(order.id)}','completed')"
+                          >
+                            Afgerond
+                          </button>
+                        `
+                        : ""
+                    }
+
+                  </div>
+
+                </div>
+
+              </article>
+            `;
+
+          }
+        ).join("");
+
+    }
+
+
+    window.showOrderDetails =
+      function (
+        orderId
+      ) {
+
+        const order =
+          orders.find(
+            item =>
+              item.id ===
+              orderId
+          );
+
+        if (!order) return;
+
+        const items =
+          Array.isArray(order.items)
+            ? order.items
+            : [];
+
+        const itemHtml =
+          items.length
+            ? items.map(
+                item =>
+                  `
+                    <div style="padding:12px 0;border-bottom:1px solid var(--line);">
+                      <div style="display:flex;justify-content:space-between;gap:15px;">
+                        <strong>${escapeHtml(item.name || "Artikel")} × ${Number(item.quantity || 1)}</strong>
+                        <strong>${formatPrice(item.line_total)}</strong>
+                      </div>
+                      <div class="quote-muted">
+                        ${item.grams ? escapeHtml(item.grams + " g") : ""}
+                      </div>
+                    </div>
+                  `
+              ).join("")
+            : "<p class='quote-muted'>Geen artikeldetails beschikbaar.</p>";
+
+        const address =
+          [
+            order.delivery_street,
+            order.delivery_number,
+            order.delivery_postal_code,
+            order.delivery_city,
+            order.delivery_country
+          ]
+            .filter(Boolean)
+            .join(" ");
+
+        document.getElementById("orderDetailsContent").innerHTML =
+          `
+            <div class="form-grid">
+
+              <div class="form-field">
+                <label>Ordernummer</label>
+                <div>${escapeHtml(order.id)}</div>
+              </div>
+
+              <div class="form-field">
+                <label>Besteld op</label>
+                <div>${formatDateTime(order.created_at)}</div>
+              </div>
+
+              <div class="form-field">
+                <label>Klant</label>
+                <div>${escapeHtml(order.customer_name || "-")}</div>
+              </div>
+
+              <div class="form-field">
+                <label>E-mail</label>
+                <div>${escapeHtml(order.customer_email || "-")}</div>
+              </div>
+
+              <div class="form-field">
+                <label>Telefoon</label>
+                <div>${escapeHtml(order.customer_phone || "-")}</div>
+              </div>
+
+              <div class="form-field">
+                <label>Leveradres</label>
+                <div>${escapeHtml(address || "-")}</div>
+              </div>
+
+              <div class="form-field">
+                <label>Betaling</label>
+                <div>
+                  <span class="status ${paymentStatusClass(order.payment_status)}">
+                    ${escapeHtml(paymentStatusLabel(order.payment_status))}
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label>Verwerking</label>
+                <div>
+                  <span class="status ${fulfillmentStatusClass(order.fulfillment_status)}">
+                    ${escapeHtml(fulfillmentStatusLabel(order.fulfillment_status))}
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-field full">
+                <label>Bestelde artikelen</label>
+                <div style="border:1px solid var(--line);border-radius:14px;padding:0 14px;background:#fffdfb;">
+                  ${itemHtml}
+                </div>
+              </div>
+
+              <div class="form-field">
+                <label>Subtotaal</label>
+                <div>${formatPrice(order.subtotal)}</div>
+              </div>
+
+              <div class="form-field">
+                <label>Verzending</label>
+                <div>${formatPrice(order.shipping)}</div>
+              </div>
+
+              <div class="form-field">
+                <label>Totaal</label>
+                <div class="order-total">${formatPrice(order.total)}</div>
+              </div>
+
+              <div class="form-field">
+                <label>Mollie betaling</label>
+                <div class="quote-muted">${escapeHtml(order.payment_id || "-")}</div>
+              </div>
+
+            </div>
+
+            <div class="modal-actions" style="justify-content:flex-start;margin-top:20px;">
+              ${
+                order.payment_status === "paid" && order.fulfillment_status === "new"
+                  ? `<button class="button button-orange" type="button" onclick="window.setOrderFulfillment('${escapeHtml(order.id)}','processing')">In behandeling</button>`
+                  : ""
+              }
+              ${
+                order.payment_status === "paid" && order.fulfillment_status === "processing"
+                  ? `<button class="button button-blue" type="button" onclick="window.setOrderFulfillment('${escapeHtml(order.id)}','shipped')">Verzonden</button>`
+                  : ""
+              }
+              ${
+                order.payment_status === "paid" && order.fulfillment_status === "shipped"
+                  ? `<button class="button button-green" type="button" onclick="window.setOrderFulfillment('${escapeHtml(order.id)}','completed')">Afgerond</button>`
+                  : ""
+              }
+              <button class="button button-light" type="button" data-close-modal="orderModalOverlay">Sluiten</button>
+            </div>
+          `;
+
+        document
+          .querySelectorAll("#orderDetailsContent [data-close-modal]")
+          .forEach(
+            button =>
+              button.addEventListener(
+                "click",
+                function () {
+                  document.getElementById("orderModalOverlay").classList.remove("open");
+                }
+              )
+          );
+
+        closeAllModals();
+        openModal("orderModalOverlay");
+
+      };
+
+
+    window.setOrderFulfillment =
+      async function (
+        orderId,
+        status
+      ) {
+
+        const labels = {
+          new: "Nieuw",
+          processing: "In behandeling",
+          shipped: "Verzonden",
+          completed: "Afgerond",
+          cancelled: "Geannuleerd"
+        };
+
+        if (!labels[status]) return;
+
+        try {
+
+          const {
+            error
+          } =
+            await supabaseClient
+              .from(
+                "orders"
+              )
+              .update({
+                fulfillment_status:
+                  status,
+
+                updated_at:
+                  new Date().toISOString()
+              })
+              .eq(
+                "id",
+                orderId
+              );
+
+          if (error) {
+            showToast(
+              "Bestelling kon niet worden bijgewerkt: " +
+              error.message,
+              "error"
+            );
+            return;
+          }
+
+          showToast(
+            "Bestelling: " +
+            labels[status] +
+            ".",
+            "success"
+          );
+
+          closeAllModals();
+          await reloadAll();
+
+        } catch (error) {
+
+          console.error(error);
+
+          showToast(
+            "Er ging iets mis bij het bijwerken van de bestelling.",
+            "error"
+          );
+
+        }
+
+      };
+
+    const orderSearch =
+      document.getElementById(
+        "orderSearch"
+      );
+
+    const orderPaymentFilter =
+      document.getElementById(
+        "orderPaymentFilter"
+      );
+
+    const orderFulfillmentFilter =
+      document.getElementById(
+        "orderFulfillmentFilter"
+      );
+
+    const orderSort =
+      document.getElementById(
+        "orderSort"
+      );
+
+    orderSearch.addEventListener(
+      "input",
+      renderOrders
+    );
+
+    orderPaymentFilter.addEventListener(
+      "change",
+      renderOrders
+    );
+
+    orderFulfillmentFilter.addEventListener(
+      "change",
+      renderOrders
+    );
+
+    orderSort.addEventListener(
+      "change",
+      renderOrders
+    );
+
+
     const eventSearch =
       document.getElementById(
         "eventSearch"
@@ -6450,6 +7401,14 @@
                   : "none";
 
               document.getElementById(
+                "ordersPanel"
+              ).style.display =
+                activeView ===
+                "orders"
+                  ? ""
+                  : "none";
+
+              document.getElementById(
                 "calendarPanel"
               ).style.display =
                 activeView ===
@@ -6526,13 +7485,15 @@
         await Promise.all(
           [
             loadQuotes(),
-            loadEvents()
+            loadEvents(),
+            loadOrders()
           ]
         );
 
 
         updateStats();
         renderQuotes();
+        renderOrders();
         renderEvents();
         renderUpcoming();
         renderCalendar();
