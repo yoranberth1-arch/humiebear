@@ -9,7 +9,7 @@
   const time=v=>v?String(v).slice(0,5):"-";
   const qStatus=s=>({new:"Nieuw",in_progress:"In behandeling",accepted:"Aanvaard",rejected:"Geweigerd",cancelled:"Geannuleerd"}[s]||s||"Onbekend");
   const payStatus=s=>({paid:"Betaald",open:"Open",pending:"In afwachting",failed:"Mislukt",canceled:"Geannuleerd",expired:"Verlopen",creation_failed:"Aanmaken mislukt"}[s]||s||"Onbekend");
-  const fulfillStatus=s=>({new:"Nieuw",processing:"In behandeling",shipped:"Verzonden",completed:"Afgerond",cancelled:"Geannuleerd"}[s]||s||"Nieuw");
+  const fulfillStatus=s=>({new:"Nieuw",preparing:"In voorbereiding",ready:"Klaar",processing:"In behandeling",shipped:"Verzonden",completed:"Afgerond",cancelled:"Geannuleerd"}[s]||s||"Nieuw");
   const badge=s=>["paid","completed","accepted","confirmed","ready"].includes(s)?"badge badge-green":["rejected","cancelled","failed","canceled","expired","creation_failed","refunded"].includes(s)?"badge badge-red":["in_progress","processing","preparing","pending","open"].includes(s)?"badge badge-amber":s==="shipped"?"badge badge-cyan":"badge badge-blue";
   const orderCustomer=o=>[o.customer_first_name,o.customer_last_name].filter(Boolean).join(" ").trim()||o.customer_email||"-";
   const toast=(m,type)=>{const e=$("#toast");if(!e)return;e.textContent=m;e.className="toast show "+(type||"");clearTimeout(toast.t);toast.t=setTimeout(()=>e.className="toast",3200)};
