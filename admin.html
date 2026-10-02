@@ -24,14 +24,9 @@
       <label for="loginPassword">Wachtwoord</label>
       <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Wachtwoord">
     </div>
-    <div style="text-align:center;color:#98a2b3;font-size:10px;margin:4px 0 7px">of</div>
-    <div class="login-field">
-      <label for="loginPin">Beheercode eigenaar</label>
-      <input id="loginPin" type="password" inputmode="numeric" autocomplete="off" maxlength="64" placeholder="••••••••">
-    </div>
     <button id="loginButton" class="primary-button">Dashboard openen</button>
     <div id="loginError" class="login-error"></div>
-    <div class="login-note"><strong>Beveiliging</strong><br>De database wordt niet rechtstreeks vanuit deze pagina beheerd. Wijzigingen lopen via de beveiligde Vercel API. De Supabase service-role key hoort uitsluitend in Vercel Environment Variables.</div>
+    <div class="login-note"><strong>Beveiliging</strong><br>Iedere medewerker gebruikt een persoonlijk account. Wijzigingen lopen via de beveiligde Vercel API. Gevoelige Supabase-sleutels blijven server-side.</div>
   </div>
 </div>
 
@@ -150,7 +145,7 @@
       </section>
 
       <section id="section-staff" class="section">
-        <div class="card"><div class="card-head"><div><h2>Medewerkers</h2><p>Persoonlijke accounts in plaats van één gedeelde PIN.</p></div><button id="newStaff" class="primary-button">+ Medewerker</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Medewerker</th><th>Rol</th><th>Status</th><th></th></tr></thead><tbody id="staffBody"></tbody></table></div></div>
+        <div class="card"><div class="card-head"><div><h2>Medewerkers</h2><p>Persoonlijke Supabase-accounts met rollen en toegangsrechten.</p></div><button id="newStaff" class="primary-button">+ Medewerker</button></div><div class="table-wrap"><table class="table"><thead><tr><th>Medewerker</th><th>Rol</th><th>Status</th><th></th></tr></thead><tbody id="staffBody"></tbody></table></div></div>
       </section>
 
       <section id="section-reports" class="section">
