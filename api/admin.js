@@ -99,6 +99,13 @@ export default async function handler(req,res){
       const eid=crypto.randomUUID(),row={id:eid,quote_id:q.id,title:q.event_name||q.name||"Hummie Bear evenement",name:q.name,organisation:q.organisation,email:q.email,phone:q.phone,event_name:q.event_name,event_date:q.event_date,start_time:q.start_time,end_time:q.end_time,location:q.location,guests:q.guests,hours:q.hours,event_type:q.event_type,edition:q.edition,options:q.options,practical_notes:q.practical_notes,final_price:q.final_price??q.estimated_price,status:"confirmed",created_at:new Date().toISOString(),updated_at:new Date().toISOString()};
       await sbFetch("events",{method:"POST",headers:{"Prefer":"return=minimal"},body:JSON.stringify(row)});
       await sbFetch("quotes?id=eq."+encodeURIComponent(id),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({status:"accepted",updated_at:new Date().toISOString()})});
+      if(q.email){
+        try{
+          const cleanEmailText=v=>String(v??"").replace(/[<>]/g,"").slice(0,500);
+          const html="<div style='font-family:Arial,Helvetica,sans-serif;max-width:650px;margin:auto;padding:30px;background:#f5f7fb;color:#101828'><div style='background:#fff;border-radius:16px;padding:28px;border:1px solid #e4e7ec'><h1 style='margin-top:0'>Reservatie bevestigd</h1><p>Hallo "+cleanEmailText(q.name||"daar")+"!</p><p>Je aanvraag bij <strong>Hummie Bear</strong> is bevestigd.</p><div style='padding:16px;background:#eef2ff;border-radius:12px'><strong>"+cleanEmailText(q.event_name||"Evenement")+"</strong><br>"+cleanEmailText(q.event_date)+" · "+cleanEmailText(q.location)+"<br>"+cleanEmailText(q.guests)+" gasten · "+cleanEmailText(q.edition)+"</div><p>Tot binnenkort!</p><strong>Hummie Bear</strong></div></div>";
+          await fetch(SUPABASE_URL+"/functions/v1/hummie-bear-email",{method:"POST",headers:{apikey:process.env.SUPABASE_ANON_KEY||"",Authorization:"Bearer "+(process.env.SUPABASE_SERVICE_ROLE_KEY||""),"Content-Type":"application/json"},body:JSON.stringify({to:q.email,subject:"Je reservatie bij Hummie Bear is bevestigd!",html})});
+        }catch(mailError){console.error("Confirmation email failed",mailError)}
+      }
       await logAction(session,"accept","quote",id,{event_id:eid});return json(res,200,{ok:true,event_id:eid});
     }
     if(action==="createEvent"||action==="updateEvent"){
