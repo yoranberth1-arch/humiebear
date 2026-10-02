@@ -73,7 +73,7 @@ async function submitCheckout(e){
   const button=q("#payButton");button.disabled=true;button.textContent="Bestelling voorbereiden…";
   saveDiscountCode(s.code);
   try{
-    const response=await fetch("/api/create-payment",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({customer,items:s.items.map(i=>({id:i.raw?.id||"",name:i.name,quantity:i.quantity,grams:i.grams,meta:i.meta||null,customMix:i.raw?.customMix||null})),discountCode:s.code})});
+    const response=await fetch("https://humiebear.vercel.app/api/create-payment",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({customer,items:s.items.map(i=>({id:i.raw?.id||"",name:i.name,quantity:i.quantity,grams:i.grams,meta:i.meta||null,customMix:i.raw?.customMix||null})),discountCode:s.code})});
     const body=await response.json().catch(()=>({}));
     if(!response.ok)throw new Error(body.error||"De betaling kon niet worden gestart.");
     if(!body.checkoutUrl)throw new Error("Mollie gaf geen betaalpagina terug.");
