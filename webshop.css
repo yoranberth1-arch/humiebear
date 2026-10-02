@@ -287,3 +287,13 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid rgba(
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
 }
+
+.first-order-offer{overflow:hidden}
+.first-order-offer .popup-top{padding:42px 34px 30px;background:radial-gradient(circle at 50% 0%,#fff0f6 0,#fff 58%)}
+.first-order-offer .popup-top h2{font-size:clamp(42px,7vw,62px);line-height:.9;margin:12px 0 14px}
+.first-order-offer .popup-top h2 em{color:var(--hb-pink-2);font-style:normal}
+.first-order-offer .popup-top p{max-width:430px;margin:0 auto;color:var(--hb-muted);font-size:12px;line-height:1.6}
+.offer-code{display:flex;justify-content:center;margin:18px auto 14px}
+.offer-code span{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border:2px dashed var(--hb-pink);border-radius:14px;background:#fff6fa;color:var(--hb-pink-2);font-size:18px;font-weight:1000;letter-spacing:.14em}
+.first-order-offer .btn{max-width:390px;margin:0 auto;min-height:48px;font-size:11px}
+@media(max-width:620px){.first-order-offer .popup-top{padding:38px 20px 25px}.first-order-offer .popup-top h2{font-size:43px}.offer-code span{font-size:15px}}
