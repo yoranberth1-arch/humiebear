@@ -35,7 +35,9 @@ export default async function handler(req,res){
     const response=await fetch("https://api.mollie.com/v2/payments/"+encodeURIComponent(paymentId),{headers:{Authorization:"Bearer "+apiKey,Accept:"application/json"}});
     if(!response.ok)return res.status(502).send("Could not verify payment");
     const payment=await response.json();
-    const orderId=clean(payment.metadata?.order_id);
+    let metadata=payment.metadata;
+    if(typeof metadata==="string"){try{metadata=JSON.parse(metadata)}catch{metadata={}}}
+    const orderId=clean(metadata?.order_id);
     if(!orderId)return res.status(200).send("OK");
     const rows=await sb("orders?id=eq."+encodeURIComponent(orderId)+"&select=*");
     const order=Array.isArray(rows)?rows[0]:null;
@@ -46,7 +48,7 @@ export default async function handler(req,res){
     await sb("orders?id=eq."+encodeURIComponent(orderId),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify(update)});
     if(payment.status==="paid"&&!order.confirmation_email_sent_at){
       try{await sendConfirmation({...order,...update,payment_status:"paid"});await sb("orders?id=eq."+encodeURIComponent(orderId),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({confirmation_email_sent_at:new Date().toISOString(),confirmation_email_status:"sent",email_error:null,updated_at:new Date().toISOString()})});}
-      catch(emailError){console.error("Confirmation email failed:",emailError);await sb("orders?id=eq."+encodeURIComponent(orderId),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({confirmation_email_status:"failed",email_error:String(emailError.message||emailError).slice(0,500),updated_at:new Date().toISOString()})}).catch(()=>{});}
+      catch(emailError){console.error("Confirmation email failed:",emailError);await sb("orders?id=eq."+encodeURIComponent(orderId),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({confirmation_email_status:"failed",email_error:String(emailError.message||emailError).slice(0,500),updated_at:new Date().toISOString()})}).catch(()=>{});return res.status(500).send("Confirmation email failed");}
     }
     return res.status(200).send("OK");
   }catch(error){console.error("Mollie webhook error:",error);return res.status(500).send("Webhook error")}
