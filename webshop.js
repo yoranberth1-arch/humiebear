@@ -151,11 +151,11 @@ async function checkout(){
  const button=q("#checkoutButton");
  if(button){button.disabled=true;button.textContent="Betaling starten…"}
  const orderItems=items.map(i=>({
-   name:i.name,
+   id:i.id,
    quantity:i.quantity,
    grams:i.grams,
-   price:Number(i.price),
-   meta:i.meta||null
+   customMix:Array.isArray(i.customMix)?i.customMix.map(part=>({id:part.id,grams:part.grams})):null,
+   meta:i.meta?{type:i.meta.type,size:i.meta.size,dealType:i.meta.dealType,sticker:i.meta.sticker,bagColor:i.meta.bagColor,note:i.meta.note}:null
  }));
  try{
    const response=await fetch("https://humiebear.vercel.app/api/create-payment",{
