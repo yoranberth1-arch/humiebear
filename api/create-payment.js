@@ -28,7 +28,7 @@ export default async function handler(req,res){
 
   function parseBody(v){if(v&&typeof v==="object")return v;try{return JSON.parse(v||"{}")}catch{return{}}}
   function splitName(full){
-    const parts=clean(full,120).split(/s+/).filter(Boolean);
+    const parts=clean(full,120).split(/\\s+/).filter(Boolean);
     if(!parts.length)return{first:"Bestelling",last:""};
     if(parts.length===1)return{first:parts[0],last:""};
     return{first:parts.slice(0,-1).join(" "),last:parts.at(-1)};
@@ -63,7 +63,7 @@ export default async function handler(req,res){
 
     const grams=Number(item?.grams);if(!validGrams(grams))throw new Error("Ongeldig snoepgewicht.");
     const price=round((grams/100)*1.70);
-    return{name:clean(item?.name,120)||clean(item?.id,120)||"Schepsnoep",product_id:clean(item?.id,120)||null,quantity:qty,unit_price:price,line_total:round(price*qty),grams,meta:null};
+    return{name:clean(item?.name,120)||clean(item?.id,120)||"Schepsnoep",product_id:(["cuberdon-box","live-box","live-box-xl","snoepmix-1000","snoepmix-500","sweet-gift-box"].includes(clean(item?.id,120))?clean(item?.id,120):null),quantity:qty,unit_price:price,line_total:round(price*qty),grams,meta:null};
   }
 
   try{
