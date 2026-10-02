@@ -190,33 +190,65 @@ export default async function handler(req, res) {
     const shipping = subtotal >= 55 ? 0 : 5.95;
     const total = roundMoney(subtotal + shipping);
     const origin = process.env.PUBLIC_SITE_URL || "https://www.hummiebear.be";
-    const orderId = "HB-" + Date.now() + "-" + Math.random().toString(36).slice(2, 7).toUpperCase();
+    const nameParts = customerName.split(/\\s+/);
+    const customerFirstName = nameParts.shift() || "Klant";
+    const customerLastName = nameParts.join(" ") || "Onbekend";
 
     const orderRecord = {
-      id: orderId,
-      customer_name: customerName,
+      customer_first_name: customerFirstName,
+      customer_last_name: customerLastName,
       customer_email: customerEmail,
       customer_phone: customerPhone || null,
-      delivery_street: street,
-      delivery_number: houseNumber,
-      delivery_postal_code: postalCode,
-      delivery_city: city,
-      delivery_country: country,
-      items: calculatedItems,
+      shipping_street: street,
+      shipping_house_number: houseNumber,
+      shipping_postal_code: postalCode,
+      shipping_city: city,
+      shipping_country: country,
+      customer_note: cleanText(customer.note, 1000) || null,
       subtotal,
-      shipping,
+      discount_amount: 0,
+      shipping_cost: shipping,
       total,
+      source: "website",
+      status: "new",
       payment_status: "pending",
-      fulfillment_status: "new",
+      payment_provider: "mollie",
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
     };
 
-    await supabaseRequest("orders", {
+    const createdOrders = await supabaseRequest("orders", {
       method: "POST",
-      headers: { "Prefer": "return=minimal" },
+      headers: { "Prefer": "return=representation" },
       body: JSON.stringify(orderRecord)
     });
+    const createdOrder = Array.isArray(createdOrders) ? createdOrders[0] : createdOrders;
+    const orderId = createdOrder?.id;
+    const orderNumber = createdOrder?.order_number;
+    if (!orderId) throw new Error("De bestelling kon niet worden opgeslagen.");
+
+    const orderItems = calculatedItems.map(item => ({
+      order_id: orderId,
+      product_id: item.product_id || item.name,
+      product_name: item.name,
+      unit_price: item.unit_price,
+      quantity: item.quantity,
+      line_total: item.line_total,
+      meta: { ...(item.meta || {}), ...(item.grams ? { grams: item.grams } : {}) }
+    }));
+    try {
+      await supabaseRequest("order_items", {
+        method: "POST",
+        headers: { "Prefer": "return=minimal" },
+        body: JSON.stringify(orderItems)
+      });
+    } catch (itemError) {
+      await supabaseRequest("orders?id=eq." + encodeURIComponent(orderId), {
+        method: "DELETE",
+        headers: { "Prefer": "return=minimal" }
+      }).catch(() => {});
+      throw itemError;
+    }
 
     const payment = await fetch("https://api.mollie.com/v2/payments", {
       method: "POST",
@@ -230,7 +262,7 @@ export default async function handler(req, res) {
           currency: "EUR",
           value: total.toFixed(2)
         },
-        description: "Hummie Bear bestelling " + orderId,
+        description: "Hummie Bear bestelling " + (orderNumber || orderId),
         redirectUrl: origin + "/payment-success.html?order=" + encodeURIComponent(orderId),
         cancelUrl: origin + "/payment-cancelled.html?order=" + encodeURIComponent(orderId),
         webhookUrl: origin + "/api/mollie-webhook",
@@ -266,7 +298,8 @@ export default async function handler(req, res) {
       method: "PATCH",
       headers: { "Prefer": "return=minimal" },
       body: JSON.stringify({
-        payment_id: data.id,
+        payment_reference: data.id,
+        payment_provider: "mollie",
         payment_status: data.status || "open",
         updated_at: new Date().toISOString()
       })
@@ -277,6 +310,7 @@ export default async function handler(req, res) {
       checkoutUrl: data._links?.checkout?.href || null,
       status: data.status,
       orderId,
+      orderNumber,
       total
     });
   } catch (error) {
