@@ -49,7 +49,7 @@ async function login(){
   q("#loginError").textContent="";
   const {error}=await supabaseClient.auth.signInWithOAuth({
     provider:"google",
-    options:{redirectTo:window.location.origin+window.location.pathname, queryParams:{access_type:"offline",prompt:"select_account"}}
+    options:{redirectTo:"https://hummiebear.be/bestellingen.html", queryParams:{access_type:"offline",prompt:"select_account"}}
   });
   if(error)q("#loginError").textContent=error.message||"Google-aanmelding mislukt.";
 }
