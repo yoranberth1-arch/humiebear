@@ -145,36 +145,10 @@ function addSavedPickMix(){const mix=loadPickMixDraft();if(!mix){toast("Je Pick 
  q("#cartTotal").textContent=eur(cartTotal());
  q("#cartShippingNote").textContent=subtotal===0?"":(subtotal>=55?"🎉 Gratis verzending vanaf €55.":"Nog "+eur(55-subtotal)+" tot gratis verzending.")+(totalCandyGrams>=CONFIG.freeBagFrom?" 🎁 Gratis snoepzakje inbegrepen.":"");
 }
-async function checkout(){
+function checkout(){
  const items=cartItemsDetailed();
  if(!items.length){toast("Je mandje is leeg.");return}
- const button=q("#checkoutButton");
- if(button){button.disabled=true;button.textContent="Betaling starten…"}
- const orderItems=items.map(i=>({
-   name:i.name,
-   quantity:i.quantity,
-   grams:i.grams,
-   price:Number(i.price),
-   meta:i.meta||null
- }));
- try{
-   const response=await fetch("https://humiebear.vercel.app/api/create-payment",{
-     method:"POST",
-     headers:{"Content-Type":"application/json","Accept":"application/json"},
-     body:JSON.stringify({
-       amount:cartTotal(),
-       description:"Hummie Bear webshop bestelling",
-       items:orderItems
-     })
-   });
-   const data=await response.json().catch(()=>({}));
-   if(!response.ok||!data.checkoutUrl)throw new Error(data.error||"Mollie kon de betaling niet starten.");
-   window.location.href=data.checkoutUrl;
- }catch(error){
-   console.error(error);
-   toast(error.message||"Betaling kon niet worden gestart.");
-   if(button){button.disabled=false;button.textContent="Veilig betalen via Mollie"}
- }
+ window.location.href="checkout.html";
 }
 function toast(m){const el=q("#toast");if(!el)return;el.textContent=m;el.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("show"),3000)}
 function productCard(p){const crossed=["spaghetti-aardbei","spaghetti-appel","spaghetti-cola","matten-aardbei","matten-cola","matten-appel"].includes(p.id);return '<article class="product-card"><div class="product-visual"><img src="'+p.image+'" alt="'+p.name+'" loading="lazy" onerror="this.onerror=null;this.src=\'images/gummy-candy.png\'"><span class="product-badge">'+(crossed?"OOK OP ORIGINELE LIJST DOORGESTREEPT":p.category==="zuur"?"ZOET-ZUUR":"SCHEPSNOEP")+'</span><span class="product-emoji">'+p.emoji+'</span></div><div class="product-info"><h3>'+p.name+'</h3><p>'+p.desc+'. Zelf te kiezen vanaf 100 g.</p><small style="display:block;color:var(--hb-muted);font-weight:800;margin-top:5px">Merk: '+p.brand+'</small><div class="product-meta"><span class="price">'+eur(CONFIG.pricePer100g)+' <small>/ 100 g</small></span><span style="font-size:9px;color:var(--hb-green);font-weight:900">500 g = zakje cadeau</span></div><div class="product-actions"><button class="btn btn-primary btn-block" type="button" data-add="'+p.id+'">+ Voeg 100 g toe</button><button class="icon-btn" type="button" data-scroll-builder title="Zelf samenstellen">⚙</button></div></div></article>'}
