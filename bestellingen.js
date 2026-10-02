@@ -17,24 +17,41 @@ function showLogin(show){q("#login").classList.toggle("hidden",!show);q("#app").
 function showError(text){q("#globalError").textContent=text||""}
 function itemList(o){return Array.isArray(o.order_items)?o.order_items:[]}
 
+const ALLOWED_EMAIL="yoran.berth1@gmail.com";
+
 async function ensureSession(){
   const {data}=await supabaseClient.auth.getSession();
-  if(data.session){await enterApp(data.session);return true}
+  if(data.session){
+    if((data.session.user.email||"").toLowerCase()!==ALLOWED_EMAIL){
+      await supabaseClient.auth.signOut();
+      showLogin(true);
+      q("#loginError").textContent="Dit Google-account heeft geen toegang tot het Hummie Bear-bestellingenbeheer.";
+      return false;
+    }
+    await enterApp(data.session);return true;
+  }
   showLogin(true);return false;
 }
 
 async function enterApp(session){
+  if((session?.user?.email||"").toLowerCase()!==ALLOWED_EMAIL){
+    await supabaseClient.auth.signOut();
+    showLogin(true);
+    q("#loginError").textContent="Dit Google-account heeft geen toegang tot het Hummie Bear-bestellingenbeheer.";
+    return;
+  }
   showLogin(false);
   q("#userEmail").textContent=session.user.email||"";
   await load();
 }
 
 async function login(){
-  const email=q("#email").value.trim(),password=q("#password").value;
   q("#loginError").textContent="";
-  const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
-  if(error){q("#loginError").textContent=error.message||"Aanmelden mislukt.";return}
-  await enterApp(data.session);
+  const {error}=await supabaseClient.auth.signInWithOAuth({
+    provider:"google",
+    options:{redirectTo:window.location.origin+window.location.pathname, queryParams:{access_type:"offline",prompt:"select_account"}}
+  });
+  if(error)q("#loginError").textContent=error.message||"Google-aanmelding mislukt.";
 }
 
 async function load(){
@@ -140,14 +157,12 @@ async function setStatus(id,status){
 }
 
 document.addEventListener("DOMContentLoaded",async()=>{
-  q("#loginButton").addEventListener("click",login);
-  q("#password").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
-  q("#email").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+  q("#googleLoginButton").addEventListener("click",login);
   q("#refresh").addEventListener("click",load);
   q("#search").addEventListener("input",render);
   q("#payFilter").addEventListener("change",render);
   q("#fulfillFilter").addEventListener("change",render);
-  q("#lock").addEventListener("click",async()=>{await supabaseClient.auth.signOut();showLogin(true);q("#password").value="";});
+  q("#lock").addEventListener("click",async()=>{await supabaseClient.auth.signOut();showLogin(true);q("#loginError").textContent="";});
   q("#orders").addEventListener("click",e=>{
     const card=e.target.closest(".order");if(!card)return;
     if(e.target.closest("[data-detail]"))showDetails(card.dataset.id);
