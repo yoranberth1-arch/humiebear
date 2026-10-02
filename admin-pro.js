@@ -114,6 +114,7 @@
   function exportCsv(name,rows){if(!rows.length){toast("Geen data om te exporteren.","warning");return}const headers=[...new Set(rows.flatMap(r=>Object.keys(r)))],csv="\uFEFF"+[headers,...rows.map(r=>headers.map(h=>'"'+String(typeof r[h]==="object"?JSON.stringify(r[h]):r[h]??"").replace(/"/g,'""')+'"'))].map(a=>a.join(";")).join("\n"),b=new Blob([csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
   function orderNext(o){const next={new:"processing",processing:"shipped",shipped:"completed"}[o.fulfillment_status]||"completed";api("updateOrder",{id:o.id,payload:{fulfillment_status:next}}).then(()=>{load();toast("Bestelling bijgewerkt.","success")}).catch(e=>toast(e.message,"error"))}
   document.addEventListener("click",e=>{
+    const link=e.target.closest("[data-section-link]");if(link){section(link.dataset.sectionLink);return}
     const nav=e.target.closest(".nav-btn");if(nav){section(nav.dataset.section);return}
     if(e.target.closest("#mobileMenu")){$("#sidebar").classList.toggle("open");return}
     if(e.target.closest("#logout")){logout();return}
