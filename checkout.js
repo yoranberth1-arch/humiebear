@@ -24,10 +24,10 @@ function itemDetails(item){
     if(type==="gift-box")name="Gepersonaliseerde snoepdoos";
     const base=Number(meta.priceOverride);
     const price=Number.isFinite(base)?base:((grams/100)*PRICE_PER_100G+(type==="gift-box"?3.5:0));
-    return{name,grams,price,quantity:Number(item.quantity||1),image:item.customMix?.[0]?.image||meta.image||"images/gummy-candy.png",meta};
+    return{name,grams,price,quantity:Number(item.quantity||1),image:item.customMix?.[0]?.image||meta.image||"images/gummy-candy.png",meta,raw:item};
   }
   const grams=Number(item.grams||100);
-  return{name:item.name||item.id.replace(/-/g," "),grams,price:(grams/100)*PRICE_PER_100G,quantity:Number(item.quantity||1),image:item.image||"images/gummy-candy.png",meta:item.meta||null};
+  return{name:item.name||item.id.replace(/-/g," "),grams,price:(grams/100)*PRICE_PER_100G,quantity:Number(item.quantity||1),image:item.image||"images/gummy-candy.png",meta:item.meta||null,raw:item};
 }
 const details=()=>loadCart().map(itemDetails);
 function state(){
@@ -73,7 +73,7 @@ async function submitCheckout(e){
   const button=q("#payButton");button.disabled=true;button.textContent="Bestelling voorbereiden…";
   saveDiscountCode(s.code);
   try{
-    const response=await fetch("/api/create-payment",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({customer,items:s.items.map(i=>({id:i.meta?.product_id||i.id,name:i.name,quantity:i.quantity,grams:i.grams,meta:i.meta||null,customMix:loadCart().find(x=>x.id===i.meta?.cart_id)?.customMix||null})),discountCode:s.code})});
+    const response=await fetch("/api/create-payment",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({customer,items:s.items.map(i=>({id:i.raw?.id||"",name:i.name,quantity:i.quantity,grams:i.grams,meta:i.meta||null,customMix:i.raw?.customMix||null})),discountCode:s.code})});
     const body=await response.json().catch(()=>({}));
     if(!response.ok)throw new Error(body.error||"De betaling kon niet worden gestart.");
     if(!body.checkoutUrl)throw new Error("Mollie gaf geen betaalpagina terug.");
