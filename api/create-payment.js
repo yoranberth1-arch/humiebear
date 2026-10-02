@@ -143,7 +143,7 @@ export default async function handler(req, res) {
         description: "Hummie Bear webshop bestelling",
         redirectUrl: origin + "/payment-success.html?order=" + encodeURIComponent(orderId),
         cancelUrl: origin + "/payment-cancelled.html?order=" + encodeURIComponent(orderId),
-        webhookUrl: origin + "/api/mollie-webhook",
+        webhookUrl: "https://humiebear.vercel.app/api/mollie-webhook",
         metadata: {
           order_id: orderId,
           items: order.metadataItems
