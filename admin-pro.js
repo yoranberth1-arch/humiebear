@@ -23,10 +23,10 @@
     render();
   }
   async function login(){
-    const pin=$("#loginPin").value.trim(), email=$("#loginEmail").value.trim(), pass=$("#loginPassword").value;
+    const email=$("#loginEmail").value.trim(), pass=$("#loginPassword").value;
     $("#loginError").textContent="";
     $("#loginButton").disabled=true;$("#loginButton").textContent="Controleren…";
-    try{const d=await api("login",{pin,email,password:pass});showApp(d.session);await load()}catch(e){$("#loginError").textContent=e.message}finally{$("#loginButton").disabled=false;$("#loginButton").textContent="Dashboard openen"}
+    try{const d=await api("login",{email,password:pass});showApp(d.session);await load()}catch(e){$("#loginError").textContent=e.message}finally{$("#loginButton").disabled=false;$("#loginButton").textContent="Dashboard openen"}
   }
   function showApp(session){
     $("#loginScreen").style.display="none";$("#app").classList.add("ready");$("#currentUser").textContent=session?.name||"Hummie Bear";$("#currentRole").textContent=session?.role||"owner";
@@ -151,7 +151,7 @@
   $("#exportOrders")?.addEventListener("click",()=>exportCsv("hummiebear-orders.csv",S.orders));
   $("#exportQuotes")?.addEventListener("click",()=>exportCsv("hummiebear-aanvragen.csv",S.quotes));
   $("#exportEvents")?.addEventListener("click",()=>exportCsv("hummiebear-events.csv",S.events));
-  $("#loginPin")?.addEventListener("keydown",e=>{if(e.key==="Enter")login()});$("#loginPassword")?.addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+$("#loginPassword")?.addEventListener("keydown",e=>{if(e.key==="Enter")login()});
   window.HBAdmin={load,section};
   start();
 })();
