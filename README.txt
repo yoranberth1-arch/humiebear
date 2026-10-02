@@ -19,3 +19,5 @@ Het formulier gebruikt mailto:info@hummiebear.com. Maak deze mailbox aan bij Com
 
 OPMERKING
 De teksten, voorbeeldnamen en illustraties zijn opgezet als professionele basis. Vervang later contactgegevens, foto's, prijzen, Instagram/Facebook-links en definitieve logo-bestanden met jullie echte gegevens.
+
+<!-- deployment refresh 2026-10-02 -->
