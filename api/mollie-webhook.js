@@ -94,7 +94,6 @@ export default async function handler(req,res){
       }catch(emailError){
         console.error("Confirmation email failed:",emailError);
         await sb("orders?id=eq."+encodeURIComponent(order.id),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({confirmation_email_status:"failed",email_error:String(emailError.message||emailError).slice(0,500),updated_at:new Date().toISOString()})}).catch(()=>{});
-        return res.status(500).send("Confirmation email failed");
       }
     }
     return res.status(200).send("OK");
