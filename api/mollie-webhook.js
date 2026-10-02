@@ -92,18 +92,19 @@ export default async function handler(req, res) {
     const orderId = String(payment.metadata?.order_id || "").trim();
 
     const update = {
-      payment_id: payment.id,
+      payment_reference: payment.id,
+      payment_provider: "mollie",
       payment_status: payment.status || "unknown",
       updated_at: new Date().toISOString()
     };
 
     if (payment.status === "paid") {
       update.paid_at = new Date().toISOString();
-      update.fulfillment_status = "new";
+      update.status = "new";
     }
 
     if (payment.status === "canceled" || payment.status === "expired" || payment.status === "failed") {
-      update.fulfillment_status = "cancelled";
+      update.status = "cancelled";
     }
 
     if (orderId) {
