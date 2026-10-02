@@ -82,7 +82,7 @@
   }
   function customerRows(){
     const map=new Map();const add=(name,email,phone,orders,revenue,last)=>{const key=(email||phone||name||"").toLowerCase();const r=map.get(key)||{name:name||"-",email:email||"-",phone:phone||"-",orders:0,revenue:0,last:""};r.orders+=orders||0;r.revenue+=revenue||0;if(String(last)>String(r.last))r.last=last;map.set(key,r)};
-    S.orders.forEach(o=>add(o.customer_name,o.customer_email,o.customer_phone,1,Number(o.total||0),o.created_at));S.quotes.forEach(q=>add(q.name,q.email,q.phone,0,0,q.created_at));return[...map.values()].sort((a,b)=>b.revenue-a.revenue);
+    S.orders.forEach(o=>add(orderCustomer(o),o.customer_email,o.customer_phone,1,Number(o.total||0),o.created_at));S.quotes.forEach(q=>add(q.name,q.email,q.phone,0,0,q.created_at));return[...map.values()].sort((a,b)=>b.revenue-a.revenue);
   }
   function renderCustomers(){const a=customerRows();$("#customersBody").innerHTML=a.length?a.map(c=>'<tr><td class="strong">'+esc(c.name)+'</td><td>'+esc(c.email)+'</td><td>'+esc(c.phone)+'</td><td>'+c.orders+"</td><td class=\"money\">"+money(c.revenue)+"</td><td>"+date(c.last)+"</td></tr>").join(""):'<tr><td colspan="6"><div class="empty"><strong>Geen klanten</strong></div></td></tr>'}
   function productTotals(){
