@@ -190,7 +190,7 @@ export default async function handler(req, res) {
     const shipping = subtotal >= 55 ? 0 : 5.95;
     const total = roundMoney(subtotal + shipping);
     const origin = process.env.PUBLIC_SITE_URL || "https://www.hummiebear.be";
-    const nameParts = customerName.split(/\\s+/);
+    const nameParts = customerName.trim().split(" ").filter(Boolean);
     const customerFirstName = nameParts.shift() || "Klant";
     const customerLastName = nameParts.join(" ") || "Onbekend";
 
