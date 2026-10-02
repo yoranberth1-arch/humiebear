@@ -8,7 +8,7 @@ export default async function handler(req,res){
   const clean=(v,max=255)=>String(v??"").trim().slice(0,max);
   const round=v=>Math.round((Number(v)+Number.EPSILON)*100)/100;
   const validGrams=v=>Number.isInteger(Number(v))&&Number(v)>=100&&Number(v)<=5000&&Number(v)%100===0;
-  const DEAL_PRICES=new Map({"Zoete Snoepbox 500 g":7.95,"Zoete Snoepbox 1 kg":15.9,"Zoete Snoepbox 1,5 kg":23.75,"Zoete Snoepbox 2 kg":31.5,"Zure Snoepbox 500 g":7.95,"Zure Snoepbox 1 kg":15.9,"Zure Snoepbox 1,5 kg":23.75,"Zure Snoepbox 2 kg":31.5,"Zoet & Zuur Mix 500 g":7.95,"Zoet & Zuur Mix 1 kg":15.9,"Zoet & Zuur Mix 1,5 kg":23.75,"Zoet & Zuur Mix 2 kg":31.5});
+  const DEAL_PRICES=new Map(Object.entries({"Zoete Snoepbox 500 g":7.95,"Zoete Snoepbox 1 kg":15.9,"Zoete Snoepbox 1,5 kg":23.75,"Zoete Snoepbox 2 kg":31.5,"Zure Snoepbox 500 g":7.95,"Zure Snoepbox 1 kg":15.9,"Zure Snoepbox 1,5 kg":23.75,"Zure Snoepbox 2 kg":31.5,"Zoet & Zuur Mix 500 g":7.95,"Zoet & Zuur Mix 1 kg":15.9,"Zoet & Zuur Mix 1,5 kg":23.75,"Zoet & Zuur Mix 2 kg":31.5}));
   async function sb(path,options={}){
     const key=process.env.SUPABASE_SERVICE_ROLE_KEY;
     if(!key)throw new Error("SUPABASE_SERVICE_ROLE_KEY is not configured.");
