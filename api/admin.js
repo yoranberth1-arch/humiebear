@@ -75,7 +75,7 @@ export default async function handler(req,res){
     const session=requireAuth(req);
 
     if(action==="bootstrap"){
-      const data=await Promise.all([sbFetch("quotes?select=*&order=created_at.desc"),sbFetch("events?select=*&order=event_date.asc"),sbFetch("orders?select=*&order=created_at.desc"),maybe("inventory"),maybe("expenses"),maybe("tasks"),maybe("staff_members")]);
+      const data=await Promise.all([sbFetch("quotes?select=*&order=created_at.desc"),sbFetch("events?select=*&order=event_date.asc"),sbFetch("orders?select=*,order_items(*)&order=created_at.desc"),maybe("inventory"),maybe("expenses"),maybe("tasks"),maybe("staff_members")]);
       return json(res,200,{quotes:data[0],events:data[1],orders:data[2],inventory:data[3].ok?data[3].data:[],expenses:data[4].ok?data[4].data:[],tasks:data[5].ok?data[5].data:[],staff:data[6].ok?data[6].data:[],availability:{inventory:data[3].ok,expenses:data[4].ok,tasks:data[5].ok,staff:data[6].ok}});
     }
     if(action==="createQuote"){
