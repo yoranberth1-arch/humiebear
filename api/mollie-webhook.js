@@ -1,118 +1,53 @@
-
-export default async function handler(req, res) {
-  // Mollie sends webhook notifications using POST.
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    return res.status(405).send("Method not allowed");
+export default async function handler(req,res){
+  if(req.method!=="POST"){res.setHeader("Allow","POST");return res.status(405).send("Method not allowed")}
+  const SUPABASE_URL="https://yrcajvpstbyupohjbavm.supabase.co";
+  const clean=v=>String(v??"").trim();
+  async function sb(path,options={}){
+    const key=process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if(!key)throw new Error("SUPABASE_SERVICE_ROLE_KEY is not configured.");
+    const r=await fetch(SUPABASE_URL+"/rest/v1/"+path,{...options,headers:{"apikey":key,"Authorization":"Bearer "+key,"Content-Type":"application/json","Accept":"application/json",...(options.headers||{})}});
+    const text=await r.text();let body=null;try{body=text?JSON.parse(text):null}catch{}
+    if(!r.ok)throw new Error(body?.message||body?.hint||text||"Supabase request failed.");
+    return body;
   }
-
-  try {
-    // Read the API key from Vercel environment variables.
-    const apiKey = process.env.MOLLIE_API_KEY;
-
-    if (!apiKey) {
-      console.error("MOLLIE_API_KEY is not configured");
-      return res.status(500).send("Server configuration error");
+  function parseBody(v){if(v&&typeof v==="object")return v;if(typeof v==="string"){try{return JSON.parse(v)}catch{try{return Object.fromEntries(new URLSearchParams(v).entries())}catch{return{}}}}return{}}
+  async function sendConfirmation(order){
+    const key=process.env.RESEND_API_KEY,from=process.env.RESEND_FROM_EMAIL;
+    if(!key||!from)throw new Error("RESEND_API_KEY or RESEND_FROM_EMAIL is not configured.");
+    const items=Array.isArray(order.items)?order.items:[];
+    const rows=items.map(i=>`<tr><td style="padding:8px 0;border-bottom:1px solid #eee">${String(i.name||"Artikel")} × ${Number(i.quantity||1)}${i.grams?" · "+String(i.grams)+" g":""}</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right">${new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(i.line_total)||0)}</td></tr>`).join("");
+    const total=new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(order.total)||0);
+    const discount=Number(order.discount||0)>0?`<p style="margin:6px 0;color:#27744a">Korting ${clean(order.discount_code)}: − ${new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(order.discount))}</p>`:"";
+    const html=`<!doctype html><html><body style="margin:0;background:#fbf3ea;font-family:Arial,sans-serif;color:#38261f"><div style="max-width:620px;margin:30px auto;background:#fff;border:1px solid #eaded5;border-radius:22px;overflow:hidden"><div style="padding:30px;text-align:center;background:linear-gradient(180deg,#fff7fb,#fff)"><div style="font-weight:900;letter-spacing:.14em;font-size:11px;color:#d86092">HUMMIE BEAR</div><h1 style="font-size:30px;margin:10px 0">Bedankt voor je bestelling!</h1><p style="color:#786f68;margin:0">Je bestelling ${clean(order.id)} is goed ontvangen en betaald.</p></div><div style="padding:26px"><h2 style="font-size:18px">Bestellingsoverzicht</h2><table style="width:100%;border-collapse:collapse;font-size:13px"><tbody>${rows}</tbody></table>${discount}<div style="display:flex;justify-content:space-between;margin-top:14px;font-weight:900;font-size:17px"><span>Totaal</span><strong>${total}</strong></div><h2 style="font-size:18px;margin-top:28px">Leveradres</h2><p style="color:#786f68;line-height:1.6">${clean(order.delivery_street)} ${clean(order.delivery_number)}<br>${clean(order.delivery_postal_code)} ${clean(order.delivery_city)}<br>${clean(order.delivery_country||"BE")}</p><p style="margin-top:24px;color:#786f68;font-size:12px">We houden je op de hoogte wanneer je bestelling wordt verwerkt.</p></div></div></body></html>`;
+    const r=await fetch("https://api.resend.com/emails",{method:"POST",headers:{"Authorization":"Bearer "+key,"Content-Type":"application/json","Accept":"application/json","Idempotency-Key":"hummie-order-"+order.id},body:JSON.stringify({from,to:[order.customer_email],subject:"Hummie Bear – bestelling "+order.id+" ontvangen",html})});
+    const body=await r.json().catch(()=>({}));
+    if(!r.ok)throw new Error(body?.message||"Bevestigingsmail kon niet worden verzonden.");
+    return body;
+  }
+  try{
+    const apiKey=process.env.MOLLIE_API_KEY;if(!apiKey)return res.status(500).send("Server configuration error");
+    const body=parseBody(req.body);
+    if(body.type==="hook.ping"||body.eventType==="hook.ping")return res.status(200).send("OK");
+    let paymentId=body.id;
+    if(body.resource==="event"||String(body.id||"").startsWith("event_")||String(body.type||"").startsWith("payment."))paymentId=body.entityId||body._embedded?.entity?.id||body.data?.id||paymentId;
+    paymentId=paymentId||req.query?.id;
+    if(typeof paymentId!=="string"||!/^tr_[A-Za-z0-9]+$/.test(paymentId))return res.status(400).send("Missing or invalid payment ID");
+    const response=await fetch("https://api.mollie.com/v2/payments/"+encodeURIComponent(paymentId),{headers:{Authorization:"Bearer "+apiKey,Accept:"application/json"}});
+    if(!response.ok)return res.status(502).send("Could not verify payment");
+    const payment=await response.json();
+    const orderId=clean(payment.metadata?.order_id);
+    if(!orderId)return res.status(200).send("OK");
+    const rows=await sb("orders?id=eq."+encodeURIComponent(orderId)+"&select=*");
+    const order=Array.isArray(rows)?rows[0]:null;
+    if(!order)return res.status(404).send("Order not found");
+    const update={payment_id:payment.id,payment_status:payment.status||"unknown",updated_at:new Date().toISOString()};
+    if(payment.status==="paid"){update.paid_at=payment.paidAt||new Date().toISOString();update.fulfillment_status=order.fulfillment_status==="cancelled"?"cancelled":"new";}
+    if(["failed","canceled","expired"].includes(payment.status))update.fulfillment_status="cancelled";
+    await sb("orders?id=eq."+encodeURIComponent(orderId),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify(update)});
+    if(payment.status==="paid"&&!order.confirmation_email_sent_at){
+      try{await sendConfirmation({...order,...update,payment_status:"paid"});await sb("orders?id=eq."+encodeURIComponent(orderId),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({confirmation_email_sent_at:new Date().toISOString(),confirmation_email_status:"sent",email_error:null,updated_at:new Date().toISOString()})});}
+      catch(emailError){console.error("Confirmation email failed:",emailError);await sb("orders?id=eq."+encodeURIComponent(orderId),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({confirmation_email_status:"failed",email_error:String(emailError.message||emailError).slice(0,500),updated_at:new Date().toISOString()})}).catch(()=>{});}
     }
-
-    // Parse form-encoded, JSON, or Buffer request bodies.
-    let body = req.body;
-
-    if (typeof body === "string") {
-      try {
-        body = JSON.parse(body);
-      } catch {
-        body = Object.fromEntries(new URLSearchParams(body).entries());
-      }
-    }
-
-    if (Buffer.isBuffer(body)) {
-      const rawBody = body.toString("utf8");
-      try {
-        body = JSON.parse(rawBody);
-      } catch {
-        body = Object.fromEntries(new URLSearchParams(rawBody).entries());
-      }
-    }
-
-    if (!body || typeof body !== "object") {
-      body = {};
-    }
-
-    // Mollie's webhook connectivity test does not contain a payment ID.
-    // Acknowledge it separately so it doesn't return a 400 error.
-    if (
-      body.type === "hook.ping" ||
-      body.eventType === "hook.ping"
-    ) {
-      console.log("Mollie webhook ping received");
-      return res.status(200).send("OK");
-    }
-
-    // Support classic Mollie webhooks and event-style payloads.
-    let paymentId;
-
-    if (
-      body.resource === "event" ||
-      String(body.id || "").startsWith("event_") ||
-      (typeof body.type === "string" && body.type.startsWith("payment."))
-    ) {
-      paymentId =
-        body.entityId ||
-        body._embedded?.entity?.id ||
-        body.data?.id;
-    } else {
-      paymentId = body.id;
-    }
-
-    // Support a payment ID supplied as a query parameter.
-    paymentId = paymentId || req.query?.id;
-
-    // Mollie payment IDs normally begin with tr_.
-    if (
-      typeof paymentId !== "string" ||
-      !/^tr_[A-Za-z0-9]+$/.test(paymentId)
-    ) {
-      console.error("Missing or invalid Mollie payment ID");
-      return res.status(400).send("Missing or invalid payment ID");
-    }
-
-    // Verify the actual payment status directly with Mollie.
-    const response = await fetch(
-      "https://api.mollie.com/v2/payments/" +
-        encodeURIComponent(paymentId),
-      {
-        method: "GET",
-        headers: {
-          Authorization: "Bearer " + apiKey,
-          Accept: "application/json"
-        }
-      }
-    );
-
-    if (!response.ok) {
-      console.error("Mollie payment lookup failed:", {
-        status: response.status,
-        paymentId
-      });
-      return res.status(502).send("Could not verify payment");
-    }
-
-    const payment = await response.json();
-
-    console.log("Hummie Bear Mollie payment:", {
-      id: payment.id,
-      status: payment.status,
-      amount: payment.amount,
-      metadata: payment.metadata
-    });
-
-    // Acknowledge the webhook after successfully checking the payment.
-    // Note: this code does not yet save orders or send customer emails.
     return res.status(200).send("OK");
-
-  } catch (error) {
-    console.error("Mollie webhook error:", error);
-    return res.status(500).send("Webhook error");
-  }
+  }catch(error){console.error("Mollie webhook error:",error);return res.status(500).send("Webhook error")}
 }
