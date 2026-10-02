@@ -3,25 +3,64 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Hummie Bear – Bestellingen</title>
-<link rel="stylesheet" href="bestellingen.css?v=20261002-1">
+<link rel="stylesheet" href="bestellingen.css?v=20261002-2">
 </head>
 <body>
 <div id="login" class="login">
   <div class="brand"><span class="brand-mark">HB</span>Hummie Bear</div>
   <h1 style="margin-top:18px">Bestellingen</h1>
-  <p>Dit is het interne bestellingenoverzicht. Alleen bevoegde medewerkers kunnen hier aanmelden.</p>
-  <div class="field"><label for="pin">PIN</label><input id="pin" type="password" inputmode="numeric" autocomplete="current-password" placeholder="Voer je PIN in"></div>
-  <button id="loginButton">Aanmelden</button><div id="loginError" class="error"></div>
+  <p>Log in met je Hummie Bear medewerkersaccount. Alleen bevoegde medewerkers krijgen toegang tot bestellingen.</p>
+  <div class="field"><label for="email">E-mailadres</label><input id="email" type="email" autocomplete="username" placeholder="naam@hummiebear.be"></div>
+  <div class="field"><label for="password">Wachtwoord</label><input id="password" type="password" autocomplete="current-password"></div>
+  <button id="loginButton">Aanmelden</button>
+  <div id="loginError" class="error"></div>
+  <a href="reset-password.html" style="display:block;margin-top:12px;text-align:center;font-size:10px;color:var(--muted)">Wachtwoord vergeten?</a>
 </div>
+
 <div id="app" class="hidden">
-<header class="topbar"><div class="topbar-inner"><div class="brand"><span class="brand-mark">HB</span>Hummie Bear Bestellingen</div><div style="display:flex;gap:8px"><button id="refresh" class="refresh">Vernieuwen</button><button id="lock" class="lock-btn">Vergrendelen</button></div></div></header>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="brand-mark">HB</span>Hummie Bear Bestellingen</div>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <span id="userEmail" class="muted"></span>
+      <button id="refresh" class="refresh">Vernieuwen</button>
+      <button id="lock" class="lock-btn">Uitloggen</button>
+    </div>
+  </div>
+</header>
+
 <main class="page">
-<div class="title-row"><div><h1>Bestellingen</h1><p>Hier komen webshopbestellingen binnen zodra een klant afrekent.</p></div></div>
+<div class="title-row">
+  <div><h1>Bestellingen</h1><p>Webshopbestellingen, betalingen, klantgegevens en verwerking op één plaats.</p></div>
+</div>
 <div id="globalError" class="error"></div>
-<div class="stats"><div class="stat"><small>Alle bestellingen</small><strong id="statTotal">0</strong></div><div class="stat"><small>Betaald</small><strong id="statPaid">0</strong></div><div class="stat"><small>Nieuwe betaalde orders</small><strong id="statNew">0</strong></div><div class="stat"><small>Open betaling</small><strong id="statOpen">0</strong></div></div>
-<div class="filters"><input id="search" placeholder="Zoek order, klant, e-mail, adres..."><select id="payFilter"><option value="all">Alle betalingen</option><option value="paid">Betaald</option><option value="open">Open</option><option value="pending">In afwachting</option><option value="failed">Mislukt</option><option value="canceled">Geannuleerd</option><option value="expired">Verlopen</option></select><select id="fulfillFilter"><option value="all">Alle verwerkingen</option><option value="new">Nieuw</option><option value="processing">In behandeling</option><option value="shipped">Verzonden</option><option value="completed">Afgerond</option><option value="cancelled">Geannuleerd</option></select></div>
+
+<div class="stats">
+  <div class="stat"><small>Alle bestellingen</small><strong id="statTotal">0</strong></div>
+  <div class="stat"><small>Betaald</small><strong id="statPaid">0</strong></div>
+  <div class="stat"><small>Nieuwe orders</small><strong id="statNew">0</strong></div>
+  <div class="stat"><small>Open betaling</small><strong id="statOpen">0</strong></div>
+</div>
+
+<div class="filters">
+  <input id="search" placeholder="Zoek order, klant, e-mail, adres...">
+  <select id="payFilter"><option value="all">Alle betalingen</option><option value="paid">Betaald</option><option value="pending">In afwachting</option><option value="failed">Mislukt</option><option value="refunded">Terugbetaald</option></select>
+  <select id="fulfillFilter"><option value="all">Alle verwerkingen</option><option value="new">Nieuw</option><option value="preparing">In behandeling</option><option value="ready">Klaar</option><option value="shipped">Verzonden</option><option value="completed">Afgerond</option><option value="cancelled">Geannuleerd</option></select>
+</div>
+
 <div id="orders" class="orders"></div>
-</main></div>
-<div id="modal" class="modal"><div class="modal-card"><div class="modal-head"><div><div class="eyebrow" style="font-size:9px;font-weight:900;letter-spacing:.12em;color:#d86092">DETAILS</div><h2 id="modalTitle" style="margin:6px 0 0">Bestelling</h2></div><button id="closeModal" class="close">×</button></div><div id="modalBody"></div></div></div>
-<script src="bestellingen.js?v=20261002-1"></script>
-</body></html>
+</main>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-card">
+    <div class="modal-head"><div><div class="eyebrow" style="font-size:9px;font-weight:900;letter-spacing:.12em;color:#d86092">DETAILS</div><h2 id="modalTitle" style="margin:6px 0 0">Bestelling</h2></div><button id="closeModal" class="close">×</button></div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="bestellingen.js?v=20261002-2"></script>
+</body>
+</html>
