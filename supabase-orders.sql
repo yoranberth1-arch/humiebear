@@ -24,6 +24,11 @@ create table if not exists public.orders (
   confirmation_email_status text not null default 'pending',
   email_error text
 );
+alter table public.orders add column if not exists discount numeric(10,2) not null default 0;
+alter table public.orders add column if not exists discount_code text;
+alter table public.orders add column if not exists confirmation_email_sent_at timestamptz;
+alter table public.orders add column if not exists confirmation_email_status text not null default 'pending';
+alter table public.orders add column if not exists email_error text;
 create index if not exists orders_created_at_idx on public.orders(created_at desc);
 create index if not exists orders_customer_email_idx on public.orders(customer_email);
 create index if not exists orders_payment_status_idx on public.orders(payment_status);
