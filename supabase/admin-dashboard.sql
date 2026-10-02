@@ -80,10 +80,11 @@ alter table public.audit_log enable row level security;
 -- Service-role calls bypass RLS.
 
 -- IMPORTANT:
--- Set these Vercel Environment Variables:
--- ADMIN_MASTER_PIN
--- ADMIN_SESSION_SECRET
--- SUPABASE_URL
--- SUPABASE_ANON_KEY
--- SUPABASE_SERVICE_ROLE_KEY
--- The service-role key must NEVER be placed in HTML/JS.
+-- Vercel Environment Variables used by the server:
+-- SUPABASE_URL (optional; the project URL is safe to use as a default)
+-- SUPABASE_ANON_KEY or SUPABASE_PUBLISHABLE_KEY (public key; optional because the
+-- dashboard can fall back to the publishable key used by the public site)
+-- SUPABASE_SERVICE_ROLE_KEY (required; server-side only, never in HTML/JS)
+--
+-- The admin dashboard authenticates employees through Supabase Auth and the
+-- existing public.profiles role=admin account or the new staff_members table.
