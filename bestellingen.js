@@ -380,13 +380,118 @@ function showDetails(type,id){
 }
 
 
-async function setStatus(id,status){
-  const {error}=await supabaseClient.from("orders").update({status,updated_at:new Date().toISOString()}).eq("id",id);
-  if(error){showError("Bestelling kon niet worden bijgewerkt.");console.error(error);return}
+function emailShell(title,content,accent="#ed9fbd"){
+  return `<!doctype html>
+  <html lang="nl">
+  <body style="margin:0;background:#fbf3ea;font-family:Arial,Helvetica,sans-serif;color:#3a281f">
+    <div style="max-width:620px;margin:30px auto;background:#fff;border:1px solid #eaded5;border-radius:22px;overflow:hidden">
+      <div style="padding:24px;background:${accent};color:#fff">
+        <div style="font-size:18px;font-weight:900">Hummie Bear</div>
+      </div>
+      <div style="padding:28px">
+        <h1 style="margin:0 0 14px;font-size:25px">${title}</h1>
+        <div style="font-size:14px;line-height:1.7">${content}</div>
+        <p style="margin-top:26px;color:#786f68;font-size:12px">
+          Met zoete groeten,<br><strong>Hummie Bear</strong>
+        </p>
+      </div>
+    </div>
+  </body>
+  </html>`;
+}
+
+async function sendCustomerEmail({to,subject,html}){
+  if(!to) throw new Error("Geen klant e-mailadres beschikbaar.");
+
+  const {data,error}=await supabaseClient.functions.invoke("hummie-bear-email",{
+    body:{to,subject,html}
+  });
+
+  if(error) throw error;
+  if(data?.error) throw new Error(data.error);
+
+  return data;
+}
+
+async function sendOrderShippedEmail(order){
+  const orderNumber=order.order_number||order.id;
+  const customerName=fullName(order);
+  const total=money(order.total);
+
+  return sendCustomerEmail({
+    to:order.customer_email,
+    subject:`Je Hummie Bear bestelling ${orderNumber} is onderweg!`,
+    html:emailShell(
+      "Je bestelling is onderweg!",
+      `<p>Dag ${esc(customerName)},</p>
+       <p>Goed nieuws: je Hummie Bear bestelling <strong>${esc(orderNumber)}</strong> is mee met de levering.</p>
+       <p><strong>Totaalbedrag:</strong> ${esc(total)}</p>
+       <p>We hopen dat je er veel plezier van hebt. Bedankt voor je bestelling bij Hummie Bear!</p>`,
+      "#3c6fa3"
+    )
+  });
+}
+
+async function sendQuoteAcceptedEmail(quote){
+  const guestText=quote.guests?`${quote.guests} personen`:"-";
+  const priceText=quote.estimated_price!=null?money(quote.estimated_price):"Op maat";
+  const dateText=quote.event_date||"nog niet vastgelegd";
+
+  return sendCustomerEmail({
+    to:quote.email,
+    subject:"Je Hummie Bear offerte is aanvaard!",
+    html:emailShell(
+      "Je offerte is aanvaard!",
+      `<p>Dag ${esc(quote.name||"daar")},</p>
+       <p>Goed nieuws: je offerteaanvraag voor <strong>${esc(quote.event_name||"jouw evenement")}</strong> is door Hummie Bear aanvaard.</p>
+       <p>
+         <strong>Evenement:</strong> ${esc(quote.event_name||"-")}<br>
+         <strong>Datum:</strong> ${esc(dateText)}<br>
+         <strong>Aantal personen:</strong> ${esc(guestText)}<br>
+         <strong>Prijsindicatie:</strong> ${esc(priceText)}
+       </p>
+       <p>We nemen verder contact met je op om de laatste details definitief vast te leggen.</p>`,
+      "#d86092"
+    )
+  });
+}
+
+async function setStatus(id,status){async function setStatus(id,status){
+  const order=orders.find(item=>item.id===id);
+  if(!order) return;
+
+  const previousStatus=order.status;
+
+  const {error}=await supabaseClient
+    .from("orders")
+    .update({status,updated_at:new Date().toISOString()})
+    .eq("id",id);
+
+  if(error){
+    showError("Bestelling kon niet worden bijgewerkt.");
+    console.error(error);
+    return;
+  }
+
   await load();
+
+  if(status==="shipped"&&previousStatus!=="shipped"){
+    try{
+      await sendOrderShippedEmail({...order,status});
+      showError("");
+    }catch(emailError){
+      console.error("Onderweg-mail:",emailError);
+      showError("Bestelling staat op 'Verzonden', maar de klantmail kon niet worden verstuurd.");
+    }
+  }
 }
 
 async function setQuoteStatus(id,status){
+  const quote=quotes.find(item=>item.id===id);
+  if(!quote) return;
+
+  const previousStatus=quote.status;
+
   const {error}=await supabaseClient
     .from("quotes")
     .update({status,updated_at:new Date().toISOString()})
@@ -399,6 +504,16 @@ async function setQuoteStatus(id,status){
   }
 
   await load();
+
+  if(status==="accepted"&&previousStatus!=="accepted"){
+    try{
+      await sendQuoteAcceptedEmail({...quote,status});
+      showError("");
+    }catch(emailError){
+      console.error("Aanvaard-mail:",emailError);
+      showError("Offerte is aanvaard, maar de klantmail kon niet worden verstuurd.");
+    }
+  }
 }
 
 let refreshTimer=null;
