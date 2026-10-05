@@ -1224,6 +1224,52 @@
         border-radius: 18px;
       }
     }
+  
+/* Hummie Bear Command Center */
+.command-center{display:grid;gap:18px;margin-bottom:26px}
+.command-hero{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:24px 26px;border-radius:24px;background:linear-gradient(135deg,#3d2a20 0%,#5b3b2c 55%,#d9789d 160%);color:#fff;box-shadow:0 18px 45px rgba(61,42,32,.16)}
+.command-hero h2{margin:0 0 6px;font-size:27px;letter-spacing:-.5px}
+.command-hero p{margin:0;color:rgba(255,255,255,.78);font-size:13px;line-height:1.55}
+.command-hero-actions{display:flex;flex-wrap:wrap;gap:8px}
+.command-hero .button{background:#fff;color:var(--brown)}
+.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,.85fr);gap:18px}
+.dashboard-panel{margin:0;min-width:0}
+.dashboard-panel .panel-header{padding:18px 20px}
+.dashboard-panel-body{padding:18px 20px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.kpi{position:relative;overflow:hidden;padding:17px 16px;background:#fff;border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow-small)}
+.kpi:after{content:"";position:absolute;right:-22px;bottom:-25px;width:70px;height:70px;border-radius:50%;background:var(--pink-soft)}
+.kpi-label{position:relative;z-index:1;color:var(--brown-light);font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.3px}
+.kpi-value{position:relative;z-index:1;margin-top:6px;font-size:25px;font-weight:900}
+.kpi-meta{position:relative;z-index:1;margin-top:4px;color:var(--brown-light);font-size:10px}
+.action-list{display:grid;gap:9px}
+.action-item{display:flex;align-items:center;gap:11px;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#fffdfb}
+.action-dot{width:9px;height:9px;flex:0 0 auto;border-radius:50%;background:var(--pink)}
+.action-dot.red{background:var(--red)}.action-dot.orange{background:var(--orange)}.action-dot.green{background:var(--green)}
+.action-main{min-width:0;flex:1}.action-title{font-size:12px;font-weight:900}.action-meta{margin-top:2px;color:var(--brown-light);font-size:10px}
+.mini-btn{padding:7px 9px;border:0;border-radius:9px;background:var(--cream-dark);color:var(--brown);font-size:10px;font-weight:900}
+.chart{display:flex;align-items:flex-end;gap:8px;height:190px;padding:12px 4px 0}
+.bar-wrap{display:flex;flex:1;min-width:0;height:100%;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px}
+.bar{width:100%;max-width:34px;min-height:3px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--pink),var(--pink-dark))}
+.bar-value{font-size:9px;font-weight:800;color:var(--brown-light);white-space:nowrap}
+.bar-label{font-size:9px;color:var(--brown-light)}
+.chart-note{margin-top:8px;color:var(--brown-light);font-size:10px}
+.dashboard-table{width:100%;border-collapse:collapse}
+.dashboard-table th{padding:9px 7px;color:var(--brown-light);font-size:9px;text-align:left;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--line)}
+.dashboard-table td{padding:11px 7px;border-bottom:1px solid #f1e8df;font-size:11px;vertical-align:middle}
+.dashboard-table tr:last-child td{border-bottom:0}
+.order-name{font-weight:900}.order-sub{margin-top:2px;color:var(--brown-light);font-size:10px}
+.quick-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.quick-action{display:flex;flex-direction:column;gap:5px;padding:13px;border:1px solid var(--line);border-radius:13px;background:#fffdfb;color:var(--brown);text-decoration:none}
+.quick-action strong{font-size:12px}.quick-action span{color:var(--brown-light);font-size:10px;line-height:1.4}
+.health-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f1e8df}
+.health-row:last-child{border-bottom:0}.health-label{flex:1;font-size:11px;font-weight:800}.health-value{font-size:11px;font-weight:900}.health-pill{padding:4px 8px;border-radius:999px;font-size:9px;font-weight:900;background:var(--green-light);color:var(--green)}
+.dashboard-empty{padding:22px 8px;color:var(--brown-light);font-size:11px;text-align:center}
+.dashboard-section-title{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.4px;color:var(--brown-light);margin-bottom:10px}
+@media(max-width:1250px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){.dashboard-grid{grid-template-columns:1fr}.quick-actions{grid-template-columns:repeat(2,1fr)}.command-hero{align-items:flex-start;flex-direction:column}}
+@media(max-width:600px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.quick-actions{grid-template-columns:1fr}.command-hero h2{font-size:22px}}
+
   </style>
 </head>
 
@@ -1306,9 +1352,7 @@
 
       <div class="topbar-right">
 
-        <span class="poc-badge">
-          Proof of concept
-        </span>
+        <span class="poc-badge">Live beheer</span>
 
         <a
           class="topbar-button"
@@ -1351,6 +1395,69 @@
           Beheer hier alle aanvragen, evenementen en geplande afspraken van Hummie Bear.
         </p>
 
+      </section>
+
+
+      
+      <section class="command-center" id="dashboardPanel">
+        <div class="command-hero">
+          <div>
+            <h2>Hummie Bear Command Center</h2>
+            <p>Alles wat vandaag aandacht nodig heeft, in één overzicht.</p>
+          </div>
+          <div class="command-hero-actions">
+            <button class="button" id="dashboardRefresh" type="button">Vernieuwen</button>
+            <button class="button" id="dashboardNewEvent" type="button">+ Evenement</button>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi"><div class="kpi-label">Omzet deze maand</div><div class="kpi-value" id="dashRevenue">€0</div><div class="kpi-meta" id="dashRevenueMeta">Betaalde webshopbestellingen</div></div>
+          <div class="kpi"><div class="kpi-label">Bestellingen vandaag</div><div class="kpi-value" id="dashTodayOrders">0</div><div class="kpi-meta">Nieuwe webshoporders</div></div>
+          <div class="kpi"><div class="kpi-label">Te verwerken</div><div class="kpi-value" id="dashPendingOrders">0</div><div class="kpi-meta">Bestellingen niet afgerond</div></div>
+          <div class="kpi"><div class="kpi-label">Nieuwe offertes</div><div class="kpi-value" id="dashNewQuotes">0</div><div class="kpi-meta">Nog actie nodig</div></div>
+          <div class="kpi"><div class="kpi-label">Komende events</div><div class="kpi-value" id="dashUpcomingEvents">0</div><div class="kpi-meta">Bevestigd binnen 30 dagen</div></div>
+          <div class="kpi"><div class="kpi-label">Gem. bestelling</div><div class="kpi-value" id="dashAvgOrder">€0</div><div class="kpi-meta">Betaalde webshoporders</div></div>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="panel dashboard-panel">
+            <div class="panel-header"><div class="panel-header-row"><div><h2>Actiecentrum</h2><p>De belangrijkste dingen die je nu kunt aanpakken.</p></div><button class="button button-light" id="dashOpenQuotes" type="button">Offertes</button></div></div>
+            <div class="dashboard-panel-body" id="dashActions"></div>
+          </section>
+
+          <section class="panel dashboard-panel">
+            <div class="panel-header"><div><h2>Snelle acties</h2><p>Ga direct naar wat je nodig hebt.</p></div></div>
+            <div class="dashboard-panel-body">
+              <div class="quick-actions">
+                <a class="quick-action" href="bestellingen.html"><strong>Bestellingen</strong><span>Betalingen, verwerking en verzending.</span></a>
+                <button class="quick-action" id="dashGoQuotes" type="button"><strong>Offertes</strong><span>Nieuwe aanvragen opvolgen.</span></button>
+                <button class="quick-action" id="dashGoCalendar" type="button"><strong>Kalender</strong><span>Events en planning bekijken.</span></button>
+                <button class="quick-action" id="dashGoUpcoming" type="button"><strong>Komend</strong><span>Eerstvolgende afspraken.</span></button>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel dashboard-panel">
+            <div class="panel-header"><div><h2>Omzet laatste 14 dagen</h2><p>Alleen succesvol betaalde webshopbestellingen.</p></div></div>
+            <div class="dashboard-panel-body"><div class="chart" id="dashRevenueChart"></div><div class="chart-note" id="dashRevenueChartNote"></div></div>
+          </section>
+
+          <section class="panel dashboard-panel">
+            <div class="panel-header"><div><h2>Bedrijfsstatus</h2><p>Snelle controle van de belangrijkste processen.</p></div></div>
+            <div class="dashboard-panel-body" id="dashHealth"></div>
+          </section>
+
+          <section class="panel dashboard-panel">
+            <div class="panel-header"><div><h2>Recente bestellingen</h2><p>De laatste webshopactiviteiten.</p></div><a class="button button-light" href="bestellingen.html" style="text-decoration:none;">Alle bestellingen</a></div>
+            <div class="dashboard-panel-body" id="dashRecentOrders"></div>
+          </section>
+
+          <section class="panel dashboard-panel">
+            <div class="panel-header"><div><h2>Komende evenementen</h2><p>De eerstvolgende bevestigde afspraken.</p></div><button class="button button-light" id="dashOpenUpcoming" type="button">Alle komende</button></div>
+            <div class="dashboard-panel-body" id="dashUpcomingList"></div>
+          </section>
+        </div>
       </section>
 
 
@@ -1435,6 +1542,14 @@
 
         <button
           class="nav-tab active"
+          data-view="dashboard"
+          type="button"
+        >
+          Dashboard
+        </button>
+
+        <button
+          class="nav-tab"
           data-view="quotes"
           type="button"
         >
@@ -2531,7 +2646,8 @@
 
     let quotes = [];
     let events = [];
-    let activeView = "quotes";
+    let orders = [];
+    let activeView = "dashboard";
 
     let calendarDate =
       new Date(
@@ -3142,6 +3258,23 @@
     }
 
 
+
+
+    async function loadOrders() {
+      const { data, error } = await supabaseClient
+        .from("orders")
+        .select("*, order_items(*)")
+        .order("created_at", { ascending: false })
+        .limit(200);
+      if (error) {
+        console.error("Bestellingen laden:", error);
+        showToast("Bestellingen konden niet in het dashboard worden geladen.", "warning");
+        orders = [];
+        return;
+      }
+      orders = data || [];
+    }
+
     async function loadQuotes() {
 
       const {
@@ -3233,6 +3366,67 @@
 
     }
 
+
+
+
+    function dashMoney(value){ return formatPrice(Number(value)||0); }
+    function dashPaidOrders(){ return orders.filter(o => o.payment_status === "paid" && o.status !== "cancelled"); }
+    function dashIsToday(value){ if(!value) return false; const d=new Date(value), n=new Date(); return d.getFullYear()===n.getFullYear()&&d.getMonth()===n.getMonth()&&d.getDate()===n.getDate(); }
+    function dashDaysFromNow(value){ if(!value) return 9999; const d=new Date(value+"T00:00:00"), n=new Date(); n.setHours(0,0,0,0); return Math.ceil((d-n)/86400000); }
+
+    function renderDashboard(){
+      const paid=dashPaidOrders();
+      const now=new Date();
+      const monthStart=new Date(now.getFullYear(),now.getMonth(),1);
+      const monthPaid=paid.filter(o=>new Date(o.created_at||0)>=monthStart);
+      const revenue=monthPaid.reduce((s,o)=>s+Number(o.total||0),0);
+      const avg=paid.length?paid.reduce((s,o)=>s+Number(o.total||0),0)/paid.length:0;
+      const pending=orders.filter(o=>!["completed","cancelled"].includes(o.status)).length;
+      const newQuotes=quotes.filter(q=>q.status==="new").length;
+      const upcoming=events.filter(e=>e.status==="confirmed"&&dashDaysFromNow(e.event_date)>=0&&dashDaysFromNow(e.event_date)<=30).length;
+      document.getElementById("dashRevenue").textContent=dashMoney(revenue);
+      document.getElementById("dashRevenueMeta").textContent=monthPaid.length+" betaalde bestelling"+(monthPaid.length===1?"":"en")+" deze maand";
+      document.getElementById("dashTodayOrders").textContent=orders.filter(o=>dashIsToday(o.created_at)).length;
+      document.getElementById("dashPendingOrders").textContent=pending;
+      document.getElementById("dashNewQuotes").textContent=newQuotes;
+      document.getElementById("dashUpcomingEvents").textContent=upcoming;
+      document.getElementById("dashAvgOrder").textContent=dashMoney(avg);
+
+      const actions=[];
+      if(newQuotes) actions.push({tone:"red",title:newQuotes+" nieuwe offerte"+(newQuotes===1?"aanvraag":"aanvragen")+" wachten op actie",meta:"Beantwoord of zet in behandeling.",button:"Offertes",fn:"quotes"});
+      const unpaid=orders.filter(o=>o.payment_status==="pending"&&o.status!=="cancelled").length;
+      if(unpaid) actions.push({tone:"orange",title:unpaid+" bestelling"+(unpaid===1?" wacht":"en wachten")+" op betaling",meta:"Controleer voordat je ze verwerkt.",button:"Bestellingen",fn:"orders"});
+      const prep=orders.filter(o=>["new","preparing","ready"].includes(o.status)&&o.payment_status==="paid").length;
+      if(prep) actions.push({tone:"orange",title:prep+" betaalde bestelling"+(prep===1?" moet":"en moeten")+" nog verwerkt worden",meta:"Klaarzetten en eventueel verzenden.",button:"Bestellingen",fn:"orders"});
+      const soon=events.filter(e=>e.status==="confirmed"&&dashDaysFromNow(e.event_date)>=0&&dashDaysFromNow(e.event_date)<=7).length;
+      if(soon) actions.push({tone:"green",title:soon+" event"+(soon===1:" is":"s zijn")+" gepland binnen 7 dagen",meta:"Controleer planning, locatie en materiaal.",button:"Kalender",fn:"calendar"});
+      if(!actions.length) actions.push({tone:"green",title:"Alles onder controle",meta:"Er zijn momenteel geen urgente acties.",button:"Kalender",fn:"calendar"});
+      document.getElementById("dashActions").innerHTML='<div class="action-list">'+actions.slice(0,6).map(a=>'<div class="action-item"><span class="action-dot '+a.tone+'"></span><div class="action-main"><div class="action-title">'+escapeHtml(a.title)+'</div><div class="action-meta">'+escapeHtml(a.meta)+'</div></div><button class="mini-btn" data-dash-nav="'+a.fn+'">'+escapeHtml(a.button)+'</button></div>').join("")+'</div>';
+
+      const recent=orders.slice(0,6);
+      document.getElementById("dashRecentOrders").innerHTML=recent.length?'<table class="dashboard-table"><thead><tr><th>Bestelling</th><th>Klant</th><th>Bedrag</th><th>Status</th></tr></thead><tbody>'+recent.map(o=>'<tr><td><div class="order-name">'+escapeHtml(o.order_number||o.id)+'</div><div class="order-sub">'+formatDate(o.created_at)+'</div></td><td><div class="order-name">'+escapeHtml([o.customer_first_name,o.customer_last_name].filter(Boolean).join(" ")||"-")+'</div><div class="order-sub">'+escapeHtml(o.customer_email||"")+'</div></td><td><strong>'+dashMoney(o.total)+'</strong></td><td><span class="status '+(o.payment_status==="paid"?"status-accepted":o.payment_status==="failed"?"status-rejected":"status-progress")+'">'+escapeHtml(o.payment_status==="paid"?"Betaald":o.payment_status==="failed"?"Mislukt":"In afwachting")+'</span></td></tr>').join("")+'</tbody></table>':'<div class="dashboard-empty">Nog geen webshopbestellingen.</div>';
+
+      const next=events.filter(e=>e.status==="confirmed"&&dashDaysFromNow(e.event_date)>=0).sort((a,b)=>String(a.event_date).localeCompare(String(b.event_date))).slice(0,6);
+      document.getElementById("dashUpcomingList").innerHTML=next.length?'<div class="action-list">'+next.map(e=>'<div class="action-item"><div class="action-main"><div class="action-title">'+escapeHtml(e.event_name||e.name||"Hummie Bear evenement")+'</div><div class="action-meta">'+formatDate(e.event_date)+' · '+escapeHtml(formatTimeRange(e.start_time,e.end_time))+' · '+escapeHtml(e.location||"-")+'</div></div><span class="edition-chip">'+escapeHtml(editionLabel(e.edition))+'</span></div>').join("")+'</div>':'<div class="dashboard-empty">Geen komende bevestigde evenementen.</div>';
+
+      const last14=[]; for(let i=13;i>=0;i--){ const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()-i); const key=d.toISOString().slice(0,10); const val=paid.filter(o=>String(o.created_at||"").slice(0,10)===key).reduce((s,o)=>s+Number(o.total||0),0); last14.push({d,val}); }
+      const max=Math.max(...last14.map(x=>x.val),1);
+      document.getElementById("dashRevenueChart").innerHTML=last14.map(x=>'<div class="bar-wrap" title="'+dashMoney(x.val)+'"><div class="bar-value">'+(x.val?dashMoney(x.val):"")+'</div><div class="bar" style="height:'+Math.max(3,(x.val/max)*125)+'px"></div><div class="bar-label">'+String(x.d.getDate()).padStart(2,"0")+'</div></div>').join("");
+      document.getElementById("dashRevenueChartNote").textContent="Periode: "+last14[0].d.toLocaleDateString("nl-BE")+" t/m "+last14[13].d.toLocaleDateString("nl-BE");
+
+      const paidCount=paid.length, failed=orders.filter(o=>o.payment_status==="failed").length, accepted=quotes.filter(q=>q.status==="accepted").length;
+      document.getElementById("dashHealth").innerHTML=[
+        ["Webshopbetalingen",paidCount+" betaald", "Actief"],
+        ["Offertes",accepted+" aanvaard", "Actief"],
+        ["Events",events.filter(e=>e.status==="confirmed").length+" bevestigd", "Actief"],
+        ["Mislukte betalingen",String(failed),failed?"Controleren":"Alles goed"]
+      ].map(x=>'<div class="health-row"><div class="health-label">'+escapeHtml(x[0])+'</div><div class="health-value">'+escapeHtml(x[1])+'</div><span class="health-pill">'+escapeHtml(x[2])+'</span></div>').join("");
+    }
+
+    function dashboardNavigate(view){
+      const tab=document.querySelector('.nav-tab[data-view="'+view+'"]');
+      if(tab) tab.click();
+    }
 
     function updateStats() {
 
@@ -6503,17 +6697,11 @@
                 );
 
 
-              document.getElementById(
-                "quotesPanel"
-              ).style.display =
-                activeView ===
-                "quotes"
-                  ? ""
-                  : "none";
+              document.getElementById("dashboardPanel").style.display = activeView === "dashboard" ? "" : "none";
 
-              document.getElementById(
-                "eventsPanel"
-              ).style.display =
+              document.getElementById("quotesPanel").style.display = activeView === "quotes" ? "" : "none";
+
+              document.getElementById("eventsPanel").style.display =
                 activeView ===
                 "events"
                   ? ""
@@ -6527,19 +6715,16 @@
                   ? ""
                   : "none";
 
-              document.getElementById(
-                "upcomingPanel"
-              ).style.display =
+              document.getElementById("upcomingPanel").style.display =
                 activeView ===
                 "upcoming"
                   ? ""
                   : "none";
 
 
-              if (
-                activeView ===
-                "calendar"
-              ) {
+              if (activeView === "dashboard") renderDashboard();
+
+              if (activeView === "calendar") {
                 renderCalendar();
               }
 
@@ -6556,6 +6741,19 @@
         }
       );
 
+
+
+    document.getElementById("dashboardRefresh").addEventListener("click", async function(){
+      this.disabled=true; this.textContent="Vernieuwen…";
+      try{ await reloadAll(); } finally { this.disabled=false; this.textContent="Vernieuwen"; }
+    });
+    document.getElementById("dashboardNewEvent").addEventListener("click",()=>document.getElementById("manualEventButton").click());
+    document.getElementById("dashOpenQuotes").addEventListener("click",()=>dashboardNavigate("quotes"));
+    document.getElementById("dashGoQuotes").addEventListener("click",()=>dashboardNavigate("quotes"));
+    document.getElementById("dashGoCalendar").addEventListener("click",()=>dashboardNavigate("calendar"));
+    document.getElementById("dashGoUpcoming").addEventListener("click",()=>dashboardNavigate("upcoming"));
+    document.getElementById("dashOpenUpcoming").addEventListener("click",()=>dashboardNavigate("upcoming"));
+    document.getElementById("dashActions").addEventListener("click",e=>{const b=e.target.closest("[data-dash-nav]");if(b) dashboardNavigate(b.dataset.dashNav);});
 
     document.getElementById(
       "quoteSearch"
@@ -6603,12 +6801,14 @@
         await Promise.all(
           [
             loadQuotes(),
-            loadEvents()
+            loadEvents(),
+            loadOrders()
           ]
         );
 
 
         updateStats();
+        renderDashboard();
         renderQuotes();
         renderEvents();
         renderUpcoming();
