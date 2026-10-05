@@ -321,7 +321,7 @@ function orderCard(o){
         <span class="status ${payClass(o.payment_status)}">${esc(payLabel(o.payment_status))}</span><br>
         <span class="status ${fulfillClass(o.status)}">${esc(fulfillLabel(o.status))}</span>
       </div>
-      <div class="actions"><button class="action details" data-detail>Details</button>${o.payment_status==="paid"?nextAction(o.status):""}${resendButton}</div>
+      <div class="actions"><button class="action details" data-detail>Details</button>${nextAction(o.status)}${resendButton}</div>
     </div>
   </article>`;
 }
