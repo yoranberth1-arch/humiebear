@@ -4,6 +4,7 @@ const supabaseClient=window.supabase.createClient(window.HUMMIE_SUPABASE_URL,win
 const q=(s,r=document)=>r.querySelector(s);
 let orders=[];
 let quotes=[];
+let activeSection="overview";
 
 const money=v=>new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(v)||0);
 const date=v=>v?new Intl.DateTimeFormat("nl-BE",{dateStyle:"medium",timeStyle:"short"}).format(new Date(v)):"-";
@@ -92,45 +93,12 @@ async function load(){
   render();
 }
 
-function quoteMatchesFulfillFilter(quote,fulfill){
-  if(fulfill==="all") return true;
-
-  const map={
-    new:"new",
-    preparing:"in_progress",
-    ready:"accepted",
-    shipped:"accepted",
-    completed:"accepted",
-    cancelled:"cancelled"
-  };
-
-  return quote.status===map[fulfill];
-}
-
-function quoteMatchesStatus(quote,status){
-  if(status==="all") return true;
-
-  const map={
-    new:"new",
-    preparing:"in_progress",
-    ready:"accepted",
-    shipped:"accepted",
-    completed:"accepted",
-    cancelled:"cancelled"
-  };
-
-  return quote.status===map[status];
-}
-
-function render(){
+function getFilteredOrders(){
   const search=q("#search").value.trim().toLowerCase();
-  const type=q("#typeFilter")?.value||"all";
   const pay=q("#payFilter").value;
   const fulfill=q("#fulfillFilter").value;
 
-  const filteredOrders=orders.filter(o=>{
-    if(type==="quote") return false;
-
+  return orders.filter(o=>{
     const address=[
       o.shipping_street,
       o.shipping_house_number,
@@ -151,10 +119,13 @@ function render(){
       (pay==="all"||o.payment_status===pay) &&
       (fulfill==="all"||o.status===fulfill);
   });
+}
 
-  const filteredQuotes=quotes.filter(quote=>{
-    if(type==="order") return false;
+function getFilteredQuotes(){
+  const search=q("#search").value.trim().toLowerCase();
+  const fulfill=q("#fulfillFilter").value;
 
+  return quotes.filter(quote=>{
     const text=[
       quote.name,
       quote.organisation,
@@ -166,16 +137,59 @@ function render(){
       quote.message
     ].filter(Boolean).join(" ").toLowerCase();
 
-    return (!search||text.includes(search)) &&
-      pay==="all" &&
-      quoteMatchesStatus(quote,fulfill);
+    const quoteStatusOk=fulfill==="all"||
+      (fulfill==="new"&&quote.status==="new")||
+      (fulfill==="preparing"&&quote.status==="in_progress")||
+      ((fulfill==="ready"||fulfill==="shipped"||fulfill==="completed")&&quote.status==="accepted")||
+      (fulfill==="cancelled"&&quote.status==="cancelled");
+
+    return (!search||text.includes(search)) && quoteStatusOk;
   });
+}
 
-  const combined=[
-    ...filteredOrders.map(item=>({type:"order",created_at:item.created_at,item})),
-    ...filteredQuotes.map(item=>({type:"quote",created_at:item.created_at,item}))
-  ].sort((a,b)=>new Date(b.created_at||0).getTime()-new Date(a.created_at||0).getTime());
+function renderOverview(){
+  const recentOrders=getFilteredOrders()
+    .slice()
+    .sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0))
+    .slice(0,6);
 
+  const recentQuotes=getFilteredQuotes()
+    .slice()
+    .sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0))
+    .slice(0,6);
+
+  q("#overviewOrders").innerHTML=recentOrders.length
+    ? recentOrders.map(orderCard).join("")
+    : '<div class="section-empty">Geen webshopbestellingen gevonden.</div>';
+
+  q("#overviewQuotes").innerHTML=recentQuotes.length
+    ? recentQuotes.map(quoteCard).join("")
+    : '<div class="section-empty">Geen offerteaanvragen gevonden.</div>';
+}
+
+function renderManagement(){
+  const filtered=activeSection==="orders"
+    ? getFilteredOrders().map(item=>({type:"order",created_at:item.created_at,item}))
+    : getFilteredQuotes().map(item=>({type:"quote",created_at:item.created_at,item}));
+
+  filtered.sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
+
+  q("#orders").innerHTML=filtered.length
+    ? filtered.map(entry=>entry.type==="quote"?quoteCard(entry.item):orderCard(entry.item)).join("")
+    : '<div class="empty">Geen aanvragen gevonden in deze categorie.</div>';
+
+  const isOrders=activeSection==="orders";
+  q("#managementEyebrow").textContent=isOrders?"WEBSHOP":"OFFERTES";
+  q("#managementTitle").textContent=isOrders?"Webshopbestellingen":"Offerteaanvragen";
+  q("#managementSubtitle").textContent=isOrders
+    ?"Alle webshopbestellingen met betaling en verwerking."
+    :"Alle offerteaanvragen met klantgegevens, prijsindicatie en status.";
+
+  q("#payFilter").disabled=!isOrders;
+  q("#payFilter").classList.toggle("filter-disabled",!isOrders);
+}
+
+function render(){
   q("#statTotal").textContent=orders.length+quotes.length;
   q("#statOrders").textContent=orders.length;
   q("#statQuotes").textContent=quotes.length;
@@ -183,11 +197,40 @@ function render(){
     orders.filter(o=>o.status==="new").length+
     quotes.filter(quote=>quote.status==="new").length;
 
-  q("#orders").innerHTML=combined.length
-    ? combined.map(entry=>entry.type==="quote"?quoteCard(entry.item):orderCard(entry.item)).join("")
-    : '<div class="empty">Geen bestellingen of offertes gevonden.</div>';
+  q("#tabCountOverview").textContent=orders.length+quotes.length;
+  q("#tabCountOrders").textContent=orders.length;
+  q("#tabCountQuotes").textContent=quotes.length;
+
+  if(activeSection==="overview"){
+    q("#overviewView").classList.remove("hidden");
+    q("#managementView").classList.add("hidden");
+    q("#payFilter").disabled=false;
+    q("#payFilter").classList.remove("filter-disabled");
+    renderOverview();
+  }else{
+    q("#overviewView").classList.add("hidden");
+    q("#managementView").classList.remove("hidden");
+    renderManagement();
+  }
 }
 
+function setSection(section){
+  activeSection=section;
+
+  document.querySelectorAll(".section-tab").forEach(tab=>{
+    tab.classList.toggle("active",tab.dataset.section===section);
+  });
+
+  if(section==="overview"){
+    q("#managementView").classList.add("hidden");
+    q("#overviewView").classList.remove("hidden");
+  }else{
+    q("#overviewView").classList.add("hidden");
+    q("#managementView").classList.remove("hidden");
+  }
+
+  render();
+}
 function nextAction(status){
   if(status==="new")return '<button class="action next" data-status="preparing">In behandeling</button>';
   if(status==="preparing")return '<button class="action next" data-status="ready">Klaar</button>';
@@ -362,6 +405,7 @@ let refreshTimer=null;
 
 document.addEventListener("DOMContentLoaded",async()=>{
   q("#googleLoginButton").addEventListener("click",login);
+
   q("#refresh").addEventListener("click",async()=>{
     q("#refresh").disabled=true;
     q("#refresh").textContent="Vernieuwen…";
@@ -374,9 +418,16 @@ document.addEventListener("DOMContentLoaded",async()=>{
   });
 
   q("#search").addEventListener("input",render);
-  q("#typeFilter").addEventListener("change",render);
   q("#payFilter").addEventListener("change",render);
   q("#fulfillFilter").addEventListener("change",render);
+
+  document.querySelectorAll(".section-tab").forEach(tab=>{
+    tab.addEventListener("click",()=>setSection(tab.dataset.section));
+  });
+
+  document.querySelectorAll("[data-section-jump]").forEach(button=>{
+    button.addEventListener("click",()=>setSection(button.dataset.sectionJump));
+  });
 
   q("#lock").addEventListener("click",async()=>{
     if(refreshTimer) clearInterval(refreshTimer);
@@ -409,6 +460,48 @@ document.addEventListener("DOMContentLoaded",async()=>{
     }
   });
 
+  q("#overviewOrders").addEventListener("click",e=>{
+    const card=e.target.closest(".order");
+    if(!card)return;
+
+    const type=card.dataset.type||"order";
+    const id=card.dataset.id;
+
+    if(e.target.closest("[data-detail]")){
+      showDetails(type,id);
+      return;
+    }
+
+    const orderStatus=e.target.closest("[data-status]")?.dataset.status;
+    if(orderStatus&&type==="order"){
+      setStatus(id,orderStatus);
+      return;
+    }
+
+    const quoteStatus=e.target.closest("[data-quote-status]")?.dataset.quoteStatus;
+    if(quoteStatus&&type==="quote"){
+      setQuoteStatus(id,quoteStatus);
+    }
+  });
+
+  q("#overviewQuotes").addEventListener("click",e=>{
+    const card=e.target.closest(".order");
+    if(!card)return;
+
+    const type=card.dataset.type||"quote";
+    const id=card.dataset.id;
+
+    if(e.target.closest("[data-detail]")){
+      showDetails(type,id);
+      return;
+    }
+
+    const quoteStatus=e.target.closest("[data-quote-status]")?.dataset.quoteStatus;
+    if(quoteStatus&&type==="quote"){
+      setQuoteStatus(id,quoteStatus);
+    }
+  });
+
   q("#closeModal").addEventListener("click",()=>q("#modal").classList.remove("open"));
   q("#modal").addEventListener("click",e=>{
     if(e.target===q("#modal")) q("#modal").classList.remove("open");
@@ -416,7 +509,6 @@ document.addEventListener("DOMContentLoaded",async()=>{
 
   await ensureSession();
 
-  // Houd nieuwe webshopbestellingen en offertes automatisch zichtbaar.
   refreshTimer=setInterval(()=>{
     if(!q("#app").classList.contains("hidden")) load();
   },30000);
