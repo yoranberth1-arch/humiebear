@@ -251,8 +251,14 @@ function quoteActions(quote){
       '<button class="action" data-quote-status="rejected">Weigeren</button>';
   }
 
+  if(quote.status==="accepted"){
+    return '<button class="action" data-resend-quote-email>Mail opnieuw</button>';
+  }
+
   return "";
 }
+
+
 
 function quoteCard(quote){
   const selectedEdition=
@@ -295,6 +301,10 @@ function orderCard(o){
   const items=itemList(o);
   const summary=items.slice(0,4).map(i=>esc(i.product_name||"Artikel")+" × "+Number(i.quantity||1)).join("<br>")+(items.length>4?"<br>+ "+(items.length-4)+" extra":"");
   const address=[o.shipping_street,o.shipping_house_number,o.shipping_postal_code,o.shipping_city].filter(Boolean).join(" ");
+
+  const resendButton=o.status==="shipped"
+    ?'<button class="action" data-resend-order-email>Mail opnieuw</button>'
+    :"";
 
   return `<article class="order" data-type="order" data-id="${esc(o.id)}">
     <div class="order-grid">
@@ -434,7 +444,8 @@ async function sendOrderShippedEmail(order){
 
 async function sendQuoteAcceptedEmail(quote){
   const guestText=quote.guests?`${quote.guests} personen`:"-";
-  const priceText=quote.estimated_price!=null?money(quote.estimated_price):"Op maat";
+  const acceptedPrice=quote.final_price!=null?quote.final_price:quote.estimated_price;
+  const priceText=acceptedPrice!=null?money(acceptedPrice):"Op maat";
   const dateText=quote.event_date||"nog niet vastgelegd";
 
   return sendCustomerEmail({
@@ -483,6 +494,32 @@ async function setStatus(id,status){
       console.error("Onderweg-mail:",emailError);
       showError("Bestelling staat op 'Verzonden', maar de klantmail kon niet worden verstuurd.");
     }
+  }
+}
+
+async function resendOrderEmail(id){
+  const order=orders.find(item=>item.id===id);
+  if(!order)return;
+
+  try{
+    await sendOrderShippedEmail(order);
+    showError("");
+  }catch(error){
+    console.error("Onderweg-mail opnieuw:",error);
+    showError("De klantmail kon niet opnieuw worden verstuurd.");
+  }
+}
+
+async function resendQuoteEmail(id){
+  const quote=quotes.find(item=>item.id===id);
+  if(!quote)return;
+
+  try{
+    await sendQuoteAcceptedEmail(quote);
+    showError("");
+  }catch(error){
+    console.error("Aanvaard-mail opnieuw:",error);
+    showError("De klantmail kon niet opnieuw worden verstuurd.");
   }
 }
 
@@ -566,6 +603,16 @@ document.addEventListener("DOMContentLoaded",async()=>{
     const orderStatus=e.target.closest("[data-status]")?.dataset.status;
     if(orderStatus&&type==="order"){
       setStatus(id,orderStatus);
+      return;
+    }
+
+    if(e.target.closest("[data-resend-order-email]")&&type==="order"){
+      resendOrderEmail(id);
+      return;
+    }
+
+    if(e.target.closest("[data-resend-quote-email]")&&type==="quote"){
+      resendQuoteEmail(id);
       return;
     }
 
