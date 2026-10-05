@@ -6875,28 +6875,61 @@
     );
 
 
-    if (
-      sessionStorage.getItem(
-        "hummieBearAdminUnlocked"
-      ) ===
-      "1"
-    ) {
+    async function restoreAdminSession() {
 
-      pinGate.classList.add(
+      const {
+        data: {
+          user
+        } = {}
+      } =
+        await supabaseClient.auth.getUser();
+
+      if (
+        sessionStorage.getItem(
+          "hummieBearAdminUnlocked"
+        ) ===
+        "1" &&
+        user
+      ) {
+
+        pinGate.classList.add(
+          "hidden"
+        );
+
+        adminApp.classList.add(
+          "unlocked"
+        );
+
+        document.body.classList.remove(
+          "pin-locked"
+        );
+
+        reloadAll();
+
+        return;
+
+      }
+
+      sessionStorage.removeItem(
+        "hummieBearAdminUnlocked"
+      );
+
+      pinGate.classList.remove(
         "hidden"
       );
 
-      adminApp.classList.add(
+      adminApp.classList.remove(
         "unlocked"
       );
 
-      document.body.classList.remove(
+      document.body.classList.add(
         "pin-locked"
       );
 
-      reloadAll();
-
     }
+
+
+    restoreAdminSession();
 
   </script>
 
