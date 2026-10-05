@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Hummie Bear – Bestellingen & Offertes</title>
-<link rel="stylesheet" href="bestellingen.css?v=google-login-20261002">
+<link rel="stylesheet" href="bestellingen.css?v=admin-combined-20261005">
 </head>
 <body>
 <div id="login" class="login">
   <div class="brand"><span class="brand-mark">HB</span>Hummie Bear</div>
-  <h1 style="margin-top:18px">Bestellingen</h1>
-  <p>Log in met je Hummie Bear medewerkersaccount. Alleen bevoegde medewerkers krijgen toegang tot bestellingen.</p>
+  <h1 style="margin-top:18px">Bestellingen & offertes</h1>
+  <p>Log in met je Hummie Bear medewerkersaccount. Je ziet hier webshopbestellingen én offerteaanvragen.</p>
   <button id="googleLoginButton" type="button">Inloggen met Google</button>
   <div id="loginError" class="error"></div>
   <a href="reset-password.html" style="display:block;margin-top:12px;text-align:center;font-size:10px;color:var(--muted)">Wachtwoord vergeten?</a>
@@ -34,16 +34,35 @@
 <div id="globalError" class="error"></div>
 
 <div class="stats">
-  <div class="stat"><small>Alle aanvragen</small><strong id="statTotal">0</strong></div>
-  <div class="stat"><small>Betaald</small><strong id="statPaid">0</strong></div>
-  <div class="stat"><small>Nieuwe orders</small><strong id="statNew">0</strong></div>
-  <div class="stat"><small>Open betaling</small><strong id="statOpen">0</strong></div>
+  <div class="stat"><small>Totaal</small><strong id="statTotal">0</strong></div>
+  <div class="stat"><small>Webshopbestellingen</small><strong id="statOrders">0</strong></div>
+  <div class="stat"><small>Offerteaanvragen</small><strong id="statQuotes">0</strong></div>
+  <div class="stat"><small>Nieuw</small><strong id="statNew">0</strong></div>
 </div>
 
 <div class="filters">
-  <input id="search" placeholder="Zoek order, klant, e-mail, adres...">
-  <select id="payFilter"><option value="all">Alle betalingen</option><option value="paid">Betaald</option><option value="pending">In afwachting</option><option value="failed">Mislukt</option><option value="refunded">Terugbetaald</option></select>
-  <select id="fulfillFilter"><option value="all">Alle verwerkingen</option><option value="new">Nieuw</option><option value="preparing">In behandeling</option><option value="ready">Klaar</option><option value="shipped">Verzonden</option><option value="completed">Afgerond</option><option value="cancelled">Geannuleerd</option></select>
+  <input id="search" placeholder="Zoek klant, e-mail, order, evenement, adres...">
+  <select id="typeFilter">
+    <option value="all">Alle aanvragen</option>
+    <option value="order">Alleen webshop</option>
+    <option value="quote">Alleen offertes</option>
+  </select>
+  <select id="payFilter">
+    <option value="all">Alle betalingen</option>
+    <option value="paid">Betaald</option>
+    <option value="pending">In afwachting</option>
+    <option value="failed">Mislukt</option>
+    <option value="refunded">Terugbetaald</option>
+  </select>
+  <select id="fulfillFilter">
+    <option value="all">Alle statussen</option>
+    <option value="new">Nieuw</option>
+    <option value="preparing">In behandeling</option>
+    <option value="ready">Klaar</option>
+    <option value="shipped">Verzonden</option>
+    <option value="completed">Afgerond</option>
+    <option value="cancelled">Geannuleerd</option>
+  </select>
 </div>
 
 <div id="orders" class="orders"></div>
@@ -59,6 +78,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
-<script src="bestellingen.js?v=google-login-20261002"></script>
+<script src="bestellingen.js?v=admin-combined-20261005"></script>
 </body>
 </html>
