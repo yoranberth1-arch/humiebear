@@ -3399,7 +3399,7 @@
       const prep=orders.filter(o=>["new","preparing","ready"].includes(o.status)&&o.payment_status==="paid").length;
       if(prep) actions.push({tone:"orange",title:prep+" betaalde bestelling"+(prep===1?" moet":"en moeten")+" nog verwerkt worden",meta:"Klaarzetten en eventueel verzenden.",button:"Bestellingen",fn:"orders"});
       const soon=events.filter(e=>e.status==="confirmed"&&dashDaysFromNow(e.event_date)>=0&&dashDaysFromNow(e.event_date)<=7).length;
-      if(soon) actions.push({tone:"green",title:soon+" event"+(soon===1:" is":"s zijn")+" gepland binnen 7 dagen",meta:"Controleer planning, locatie en materiaal.",button:"Kalender",fn:"calendar"});
+      if(soon) actions.push({tone:"green",title:soon+" event"+(soon===1?" is":"s zijn")+" gepland binnen 7 dagen",meta:"Controleer planning, locatie en materiaal.",button:"Kalender",fn:"calendar"});
       if(!actions.length) actions.push({tone:"green",title:"Alles onder controle",meta:"Er zijn momenteel geen urgente acties.",button:"Kalender",fn:"calendar"});
       document.getElementById("dashActions").innerHTML='<div class="action-list">'+actions.slice(0,6).map(a=>'<div class="action-item"><span class="action-dot '+a.tone+'"></span><div class="action-main"><div class="action-title">'+escapeHtml(a.title)+'</div><div class="action-meta">'+escapeHtml(a.meta)+'</div></div><button class="mini-btn" data-dash-nav="'+a.fn+'">'+escapeHtml(a.button)+'</button></div>').join("")+'</div>';
 
