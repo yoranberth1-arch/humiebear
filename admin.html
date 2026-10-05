@@ -1242,7 +1242,7 @@
       </h1>
 
       <p>
-        Voer je medewerkerspin in om het dashboard te openen.
+        Meld aan met je Google-account om meteen je offertes en evenementen te bekijken.
       </p>
 
       <label
@@ -1271,14 +1271,14 @@
       <button
         id="googleLoginButton"
         type="button"
-        style="display:none;width:100%;margin-top:10px;padding:13px;border:1px solid #d9ccc2;border-radius:13px;background:#fff;color:var(--brown);font-weight:900;"
+        style="display:block;width:100%;margin-top:10px;padding:15px;border:0;border-radius:13px;background:var(--brown);color:#fff;font-weight:900;"
       >
         Aanmelden met Google
       </button>
 
       <div id="authStatus" style="min-height:20px;margin-top:10px;color:var(--brown-light);font-size:12px;line-height:1.5;"></div>
 
-      <div id="pinError"></div>
+      <div id="pinError" style="display:none;"></div>
 
     </div>
 
@@ -6645,32 +6645,7 @@
     }
 
 
-    async function unlockAdmin() {
-
-      const entered =
-        pinInput.value.trim();
-
-
-      if (
-        entered !==
-        ADMIN_PIN
-      ) {
-
-        pinError.textContent =
-          "Onjuiste pin.";
-
-        pinInput.value =
-          "";
-
-        pinInput.focus();
-
-        return;
-
-      }
-
-
-      pinError.textContent =
-        "";
+    async function openAdminDashboard() {
 
       const {
         data: {
@@ -6684,14 +6659,14 @@
 
         if (authStatus) {
           authStatus.textContent =
-            "Medewerkerspin correct. Meld je nu aan met het Google-account dat toegang heeft tot het dashboard.";
+            "Meld je aan met het Google-account dat toegang heeft tot Hummie Bear Beheer.";
         }
 
         if (googleLoginButton) {
           googleLoginButton.style.display = "block";
         }
 
-        return;
+        return false;
 
       }
 
@@ -6716,9 +6691,22 @@
         "1"
       );
 
+      if (authStatus) {
+        authStatus.textContent =
+          "Aangemeld als " +
+          (user.email || "beheeraccount") +
+          ". Je offertes worden nu geladen.";
+      }
 
-      reloadAll();
+      await reloadAll();
 
+      return true;
+
+    }
+
+
+    async function unlockAdmin() {
+      return openAdminDashboard();
     }
 
 
@@ -6771,18 +6759,7 @@
       ) {
 
         if (session?.user) {
-
-          if (authStatus) {
-            authStatus.textContent =
-              "Google-account aangemeld: " +
-              (session.user.email || "beheeraccount") +
-              ". Voer je medewerkerspin in.";
-          }
-
-          if (googleLoginButton) {
-            googleLoginButton.style.display = "none";
-          }
-
+          openAdminDashboard();
         }
 
       }
@@ -6884,30 +6861,9 @@
       } =
         await supabaseClient.auth.getUser();
 
-      if (
-        sessionStorage.getItem(
-          "hummieBearAdminUnlocked"
-        ) ===
-        "1" &&
-        user
-      ) {
-
-        pinGate.classList.add(
-          "hidden"
-        );
-
-        adminApp.classList.add(
-          "unlocked"
-        );
-
-        document.body.classList.remove(
-          "pin-locked"
-        );
-
-        reloadAll();
-
+      if (user) {
+        await openAdminDashboard();
         return;
-
       }
 
       sessionStorage.removeItem(
@@ -6925,6 +6881,10 @@
       document.body.classList.add(
         "pin-locked"
       );
+
+      if (googleLoginButton) {
+        googleLoginButton.style.display = "block";
+      }
 
     }
 
