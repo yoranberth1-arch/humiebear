@@ -3,6 +3,7 @@
 const supabaseClient=window.supabase.createClient(window.HUMMIE_SUPABASE_URL,window.HUMMIE_SUPABASE_PUBLISHABLE_KEY);
 const q=(s,r=document)=>r.querySelector(s);
 let orders=[];
+let quotes=[];
 
 const money=v=>new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(v)||0);
 const date=v=>v?new Intl.DateTimeFormat("nl-BE",{dateStyle:"medium",timeStyle:"short"}).format(new Date(v)):"-";
@@ -12,6 +13,9 @@ const payLabel=s=>({paid:"Betaald",pending:"In afwachting",failed:"Mislukt",refu
 const fulfillLabel=s=>({new:"Nieuw",preparing:"In behandeling",ready:"Klaar",shipped:"Verzonden",completed:"Afgerond",cancelled:"Geannuleerd"}[s]||s||"Nieuw");
 const payClass=s=>s==="paid"?"paid":s==="failed"?"bad":s==="refunded"?"shipped":"open";
 const fulfillClass=s=>s==="preparing"?"processing":s==="ready"?"shipped":s==="shipped"?"shipped":s==="completed"?"complete":s==="cancelled"?"bad":"open";
+const quoteStatusLabel=s=>({new:"Nieuw",in_progress:"In behandeling",accepted:"Aanvaard",rejected:"Geweigerd",cancelled:"Geannuleerd"}[s]||s||"Onbekend");
+const quoteStatusClass=s=>s==="accepted"?"complete":(s==="rejected"||s==="cancelled"?"bad":(s==="in_progress"?"processing":"open"));
+
 
 function showLogin(show){q("#login").classList.toggle("hidden",!show);q("#app").classList.toggle("hidden",show)}
 function showError(text){q("#globalError").textContent=text||""}
@@ -56,20 +60,51 @@ async function login(){
 
 async function load(){
   showError("");
-  const {data,error}=await supabaseClient
-    .from("orders")
-    .select("*, order_items(*)")
-    .order("created_at",{ascending:false})
-    .limit(200);
 
-  if(error){
-    showError("Bestellingen konden niet worden geladen. Controleer of je account als medewerker/eigenaar is gekoppeld.");
-    console.error(error);
-    orders=[];render();return;
+  const [ordersResult,quotesResult]=await Promise.all([
+    supabaseClient
+      .from("orders")
+      .select("*, order_items(*)")
+      .order("created_at",{ascending:false})
+      .limit(200),
+
+    supabaseClient
+      .from("quotes")
+      .select("*")
+      .order("created_at",{ascending:false})
+      .limit(200)
+  ]);
+
+  if(ordersResult.error) console.error("Orders laden:",ordersResult.error);
+  if(quotesResult.error) console.error("Offertes laden:",quotesResult.error);
+
+  orders=ordersResult.error?[]:(ordersResult.data||[]);
+  quotes=quotesResult.error?[]:(quotesResult.data||[]);
+
+  if(ordersResult.error&&quotesResult.error){
+    showError("Bestellingen en offertes konden niet worden geladen. Controleer je medewerkersaccount.");
+  }else if(quotesResult.error){
+    showError("Bestellingen zijn geladen, maar offertes konden niet worden geladen.");
+  }else if(ordersResult.error){
+    showError("Offertes zijn geladen, maar webshopbestellingen konden niet worden geladen.");
   }
 
-  orders=data||[];
   render();
+}
+
+function quoteMatchesFulfillFilter(quote,fulfill){
+  if(fulfill==="all") return true;
+
+  const map={
+    new:"new",
+    preparing:"in_progress",
+    ready:"accepted",
+    shipped:"accepted",
+    completed:"accepted",
+    cancelled:"cancelled"
+  };
+
+  return quote.status===map[fulfill];
 }
 
 function render(){
@@ -77,21 +112,60 @@ function render(){
   const pay=q("#payFilter").value;
   const fulfill=q("#fulfillFilter").value;
 
-  const filtered=orders.filter(o=>{
-    const address=[o.shipping_street,o.shipping_house_number,o.shipping_postal_code,o.shipping_city].filter(Boolean).join(" ");
-    const text=[o.order_number,fullName(o),o.customer_email,o.customer_phone,address].filter(Boolean).join(" ").toLowerCase();
+  const filteredOrders=orders.filter(o=>{
+    const address=[
+      o.shipping_street,
+      o.shipping_house_number,
+      o.shipping_postal_code,
+      o.shipping_city
+    ].filter(Boolean).join(" ");
+
+    const text=[
+      o.order_number,
+      fullName(o),
+      o.customer_email,
+      o.customer_phone,
+      address
+    ].filter(Boolean).join(" ").toLowerCase();
+
     return (!search||text.includes(search)) &&
       (pay==="all"||o.payment_status===pay) &&
       (fulfill==="all"||o.status===fulfill);
   });
 
-  q("#statTotal").textContent=orders.length;
+  const filteredQuotes=quotes.filter(quote=>{
+    const text=[
+      quote.name,
+      quote.organisation,
+      quote.email,
+      quote.phone,
+      quote.event_name,
+      quote.location,
+      quote.edition
+    ].filter(Boolean).join(" ").toLowerCase();
+
+    return (!search||text.includes(search)) &&
+      pay==="all" &&
+      quoteMatchesFulfillFilter(quote,fulfill);
+  });
+
+  const combined=[
+    ...filteredOrders.map(item=>({type:"order",created_at:item.created_at,item})),
+    ...filteredQuotes.map(item=>({type:"quote",created_at:item.created_at,item}))
+  ].sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
+
+  q("#statTotal").textContent=orders.length+quotes.length;
   q("#statPaid").textContent=orders.filter(o=>o.payment_status==="paid").length;
-  q("#statNew").textContent=orders.filter(o=>o.payment_status==="paid"&&o.status==="new").length;
+  q("#statNew").textContent=
+    orders.filter(o=>o.payment_status==="paid"&&o.status==="new").length+
+    quotes.filter(qt=>qt.status==="new").length;
   q("#statOpen").textContent=orders.filter(o=>o.payment_status==="pending").length;
 
-  q("#orders").innerHTML=filtered.length?filtered.map(orderCard).join(""):'<div class="empty">Geen bestellingen gevonden.</div>';
+  q("#orders").innerHTML=combined.length
+    ? combined.map(entry=>entry.type==="quote"?quoteCard(entry.item):orderCard(entry.item)).join("")
+    : '<div class="empty">Geen bestellingen of offertes gevonden.</div>';
 }
+
 
 function nextAction(status){
   if(status==="new")return '<button class="action next" data-status="preparing">In behandeling</button>';
@@ -101,12 +175,64 @@ function nextAction(status){
   return "";
 }
 
+function quoteActions(quote){
+  if(quote.status==="new"){
+    return '<button class="action next" data-quote-status="in_progress">In behandeling</button>' +
+      '<button class="action done" data-quote-status="accepted">Aanvaarden</button>' +
+      '<button class="action" data-quote-status="rejected">Weigeren</button>';
+  }
+
+  if(quote.status==="in_progress"){
+    return '<button class="action done" data-quote-status="accepted">Aanvaarden</button>' +
+      '<button class="action" data-quote-status="rejected">Weigeren</button>';
+  }
+
+  return "";
+}
+
+function quoteCard(quote){
+  const selectedEdition=
+    quote.edition==="both"
+      ?"Beide editions"
+      :quote.edition==="candy"
+        ?"Candy Edition"
+        :quote.edition==="waffle"
+          ?"Waffle Edition"
+          :(quote.edition||"Offerte");
+
+  return '<article class="order" data-type="quote" data-id="'+esc(quote.id)+'">' +
+    '<div class="order-grid">' +
+      '<div>' +
+        '<strong>OFFERTE</strong>' +
+        '<div class="muted" style="font-weight:900;margin-top:4px">'+esc(quote.name||"-")+'</div>' +
+        '<div class="muted">'+esc(quote.email||"")+'</div>' +
+        '<div class="muted">'+date(quote.created_at)+'</div>' +
+      '</div>' +
+      '<div class="items">' +
+        '<strong>'+esc(quote.event_name||"Offerteaanvraag")+'</strong><br>' +
+        esc(selectedEdition) +
+        (quote.guests?"<br>"+esc(quote.guests+" personen"):"") +
+      '</div>' +
+      '<div class="muted"><strong>Locatie</strong><br>'+esc(quote.location||"-")+'</div>' +
+      '<div>' +
+        '<div style="font-size:18px;font-weight:900">'+money(quote.estimated_price)+'</div>' +
+        '<span class="status open">Offerte</span><br>' +
+        '<span class="status '+quoteStatusClass(quote.status)+'">'+esc(quoteStatusLabel(quote.status))+'</span>' +
+      '</div>' +
+      '<div class="actions">' +
+        '<button class="action details" data-detail>Details</button>' +
+        quoteActions(quote) +
+      '</div>' +
+    '</div>' +
+  '</article>';
+}
+
 function orderCard(o){
   const items=itemList(o);
   const summary=items.slice(0,4).map(i=>esc(i.product_name||"Artikel")+" × "+Number(i.quantity||1)).join("<br>")+(items.length>4?"<br>+ "+(items.length-4)+" extra":"");
   const address=[o.shipping_street,o.shipping_house_number,o.shipping_postal_code,o.shipping_city].filter(Boolean).join(" ");
 
-  return `<article class="order" data-id="${esc(o.id)}">
+  return `<article class="order" data-type="order" data-id="${esc(o.id)}">
     <div class="order-grid">
       <div>
         <strong>${esc(o.order_number||o.id)}</strong>
@@ -126,33 +252,88 @@ function orderCard(o){
   </article>`;
 }
 
-function showDetails(id){
-  const o=orders.find(x=>x.id===id);if(!o)return;
+function showOrderDetails(id){
+  const o=orders.find(x=>x.id===id);
+  if(!o)return;
+
   const items=itemList(o);
-  const address=[o.shipping_street,o.shipping_house_number,o.shipping_postal_code,o.shipping_city,o.shipping_country].filter(Boolean).join(" ");
+  const address=[
+    o.shipping_street,
+    o.shipping_house_number,
+    o.shipping_postal_code,
+    o.shipping_city,
+    o.shipping_country
+  ].filter(Boolean).join(" ");
 
   q("#modalTitle").textContent="Bestelling "+(o.order_number||o.id);
-  q("#modalBody").innerHTML=`
-    <div class="detail-grid">
-      <div class="detail"><label>Klant</label><div>${esc(fullName(o))}<br>${esc(o.customer_email||"-")}<br>${esc(o.customer_phone||"-")}</div></div>
-      <div class="detail"><label>Leveradres</label><div>${esc(address||"-")}</div></div>
-      <div class="detail"><label>Besteld</label><div>${date(o.created_at)}</div></div>
-      <div class="detail"><label>Betaling</label><div>${esc(payLabel(o.payment_status))}${o.payment_reference?"<br><span class='muted'>"+esc(o.payment_reference)+"</span>":""}</div></div>
-      <div class="detail"><label>Verwerking</label><div>${esc(fulfillLabel(o.status))}</div></div>
-      <div class="detail"><label>Promotie</label><div>${esc(o.discount_code||"Geen")} · ${money(o.discount_amount||0)}</div></div>
-    </div>
-    <div class="modal-items">${items.map(i=>`<div class="modal-item"><span>${esc(i.product_name||"Artikel")} × ${Number(i.quantity||1)}${i.meta?.grams?" · "+esc(i.meta.grams+" g"):""}</span><strong>${money(i.line_total)}</strong></div>`).join("")}</div>
-    <div style="margin-top:16px;display:grid;gap:6px;font-size:11px">
-      <div style="display:flex;justify-content:space-between"><span>Subtotaal</span><strong>${money(o.subtotal)}</strong></div>
-      <div style="display:flex;justify-content:space-between"><span>Verzending</span><strong>${money(o.shipping_cost)}</strong></div>
-      <div style="display:flex;justify-content:space-between;font-size:16px;border-top:1px solid var(--line);padding-top:10px"><span>Totaal</span><strong>${money(o.total)}</strong></div>
-    </div>`;
+  q("#modalBody").innerHTML=
+    '<div class="detail-grid">' +
+      '<div class="detail"><label>Klant</label><div>'+esc(fullName(o))+'<br>'+esc(o.customer_email||"-")+'<br>'+esc(o.customer_phone||"-")+'</div></div>' +
+      '<div class="detail"><label>Leveradres</label><div>'+esc(address||"-")+'</div></div>' +
+      '<div class="detail"><label>Besteld</label><div>'+date(o.created_at)+'</div></div>' +
+      '<div class="detail"><label>Betaling</label><div>'+esc(payLabel(o.payment_status))+(o.payment_reference?"<br><span class='muted'>"+esc(o.payment_reference)+"</span>":"")+'</div></div>' +
+      '<div class="detail"><label>Verwerking</label><div>'+esc(fulfillLabel(o.status))+'</div></div>' +
+      '<div class="detail"><label>Promotie</label><div>'+esc(o.discount_code||"Geen")+' · '+money(o.discount_amount||0)+'</div></div>' +
+    '</div>' +
+    '<div class="modal-items">'+items.map(i=>'<div class="modal-item"><span>'+esc(i.product_name||"Artikel")+' × '+Number(i.quantity||1)+(i.meta?.grams?" · "+esc(i.meta.grams+" g"):"")+'</span><strong>'+money(i.line_total)+'</strong></div>').join("")+'</div>' +
+    '<div style="margin-top:16px;display:grid;gap:6px;font-size:11px">' +
+      '<div style="display:flex;justify-content:space-between"><span>Subtotaal</span><strong>'+money(o.subtotal)+'</strong></div>' +
+      '<div style="display:flex;justify-content:space-between"><span>Verzending</span><strong>'+money(o.shipping_cost)+'</strong></div>' +
+      '<div style="display:flex;justify-content:space-between;font-size:16px;border-top:1px solid var(--line);padding-top:10px"><span>Totaal</span><strong>'+money(o.total)+'</strong></div>' +
+    '</div>';
   q("#modal").classList.add("open");
 }
+
+function showQuoteDetails(id){
+  const quote=quotes.find(x=>x.id===id);
+  if(!quote)return;
+
+  const options=quote.options&&typeof quote.options==="object"
+    ?JSON.stringify(quote.options,null,2)
+    :"";
+
+  q("#modalTitle").textContent="Offerteaanvraag";
+  q("#modalBody").innerHTML=
+    '<div class="detail-grid">' +
+      '<div class="detail"><label>Klant</label><div>'+esc(quote.name||"-")+'<br>'+esc(quote.email||"-")+'<br>'+esc(quote.phone||"-")+'</div></div>' +
+      '<div class="detail"><label>Organisatie</label><div>'+esc(quote.organisation||"-")+'</div></div>' +
+      '<div class="detail"><label>Evenement</label><div>'+esc(quote.event_name||"-")+'<br>'+esc(quote.event_date||"-")+'</div></div>' +
+      '<div class="detail"><label>Locatie</label><div>'+esc(quote.location||"-")+'</div></div>' +
+      '<div class="detail"><label>Formule</label><div>'+esc(quote.edition||"-")+'</div></div>' +
+      '<div class="detail"><label>Personen</label><div>'+esc(quote.guests||"-")+'</div></div>' +
+      '<div class="detail"><label>Prijsindicatie</label><div>'+money(quote.estimated_price)+'</div></div>' +
+      '<div class="detail"><label>Status</label><div>'+esc(quoteStatusLabel(quote.status))+'</div></div>' +
+      '<div class="detail full"><label>Praktische info</label><div>'+esc(quote.practical_notes||"-")+'</div></div>' +
+      '<div class="detail full"><label>Bericht</label><div>'+esc(quote.message||"-")+'</div></div>' +
+      '<div class="detail full"><label>Gekozen opties</label><pre style="white-space:pre-wrap;margin:0;font:inherit">'+esc(options||"-")+'</pre></div>' +
+    '</div>';
+  q("#modal").classList.add("open");
+}
+
+function showDetails(type,id){
+  if(type==="quote"){showQuoteDetails(id);return;}
+  showOrderDetails(id);
+}
+
 
 async function setStatus(id,status){
   const {error}=await supabaseClient.from("orders").update({status,updated_at:new Date().toISOString()}).eq("id",id);
   if(error){showError("Bestelling kon niet worden bijgewerkt.");console.error(error);return}
+  await load();
+}
+
+async function setQuoteStatus(id,status){
+  const {error}=await supabaseClient
+    .from("quotes")
+    .update({status,updated_at:new Date().toISOString()})
+    .eq("id",id);
+
+  if(error){
+    showError("Offerte kon niet worden bijgewerkt.");
+    console.error(error);
+    return;
+  }
+
   await load();
 }
 
@@ -165,9 +346,25 @@ document.addEventListener("DOMContentLoaded",async()=>{
   q("#lock").addEventListener("click",async()=>{await supabaseClient.auth.signOut();showLogin(true);q("#loginError").textContent="";});
   q("#orders").addEventListener("click",e=>{
     const card=e.target.closest(".order");if(!card)return;
-    if(e.target.closest("[data-detail]"))showDetails(card.dataset.id);
-    const status=e.target.closest("[data-status]")?.dataset.status;
-    if(status)setStatus(card.dataset.id,status);
+
+    const type=card.dataset.type||"order";
+    const id=card.dataset.id;
+
+    if(e.target.closest("[data-detail]")){
+      showDetails(type,id);
+      return;
+    }
+
+    const orderStatus=e.target.closest("[data-status]")?.dataset.status;
+    if(orderStatus&&type==="order"){
+      setStatus(id,orderStatus);
+      return;
+    }
+
+    const quoteStatus=e.target.closest("[data-quote-status]")?.dataset.quoteStatus;
+    if(quoteStatus&&type==="quote"){
+      setQuoteStatus(id,quoteStatus);
+    }
   });
   q("#closeModal").addEventListener("click",()=>q("#modal").classList.remove("open"));
   q("#modal").addEventListener("click",e=>{if(e.target===q("#modal"))q("#modal").classList.remove("open")});
