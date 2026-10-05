@@ -456,7 +456,7 @@ async function sendQuoteAcceptedEmail(quote){
   });
 }
 
-async function setStatus(id,status){async function setStatus(id,status){
+async function setStatus(id,status){
   const order=orders.find(item=>item.id===id);
   if(!order) return;
 
