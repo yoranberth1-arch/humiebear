@@ -6672,6 +6672,29 @@
       pinError.textContent =
         "";
 
+      const {
+        data: {
+          user
+        } = {},
+        error: authError
+      } =
+        await supabaseClient.auth.getUser();
+
+      if (authError || !user) {
+
+        if (authStatus) {
+          authStatus.textContent =
+            "Medewerkerspin correct. Meld je nu aan met het Google-account dat toegang heeft tot het dashboard.";
+        }
+
+        if (googleLoginButton) {
+          googleLoginButton.style.display = "block";
+        }
+
+        return;
+
+      }
+
       pinGate.classList.add(
         "hidden"
       );
