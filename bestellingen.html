@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Hummie Bear – Bestellingen & Offertes</title>
-<link rel="stylesheet" href="bestellingen.css?v=admin-combined-20261005">
+<link rel="stylesheet" href="bestellingen.css?v=admin-split-20261005">
 </head>
 <body>
 <div id="login" class="login">
@@ -40,13 +40,26 @@
   <div class="stat"><small>Nieuw</small><strong id="statNew">0</strong></div>
 </div>
 
+<nav class="section-tabs" aria-label="Beheerweergave">
+  <button class="section-tab active" data-section="overview" type="button">
+    <span class="tab-dot tab-dot-overview"></span>
+    Overzicht
+    <span class="tab-count" id="tabCountOverview">0</span>
+  </button>
+  <button class="section-tab" data-section="orders" type="button">
+    <span class="tab-dot tab-dot-orders"></span>
+    Webshopbestellingen
+    <span class="tab-count" id="tabCountOrders">0</span>
+  </button>
+  <button class="section-tab" data-section="quotes" type="button">
+    <span class="tab-dot tab-dot-quotes"></span>
+    Offertes
+    <span class="tab-count" id="tabCountQuotes">0</span>
+  </button>
+</nav>
+
 <div class="filters">
   <input id="search" placeholder="Zoek klant, e-mail, order, evenement, adres...">
-  <select id="typeFilter">
-    <option value="all">Alle aanvragen</option>
-    <option value="order">Alleen webshop</option>
-    <option value="quote">Alleen offertes</option>
-  </select>
   <select id="payFilter">
     <option value="all">Alle betalingen</option>
     <option value="paid">Betaald</option>
@@ -65,7 +78,46 @@
   </select>
 </div>
 
-<div id="orders" class="orders"></div>
+<section id="overviewView" class="overview-grid">
+  <div class="section-panel section-panel-orders">
+    <div class="section-panel-head">
+      <div>
+        <span class="section-eyebrow orders-eyebrow">WEBSHOP</span>
+        <h2>Recente bestellingen</h2>
+        <p>De nieuwste webshopbestellingen met hun betaal- en verwerkingsstatus.</p>
+      </div>
+      <button class="section-open-button orders-open" data-section-jump="orders" type="button">
+        Alle bestellingen →
+      </button>
+    </div>
+    <div id="overviewOrders" class="section-list"></div>
+  </div>
+
+  <div class="section-panel section-panel-quotes">
+    <div class="section-panel-head">
+      <div>
+        <span class="section-eyebrow quotes-eyebrow">OFFERTES</span>
+        <h2>Recente aanvragen</h2>
+        <p>Nieuwe offerteaanvragen staan hier apart zodat je ze niet mist.</p>
+      </div>
+      <button class="section-open-button quotes-open" data-section-jump="quotes" type="button">
+        Alle offertes →
+      </button>
+    </div>
+    <div id="overviewQuotes" class="section-list"></div>
+  </div>
+</section>
+
+<section id="managementView" class="management-view hidden">
+  <div class="management-head">
+    <div>
+      <span id="managementEyebrow" class="section-eyebrow">BEHEER</span>
+      <h2 id="managementTitle">Aanvragen</h2>
+      <p id="managementSubtitle">Alle aanvragen in deze categorie.</p>
+    </div>
+  </div>
+  <div id="orders" class="orders"></div>
+</section>
 </main>
 </div>
 
@@ -78,6 +130,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
-<script src="bestellingen.js?v=admin-combined-20261005"></script>
+<script src="bestellingen.js?v=admin-split-20261005"></script>
 </body>
 </html>
