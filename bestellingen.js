@@ -107,12 +107,30 @@ function quoteMatchesFulfillFilter(quote,fulfill){
   return quote.status===map[fulfill];
 }
 
+function quoteMatchesStatus(quote,status){
+  if(status==="all") return true;
+
+  const map={
+    new:"new",
+    preparing:"in_progress",
+    ready:"accepted",
+    shipped:"accepted",
+    completed:"accepted",
+    cancelled:"cancelled"
+  };
+
+  return quote.status===map[status];
+}
+
 function render(){
   const search=q("#search").value.trim().toLowerCase();
+  const type=q("#typeFilter")?.value||"all";
   const pay=q("#payFilter").value;
   const fulfill=q("#fulfillFilter").value;
 
   const filteredOrders=orders.filter(o=>{
+    if(type==="quote") return false;
+
     const address=[
       o.shipping_street,
       o.shipping_house_number,
@@ -125,7 +143,8 @@ function render(){
       fullName(o),
       o.customer_email,
       o.customer_phone,
-      address
+      address,
+      ...itemList(o).map(item=>item.product_name)
     ].filter(Boolean).join(" ").toLowerCase();
 
     return (!search||text.includes(search)) &&
@@ -134,6 +153,8 @@ function render(){
   });
 
   const filteredQuotes=quotes.filter(quote=>{
+    if(type==="order") return false;
+
     const text=[
       quote.name,
       quote.organisation,
@@ -141,31 +162,31 @@ function render(){
       quote.phone,
       quote.event_name,
       quote.location,
-      quote.edition
+      quote.edition,
+      quote.message
     ].filter(Boolean).join(" ").toLowerCase();
 
     return (!search||text.includes(search)) &&
       pay==="all" &&
-      quoteMatchesFulfillFilter(quote,fulfill);
+      quoteMatchesStatus(quote,fulfill);
   });
 
   const combined=[
     ...filteredOrders.map(item=>({type:"order",created_at:item.created_at,item})),
     ...filteredQuotes.map(item=>({type:"quote",created_at:item.created_at,item}))
-  ].sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
+  ].sort((a,b)=>new Date(b.created_at||0).getTime()-new Date(a.created_at||0).getTime());
 
   q("#statTotal").textContent=orders.length+quotes.length;
-  q("#statPaid").textContent=orders.filter(o=>o.payment_status==="paid").length;
+  q("#statOrders").textContent=orders.length;
+  q("#statQuotes").textContent=quotes.length;
   q("#statNew").textContent=
-    orders.filter(o=>o.payment_status==="paid"&&o.status==="new").length+
-    quotes.filter(qt=>qt.status==="new").length;
-  q("#statOpen").textContent=orders.filter(o=>o.payment_status==="pending").length;
+    orders.filter(o=>o.status==="new").length+
+    quotes.filter(quote=>quote.status==="new").length;
 
   q("#orders").innerHTML=combined.length
     ? combined.map(entry=>entry.type==="quote"?quoteCard(entry.item):orderCard(entry.item)).join("")
     : '<div class="empty">Geen bestellingen of offertes gevonden.</div>';
 }
-
 
 function nextAction(status){
   if(status==="new")return '<button class="action next" data-status="preparing">In behandeling</button>';
@@ -337,15 +358,36 @@ async function setQuoteStatus(id,status){
   await load();
 }
 
+let refreshTimer=null;
+
 document.addEventListener("DOMContentLoaded",async()=>{
   q("#googleLoginButton").addEventListener("click",login);
-  q("#refresh").addEventListener("click",load);
+  q("#refresh").addEventListener("click",async()=>{
+    q("#refresh").disabled=true;
+    q("#refresh").textContent="Vernieuwen…";
+    try{
+      await load();
+    }finally{
+      q("#refresh").disabled=false;
+      q("#refresh").textContent="Vernieuwen";
+    }
+  });
+
   q("#search").addEventListener("input",render);
+  q("#typeFilter").addEventListener("change",render);
   q("#payFilter").addEventListener("change",render);
   q("#fulfillFilter").addEventListener("change",render);
-  q("#lock").addEventListener("click",async()=>{await supabaseClient.auth.signOut();showLogin(true);q("#loginError").textContent="";});
+
+  q("#lock").addEventListener("click",async()=>{
+    if(refreshTimer) clearInterval(refreshTimer);
+    await supabaseClient.auth.signOut();
+    showLogin(true);
+    q("#loginError").textContent="";
+  });
+
   q("#orders").addEventListener("click",e=>{
-    const card=e.target.closest(".order");if(!card)return;
+    const card=e.target.closest(".order");
+    if(!card)return;
 
     const type=card.dataset.type||"order";
     const id=card.dataset.id;
@@ -366,8 +408,17 @@ document.addEventListener("DOMContentLoaded",async()=>{
       setQuoteStatus(id,quoteStatus);
     }
   });
+
   q("#closeModal").addEventListener("click",()=>q("#modal").classList.remove("open"));
-  q("#modal").addEventListener("click",e=>{if(e.target===q("#modal"))q("#modal").classList.remove("open")});
+  q("#modal").addEventListener("click",e=>{
+    if(e.target===q("#modal")) q("#modal").classList.remove("open");
+  });
+
   await ensureSession();
+
+  // Houd nieuwe webshopbestellingen en offertes automatisch zichtbaar.
+  refreshTimer=setInterval(()=>{
+    if(!q("#app").classList.contains("hidden")) load();
+  },30000);
 });
 })();
