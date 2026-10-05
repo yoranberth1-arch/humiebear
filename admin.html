@@ -1268,6 +1268,16 @@
         Dashboard openen
       </button>
 
+      <button
+        id="googleLoginButton"
+        type="button"
+        style="display:none;width:100%;margin-top:10px;padding:13px;border:1px solid #d9ccc2;border-radius:13px;background:#fff;color:var(--brown);font-weight:900;"
+      >
+        Aanmelden met Google
+      </button>
+
+      <div id="authStatus" style="min-height:20px;margin-top:10px;color:var(--brown-light);font-size:12px;line-height:1.5;"></div>
+
       <div id="pinError"></div>
 
     </div>
@@ -2555,6 +2565,16 @@
         "pinError"
       );
 
+    const googleLoginButton =
+      document.getElementById(
+        "googleLoginButton"
+      );
+
+    const authStatus =
+      document.getElementById(
+        "authStatus"
+      );
+
     const quotesList =
       document.getElementById(
         "quotesList"
@@ -3076,6 +3096,45 @@
         ) ||
         null
       );
+
+    }
+
+
+    async function ensureAdminAuth() {
+
+      const {
+        data: {
+          user
+        } = {},
+        error
+      } =
+        await supabaseClient.auth.getUser();
+
+      if (error || !user) {
+
+        if (authStatus) {
+          authStatus.textContent =
+            "Meld je eerst aan met het Google-account dat toegang heeft tot Hummie Bear Beheer.";
+        }
+
+        if (googleLoginButton) {
+          googleLoginButton.style.display = "block";
+        }
+
+        return false;
+
+      }
+
+      if (authStatus) {
+        authStatus.textContent =
+          "Aangemeld als " + (user.email || "beheeraccount") + ".";
+      }
+
+      if (googleLoginButton) {
+        googleLoginButton.style.display = "none";
+      }
+
+      return true;
 
     }
 
@@ -6531,6 +6590,13 @@
 
       try {
 
+        const authenticated =
+          await ensureAdminAuth();
+
+        if (!authenticated) {
+          return;
+        }
+
         await Promise.all(
           [
             loadQuotes(),
@@ -6606,9 +6672,36 @@
       pinError.textContent =
         "";
 
+      const {
+        data: {
+          user
+        } = {},
+        error: authError
+      } =
+        await supabaseClient.auth.getUser();
+
+      if (authError || !user) {
+
+        if (authStatus) {
+          authStatus.textContent =
+            "Medewerkerspin correct. Meld je nu aan met het Google-account dat toegang heeft tot het dashboard.";
+        }
+
+        if (googleLoginButton) {
+          googleLoginButton.style.display = "block";
+        }
+
+        return;
+
+      }
+
       pinGate.classList.add(
         "hidden"
       );
+
+      if (googleLoginButton) {
+        googleLoginButton.style.display = "none";
+      }
 
       adminApp.classList.add(
         "unlocked"
@@ -6632,6 +6725,67 @@
     pinButton.addEventListener(
       "click",
       unlockAdmin
+    );
+
+
+    if (googleLoginButton) {
+      googleLoginButton.addEventListener(
+        "click",
+        async function () {
+
+          authStatus.textContent =
+            "Google-aanmelding openen…";
+
+          const redirectTo =
+            window.location.origin +
+            window.location.pathname;
+
+          const {
+            error
+          } =
+            await supabaseClient.auth.signInWithOAuth({
+              provider: "google",
+              options: {
+                redirectTo
+              }
+            });
+
+          if (error) {
+            console.error(error);
+
+            authStatus.textContent =
+              "Google-aanmelding kon niet worden gestart. Probeer opnieuw.";
+
+            googleLoginButton.style.display = "block";
+          }
+
+        }
+      );
+    }
+
+
+    supabaseClient.auth.onAuthStateChange(
+      function (
+        event,
+        session
+      ) {
+
+        if (session?.user) {
+
+          if (authStatus) {
+            authStatus.textContent =
+              "Google-account aangemeld: " +
+              (session.user.email || "beheeraccount") +
+              ". Voer je medewerkerspin in.";
+          }
+
+          if (googleLoginButton) {
+            googleLoginButton.style.display = "none";
+          }
+
+        }
+
+      }
     );
 
 
@@ -6721,28 +6875,61 @@
     );
 
 
-    if (
-      sessionStorage.getItem(
-        "hummieBearAdminUnlocked"
-      ) ===
-      "1"
-    ) {
+    async function restoreAdminSession() {
 
-      pinGate.classList.add(
+      const {
+        data: {
+          user
+        } = {}
+      } =
+        await supabaseClient.auth.getUser();
+
+      if (
+        sessionStorage.getItem(
+          "hummieBearAdminUnlocked"
+        ) ===
+        "1" &&
+        user
+      ) {
+
+        pinGate.classList.add(
+          "hidden"
+        );
+
+        adminApp.classList.add(
+          "unlocked"
+        );
+
+        document.body.classList.remove(
+          "pin-locked"
+        );
+
+        reloadAll();
+
+        return;
+
+      }
+
+      sessionStorage.removeItem(
+        "hummieBearAdminUnlocked"
+      );
+
+      pinGate.classList.remove(
         "hidden"
       );
 
-      adminApp.classList.add(
+      adminApp.classList.remove(
         "unlocked"
       );
 
-      document.body.classList.remove(
+      document.body.classList.add(
         "pin-locked"
       );
 
-      reloadAll();
-
     }
+
+
+    restoreAdminSession();
 
   </script>
 
