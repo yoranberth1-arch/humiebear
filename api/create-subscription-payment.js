@@ -22,9 +22,9 @@ export default async function handler(req,res){
     if(!apiKey)return res.status(500).json({error:"MOLLIE_API_KEY is not configured."});
     const body=parseBody(req.body),customer=body.customer||{},plan=clean(body.plan,20);
     const weights={
-      "500":{name:"500 g",grams:500,amount:12.95},
+      "500":{name:"500 g",grams:500,amount:14.95},
       "1000":{name:"1 kg",grams:1000,amount:19.95},
-      "1500":{name:"1,5 kg",grams:1500,amount:29.95}
+      "1500":{name:"1,5 kg",grams:1500,amount:27.95}
     };
     const frequencies={
       weekly:{label:"Elke week",interval:"1 week"},
