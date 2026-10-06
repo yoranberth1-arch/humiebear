@@ -1,6 +1,6 @@
 (() => {
 "use strict";
-const WEIGHTS={500:{label:"500 g",price:12.95},1000:{label:"1 kg",price:19.95},1500:{label:"1,5 kg",price:29.95}};
+const WEIGHTS={500:{label:"500 g",price:14.95},1000:{label:"1 kg",price:19.95},1500:{label:"1,5 kg",price:27.95}};
 const FREQUENCIES={weekly:"Elke week",biweekly:"Elke 2 weken",monthly:"Elke maand"};
 let selectedWeight=null;
 const $=s=>document.querySelector(s),$$=s=>Array.from(document.querySelectorAll(s));
