@@ -80,6 +80,70 @@ export default async function handler(req,res){
     if(!order)return res.status(404).send("Order not found");
 
     const status=String(payment.status||"");
+    const isSubscriptionFirst=metadata?.type==="hummiebear_subscription_first_payment";
+    if(isSubscriptionFirst){
+      if(status==="paid"){
+        const existing=await sb("subscriptions?select=*&mollie_payment_id=eq."+encodeURIComponent(payment.id)+"&limit=1");
+        if(!existing?.length){
+          const monthly=Number(metadata.monthly_price);
+          const nextDate=new Date();
+          nextDate.setMonth(nextDate.getMonth()+1);
+          const startDate=nextDate.toISOString().slice(0,10);
+          const subResponse=await fetch("https://api.mollie.com/v2/customers/"+encodeURIComponent(metadata.customer_id)+"/subscriptions",{
+            method:"POST",
+            headers:{Authorization:"Bearer "+apiKey,"Content-Type":"application/json",Accept:"application/json"},
+            body:JSON.stringify({
+              amount:{currency:"EUR",value:monthly.toFixed(2)},
+              interval:"1 month",
+              startDate,
+              description:"Hummie Bear "+String(metadata.plan_name||"Sweet Club"),
+              webhookUrl:(process.env.PUBLIC_SITE_URL||"https://www.hummiebear.be")+"/api/mollie-webhook",
+              metadata:{source:"hummiebear_subscription",plan:String(metadata.plan||""),email:String(metadata.email||"")}
+            })
+          });
+          const subscription=await subResponse.json().catch(()=>({}));
+          if(!subResponse.ok)throw new Error(subscription.detail||"Mollie kon het maandabonnement niet aanmaken.");
+          const subscriptions=await sb("subscriptions?select=*&mollie_payment_id=eq."+encodeURIComponent(payment.id)+"&limit=1");
+          const row=Array.isArray(subscriptions)?subscriptions[0]:null;
+          if(row){
+            await sb("subscriptions?id=eq."+encodeURIComponent(row.id),{
+              method:"PATCH",headers:{"Prefer":"return=minimal"},
+              body:JSON.stringify({
+                mollie_subscription_id:subscription.id,
+                status:"active",
+                payment_status:"paid",
+                current_payment_id:payment.id,
+                last_payment_status:"paid",
+                last_payment_at:payment.paidAt||new Date().toISOString(),
+                next_payment_at:subscription.nextPaymentDate||null,
+                updated_at:new Date().toISOString()
+              })
+            });
+          }
+        }
+      }else if(["failed","canceled","expired"].includes(status)){
+        const subscriptions=await sb("subscriptions?select=*&mollie_payment_id=eq."+encodeURIComponent(payment.id)+"&limit=1");
+        const row=Array.isArray(subscriptions)?subscriptions[0]:null;
+        if(row)await sb("subscriptions?id=eq."+encodeURIComponent(row.id),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({payment_status:"failed",status:"cancelled",last_payment_status:status,updated_at:new Date().toISOString()})});
+      }
+      return res.status(200).send("OK");
+    }
+
+    if(payment.subscriptionId){
+      const subscriptions=await sb("subscriptions?select=*&mollie_subscription_id=eq."+encodeURIComponent(payment.subscriptionId)+"&limit=1");
+      const row=Array.isArray(subscriptions)?subscriptions[0]:null;
+      if(row){
+        let nextPaymentDate=null;
+        const sr=await fetch("https://api.mollie.com/v2/customers/"+encodeURIComponent(row.mollie_customer_id)+"/subscriptions/"+encodeURIComponent(payment.subscriptionId),{headers:{Authorization:"Bearer "+apiKey,Accept:"application/json"}});
+        if(sr.ok){const sub=await sr.json().catch(()=>({}));nextPaymentDate=sub.nextPaymentDate||null;}
+        const update={current_payment_id:payment.id,last_payment_status:status,updated_at:new Date().toISOString()};
+        if(nextPaymentDate)update.next_payment_at=nextPaymentDate;
+        if(status==="paid"){update.payment_status="paid";update.last_payment_at=payment.paidAt||new Date().toISOString();}
+        else if(["failed","canceled","expired"].includes(status)){update.payment_status="failed";}
+        await sb("subscriptions?id=eq."+encodeURIComponent(row.id),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify(update)});
+      }
+      return res.status(200).send("OK");
+    }
     const update={payment_reference:payment.id,mollie_status:status,updated_at:new Date().toISOString()};
     if(status==="paid"){update.payment_status="paid";update.status="new";update.paid_at=payment.paidAt||new Date().toISOString();}
     else if(["failed","canceled","expired"].includes(status)){update.payment_status="failed";update.status="cancelled";}
