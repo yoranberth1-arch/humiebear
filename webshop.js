@@ -2,6 +2,7 @@
 "use strict";
 const CONFIG={pricePer100g:1.70,freeBagFrom:500,currency:"EUR",locale:"nl-BE",storageKey:"hummieBearShopCartV2",email:"hummiebearbusiness@gmail.com",tiktokUrl:"https://www.tiktok.com/@hummiebear"};
 const PRODUCTS=[
+["aardbeien","Aardbeien","Aardbei-vormige fruitgom","fruit","🍓","https://www.snoepzoet.be/cdn/shop/products/Zoet-Haribo-Aardbeien.jpg?v=1500372953","Haribo"],
 ["spek-lardons","Spek","Haribo spek / marshmallow","spek","🥓","https://snoepstore.nl/7312-large_default/ruitspek-120-stuks-haribo-.jpg","Haribo"],
 ["bananen","Bananen","Schuimsnoep met bananensmaak","fruit","🍌","https://www.notesgourmandes.fr/assets/uploads/products/bananes-par-100g-68306a025df41.png","Haribo"],
 ["berries","Berries","Fruitgom met frambozensmaak","fruit","🫐","https://cdn.webshopapp.com/shops/255156/files/475648445/haribo-berries-bestellen.jpg","Haribo"],
@@ -31,6 +32,7 @@ const PRODUCTS=[
 ["chery-cola","Cherry Cola","Zure cherry-colaflesjes","zuur","🍒","https://media.s-bol.com/NOQxKkVloQpD/550x550.jpg","Astra"],
 ["cola-tutten-zuur","Cola Tutten Zuur","Zure cola-spenen","zuur","🍼","https://ollebolle.net/shops/ollebolle/thumbs/colatutten-colatutten-red-band.jpg","Astra"],
 ["cola-klein-zuur","Cola Klein Zuur","Kleine zure colaflesjes","zuur","🥤","https://media.s-bol.com/J8G625oVK2KD/550x550.jpg","Astra"],
+["dropveters","Dropveters","Zoete dropveters","drop","🪢","https://snoepstore.nl/6329-large_default/dropveters-23-stuks.jpg","Astra"],
 ["confetti","Confetti","Kleurrijke snoepconfetti","mix","🎉","https://lekkergoed.be/wp-content/uploads/2020/07/astra-frisia-confetti-lekkergoed-600x600.png","Astra"],
 ["eieren","Eieren","Snoepeieren","fruit","🥚","https://media.s-bol.com/NOQxKkVloQpD/550x550.jpg","Astra"],
 ["frieten","Frieten","Zure frietjes","zuur","🍟","http://despekke-lendelede.be/cdn/shop/products/AstraSweetsZureFrietjes.jpg?v=1638211165","Astra"],
