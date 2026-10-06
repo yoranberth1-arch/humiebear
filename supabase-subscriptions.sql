@@ -51,3 +51,11 @@ create unique index if not exists subscriptions_mollie_customer_idx on public.su
 create unique index if not exists subscriptions_mollie_subscription_idx on public.subscriptions(mollie_subscription_id) where mollie_subscription_id is not null;
 create index if not exists subscriptions_email_idx on public.subscriptions(customer_email);
 create index if not exists subscriptions_status_idx on public.subscriptions(status);
+
+alter table public.subscriptions
+  add column if not exists package_price numeric(10,2),
+  add column if not exists package_interval text,
+  add column if not exists deliveries_per_term integer,
+  add column if not exists delivery_method text,
+  add column if not exists delivery_radius_free_km numeric(5,2),
+  add column if not exists pickup_address text;
