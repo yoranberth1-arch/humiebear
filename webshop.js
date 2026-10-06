@@ -153,7 +153,7 @@ function checkout(){
  window.location.href="checkout.html";
 }
 function toast(m){const el=q("#toast");if(!el)return;el.textContent=m;el.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("show"),3000)}
-function imageProxyUrl(url){return "/api/image-proxy?url="+encodeURIComponent(url)}
+function imageProxyUrl(url){return "https://images.weserv.nl/?url="+encodeURIComponent(url)+"&w=900&q=88"}
 function productCard(p){
  const badge=p.category==="zuur"?"ZOET-ZUUR":"SCHEPSNOEP";
  return '<article class="product-card"><div class="product-visual"><img src="'+imageProxyUrl(p.image)+'" alt="'+p.name+'" loading="lazy" onerror="this.onerror=null;this.src=\'images/gummy-candy.png\'"><span class="product-badge">'+badge+'</span><span class="product-emoji">'+p.emoji+'</span></div><div class="product-info"><h3>'+p.name+'</h3><p>'+p.desc+'. Zelf te kiezen vanaf 100 g.</p><small style="display:block;color:var(--hb-muted);font-weight:800;margin-top:5px">Merk: '+p.brand+'</small><div class="product-meta"><span class="price">'+eur(CONFIG.pricePer100g)+' <small>/ 100 g</small></span><span style="font-size:9px;color:var(--hb-green);font-weight:900">500 g = zakje cadeau</span></div><div class="product-actions"><button class="btn btn-primary btn-block" type="button" data-add="'+p.id+'">+ Voeg 100 g toe</button><button class="icon-btn" type="button" data-scroll-builder title="Zelf samenstellen">⚙</button></div></div></article>'
