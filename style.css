@@ -1534,3 +1534,16 @@ body{
     width:100%;
   }
 }
+
+
+/* Market gallery: maximize perceived photo clarity on the website */
+.market-gallery-card img {
+  image-rendering: auto;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  filter: contrast(1.06) saturate(1.08) brightness(1.015);
+}
+.market-gallery-card:hover img {
+  filter: contrast(1.09) saturate(1.11) brightness(1.02);
+}
