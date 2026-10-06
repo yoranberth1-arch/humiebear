@@ -6,7 +6,6 @@ export default async function handler(req,res){
   res.setHeader("Access-Control-Allow-Headers","Content-Type,Accept");
   if(req.method==="OPTIONS")return res.status(204).end();
   if(req.method!=="POST")return res.status(405).json({error:"Method not allowed"});
-
   const SUPABASE_URL="https://yrcajvpstbyupohjbavm.supabase.co";
   const clean=(v,max=500)=>String(v??"").trim().slice(0,max);
   const parseBody=v=>{if(v&&typeof v==="object")return v;try{return JSON.parse(v||"{}")}catch{return{}}};
@@ -16,92 +15,69 @@ export default async function handler(req,res){
     const t=await r.text();let b=null;try{b=t?JSON.parse(t):null}catch{}
     if(!r.ok)throw new Error(b?.message||b?.hint||t||"Supabase request failed.");return b;
   };
-
   try{
-    const apiKey=process.env.MOLLIE_API_KEY;
-    if(!apiKey)return res.status(500).json({error:"MOLLIE_API_KEY is not configured."});
-    const body=parseBody(req.body),customer=body.customer||{},plan=clean(body.plan,20);
-    const weights={
-      "500":{name:"500 g",grams:500,amount:14.95},
-      "1000":{name:"1 kg",grams:1000,amount:19.95},
-      "1500":{name:"1,5 kg",grams:1500,amount:27.95}
+    const apiKey=process.env.MOLLIE_API_KEY;if(!apiKey)return res.status(500).json({error:"MOLLIE_API_KEY is not configured."});
+    const body=parseBody(req.body),customer=body.customer||{},choice=clean(customer.choice,30);
+    const options={
+      monthly2kg:{label:"2 kg elke maand",weight:2000,frequency:"monthly",frequencyLabel:"Elke maand",interval:"1 month",deliveries:3},
+      biweekly1kg:{label:"1 kg elke 2 weken",weight:1000,frequency:"biweekly",frequencyLabel:"Elke 2 weken",interval:"2 weeks",deliveries:6}
     };
-    const frequencies={
-      weekly:{label:"Elke week",interval:"1 week"},
-      biweekly:{label:"Elke 2 weken",interval:"2 weeks"},
-      monthly:{label:"Elke maand",interval:"1 month"}
-    };
-    const weight=weights[String(customer.weight||"")],frequency=frequencies[clean(customer.frequency,20)];
-    if(!weight)return res.status(400).json({error:"Kies een geldig gewicht."});
-    if(!frequency)return res.status(400).json({error:"Kies een geldige leverfrequentie."});
+    const selected=options[choice];
+    if(!selected)return res.status(400).json({error:"Kies een geldige Sweet Club formule."});
+    const deliveryMethod=clean(customer.deliveryMethod,20);
+    if(!["pickup","delivery"].includes(deliveryMethod))return res.status(400).json({error:"Kies afhalen of levering."});
     if(!["surprise","favorites","sour"].includes(customer.style))return res.status(400).json({error:"Kies een geldige boxvoorkeur."});
-
     const name=clean(customer.name,120),email=clean(customer.email,180).toLowerCase();
     if(!name)return res.status(400).json({error:"Vul je naam in."});
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return res.status(400).json({error:"Vul een geldig e-mailadres in."});
-    if(!clean(customer.address,200)||!clean(customer.postalCode,20)||!clean(customer.city,100))return res.status(400).json({error:"Vul je volledige leveradres in."});
-
+    if(!clean(customer.address,200)||!clean(customer.postalCode,20)||!clean(customer.city,100))return res.status(400).json({error:"Vul je lever-/woonadres in."});
     const firstName=name.split(/\s+/)[0],lastName=name.split(/\s+/).slice(1).join(" ");
     const mollieCustomerResponse=await fetch("https://api.mollie.com/v2/customers",{
       method:"POST",headers:{Authorization:"Bearer "+apiKey,"Content-Type":"application/json",Accept:"application/json"},
-      body:JSON.stringify({name,email,locale:"nl_BE",metadata:{source:"hummiebear_subscription"}})
+      body:JSON.stringify({name,email,locale:"nl_BE",metadata:{source:"hummiebear_sweet_club"}})
     });
     const mollieCustomer=await mollieCustomerResponse.json().catch(()=>({}));
     if(!mollieCustomerResponse.ok)throw new Error(mollieCustomer.detail||"Mollie kon de klant niet aanmaken.");
-
     const originSite=process.env.PUBLIC_SITE_URL||"https://www.hummiebear.be";
     const metadata={
       type:"hummiebear_subscription_first_payment",
-      plan:weight.grams===1500?"plus":weight.grams===1000?"sweet":"custom",
-      plan_name:"Hummie Bear Sweet Club",
-      delivery_price:weight.amount.toFixed(2),
-      weight_grams:String(weight.grams),
-      frequency:clean(customer.frequency,20),
-      frequency_label:frequency.label,
-      mollie_interval:frequency.interval,
-      minimum_deliveries:"3",
-      customer_id:mollieCustomer.id,
-      first_name:firstName,last_name:lastName,email,
+      plan:choice,plan_name:"Hummie Bear Sweet Club",package_price:"90.00",
+      package_interval:"3 months",weight_grams:String(selected.weight),
+      frequency:selected.frequency,frequency_label:selected.frequencyLabel,
+      deliveries_per_term:String(selected.deliveries),minimum_deliveries:String(selected.deliveries),
+      delivery_method:deliveryMethod,delivery_radius_free_km:"10",
+      pickup_address:"Lendeleedsestraat 191, 8870 Izegem",
+      customer_id:mollieCustomer.id,first_name:firstName,last_name:lastName,email,
       phone:clean(customer.phone,50),address:clean(customer.address,200),
       postal_code:clean(customer.postalCode,20),city:clean(customer.city,100),
       style:clean(customer.style,30),avoid:clean(customer.avoid,500)
     };
-
     const paymentResponse=await fetch("https://api.mollie.com/v2/payments",{
       method:"POST",headers:{Authorization:"Bearer "+apiKey,"Content-Type":"application/json",Accept:"application/json"},
       body:JSON.stringify({
-        amount:{currency:"EUR",value:weight.amount.toFixed(2)},
-        customerId:mollieCustomer.id,sequenceType:"first",
-        description:"Hummie Bear Sweet Club – "+weight.name+" – "+frequency.label,
-        redirectUrl:originSite+"/subscription-success.html",
-        cancelUrl:originSite+"/subscription-cancelled.html",
-        webhookUrl:originSite+"/api/mollie-webhook",
-        metadata
+        amount:{currency:"EUR",value:"90.00"},customerId:mollieCustomer.id,sequenceType:"first",
+        description:"Hummie Bear Sweet Club – 3 maanden – "+selected.label,
+        redirectUrl:originSite+"/subscription-success.html",cancelUrl:originSite+"/subscription-cancelled.html",
+        webhookUrl:originSite+"/api/mollie-webhook",metadata
       })
     });
     const payment=await paymentResponse.json().catch(()=>({}));
     if(!paymentResponse.ok)throw new Error(payment.detail||"Mollie kon de eerste betaling niet aanmaken.");
-
     await sb("subscriptions",{method:"POST",headers:{"Prefer":"return=minimal"},body:JSON.stringify({
-      mollie_customer_id:mollieCustomer.id,
-      mollie_payment_id:payment.id,
-      plan:metadata.plan,
-      plan_name:metadata.plan_name,
-      monthly_price:weight.amount,
-      frequency:clean(customer.frequency,20),
-      frequency_label:frequency.label,
-      mollie_interval:frequency.interval,
-      weight_grams:weight.grams,
-      delivery_price:weight.amount,
-      minimum_deliveries:3,
-      deliveries_completed:0,
+      mollie_customer_id:mollieCustomer.id,mollie_payment_id:payment.id,
+      plan:choice,plan_name:"Hummie Bear Sweet Club",monthly_price:90,
+      package_price:90,package_interval:"3 months",frequency:selected.frequency,
+      frequency_label:selected.frequencyLabel,mollie_interval:selected.interval,
+      weight_grams:selected.weight,delivery_price:90,
+      deliveries_per_term:selected.deliveries,minimum_deliveries:selected.deliveries,
+      deliveries_completed:0,delivery_method:deliveryMethod,delivery_radius_free_km:10,
+      pickup_address:"Lendeleedsestraat 191, 8870 Izegem",
       customer_first_name:firstName,customer_last_name:lastName,customer_email:email,
       customer_phone:clean(customer.phone,50),shipping_address:clean(customer.address,200),
       shipping_postal_code:clean(customer.postalCode,20),shipping_city:clean(customer.city,100),
       shipping_country:"BE",box_style:clean(customer.style,30),avoid:clean(customer.avoid,500),
       status:"pending",payment_status:"pending"
     })});
-
     return res.status(200).json({paymentId:payment.id,checkoutUrl:payment._links?.checkout?.href||null});
   }catch(error){
     console.error("Subscription payment error:",error);
