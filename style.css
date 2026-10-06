@@ -1365,3 +1365,172 @@ body{
 .candy-detail .detail-hero .back-link{
   color:var(--pink-dark) !important;
 }
+
+
+/* =========================================================
+   HOMEPAGE — HUMMIE BEAR IN ACTIE GALLERY
+========================================================= */
+.market-gallery-section{
+  position:relative;
+}
+
+.market-gallery-heading{
+  margin-bottom:34px;
+}
+
+.market-gallery-heading p{
+  max-width:560px;
+}
+
+.market-gallery{
+  display:grid;
+  grid-template-columns:1.18fr .82fr;
+  grid-template-rows:300px 260px;
+  gap:16px;
+}
+
+.market-gallery-card{
+  position:relative;
+  min-width:0;
+  margin:0;
+  overflow:hidden;
+  border-radius:24px;
+  background:#f4eadf;
+  box-shadow:var(--shadow-soft);
+  isolation:isolate;
+}
+
+.market-gallery-card:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(to top,rgba(25,18,15,.62),transparent 48%);
+  pointer-events:none;
+}
+
+.market-gallery-card img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  transition:transform .5s ease;
+}
+
+.market-gallery-card:hover img{
+  transform:scale(1.035);
+}
+
+.market-gallery-card figcaption{
+  position:absolute;
+  z-index:2;
+  left:20px;
+  right:20px;
+  bottom:17px;
+  color:#fff;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.01em;
+}
+
+.market-gallery-main{
+  grid-row:1 / span 2;
+}
+
+.market-gallery-main img{
+  object-position:center 58%;
+}
+
+.market-gallery-people img{
+  object-position:center 45%;
+}
+
+.market-gallery-candy img{
+  object-position:center 52%;
+}
+
+.market-gallery-action img{
+  object-position:center 50%;
+}
+
+.market-gallery-cta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px;
+  margin-top:22px;
+  padding:28px 30px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:linear-gradient(135deg,#fff,#fff3f7);
+  box-shadow:var(--shadow-soft);
+}
+
+.market-gallery-cta h3{
+  margin:6px 0 5px;
+  font-family:"Playfair Display",serif;
+  font-size:30px;
+  line-height:1.05;
+}
+
+.market-gallery-cta p{
+  margin:0;
+  color:var(--muted);
+}
+
+.market-gallery-cta .btn{
+  flex:0 0 auto;
+}
+
+@media(max-width:900px){
+  .market-gallery{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:340px 250px;
+  }
+
+  .market-gallery-main{
+    grid-column:1 / span 2;
+    grid-row:auto;
+  }
+
+  .market-gallery-cta{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+}
+
+@media(max-width:600px){
+  .market-gallery{
+    grid-template-columns:1fr;
+    grid-template-rows:none;
+    gap:12px;
+  }
+
+  .market-gallery-card{
+    height:260px;
+    border-radius:20px;
+  }
+
+  .market-gallery-main{
+    height:330px;
+  }
+
+  .market-gallery-card figcaption{
+    left:16px;
+    right:16px;
+    bottom:14px;
+  }
+
+  .market-gallery-cta{
+    padding:24px 20px;
+    border-radius:20px;
+  }
+
+  .market-gallery-cta h3{
+    font-size:26px;
+  }
+
+  .market-gallery-cta .btn{
+    width:100%;
+  }
+}
