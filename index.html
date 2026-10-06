@@ -579,7 +579,7 @@
 
         <figure class="market-gallery-card market-gallery-main" role="listitem">
           <img
-            src="images/IMG_6335.jpeg"
+            src="images/IMG_6335.webp.b64"
             alt="Hummie Bear snoepkraam tijdens een evenement"
             loading="lazy"
           >
@@ -588,7 +588,7 @@
 
         <figure class="market-gallery-card market-gallery-people" role="listitem">
           <img
-            src="images/IMG_6331.jpeg"
+            src="images/IMG_6331.webp.b64"
             alt="Bezoekers bij het Hummie Bear snoepkraam"
             loading="lazy"
           >
@@ -597,7 +597,7 @@
 
         <figure class="market-gallery-card market-gallery-candy" role="listitem">
           <img
-            src="images/IMG_6334.jpeg"
+            src="images/IMG_6334.webp.b64"
             alt="Groot aanbod kleurrijk schepsnoep bij Hummie Bear"
             loading="lazy"
           >
@@ -606,7 +606,7 @@
 
         <figure class="market-gallery-card market-gallery-action" role="listitem">
           <img
-            src="images/IMG_6336.jpeg"
+            src="images/IMG_6336.webp.b64"
             alt="Hummie Bear snoepkraam in actie op een markt"
             loading="lazy"
           >
@@ -2245,6 +2245,21 @@
   ========================================================== -->
 
   <script src="script.js?v=20260919-2"></script>
+
+
+<script>
+/* Hummie Bear market gallery: the uploaded WebP photos are stored as
+   text-safe base64 files so GitHub's text-only connector can deploy them. */
+document.querySelectorAll('.market-gallery-card img[src$=".webp.b64"]').forEach(async (img) => {
+  try {
+    const response = await fetch(img.getAttribute('src'), { cache: 'force-cache' });
+    const base64 = (await response.text()).trim();
+    if (base64) img.src = 'data:image/webp;base64,' + base64;
+  } catch (error) {
+    console.warn('Hummie Bear gallery image could not be loaded', error);
+  }
+});
+</script>
 
 </body>
 </html>
