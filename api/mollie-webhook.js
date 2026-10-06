@@ -42,8 +42,8 @@ export default async function handler(req,res){
       if(!row)return res.status(200).send("Subscription record not found");
       if(status==="paid"&&row.status!=="active"){
         if(row.mollie_subscription_id)return res.status(200).send("Already activated");
-        const interval=String(metadata.mollie_interval||row.mollie_interval||"1 month");
-        const price=Number(metadata.delivery_price||row.delivery_price||row.monthly_price);
+        const interval="3 months";
+        const price=90;
         const start=addInterval(payment.paidAt||new Date(),interval,1);
         const subResponse=await fetch("https://api.mollie.com/v2/customers/"+encodeURIComponent(metadata.customer_id||row.mollie_customer_id)+"/subscriptions",{
           method:"POST",headers:{Authorization:"Bearer "+apiKey,"Content-Type":"application/json",Accept:"application/json"},
@@ -58,12 +58,12 @@ export default async function handler(req,res){
         });
         const subscription=await subResponse.json().catch(()=>({}));
         if(!subResponse.ok)throw new Error(subscription.detail||"Mollie kon het terugkerende abonnement niet aanmaken.");
-        const minEnd=addInterval(payment.paidAt||new Date(),interval,2);
+        const minEnd=addInterval(payment.paidAt||new Date(),interval,1);
         await sb("subscriptions?id=eq."+encodeURIComponent(row.id),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({
           mollie_subscription_id:subscription.id,status:"active",payment_status:"paid",
           current_payment_id:payment.id,last_payment_status:"paid",last_payment_at:payment.paidAt||new Date().toISOString(),
           next_payment_at:subscription.nextPaymentDate||start.toISOString(),
-          deliveries_completed:1,minimum_deliveries:3,minimum_end_at:minEnd.toISOString(),updated_at:new Date().toISOString()
+          deliveries_completed:0,minimum_deliveries:Number(metadata.deliveries_per_term||row.minimum_deliveries||3),minimum_end_at:minEnd.toISOString(),updated_at:new Date().toISOString()
         })});
       }else if(["failed","canceled","expired"].includes(status)){
         await sb("subscriptions?id=eq."+encodeURIComponent(row.id),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({payment_status:"failed",status:"payment_failed",last_payment_status:status,updated_at:new Date().toISOString()})});
@@ -83,7 +83,7 @@ export default async function handler(req,res){
         if(status==="paid"){
           update.payment_status="paid";
           update.last_payment_at=payment.paidAt||new Date().toISOString();
-          update.deliveries_completed=Number(row.deliveries_completed||0)+1;
+          update.deliveries_completed=Number(row.deliveries_completed||0);
         }else if(["failed","canceled","expired"].includes(status)){
           update.payment_status="failed";
           update.status="payment_failed";
