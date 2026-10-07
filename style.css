@@ -1547,3 +1547,14 @@ body{
 .market-gallery-card:hover img {
   filter: contrast(1.09) saturate(1.11) brightness(1.02);
 }
+
+/* Exact uploaded market photo: keep the complete original aspect ratio. */
+.market-gallery-original img{
+  object-fit:contain !important;
+  object-position:center !important;
+  transform:none !important;
+  background:#f4eadf;
+}
+.market-gallery-original:hover img{
+  transform:none !important;
+}
