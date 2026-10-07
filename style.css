@@ -1559,15 +1559,17 @@ body{
   transform:none !important;
 }
 
-/* Final gallery layout: clean, consistent portrait cards; never crop the uploaded photos. */
+/* Final gallery layout: full portrait photos, equal cards, no cropping. */
 .market-gallery{
   display:grid !important;
   grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  grid-template-rows:none !important;
   grid-auto-rows:auto !important;
   gap:18px !important;
+  align-items:start !important;
 }
 .market-gallery-card{
-  aspect-ratio:4 / 5 !important;
+  aspect-ratio:9 / 16 !important;
   height:auto !important;
   min-height:0 !important;
   display:flex !important;
@@ -1619,6 +1621,6 @@ body{
   }
   .market-gallery-card,
   .market-gallery-main{
-    aspect-ratio:4 / 5 !important;
+    aspect-ratio:9 / 16 !important;
   }
 }
