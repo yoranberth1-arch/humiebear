@@ -1558,3 +1558,44 @@ body{
 .market-gallery-original:hover img{
   transform:none !important;
 }
+
+/* Final gallery layout: show every uploaded photo completely and use one consistent landscape card format. */
+.market-gallery{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  grid-template-rows:auto auto !important;
+  gap:16px !important;
+}
+.market-gallery-card{
+  aspect-ratio:16 / 9 !important;
+  height:auto !important;
+}
+.market-gallery-card img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  transform:none !important;
+  filter:none !important;
+  background:#f4eadf;
+}
+.market-gallery-card:hover img{
+  transform:none !important;
+  filter:none !important;
+}
+.market-gallery-main{
+  grid-row:auto !important;
+  grid-column:auto !important;
+}
+@media(max-width:600px){
+  .market-gallery{
+    grid-template-columns:1fr !important;
+    grid-template-rows:auto !important;
+    gap:12px !important;
+  }
+  .market-gallery-card,
+  .market-gallery-main{
+    aspect-ratio:16 / 9 !important;
+    height:auto !important;
+  }
+}
