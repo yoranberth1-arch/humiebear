@@ -70,7 +70,7 @@ const PRODUCTS=[
 ["bubs-cola-skull","BUBS Cola Skull","Zure cola skulls van BUBS","zuur","💀","https://swedishcandybros.com/cdn/shop/files/FREESHIPPING_16.png?v=1767105210","BUBS"],
 ["bubs-big-sour-skulls","BUBS Big Sour Skulls","Grote zure skulls met rood-gele fruitsmaak","zuur","💀","https://www.handycandy.co.uk/image/cache/catalog/Products/bubs-sour-skulls-1100x1100.jpg","BUBS"],
 ["balla-balla","Balla Balla","Gekleurde gevulde snoeprolletjes","fruit","🍓","https://onlineshop.haribo.com/dw/image/v2/BFFT_PRD/on/demandware.static/-/Sites-haribo-master-catalog-de/default/dw1387d27c/160g-175g%20Beutel/Balla-Balla%20160g.png?sw=800","Haribo"],
-["turks-fruit","Turks fruit","Zachte blokjes Turks fruit met fruitige smaken","fruit","🧁","https://dubai-chocolatebar.com/cdn/shop/files/turkish-delight-with-assorted-fruit-flavors-a-soft-sweet-and-fruity-treat-844984.webp?v=1754776351","Turks Fruit"]
+["turks-fruit","Turks fruit","Zachte blokjes Turks fruit met fruitige smaken","fruit","🧁","https://i.ebayimg.com/images/g/7VMAAOSwxCFnP8Vv/s-l1200.jpg","Turks Fruit"]
 ].map(([id,name,desc,category,emoji,image,brand])=>({id,name,desc,category,emoji,image,brand}));
 let cart=loadCart(),currentFilter="all",searchTerm="";
 const DEAL_BOXES = [
