@@ -43,7 +43,7 @@ const PRODUCTS=[
 ["manneke-pis-olie","Manneke Pis olie","Manneke Pis met olie","fruit","🧍","https://candymix.fr/cdn/shop/files/frisia_manneken-pis.webp?crop=center&height=1200&v=1750863576&width=1200","Astra"],
 ["muizen","Muizen","Zoete muizen","fruit","🐭","https://lekkergoed.be/wp-content/uploads/2020/07/snoep-frisia-zwarte-muizen-lekkergoed.png","Astra"],
 ["orka","Orka","Orka-vormig snoep","fruit","🐋","https://lekkergoed.be/wp-content/uploads/2020/07/astra-frisia-orka-lekkergoed.png","Astra"],
-["poepekens","Poepekens","Rode kersen-gummies met nostalgische bite","fruit","🍑","https://www.snoepzoet.be/cdn/shop/products/Zoet-Astra-Gewassen-Kersen.jpg?v=1509708248&width=1946","Astra"],
+["poepekens","Poepekens","Poepegatjes met kersensmaak","fruit","🍑","https://media.s-bol.com/nyyWXOQxo0xE/8qlZxx2/550x550.jpg","Astra"],
 ["unicones","Unicones","Kleurrijke eenhoorn-gummies","fruit","🦄","https://www.rigato.net/media/catalog/product/cache/7de23bfdd4b609a04636e339059efb34/u/n/unicorno_4_colori_caramelle_gommose_vidal_1.jpg","Astra"],
 ["violetten","Violetten","Violetsnoep","fruit","🟣","https://media.s-bol.com/gJ5LJLKx2rBk/550x550.jpg","Astra"],
 ["watermeloen-tutters","Watermeloen tutters","Watermeloen-spenen","fruit","🍉","https://www.bonbonz.be/3659-large_default/tetines-citriques-rose-vert-bonbons-astra-sweet.jpg","Astra"],
