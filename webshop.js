@@ -2,7 +2,7 @@
 "use strict";
 const CONFIG={pricePer100g:1.70,freeBagFrom:500,currency:"EUR",locale:"nl-BE",storageKey:"hummieBearShopCartV2",email:"hummiebearbusiness@gmail.com",tiktokUrl:"https://www.tiktok.com/@hummiebear"};
 const PRODUCTS=[
-["spek-lardons","Spek","Zachte roze-witte spekjes","spek","🥓","https://www.foodello.be/tuotekuvat/5410358452027.jpg","Lardons"],
+["spek-lardons","Spek","Roze-witte spekjes met vanillesmaak","spek","🥓","https://www.candyonline.nl/cdn/shop/files/haribo-chamallows-spekkies-12-x-175-grm.jpg?v=1762865669","Haribo"],
 ["bananen","Bananen","Schuimsnoep met bananensmaak","fruit","🍌","https://assets.haribo.com/image/upload/s--ubpSn0by--/ar_2580%3A4000%2Cc_fill%2Cf_auto%2Cq_60/w_804/v1/consumer-sites/nl-be/Products/Bananas-240g-4001686423189.png","Haribo"],
 ["berries","Berries","Fruitgom met frambozensmaak","fruit","🫐","https://assets.haribo.com/image/upload/s--Wf6tOU8b--/ar_2700%3A3639,c_fill,f_auto,q_60/w_715/v1/consumer-sites/en-us/Products/Haribo-US-Berries-5-oz.png","Haribo"],
 ["carensac","Carensac","Kleine kleurrijke dropstaafjes","drop","🍬","https://bmstores.fr/998927-large_default/bonbons-carensac.jpg","Haribo"],
