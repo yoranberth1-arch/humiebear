@@ -21,6 +21,17 @@ export default async function handler(req,res){
     return{};
   }
 
+
+  async function sendPush(title,message,priority="max",tags="money_with_wings"){
+    const topic=process.env.NTFY_TOPIC||"hummiebear-orders-7f4c9e2a6d1b8f35";
+    try{
+      const headers={"Title":title,"Priority":priority,"Tags":tags,"Click":"https://www.hummiebear.be/bestellingen.html","Content-Type":"text/plain; charset=utf-8"};
+      if(process.env.NTFY_TOKEN)headers.Authorization="Bearer "+process.env.NTFY_TOKEN;
+      const r=await fetch("https://ntfy.sh/"+encodeURIComponent(topic),{method:"POST",headers,body:message});
+      if(!r.ok)console.error("ntfy push failed:",r.status,await r.text());
+    }catch(error){console.error("ntfy push error:",error);}
+  }
+
   async function sendConfirmation(order,items){
     const key=process.env.RESEND_API_KEY;
     const from=process.env.RESEND_FROM_EMAIL;
@@ -92,6 +103,13 @@ export default async function handler(req,res){
       const items=await sb("order_items?select=*&order_id=eq."+encodeURIComponent(order.id)+"&order=created_at.asc");
       try{
         await sendConfirmation({...order,...update,payment_status:"paid"},items||[]);
+      await sendPush(
+        "Bestelling betaald",
+        "Bestelling "+order.order_number+" is betaald: €"+Number(order.total||0).toFixed(2)+". Open het dashboard voor de details.",
+        "max",
+        "money_with_wings
+      );
+
         await sb("orders?id=eq."+encodeURIComponent(order.id),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({confirmation_email_sent_at:new Date().toISOString(),confirmation_email_status:"sent",email_error:null,updated_at:new Date().toISOString()})});
       }catch(emailError){
         console.error("Confirmation email failed:",emailError);
