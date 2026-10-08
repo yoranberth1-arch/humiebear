@@ -25,7 +25,7 @@ const PRODUCTS=[
 ["schuimaardbei-tacada","Schuimaardbei Tacada","Zacht aardbeienschuim","fruit","🍓","https://media.s-bol.com/NGEZvzVlql7N/xBXJjr/550x630.jpg","Haribo"],
 ["smurfen","Smurfen","Fruitige Smurfen","fruit","🔵","https://cdn.webshopapp.com/shops/255156/files/475692626/400x400x2/bestel-jouw-haribo-smurfen-snoep-online.jpg","Haribo"],
 ["tutters-spenen","Tutters / Spenen","Snoepjes in speenvorm","fruit","🍼","https://leschiques.be/752-large_default/tetines-colorees-haribo.jpg","Haribo"],
-["blue-dummies-sour","Blue Dummies Sour","Zure blauwe tutters","zuur","🔵","https://cdn.webshopapp.com/shops/255156/files/402709508/astra-blauwe-tutters-bestellen-online.jpg","Astra"],
+["blue-dummies-sour","Blue Dummies Sour","Zure blauwe tutters","zuur","🔵","https://media.s-bol.com/BpEkGrL6n90k/l1p3J1/550x550.jpg","Astra"],
 ["bubblegum-bottles","Bubblegum Bottles","Bubblegum colaflesjes","fruit","🥤","https://i0.wp.com/www.online-snoep.nl/wp-content/uploads/2022/02/bubblegum-bottle.png?fit=580%2C500&ssl=1","Astra"],
 ["bubblegum-tutters","Bubblegum Tutters","Bubblegum spenen","fruit","🍼","https://www-static.snoeppotteke.be/wp-content/uploads/2023/09/MG_7135-scaled.jpg","Astra"],
 ["chery-cola","Chery Cola","Zure cherry-colaflesjes","zuur","🍒","https://media.s-bol.com/79N3j5r4mQG8/550x495.jpg","Astra"],
@@ -48,7 +48,7 @@ const PRODUCTS=[
 ["violetten","Violetten","Violetsnoep","fruit","🟣","https://media.s-bol.com/gJ5LJLKx2rBk/550x550.jpg","Astra"],
 ["watermeloen-tutters","Watermeloen tutters","Watermeloen-spenen","fruit","🍉","https://www.bonbonz.be/3659-large_default/tetines-citriques-rose-vert-bonbons-astra-sweet.jpg","Astra"],
 ["winegums","Winegums","Fruitige winegums","fruit","🍬","https://primary.jwwb.nl/public/p/q/s/temp-ggwnlzdmdipfrogfhayw/10bymp/Zoet-Astra-snoepoverdepost-Winegums-snoep.jpg","Astra"],
-["zure-appeltjes","Zure appeltjes","Zure appelvormen","zuur","🍏","https://www.wondergifts.be/web/image/product.template/2212/image_512/Zure%20beertjes%20-%20%E2%82%AC8,20-kg%20-%20per%203kg?unique=833ef0f","Astra"],
+["zure-appeltjes","Zure appeltjes","Zure appelvormen","zuur","🍏","https://www.bonbonz.be/3670-large_default/pomme-citriques-bonbons-astra-sweet.jpg","Astra"],
 ["zure-beren","Zure beren","Zure beertjes","zuur","🐻","https://cdn.webshopapp.com/shops/255156/files/494875785/heerlijke-zure-beertjes-van-belgische-snoepfabrika.jpg","Astra"],
 ["zure-gloeiewormen","Zure gloeïwormen","Zure wormen","zuur","🪱","https://odoo.snoepcenterlingier.be/web/image/product.template/2210/image_1024?unique=5af6f44","Astra"],
 ["zure-ringen","Zure ringen","Gemengde zure fruitringen","zuur","⭕","https://lollyshop.co.nz/cdn/shop/products/Assorted-Fruit-Rings.png?v=1639017621&width=1214","Astra"],
@@ -63,14 +63,14 @@ const PRODUCTS=[
 ["matten-appel","Matten appel","Zure groene appelmatten","zuur","🍏","https://www.snackesfiz.it/cdn/shop/products/cintas-manzana-con-pica-pica-bote-200-unidades-haribo.jpg?v=1658414043&width=1946","King Royal"],
 ["creamrolls","Creamrolls","Roomgevulde snoeprolletjes","fruit","🍓","https://cbonbons.ch/cdn/shop/files/Histoire-2025-10-06T180112.735.png?v=1759766483&width=990","Vidal"],
 ["dracula","Dracula","Draculatanden","fruit","🧛","https://www.shopbelgium.net/3780-large_default/lutti-dracula-teeth-gums-200-gr.jpg","Lutti"],
-["dracula-zuur","Dracula zuur","Zure draculatanden","zuur","🧛","http://myamericandream.be/cdn/shop/files/Ontwerpzondertitel_70.png?v=1759506917","Lutti"],
+["dracula-zuur","Dracula zuur","Zure draculatanden","zuur","🧛","https://lesconfiseriesjojoetmeme.be/cdn/shop/files/IMG-5067.png?v=1771163014&width=1445","Lutti"],
 ["tropical-fish","Tropical Fish","Tropische visjes","fruit","🐠","https://www.snoepaanhuis.be/631-large_default/tropical-fish-3-kg-lutti.jpg","Lutti"],
-["kettingen","Kettingen","Snoepkettingen","fruit","📿","https://www.ah.nl/producten/product/wi451877/look-o-look-snoepkettingen-en-horloges","—"],
-["bubs-granaatappel","Granaatappel snoep van Bubs","Zoete BUBS-overtjes met granaatappel en wilde aardbei","fruit","🍓","https://candywrap.nl/cdn/shop/files/bubs-smultron-granataepple-oval-8876583.png?v=1779488854&width=1500","BUBS"],
+["kettingen","Kettingen","Snoepkettingen","fruit","📿","https://static.delhaize.be/medias/sys_master/products/h6f/hff/13282613624862.jpg","Look-O-Look"],
+["bubs-granaatappel","Granaatappel snoep van Bubs","BUBS ovalen met wilde aardbei en granaatappel","fruit","🍓","https://www.happycandy.se/images/zoom/smultrongranatappleoval.jpg","BUBS"],
 ["bubs-cola-skull","BUBS Cola Skull","Zure cola skulls van BUBS","zuur","💀","https://www.candycopia.com/cdn/shop/files/Bubs-Skalle-Sour-Cola.jpg?format=webp&v=1761327152&width=550","BUBS"],
 ["bubs-big-sour-skulls","BUBS Big Sour Skulls","Grote zure skulls met rood-gele fruitsmaak","zuur","💀","https://www.handycandy.co.uk/image/cache/catalog/Products/bubs-sour-skulls-1100x1100.jpg","BUBS"],
-["balla-balla","Balla Balla","Rode gevulde snoepstaafjes met zachte kern","fruit","🍓","https://fladis.blob.core.windows.net/erp/a6194d93-e22d-46c5-92cc-3e62935bdb84.png","Haribo"],
-["turks-fruit","Turks fruit","Zachte blokjes Turks fruit met fruitige smaken","fruit","🧁","https://dubai-chocolatebar.com/cdn/shop/files/turkish-delight-with-assorted-fruit-flavors-a-soft-sweet-and-fruity-treat-844984_grande.webp?v=1754776351","Turks Fruit"]
+["balla-balla","Balla Balla","Gekleurde gevulde snoeprolletjes","fruit","🍓","https://onlineshop.haribo.com/dw/image/v2/BFFT_PRD/on/demandware.static/-/Sites-haribo-master-catalog-de/default/dw1387d27c/160g-175g%20Beutel/Balla-Balla%20160g.png?sw=800","Haribo"],
+["turks-fruit","Turks fruit","Zachte blokjes Turks fruit met fruitige smaken","fruit","🧁","https://www.sarahscandyfactory.com/cdn/shop/files/Sarah_s_Candy_Factory_Turkish_Delight_with_Assorted_Fruit_Flavors_4.05_oz_-_Sarah_s_Candy_Factory-5528158.jpg?v=1731660074","Turks Fruit"]
 ].map(([id,name,desc,category,emoji,image,brand])=>({id,name,desc,category,emoji,image,brand}));
 let cart=loadCart(),currentFilter="all",searchTerm="";
 const DEAL_BOXES = [
