@@ -101,15 +101,15 @@ export default async function handler(req,res){
 
     if(status==="paid"&&!order.confirmation_email_sent_at){
       const items=await sb("order_items?select=*&order_id=eq."+encodeURIComponent(order.id)+"&order=created_at.asc");
-      try{
-        await sendConfirmation({...order,...update,payment_status:"paid"},items||[]);
-      await sendPush(
+      const pushResult=await sendPush(
         "Bestelling betaald",
         "Bestelling "+order.order_number+" is betaald: €"+Number(order.total||0).toFixed(2)+". Open het dashboard voor de details.",
         "max",
         "money_with_wings"
       );
 
+      try{
+        await sendConfirmation({...order,...update,payment_status:"paid"},items||[]);
         await sb("orders?id=eq."+encodeURIComponent(order.id),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({confirmation_email_sent_at:new Date().toISOString(),confirmation_email_status:"sent",email_error:null,updated_at:new Date().toISOString()})});
       }catch(emailError){
         console.error("Confirmation email failed:",emailError);
