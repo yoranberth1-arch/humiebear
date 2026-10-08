@@ -56,6 +56,12 @@ export default async function handler(req,res){
   }
 
   try{
+    const pushTitle=type==="quote"?"Nieuwe offerteaanvraag":"Nieuwe betaalde webshopbestelling";
+    const pushMessage=type==="quote"
+      ? "Er is een nieuwe offerteaanvraag binnengekomen. Open het dashboard voor de details."
+      : "Er is een nieuwe betaalde webshopbestelling binnengekomen. Open het dashboard voor de details.";
+    await sendPush(pushTitle,pushMessage,"high",type==="quote"?"memo":"money_with_wings");
+
     const response=await fetch("https://api.resend.com/emails",{
       method:"POST",
       headers:{
@@ -78,12 +84,6 @@ export default async function handler(req,res){
       return res.status(502).json({error:"Email could not be sent"});
     }
 
-
-    const pushTitle=type==="quote"?"Nieuwe offerteaanvraag":"Nieuwe betaalde webshopbestelling";
-    const pushMessage=type==="quote"
-      ? "Er is een nieuwe offerteaanvraag binnengekomen. Open het dashboard voor de details."
-      : "Er is een nieuwe betaalde webshopbestelling binnengekomen. Open het dashboard voor de details.";
-    await sendPush(pushTitle,pushMessage,"high",type==="quote"?"memo":"money_with_wings");
     return res.status(200).json({success:true,id:result.id||null});
   }catch(error){
     console.error("Resend notification error:",error);
