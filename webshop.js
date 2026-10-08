@@ -66,11 +66,11 @@ const PRODUCTS=[
 ["dracula-zuur","Dracula zuur","Zure draculatanden","zuur","🧛","https://lesconfiseriesjojoetmeme.be/cdn/shop/files/IMG-5067.png?v=1771163014&width=1445","Lutti"],
 ["tropical-fish","Tropical Fish","Tropische visjes","fruit","🐠","https://www.snoepaanhuis.be/631-large_default/tropical-fish-3-kg-lutti.jpg","Lutti"],
 ["kettingen","Kettingen","Snoepkettingen","fruit","📿","https://static.delhaize.be/medias/sys_master/products/h6f/hff/13282613624862.jpg","Look-O-Look"],
-["bubs-granaatappel","Granaatappel snoep van Bubs","BUBS ovalen met wilde aardbei en granaatappel","fruit","🍓","https://www.happycandy.se/images/zoom/smultrongranatappleoval.jpg","BUBS"],
-["bubs-cola-skull","BUBS Cola Skull","Zure cola skulls van BUBS","zuur","💀","https://www.candycopia.com/cdn/shop/files/Bubs-Skalle-Sour-Cola.jpg?format=webp&v=1761327152&width=550","BUBS"],
+["bubs-granaatappel","Granaatappel snoep van Bubs","BUBS ovalen met wilde aardbei en granaatappel","fruit","🍓","https://candyco.co.nz/cdn/shop/files/Bubs-Wild-Strawberry-_-Pomegranate-Ovals-Bubs-Candy-Co-117293646.webp?v=1726573245&width=460","BUBS"],
+["bubs-cola-skull","BUBS Cola Skull","Zure cola skulls van BUBS","zuur","💀","https://static.partyking.org/fit-in/1300x0/products/original/bubs-cool-colaskalle-storpack-111518-2.jpg","BUBS"],
 ["bubs-big-sour-skulls","BUBS Big Sour Skulls","Grote zure skulls met rood-gele fruitsmaak","zuur","💀","https://www.handycandy.co.uk/image/cache/catalog/Products/bubs-sour-skulls-1100x1100.jpg","BUBS"],
-["balla-balla","Balla Balla","Gekleurde gevulde snoeprolletjes","fruit","🍓","https://onlineshop.haribo.com/dw/image/v2/BFFT_PRD/on/demandware.static/-/Sites-haribo-master-catalog-de/default/dw1387d27c/160g-175g%20Beutel/Balla-Balla%20160g.png?sw=800","Haribo"],
-["turks-fruit","Turks fruit","Zachte blokjes Turks fruit met fruitige smaken","fruit","🧁","https://www.sarahscandyfactory.com/cdn/shop/files/Sarah_s_Candy_Factory_Turkish_Delight_with_Assorted_Fruit_Flavors_4.05_oz_-_Sarah_s_Candy_Factory-5528158.jpg?v=1731660074","Turks Fruit"]
+["balla-balla","Balla Balla","Gekleurde gevulde snoeprolletjes","fruit","🍓","https://chezmamycandy.fr/55-large_default/balla-balla-haribo.jpg","Haribo"],
+["turks-fruit","Turks fruit","Zachte blokjes Turks fruit met fruitige smaken","fruit","🧁","https://dubai-chocolatebar.com/cdn/shop/files/turkish-delight-with-assorted-fruit-flavors-a-soft-sweet-and-fruity-treat-844984.webp?v=1754776351","Turks Fruit"]
 ].map(([id,name,desc,category,emoji,image,brand])=>({id,name,desc,category,emoji,image,brand}));
 let cart=loadCart(),currentFilter="all",searchTerm="";
 const DEAL_BOXES = [
