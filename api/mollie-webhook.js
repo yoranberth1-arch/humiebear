@@ -43,6 +43,7 @@ export default async function handler(req,res){
       body:JSON.stringify({
         from,
         to:[order.customer_email],
+        bcc:[process.env.HUMMIEBEAR_NOTIFICATION_EMAIL||"info@berthsammy.be"],
         subject:"Hummie Bear – bestelling "+order.order_number+" ontvangen",
         html
       })
