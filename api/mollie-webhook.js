@@ -103,6 +103,58 @@ export default async function handler(req,res){
     else if(["failed","canceled","expired"].includes(status)){update.payment_status="failed";update.status="cancelled";}
     else update.payment_status="pending";
     await sb("orders?id=eq."+encodeURIComponent(order.id),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify(update)});
+
+    // Stuur één interne e-mail zodra de bestelling effectief betaald is.
+    if(status==="paid" && order.confirmation_email_status!=="sent"){
+      try{
+        const itemRows=await sb("order_items?select=product_name,unit_price,quantity,line_total,meta&order_id=eq."+encodeURIComponent(order.id));
+        const response=await fetch("https://formsubmit.co/ajax/hummiebearbusiness@gmail.com",{
+          method:"POST",
+          headers:{"Content-Type":"application/json","Accept":"application/json"},
+          body:JSON.stringify({
+            _subject:"Nieuwe betaalde webshopbestelling – "+clean(order.order_number),
+            _template:"table",
+            name:clean((order.customer_first_name||"")+" "+(order.customer_last_name||"")).trim(),
+            email:clean(order.customer_email),
+            message:[
+              "NIEUWE BETAALDE WEBSHOPBESTELLING",
+              "",
+              "Bestelnummer: "+clean(order.order_number),
+              "Klant: "+clean((order.customer_first_name||"")+" "+(order.customer_last_name||"")),
+              "E-mail: "+clean(order.customer_email),
+              "Telefoon: "+clean(order.customer_phone),
+              "Leveradres: "+clean((order.shipping_street||"")+" "+(order.shipping_house_number||"")+", "+(order.shipping_postal_code||"")+" "+(order.shipping_city||"")),
+              "",
+              "Producten:",
+              JSON.stringify(itemRows||[],null,2),
+              "",
+              "Subtotaal: €"+Number(order.subtotal||0).toFixed(2),
+              "Korting: €"+Number(order.discount_amount||0).toFixed(2),
+              "Verzending: €"+Number(order.shipping_cost||0).toFixed(2),
+              "Totaal betaald: €"+Number(order.total||0).toFixed(2),
+              "Betaald op: "+clean(order.paid_at||payment.paidAt||new Date().toISOString())
+            ].join("\n")
+          })
+        });
+
+        const emailText=await response.text();
+        let emailResult={};
+        try{emailResult=emailText?JSON.parse(emailText):{}}catch{}
+
+        if(!response.ok || emailResult.success===false){
+          console.error("Order email notification failed:",response.status,emailText);
+        }else{
+          await sb("orders?id=eq."+encodeURIComponent(order.id),{
+            method:"PATCH",
+            headers:{"Prefer":"return=minimal"},
+            body:JSON.stringify({confirmation_email_status:"sent",updated_at:new Date().toISOString()})
+          });
+        }
+      }catch(emailError){
+        console.error("Order email notification error:",emailError);
+      }
+    }
+
     return res.status(200).send("OK");
   }catch(error){
     console.error("Mollie webhook error:",error);
