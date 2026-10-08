@@ -33,7 +33,7 @@ const PRODUCTS=[
 ["cola-klein-zuur","Cola Klein Zuur","Kleine zure colaflesjes","zuur","🥤","https://media.s-bol.com/J8G625oVK2KD/550x550.jpg","Astra"],
 ["confetti","Confetti","Kleurrijke snoepconfetti","mix","🎉","https://lekkergoed.be/wp-content/uploads/2020/07/astra-frisia-confetti-lekkergoed-600x600.png","Astra"],
 ["eieren","Eieren","Snoepeieren in spiegeleivorm","fruit","🥚","https://media.s-bol.com/NOQxKkVloQpD/550x550.jpg","Astra"],
-["frieten","Frieten","Zure frietjes","zuur","🍟","http://despekke-lendelede.be/cdn/shop/products/AstraSweetsZureFrietjes.jpg?v=1638211165","Astra"],
+["frieten","Frieten","Zure frietjes","zuur","🍟","https://static.wixstatic.com/media/32b690_dcaba155b12f46ce99f9b7eef0a7f484~mv2.jpg/v1/fit/w_500%2Ch_500%2Cq_90/file.jpg","Astra"],
 ["gesuikerde-aardbei","Gesuikerde aardbei","Gesuikerde aardbei","fruit","🍓","https://cdn.webshopapp.com/shops/255156/files/493965779/gesuikerde-aardbei-snoep-in-huis-halen.jpg","Astra"],
 ["hearts","Hearts","Zoete hartjes","fruit","❤️","https://www.kantinewinkel.nl/media/cache/gallery_zoom/product/4325/dextrose-vruchtenhartjes-roze-wit-1-kg.jpg","Astra"],
 ["hotlips","Hotlips","Rode lippen","fruit","💋","https://media.s-bol.com/gpoZy79mRXvZ/1200x1200.jpg","Astra"],
