@@ -20,7 +20,7 @@ export default async function handler(req,res){
 
   const payload=body.data&&typeof body.data==="object"?body.data:{};
   const key=process.env.RESEND_API_KEY;
-  const from=process.env.RESEND_FROM_EMAIL;
+  const from=process.env.RESEND_FROM_EMAIL||"Hummie Bear <info@hummiebear.be>";
   const notificationRecipients=(process.env.HUMMIEBEAR_NOTIFICATION_EMAILS||"info@berthsammy.be,yoran.berth1@gmail.com").split(",").map(v=>v.trim()).filter(Boolean);
 
   if(!key||!from){
