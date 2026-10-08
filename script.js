@@ -1169,7 +1169,7 @@
     // Interne melding naar Hummie Bear na een succesvolle offerteaanvraag.
     try {
       const notificationData = buildQuote(formData);
-      const notificationResponse = await fetch("/api/send-notification", {
+      const notificationResponse = await fetch("https://humiebear.vercel.app/api/send-notification", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
