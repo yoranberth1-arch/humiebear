@@ -21,7 +21,7 @@ export default async function handler(req,res){
   const payload=body.data&&typeof body.data==="object"?body.data:{};
   const key=process.env.RESEND_API_KEY;
   const from=process.env.RESEND_FROM_EMAIL;
-  const to=process.env.HUMMIEBEAR_NOTIFICATION_EMAIL||"info@berthsammy.be";
+  const notificationRecipients=(process.env.HUMMIEBEAR_NOTIFICATION_EMAILS||"info@berthsammy.be,yoran.berth1@gmail.com").split(",").map(v=>v.trim()).filter(Boolean);
 
   if(!key||!from){
     console.error("Missing RESEND_API_KEY or RESEND_FROM_EMAIL");
@@ -54,7 +54,7 @@ export default async function handler(req,res){
       },
       body:JSON.stringify({
         from,
-        to:[to],
+        to:notificationRecipients,
         subject,
         text:lines.join("\n"),
         reply_to:clean(payload.customer_email||payload.email||"")
