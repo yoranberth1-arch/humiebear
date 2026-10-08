@@ -32,6 +32,7 @@ export default async function handler(req,res){
     const fullName=[order.customer_first_name,order.customer_last_name].filter(Boolean).join(" ");
     const html=`<!doctype html><html><body style="margin:0;background:#fbf3ea;font-family:Arial,sans-serif;color:#38261f"><div style="max-width:620px;margin:30px auto;background:#fff;border:1px solid #eaded5;border-radius:22px;overflow:hidden"><div style="padding:30px;text-align:center;background:linear-gradient(180deg,#fff7fb,#fff)"><div style="font-weight:900;letter-spacing:.14em;font-size:11px;color:#d86092">HUMMIE BEAR</div><h1 style="font-size:30px;margin:10px 0">Bedankt voor je bestelling!</h1><p style="color:#786f68;margin:0">Dag ${clean(fullName)}, je bestelling <strong>${clean(order.order_number)}</strong> is ontvangen.</p></div><div style="padding:26px"><h2 style="font-size:18px">Bestellingsoverzicht</h2><table style="width:100%;border-collapse:collapse;font-size:13px"><tbody>${rows}</tbody></table>${discount}<div style="display:flex;justify-content:space-between;margin-top:14px;font-weight:900;font-size:17px"><span>Totaal</span><strong>${total}</strong></div><h2 style="font-size:18px;margin-top:28px">Leveradres</h2><p style="color:#786f68;line-height:1.6">${clean(order.shipping_street)} ${clean(order.shipping_house_number)}<br>${clean(order.shipping_postal_code)} ${clean(order.shipping_city)}<br>${clean(order.shipping_country||"BE")}</p><p style="margin-top:24px;color:#786f68;font-size:12px">We houden je op de hoogte wanneer je bestelling wordt verwerkt.</p></div></div></body></html>`;
 
+    const notificationRecipients=(process.env.HUMMIEBEAR_NOTIFICATION_EMAILS||"info@berthsammy.be,yoran.berth1@gmail.com").split(",").map(v=>v.trim()).filter(Boolean);
     const r=await fetch("https://api.resend.com/emails",{
       method:"POST",
       headers:{
@@ -43,7 +44,7 @@ export default async function handler(req,res){
       body:JSON.stringify({
         from,
         to:[order.customer_email],
-        bcc:[process.env.HUMMIEBEAR_NOTIFICATION_EMAIL||"info@berthsammy.be"],
+        bcc:notificationRecipients,
         subject:"Hummie Bear – bestelling "+order.order_number+" ontvangen",
         html
       })
