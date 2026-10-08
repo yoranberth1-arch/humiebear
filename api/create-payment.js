@@ -31,6 +31,17 @@ export default async function handler(req,res){
     return body;
   }
 
+
+  async function sendPush(title,message,priority="high",tags="shopping_bags"){
+    const topic=process.env.NTFY_TOPIC||"hummiebear-orders-7f4c9e2a6d1b8f35";
+    try{
+      const headers={"Title":title,"Priority":priority,"Tags":tags,"Click":"https://www.hummiebear.be/bestellingen.html","Content-Type":"text/plain; charset=utf-8"};
+      if(process.env.NTFY_TOKEN)headers.Authorization="Bearer "+process.env.NTFY_TOKEN;
+      const r=await fetch("https://ntfy.sh/"+encodeURIComponent(topic),{method:"POST",headers,body:message});
+      if(!r.ok)console.error("ntfy push failed:",r.status,await r.text());
+    }catch(error){console.error("ntfy push error:",error);}
+  }
+
   function parseBody(v){if(v&&typeof v==="object")return v;try{return JSON.parse(v||"{}")}catch{return{}}}
   function splitName(full){
     const parts=clean(full,120).split(/\\s+/).filter(Boolean);
@@ -204,6 +215,13 @@ export default async function handler(req,res){
     } catch (emailError) {
       console.error("Order notification email error:", emailError);
     }
+
+    await sendPush(
+      "Nieuwe webshopbestelling",
+      "Bestelling "+order.order_number+" is aangemaakt voor €"+total.toFixed(2)+" en wacht nog op betaling.",
+      "high",
+      "shopping_bags"
+    );
 
     const origin=process.env.PUBLIC_SITE_URL||"https://www.hummiebear.be";
     let paymentResponse;
