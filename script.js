@@ -1301,11 +1301,15 @@
           );
 
           const quoteForEmail = buildQuote(formData);
-          await fetch("/api/send-notification", {
+          const notificationResponse = await fetch("https://humiebear.vercel.app/api/send-notification", {
             method: "POST",
             headers: { "Content-Type": "application/json", "Accept": "application/json" },
             body: JSON.stringify({ type: "quote", data: quoteForEmail })
           });
+
+          if (!notificationResponse.ok) {
+            console.error("Hummie Bear email notification failed:", await notificationResponse.text());
+          }
 
 
           /* -----------------------------------------------
