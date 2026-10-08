@@ -155,6 +155,56 @@ export default async function handler(req,res){
       body:JSON.stringify(itemRows)
     });
 
+    // Interne melding zodra een webshopbestelling is aangemaakt.
+    // Dit gebeurt bewust vóór de betaling, zodat Hummie Bear ook weet
+    // dat iemand een bestelling heeft gestart maar nog niet betaald heeft.
+    try {
+      const resendKey = process.env.RESEND_API_KEY;
+      if (resendKey) {
+        const resendFrom = process.env.RESEND_FROM_EMAIL || "info@hummiebear.be";
+        const orderLines = [
+          "NIEUWE WEBSHOPBESTELLING",
+          "",
+          "Ordernummer: " + order.order_number,
+          "Betaling: nog niet bevestigd",
+          "Klant: " + fullName,
+          "E-mail: " + email,
+          "Telefoon: " + phone,
+          "Adres: " + street + " " + number + ", " + postal + " " + city,
+          "Subtotaal: €" + subtotal.toFixed(2),
+          "Korting: €" + discount.toFixed(2),
+          "Verzending: €" + shipping.toFixed(2),
+          "Totaal: €" + total.toFixed(2),
+          "",
+          "Producten:",
+          ...items.map(item => "- " + item.name + " × " + item.quantity + " = €" + item.line_total.toFixed(2))
+        ];
+
+        const emailResponse = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            "Authorization": "Bearer " + resendKey,
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            from: "Hummie Bear <" + resendFrom + ">",
+            to: ["info@berthsammy.be", "yoran.berth1@gmail.com"],
+            subject: "Nieuwe webshopbestelling – " + order.order_number,
+            text: orderLines.join("\n")
+          })
+        });
+
+        if (!emailResponse.ok) {
+          console.error("Order notification email failed:", await emailResponse.text());
+        }
+      } else {
+        console.error("Order notification skipped: RESEND_API_KEY is not configured.");
+      }
+    } catch (emailError) {
+      console.error("Order notification email error:", emailError);
+    }
+
     const origin=process.env.PUBLIC_SITE_URL||"https://www.hummiebear.be";
     let paymentResponse;
     try{
