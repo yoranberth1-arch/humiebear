@@ -1166,6 +1166,43 @@
       "Hummie Bear: aanvraag succesvol opgeslagen."
     );
 
+    // Interne melding naar Hummie Bear na een succesvolle offerteaanvraag.
+    try {
+      const notificationData = buildQuote(formData);
+      const notificationResponse = await fetch("/api/send-notification", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          type: "quote",
+          data: {
+            customer_name: notificationData.name,
+            customer_email: notificationData.email,
+            customer_phone: notificationData.phone,
+            event_name: notificationData.event_name,
+            date: notificationData.date,
+            location: notificationData.location,
+            guests: notificationData.guests,
+            event_type: notificationData.event_type,
+            edition: notificationData.edition,
+            options: notificationData.options,
+            practical_notes: notificationData.practical_notes,
+            message: notificationData.message,
+            estimated_price: notificationData.estimated_price,
+            submitted_at: new Date().toISOString()
+          }
+        })
+      });
+
+      if (!notificationResponse.ok) {
+        console.error("Hummie Bear email notification failed:", await notificationResponse.text());
+      }
+    } catch (emailError) {
+      console.error("Hummie Bear email notification error:", emailError);
+    }
+
   }
 
 
