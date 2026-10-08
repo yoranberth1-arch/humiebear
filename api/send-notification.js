@@ -11,6 +11,17 @@ export default async function handler(req,res){
     res.setHeader("Vary","Origin");
   }
 
+
+  async function sendPush(title,message,priority="high",tags="incoming_envelope"){
+    const topic=process.env.NTFY_TOPIC||"hummiebear-orders-7f4c9e2a6d1b8f35";
+    try{
+      const headers={"Title":title,"Priority":priority,"Tags":tags,"Click":"https://www.hummiebear.be/bestellingen.html","Content-Type":"text/plain; charset=utf-8"};
+      if(process.env.NTFY_TOKEN)headers.Authorization="Bearer "+process.env.NTFY_TOKEN;
+      const r=await fetch("https://ntfy.sh/"+encodeURIComponent(topic),{method:"POST",headers,body:message});
+      if(!r.ok)console.error("ntfy push failed:",r.status,await r.text());
+    }catch(error){console.error("ntfy push error:",error);}
+  }
+
   const clean=(v,max=5000)=>String(v??"").trim().slice(0,max);
   const body=typeof req.body==="object"&&req.body?req.body:{};
   const type=clean(body.type,40);
@@ -67,6 +78,12 @@ export default async function handler(req,res){
       return res.status(502).json({error:"Email could not be sent"});
     }
 
+
+    const pushTitle=type==="quote"?"Nieuwe offerteaanvraag":"Nieuwe betaalde webshopbestelling";
+    const pushMessage=type==="quote"
+      ? "Er is een nieuwe offerteaanvraag binnengekomen. Open het dashboard voor de details."
+      : "Er is een nieuwe betaalde webshopbestelling binnengekomen. Open het dashboard voor de details.";
+    await sendPush(pushTitle,pushMessage,"high",type==="quote"?"memo":"money_with_wings");
     return res.status(200).json({success:true,id:result.id||null});
   }catch(error){
     console.error("Resend notification error:",error);
