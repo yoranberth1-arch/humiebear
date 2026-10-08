@@ -107,7 +107,7 @@ export default async function handler(req,res){
         "Bestelling betaald",
         "Bestelling "+order.order_number+" is betaald: €"+Number(order.total||0).toFixed(2)+". Open het dashboard voor de details.",
         "max",
-        "money_with_wings
+        "money_with_wings"
       );
 
         await sb("orders?id=eq."+encodeURIComponent(order.id),{method:"PATCH",headers:{"Prefer":"return=minimal"},body:JSON.stringify({confirmation_email_sent_at:new Date().toISOString(),confirmation_email_status:"sent",email_error:null,updated_at:new Date().toISOString()})});
