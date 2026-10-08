@@ -108,26 +108,24 @@ export default async function handler(req,res){
     if(status==="paid" && order.confirmation_email_status!=="sent"){
       try{
         const itemRows=await sb("order_items?select=product_name,unit_price,quantity,line_total,meta&order_id=eq."+encodeURIComponent(order.id));
-        const response=await fetch("https://formsubmit.co/ajax/hummiebearbusiness@gmail.com",{
+        const apiKey=process.env.RESEND_API_KEY;
+        const from=process.env.RESEND_FROM_EMAIL||"info@hummiebear.be";
+        if(!apiKey) throw new Error("RESEND_API_KEY is not configured.");
+        const response=await fetch("https://api.resend.com/emails",{
           method:"POST",
-          headers:{"Content-Type":"application/json","Accept":"application/json"},
+          headers:{"Authorization":"Bearer "+apiKey,"Content-Type":"application/json","Accept":"application/json"},
           body:JSON.stringify({
-            _subject:"Nieuwe betaalde webshopbestelling – "+clean(order.order_number),
-            _template:"table",
-            name:clean((order.customer_first_name||"")+" "+(order.customer_last_name||"")).trim(),
-            email:clean(order.customer_email),
-            message:[
-              "NIEUWE BETAALDE WEBSHOPBESTELLING",
-              "",
+            from:"Hummie Bear <"+from+">",
+            to:["info@berthsammy.be","yoran.berth1@gmail.com"],
+            subject:"Nieuwe betaalde webshopbestelling – "+clean(order.order_number),
+            text:[
+              "NIEUWE BETAALDE WEBSHOPBESTELLING","",
               "Bestelnummer: "+clean(order.order_number),
               "Klant: "+clean((order.customer_first_name||"")+" "+(order.customer_last_name||"")),
               "E-mail: "+clean(order.customer_email),
               "Telefoon: "+clean(order.customer_phone),
               "Leveradres: "+clean((order.shipping_street||"")+" "+(order.shipping_house_number||"")+", "+(order.shipping_postal_code||"")+" "+(order.shipping_city||"")),
-              "",
-              "Producten:",
-              JSON.stringify(itemRows||[],null,2),
-              "",
+              "","Producten:",JSON.stringify(itemRows||[],null,2),"",
               "Subtotaal: €"+Number(order.subtotal||0).toFixed(2),
               "Korting: €"+Number(order.discount_amount||0).toFixed(2),
               "Verzending: €"+Number(order.shipping_cost||0).toFixed(2),
@@ -136,17 +134,12 @@ export default async function handler(req,res){
             ].join("\n")
           })
         });
-
-        const emailText=await response.text();
-        let emailResult={};
-        try{emailResult=emailText?JSON.parse(emailText):{}}catch{}
-
-        if(!response.ok || emailResult.success===false){
+        const emailText=await response.text();let emailResult={};try{emailResult=emailText?JSON.parse(emailText):{}}catch{}
+        if(!response.ok){
           console.error("Order email notification failed:",response.status,emailText);
         }else{
           await sb("orders?id=eq."+encodeURIComponent(order.id),{
-            method:"PATCH",
-            headers:{"Prefer":"return=minimal"},
+            method:"PATCH",headers:{"Prefer":"return=minimal"},
             body:JSON.stringify({confirmation_email_status:"sent",updated_at:new Date().toISOString()})
           });
         }
