@@ -25,7 +25,7 @@ $("#subscriptionForm")?.addEventListener("submit",async e=>{
  const d=Object.fromEntries(new FormData(form).entries()),btn=$("#subscriptionButton");
  btn.disabled=true;btn.textContent="Beveiligde betaling openen…";setMessage("We maken je beveiligde Mollie-betaalpagina aan.","pending");
  try{
-  const r=await fetch("/api/create-subscription-payment",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({
+  const r=await fetch("https://humiebear.vercel.app/api/create-subscription-payment",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({
    plan:selectedChoice,
    customer:{name:d.firstName+" "+d.lastName,email:d.email,phone:d.phone,address:d.address,postalCode:d.postalCode,city:d.city,
     style:d.style,avoid:d.avoid||"",choice:selectedChoice,deliveryMethod:d.deliveryMethod}
