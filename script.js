@@ -1300,6 +1300,13 @@
             formData
           );
 
+          const quoteForEmail = buildQuote(formData);
+          await fetch("/api/send-notification", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            body: JSON.stringify({ type: "quote", data: quoteForEmail })
+          });
+
 
           /* -----------------------------------------------
              SUCCES
