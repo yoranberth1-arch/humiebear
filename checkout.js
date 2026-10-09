@@ -63,6 +63,7 @@ async function submitCheckout(e){
   if(!form.reportValidity())return;
   const s=state();
   if(!s.items.length){showError("Je mandje is leeg.");return}
+  if(typeof window.fbq==="function")window.fbq('track','InitiateCheckout',{content_type:'product',num_items:s.items.reduce((n,i)=>n+i.quantity,0),value:s.total,currency:'EUR'});
   const data=Object.fromEntries(new FormData(form).entries());
   const customer={
     name:String(data.name||"").trim(),email:String(data.email||"").trim().toLowerCase(),
