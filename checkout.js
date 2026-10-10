@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   q("#discountCode").value=code;
   if(code==="SWEET10")setCouponMessage("SWEET10 staat klaar. De korting wordt op de server gecontroleerd.",true);
   render();
-  const deliveryFields=["#street","#houseNumber","#postalCode","#city"].map(q);
+  const deliveryFields=["#street","#houseNumber","#postalCode","#city"].map(selector => q(selector));
   const syncFulfillment=()=>{const pickup=q("input[name=fulfillmentMethod]:checked")?.value==="pickup";deliveryFields.forEach(el=>{const field=el.closest(".field");field.hidden=pickup;el.required=!pickup;});render();};
   document.querySelectorAll("input[name=fulfillmentMethod]").forEach(el=>el.addEventListener("change",syncFulfillment));
   syncFulfillment();
