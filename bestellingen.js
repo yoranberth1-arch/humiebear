@@ -300,7 +300,8 @@ function quoteCard(quote){
 function orderCard(o){
   const items=itemList(o);
   const summary=items.slice(0,4).map(i=>esc(i.product_name||"Artikel")+" × "+Number(i.quantity||1)).join("<br>")+(items.length>4?"<br>+ "+(items.length-4)+" extra":"");
-  const address=[o.shipping_street,o.shipping_house_number,o.shipping_postal_code,o.shipping_city].filter(Boolean).join(" ");
+  const isPickup=o.fulfillment_method==="pickup";
+  const address=isPickup?(o.pickup_address||"Lendeleedsestraat 191, 8870 Izegem"):[o.shipping_street,o.shipping_house_number,o.shipping_postal_code,o.shipping_city].filter(Boolean).join(" ");
 
   const resendButton=o.status==="shipped"
     ?'<button class="action" data-resend-order-email>Mail opnieuw</button>'
@@ -315,7 +316,7 @@ function orderCard(o){
         <div class="muted">${date(o.created_at)}</div>
       </div>
       <div class="items">${summary||"Geen artikelen"}</div>
-      <div class="muted"><strong>Levering</strong><br>${esc(address||"-")}</div>
+      <div class="muted"><strong>${isPickup?"Gratis afhalen":"Levering"}</strong><br>${esc(address||"-")}</div>
       <div>
         <div style="font-size:18px;font-weight:900">${money(o.total)}</div>
         <span class="status ${payClass(o.payment_status)}">${esc(payLabel(o.payment_status))}</span><br>
@@ -331,7 +332,8 @@ function showOrderDetails(id){
   if(!o)return;
 
   const items=itemList(o);
-  const address=[
+  const isPickup=o.fulfillment_method==="pickup";
+  const address=isPickup?(o.pickup_address||"Lendeleedsestraat 191, 8870 Izegem"):[
     o.shipping_street,
     o.shipping_house_number,
     o.shipping_postal_code,
@@ -343,7 +345,7 @@ function showOrderDetails(id){
   q("#modalBody").innerHTML=
     '<div class="detail-grid">' +
       '<div class="detail"><label>Klant</label><div>'+esc(fullName(o))+'<br>'+esc(o.customer_email||"-")+'<br>'+esc(o.customer_phone||"-")+'</div></div>' +
-      '<div class="detail"><label>Leveradres</label><div>'+esc(address||"-")+'</div></div>' +
+      '<div class="detail"><label>'+(isPickup?"Afhaaladres":"Leveradres")+'</label><div>'+esc(address||"-")+'</div></div>' +
       '<div class="detail"><label>Besteld</label><div>'+date(o.created_at)+'</div></div>' +
       '<div class="detail"><label>Betaling</label><div>'+esc(payLabel(o.payment_status))+(o.payment_reference?"<br><span class='muted'>"+esc(o.payment_reference)+"</span>":"")+'</div></div>' +
       '<div class="detail"><label>Verwerking</label><div>'+esc(fulfillLabel(o.status))+'</div></div>' +
