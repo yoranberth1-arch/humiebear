@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Afrekenen | Hummie Bear</title>
 <meta name="description" content="Vul je gegevens in en betaal veilig je Hummie Bear bestelling via Mollie.">
-<link rel="stylesheet" href="checkout.css?v=20261002-1">
+<link rel="stylesheet" href="checkout.css?v=20261010-pickup1">
   <!-- Meta Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s)
@@ -33,8 +33,9 @@
 <section class="card">
 <div class="eyebrow">AFREKENEN</div>
 <h1>Jouw gegevens</h1>
-<p>Vul hieronder je leveringsgegevens in. Daarna ga je door naar de beveiligde betaalpagina van Mollie.</p>
+<p>Kies of je jouw bestelling gratis komt afhalen of laat leveren. Bij levering blijven de bestaande verzendkosten gelden.</p>
 <form id="checkoutForm">
+<div class="fulfillment-field"><span class="field-label">Hoe ontvang je jouw bestelling? *</span><div class="fulfillment-options"><label class="fulfillment-option"><input type="radio" name="fulfillmentMethod" value="delivery" checked required><span><strong>Levering</strong><small>€5,95 verzending · gratis vanaf €55</small></span></label><label class="fulfillment-option"><input type="radio" name="fulfillmentMethod" value="pickup" required><span><strong>Gratis afhalen</strong><small>Lendeleedsestraat 191, 8870 Izegem</small></span></label></div></div>
 <div class="form-grid">
 <div class="field full"><label for="name">Naam *</label><input id="name" name="name" autocomplete="name" required placeholder="Voor- en achternaam"></div>
 <div class="field"><label for="email">E-mailadres *</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="jouw@email.be"></div>
@@ -68,6 +69,6 @@
 </div>
 </div>
 </div></main>
-<script src="checkout.js?v=payment-fix-20261008-4"></script>
+<script src="checkout.js?v=20261010-pickup1"></script>
 </body>
 </html>
