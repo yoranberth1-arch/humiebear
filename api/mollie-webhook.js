@@ -52,7 +52,7 @@ export default async function handler(req,res){
             interval,
             startDate:start.toISOString().slice(0,10),
             description:"Hummie Bear Sweet Club – "+String(metadata.weight_grams||row.weight_grams)+" g – "+String(metadata.frequency_label||row.frequency_label||"periodiek"),
-            webhookUrl:"https://www.hummiebear.be/api/mollie-webhook",
+            webhookUrl:"https://humiebear.vercel.app/api/mollie-webhook",
             metadata:{source:"hummiebear_subscription",subscription_row_id:String(row.id),frequency:String(metadata.frequency||row.frequency||""),weight_grams:String(metadata.weight_grams||row.weight_grams||""),email:String(metadata.email||row.customer_email||"")}
           })
         });
