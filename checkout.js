@@ -3,6 +3,7 @@
 const STORAGE_KEY="hummieBearShopCartV2";
 const DISCOUNT_KEY="hummieBearDiscountCode";
 const PRICE_PER_100G=1.70;
+const roundMoney=v=>Math.round((Number(v||0)+Number.EPSILON)*100)/100;
 const DEAL_PRICES=new Map([
 ["Zoete Snoepbox 500 g",7.95],["Zoete Snoepbox 1 kg",15.90],["Zoete Snoepbox 1,5 kg",23.75],["Zoete Snoepbox 2 kg",31.50],
 ["Zure Snoepbox 500 g",7.95],["Zure Snoepbox 1 kg",15.90],["Zure Snoepbox 1,5 kg",23.75],["Zure Snoepbox 2 kg",31.50],
@@ -22,23 +23,25 @@ function itemDetails(item){
     let name=meta.dealName||"Gepersonaliseerde snoepmix";
     if(type==="personalized-bag")name="Gepersonaliseerde snoepzak";
     if(type==="gift-box")name="Gepersonaliseerde snoepdoos";
-    const base=Number(meta.priceOverride);
-    const price=Number.isFinite(base)?base:((grams/100)*PRICE_PER_100G+(type==="gift-box"?3.5:0));
+    const fallbackPrice=roundMoney((grams/100)*PRICE_PER_100G+(type==="gift-box"?3.5:0));
+    const override=meta.priceOverride;
+    const base=override===null||override===undefined||override===""?fallbackPrice:Number(override);
+    const price=roundMoney(Number.isFinite(base)?base:fallbackPrice);
     return{name,grams,price,quantity:Number(item.quantity||1),image:item.customMix?.[0]?.image||meta.image||"images/gummy-candy.png",meta,raw:item};
   }
   const grams=Number(item.grams||100);
-  return{name:item.name||item.id.replace(/-/g," "),grams,price:(grams/100)*PRICE_PER_100G,quantity:Number(item.quantity||1),image:item.image||"images/gummy-candy.png",meta:item.meta||null,raw:item};
+  return{name:item.name||item.id.replace(/-/g," "),grams,price:roundMoney((grams/100)*PRICE_PER_100G),quantity:Number(item.quantity||1),image:item.image||"images/gummy-candy.png",meta:item.meta||null,raw:item};
 }
 const details=()=>loadCart().map(itemDetails);
 function state(){
   const items=details();
   const fulfillmentMethod=q("input[name=fulfillmentMethod]:checked")?.value==="pickup"?"pickup":"delivery";
-  const subtotal=items.reduce((a,i)=>a+i.price*i.quantity,0);
+  const subtotal=roundMoney(items.reduce((a,i)=>a+i.price*i.quantity,0));
   const code=(q("#discountCode")?.value||loadDiscountCode()).trim().toUpperCase();
   const previewDiscount=code==="SWEET10"?Math.round(subtotal*.10*100)/100:0;
   const discounted=Math.max(0,subtotal-previewDiscount);
   const shipping=fulfillmentMethod==="pickup"?0:(discounted>=55?0:(items.length?5.95:0));
-  const total=Math.max(0,discounted+shipping);
+  const total=roundMoney(Math.max(0,discounted+shipping));
   return{items,subtotal,code,previewDiscount,discounted,shipping,total,fulfillmentMethod};
 }
 function render(){
@@ -79,7 +82,7 @@ async function submitCheckout(e){
   const button=q("#payButton");button.disabled=true;button.textContent="Bestelling voorbereiden…";
   saveDiscountCode(s.code);
   try{
-    const response=await fetch("https://humiebear.vercel.app/api/create-payment",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({customer,fulfillmentMethod,items:s.items.map(i=>({id:i.raw?.id||"",name:i.name,quantity:i.quantity,grams:i.grams,meta:i.meta||null,customMix:i.raw?.customMix||null})),discountCode:s.code})});
+    const response=await fetch("/api/create-payment",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({customer,fulfillmentMethod,items:s.items.map(i=>({id:i.raw?.id||"",name:i.name,quantity:i.quantity,grams:i.grams,meta:i.meta||null,customMix:i.raw?.customMix||null})),discountCode:s.code})});
     const body=await response.json().catch(()=>({}));
     if(!response.ok)throw new Error(body.error||"De betaling kon niet worden gestart.");
     if(!body.checkoutUrl)throw new Error("Mollie gaf geen betaalpagina terug.");
@@ -114,5 +117,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   q("#discountCode").addEventListener("input",()=>{const v=q("#discountCode").value.trim().toUpperCase();q("#discountCode").value=v;if(v==="SWEET10")setCouponMessage("10% korting aangevraagd. We controleren bij het afrekenen of dit je eerste bestelling is.",true);else if(v)setCouponMessage("Code wordt gecontroleerd bij het afrekenen.",false);else setCouponMessage("");render()});
   q("#couponApply").addEventListener("click",()=>{const v=q("#discountCode").value.trim().toUpperCase();saveDiscountCode(v);if(v==="SWEET10"){setCouponMessage("Code opgeslagen.",true)}else setCouponMessage("Onbekende promotiecode.",false);render()});
   q("#checkoutForm").addEventListener("submit",submitCheckout);
+  window.addEventListener("storage",e=>{if(e.key===STORAGE_KEY)render();});
+  window.addEventListener("hb-cart-change",render);
 });
 })();
