@@ -124,6 +124,8 @@ export default async function handler(req,res){
               "Klant: "+clean((order.customer_first_name||"")+" "+(order.customer_last_name||"")),
               "E-mail: "+clean(order.customer_email),
               "Telefoon: "+clean(order.customer_phone),
+              "Ontvangst: "+(order.fulfillment_method==="pickup"?"Gratis afhalen":"Levering"),
+              "Afhaaladres: "+(order.fulfillment_method==="pickup"?(order.pickup_address||"Lendeleedsestraat 191, 8870 Izegem"):"-"),
               "Leveradres: "+clean((order.shipping_street||"")+" "+(order.shipping_house_number||"")+", "+(order.shipping_postal_code||"")+" "+(order.shipping_city||"")),
               "","Producten:",JSON.stringify(itemRows||[],null,2),"",
               "Subtotaal: €"+Number(order.subtotal||0).toFixed(2),
