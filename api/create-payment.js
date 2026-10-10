@@ -78,6 +78,7 @@ export default async function handler(req,res){
     const body=parseBody(req.body),customer=body.customer||{},inputItems=body.items;
     if(!Array.isArray(inputItems)||!inputItems.length||inputItems.length>50)return res.status(400).json({error:"De bestelling is ongeldig of leeg."});
 
+    const fulfillmentMethod=body.fulfillmentMethod==="pickup"?"pickup":"delivery";
     const fullName=clean(customer.name,120);
     const email=clean(customer.email,180).toLowerCase();
     const phone=clean(customer.phone,50);
@@ -90,7 +91,9 @@ export default async function handler(req,res){
     if(!fullName)return res.status(400).json({error:"Vul je naam in."});
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return res.status(400).json({error:"Vul een geldig e-mailadres in."});
     if(!phone)return res.status(400).json({error:"Vul je telefoonnummer in."});
-    if(!street||!number||!postal||!city)return res.status(400).json({error:"Vul je volledige leveradres in."});
+    if(fulfillmentMethod==="pickup"){
+      customer.street="Lendeleedsestraat";customer.houseNumber="191";customer.postalCode="8870";customer.city="Izegem";
+    }else if(!street||!number||!postal||!city)return res.status(400).json({error:"Vul je volledige leveradres in."});
 
     const items=inputItems.map(calcItem);
     const subtotal=round(items.reduce((sum,x)=>sum+x.line_total,0));
@@ -106,7 +109,7 @@ export default async function handler(req,res){
     }
 
     const afterDiscount=round(subtotal-discount);
-    const shipping=afterDiscount>=55?0:5.95;
+    const shipping=fulfillmentMethod==="pickup"?0:(afterDiscount>=55?0:5.95);
     const total=round(afterDiscount+shipping);
     if(total<=0)return res.status(400).json({error:"Het bestelbedrag is ongeldig."});
 
@@ -119,11 +122,13 @@ export default async function handler(req,res){
         customer_last_name:last,
         customer_email:email,
         customer_phone:phone,
-        shipping_street:street,
-        shipping_house_number:number,
-        shipping_postal_code:postal,
-        shipping_city:city,
+        shipping_street:fulfillmentMethod==="pickup"?"Lendeleedsestraat":street,
+        shipping_house_number:fulfillmentMethod==="pickup"?"191":number,
+        shipping_postal_code:fulfillmentMethod==="pickup"?"8870":postal,
+        shipping_city:fulfillmentMethod==="pickup"?"Izegem":city,
         shipping_country:country,
+        fulfillment_method:fulfillmentMethod,
+        pickup_address:fulfillmentMethod==="pickup"?"Lendeleedsestraat 191, 8870 Izegem":null,
         subtotal,
         discount_amount:discount,
         shipping_cost:shipping,
