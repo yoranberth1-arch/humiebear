@@ -48,7 +48,8 @@ function render(){
   q("#checkoutEmpty").style.display="none";q("#checkoutContent").style.display="";
   list.innerHTML=s.items.map(i=>`<div class="summary-item"><img src="${escapeHtml(i.image)}" alt=""><div><h3>${escapeHtml(i.name)}</h3><p>${i.grams?escapeHtml(i.grams+" g")+" · ":""}${i.quantity} × ${money(i.price)}</p></div><strong>${money(i.price*i.quantity)}</strong></div>`).join("");
   q("#subtotal").textContent=money(s.subtotal);
-  q("#shipping").textContent=s.shipping===0?"GRATIS":money(s.shipping);
+  q("#shippingLabel").textContent=s.fulfillmentMethod==="pickup"?"Afhalen":"Verzending";
+  q("#shipping").textContent=s.fulfillmentMethod==="pickup"?"GRATIS":(s.shipping===0?"GRATIS":money(s.shipping));
   q("#total").textContent=money(s.total);
   const discountRow=q("#discountRow");
   if(s.previewDiscount>0){discountRow.style.display="flex";q("#discountAmount").textContent="- "+money(s.previewDiscount)}else discountRow.style.display="none";
