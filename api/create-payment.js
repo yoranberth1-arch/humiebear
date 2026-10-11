@@ -87,6 +87,7 @@ export default async function handler(req,res){
     if(!apiKey)return res.status(500).json({error:"MOLLIE_API_KEY is not configured."});
 
     const body=parseBody(req.body),customer=body.customer||{},inputItems=body.items;
+    const fulfillmentMethod=body.fulfillmentMethod==="pickup"?"pickup":"delivery";
     if(!Array.isArray(inputItems)||!inputItems.length||inputItems.length>50)return res.status(400).json({error:"De bestelling is ongeldig of leeg."});
 
     const fullName=clean(customer.name,120);
@@ -101,7 +102,7 @@ export default async function handler(req,res){
     if(!fullName)return res.status(400).json({error:"Vul je naam in."});
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return res.status(400).json({error:"Vul een geldig e-mailadres in."});
     if(!phone)return res.status(400).json({error:"Vul je telefoonnummer in."});
-    if(!street||!number||!postal||!city)return res.status(400).json({error:"Vul je volledige leveradres in."});
+    if(fulfillmentMethod==="delivery"&&(!street||!number||!postal||!city))return res.status(400).json({error:"Vul je volledige leveradres in."});
 
     const items=inputItems.map(calcItem);
     const subtotal=round(items.reduce((sum,x)=>sum+x.line_total,0));
@@ -117,7 +118,7 @@ export default async function handler(req,res){
     }
 
     const afterDiscount=round(subtotal-discount);
-    const shipping=afterDiscount>=55?0:5.95;
+    const shipping=fulfillmentMethod==="pickup"?0:(afterDiscount>=55?0:5.95);
     const total=round(afterDiscount+shipping);
     if(total<=0)return res.status(400).json({error:"Het bestelbedrag is ongeldig."});
 
@@ -130,10 +131,10 @@ export default async function handler(req,res){
         customer_last_name:last,
         customer_email:email,
         customer_phone:phone,
-        shipping_street:street,
-        shipping_house_number:number,
-        shipping_postal_code:postal,
-        shipping_city:city,
+        shipping_street:fulfillmentMethod==="pickup"?"":street,
+        shipping_house_number:fulfillmentMethod==="pickup"?"":number,
+        shipping_postal_code:fulfillmentMethod==="pickup"?"":postal,
+        shipping_city:fulfillmentMethod==="pickup"?"":city,
         shipping_country:country,
         subtotal,
         discount_amount:discount,
@@ -181,9 +182,11 @@ export default async function handler(req,res){
           "Klant: " + fullName,
           "E-mail: " + email,
           "Telefoon: " + phone,
-          "Adres: " + street + " " + number + ", " + postal + " " + city,
+          "Afhandeling: " + (fulfillmentMethod==="pickup"?"Afhalen":"Thuislevering"),
+          ...(fulfillmentMethod==="pickup"?[]:["Adres: " + street + " " + number + ", " + postal + " " + city]),
           "Subtotaal: €" + subtotal.toFixed(2),
           "Korting: €" + discount.toFixed(2),
+          "Afhandeling: " + (fulfillmentMethod==="pickup"?"Afhalen":"Thuislevering"),
           "Verzending: €" + shipping.toFixed(2),
           "Totaal: €" + total.toFixed(2),
           "",
@@ -231,7 +234,7 @@ export default async function handler(req,res){
         headers:{"Authorization":"Bearer "+apiKey,"Content-Type":"application/json","Accept":"application/json"},
         body:JSON.stringify({
           amount:{currency:"EUR",value:total.toFixed(2)},
-          description:"Hummie Bear bestelling "+order.order_number,
+          description:"Hummie Bear bestelling "+order.order_number+(fulfillmentMethod==="pickup"?" (afhalen)":""),
           redirectUrl:origin+"/payment-success.html?order="+encodeURIComponent(order.order_number),
           cancelUrl:origin+"/payment-cancelled.html?order="+encodeURIComponent(order.order_number),
           webhookUrl:"https://humiebear.vercel.app/api/mollie-webhook",
