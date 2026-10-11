@@ -34,7 +34,7 @@ function state(){
   const items=details();
   const fulfillmentMethod=q('input[name="fulfillmentMethod"]:checked')?.value==="pickup"?"pickup":"delivery";
   const subtotal=items.reduce((a,i)=>a+i.price*i.quantity,0);
-  const code=(q("#discountCode")?.value||loadDiscountCode()).trim().toUpperCase();
+  const code=(q("#discountCode") ? q("#discountCode").value : loadDiscountCode()).trim().toUpperCase();
   const previewDiscount=code==="SWEET10"?Math.round(subtotal*.10*100)/100:0;
   const discounted=Math.max(0,subtotal-previewDiscount);
   const shipping=fulfillmentMethod==="pickup"?0:(subtotal>=55?0:(items.length?5.95:0));
@@ -104,8 +104,8 @@ document.addEventListener("DOMContentLoaded",()=>{
   if(code==="SWEET10")setCouponMessage("SWEET10 staat klaar. De korting wordt op de server gecontroleerd.",true);
   render();
   if(typeof window.fbq==="function"){const checkoutState=state();window.fbq("track","InitiateCheckout",{content_ids:checkoutState.items.map(i=>String(i.raw?.id||i.name)),content_type:"product",num_items:checkoutState.items.reduce((n,i)=>n+Number(i.quantity||1),0),value:checkoutState.total,currency:"EUR"});}
-  q("#discountCode").addEventListener("input",()=>{const v=q("#discountCode").value.trim().toUpperCase();q("#discountCode").value=v;if(v==="SWEET10")setCouponMessage("10% korting aangevraagd. We controleren bij het afrekenen of dit je eerste bestelling is.",true);else if(v)setCouponMessage("Code wordt gecontroleerd bij het afrekenen.",false);else setCouponMessage("");render()});
-  q("#couponApply").addEventListener("click",()=>{const v=q("#discountCode").value.trim().toUpperCase();saveDiscountCode(v);if(v==="SWEET10"){setCouponMessage("Code opgeslagen.",true)}else setCouponMessage("Onbekende promotiecode.",false);render()});
+  q("#discountCode").addEventListener("input",()=>{const v=q("#discountCode").value.trim().toUpperCase();q("#discountCode").value=v;saveDiscountCode(v);if(v==="SWEET10")setCouponMessage("10% korting aangevraagd. We controleren bij het afrekenen of dit je eerste bestelling is.",true);else if(v)setCouponMessage("Code wordt gecontroleerd bij het afrekenen.",false);else setCouponMessage("");render()});
+  q("#couponApply").addEventListener("click",()=>{const v=q("#discountCode").value.trim().toUpperCase();saveDiscountCode(v);if(!v){setCouponMessage("Kortingscode verwijderd.",true)}else if(v==="SWEET10"){setCouponMessage("Code opgeslagen.",true)}else setCouponMessage("Onbekende promotiecode.",false);render()});
   const fulfillmentInputs=[...document.querySelectorAll('input[name="fulfillmentMethod"]')];
   const addressFieldSelectors=["#street","#houseNumber","#postalCode","#city"];
   function updateFulfillment(){
