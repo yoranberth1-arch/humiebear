@@ -110,9 +110,18 @@ document.addEventListener("DOMContentLoaded",()=>{
   q("#discountCode").value=code;
   if(code==="SWEET10")setCouponMessage("SWEET10 staat klaar. De korting wordt op de server gecontroleerd.",true);
   render();
-  const deliveryFields=["#street","#houseNumber","#postalCode","#city"].map(selector => q(selector));
-  const syncFulfillment=()=>{const pickup=q("input[name=fulfillmentMethod]:checked")?.value==="pickup";deliveryFields.forEach(el=>{const field=el.closest(".field");field.hidden=pickup;el.required=!pickup;});render();};
-  document.querySelectorAll("input[name=fulfillmentMethod]").forEach(el=>el.addEventListener("change",syncFulfillment));
+  const deliveryFields=["#street","#houseNumber","#postalCode","#city"].map(selector => q(selector)).filter(Boolean);
+  const syncFulfillment=()=>{
+    const pickup=q('input[name="fulfillmentMethod"]:checked')?.value==="pickup";
+    deliveryFields.forEach(input=>{
+      const field=input.closest(".field");
+      if(field)field.hidden=pickup;
+      input.required=!pickup;
+      if(pickup)input.setCustomValidity("");
+    });
+    render();
+  };
+  document.querySelectorAll('input[name="fulfillmentMethod"]').forEach(el=>el.addEventListener("change",syncFulfillment));
   syncFulfillment();
   q("#discountCode").addEventListener("input",()=>{const v=q("#discountCode").value.trim().toUpperCase();q("#discountCode").value=v;if(v==="SWEET10")setCouponMessage("10% korting aangevraagd. We controleren bij het afrekenen of dit je eerste bestelling is.",true);else if(v)setCouponMessage("Code wordt gecontroleerd bij het afrekenen.",false);else setCouponMessage("");render()});
   q("#couponApply").addEventListener("click",()=>{const v=q("#discountCode").value.trim().toUpperCase();saveDiscountCode(v);if(v==="SWEET10"){setCouponMessage("Code opgeslagen.",true)}else setCouponMessage("Onbekende promotiecode.",false);render()});
