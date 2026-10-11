@@ -32,13 +32,14 @@ function itemDetails(item){
 const details=()=>loadCart().map(itemDetails);
 function state(){
   const items=details();
+  const fulfillmentMethod=q('input[name="fulfillmentMethod"]:checked')?.value==="pickup"?"pickup":"delivery";
   const subtotal=items.reduce((a,i)=>a+i.price*i.quantity,0);
   const code=(q("#discountCode")?.value||loadDiscountCode()).trim().toUpperCase();
   const previewDiscount=code==="SWEET10"?Math.round(subtotal*.10*100)/100:0;
   const discounted=Math.max(0,subtotal-previewDiscount);
-  const shipping=discounted>=55?0:(items.length?5.95:0);
+  const shipping=fulfillmentMethod==="pickup"?0:(discounted>=55?0:(items.length?5.95:0));
   const total=Math.max(0,discounted+shipping);
-  return{items,subtotal,code,previewDiscount,discounted,shipping,total};
+  return{items,subtotal,code,previewDiscount,discounted,shipping,total,fulfillmentMethod};
 }
 function render(){
   const s=state();
@@ -64,16 +65,17 @@ async function submitCheckout(e){
   const s=state();
   if(!s.items.length){showError("Je mandje is leeg.");return}
   const data=Object.fromEntries(new FormData(form).entries());
+  const fulfillmentMethod=data.fulfillmentMethod==="pickup"?"pickup":"delivery";
   const customer={
     name:String(data.name||"").trim(),email:String(data.email||"").trim().toLowerCase(),
-    phone:String(data.phone||"").trim(),street:String(data.street||"").trim(),
-    houseNumber:String(data.houseNumber||"").trim(),postalCode:String(data.postalCode||"").trim(),
-    city:String(data.city||"").trim(),country:"BE"
+    phone:String(data.phone||"").trim(),street:fulfillmentMethod==="pickup"?"":String(data.street||"").trim(),
+    houseNumber:fulfillmentMethod==="pickup"?"":String(data.houseNumber||"").trim(),postalCode:fulfillmentMethod==="pickup"?"":String(data.postalCode||"").trim(),
+    city:fulfillmentMethod==="pickup"?"":String(data.city||"").trim(),country:"BE"
   };
   const button=q("#payButton");button.disabled=true;button.textContent="Bestelling voorbereiden…";
   saveDiscountCode(s.code);
   try{
-    const response=await fetch("https://humiebear.vercel.app/api/create-payment",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({customer,items:s.items.map(i=>({id:i.raw?.id||"",name:i.name,quantity:i.quantity,grams:i.grams,meta:i.meta||null,customMix:i.raw?.customMix||null})),discountCode:s.code})});
+    const response=await fetch("https://humiebear.vercel.app/api/create-payment",{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({customer,fulfillmentMethod,items:s.items.map(i=>({id:i.raw?.id||"",name:i.name,quantity:i.quantity,grams:i.grams,meta:i.meta||null,customMix:i.raw?.customMix||null})),discountCode:s.code})});
     const body=await response.json().catch(()=>({}));
     if(!response.ok)throw new Error(body.error||"De betaling kon niet worden gestart.");
     if(!body.checkoutUrl)throw new Error("Mollie gaf geen betaalpagina terug.");
@@ -104,6 +106,11 @@ document.addEventListener("DOMContentLoaded",()=>{
   if(typeof window.fbq==="function"){const checkoutState=state();window.fbq("track","InitiateCheckout",{content_ids:checkoutState.items.map(i=>String(i.raw?.id||i.name)),content_type:"product",num_items:checkoutState.items.reduce((n,i)=>n+Number(i.quantity||1),0),value:checkoutState.total,currency:"EUR"});}
   q("#discountCode").addEventListener("input",()=>{const v=q("#discountCode").value.trim().toUpperCase();q("#discountCode").value=v;if(v==="SWEET10")setCouponMessage("10% korting aangevraagd. We controleren bij het afrekenen of dit je eerste bestelling is.",true);else if(v)setCouponMessage("Code wordt gecontroleerd bij het afrekenen.",false);else setCouponMessage("");render()});
   q("#couponApply").addEventListener("click",()=>{const v=q("#discountCode").value.trim().toUpperCase();saveDiscountCode(v);if(v==="SWEET10"){setCouponMessage("Code opgeslagen.",true)}else setCouponMessage("Onbekende promotiecode.",false);render()});
+  const fulfillmentInputs=[...document.querySelectorAll('input[name="fulfillmentMethod"]')];
+  const addressFields=q("#addressFields");
+  function updateFulfillment(){const pickup=q('input[name="fulfillmentMethod"]:checked')?.value==="pickup";if(addressFields){addressFields.hidden=pickup;addressFields.querySelectorAll("input").forEach(input=>{input.required=!pickup;});}render();}
+  fulfillmentInputs.forEach(input=>input.addEventListener("change",updateFulfillment));
+  updateFulfillment();
   q("#checkoutForm").addEventListener("submit",submitCheckout);
 });
 })();
