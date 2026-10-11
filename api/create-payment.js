@@ -87,7 +87,7 @@ export default async function handler(req,res){
     if(!apiKey)return res.status(500).json({error:"MOLLIE_API_KEY is not configured."});
 
     const body=parseBody(req.body),customer=body.customer||{},inputItems=body.items;
-    const fulfillmentMethod=body.fulfillmentMethod==="pickup"?"pickup":"delivery";
+    const fulfillmentMethod=["pickup","local_delivery"].includes(body.fulfillmentMethod)?body.fulfillmentMethod:"delivery";
     if(!Array.isArray(inputItems)||!inputItems.length||inputItems.length>50)return res.status(400).json({error:"De bestelling is ongeldig of leeg."});
 
     const fullName=clean(customer.name,120);
@@ -102,7 +102,8 @@ export default async function handler(req,res){
     if(!fullName)return res.status(400).json({error:"Vul je naam in."});
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return res.status(400).json({error:"Vul een geldig e-mailadres in."});
     if(!phone)return res.status(400).json({error:"Vul je telefoonnummer in."});
-    if(fulfillmentMethod==="delivery"&&(!street||!number||!postal||!city))return res.status(400).json({error:"Vul je volledige leveradres in."});
+    if(fulfillmentMethod!=="pickup"&&(!street||!number||!postal||!city))return res.status(400).json({error:"Vul je volledige leveradres in."});
+    if(fulfillmentMethod==="local_delivery"&&!new Set(["8870","8770","8860","8850","8780","8760"]).has(postal.replace(/\D/g,"").slice(0,4)))return res.status(400).json({error:"Lokale levering is enkel mogelijk in postcodezone 8870, 8770, 8860, 8850, 8780 en 8760."});
 
     const items=inputItems.map(calcItem);
     const subtotal=round(items.reduce((sum,x)=>sum+x.line_total,0));
@@ -112,7 +113,8 @@ export default async function handler(req,res){
 
     const afterDiscount=round(subtotal-discount);
     // Free shipping is based on the product subtotal; a discount code does not change the shipping threshold.
-    const shipping=fulfillmentMethod==="pickup"?0:(subtotal>=55?0:5.95);
+    const localDeliveryEligible=new Set(["8870","8770","8860","8850","8780","8760"]).has(postal.replace(/\D/g,"").slice(0,4));
+    const shipping=fulfillmentMethod==="pickup"?0:(fulfillmentMethod==="local_delivery"?(localDeliveryEligible?(subtotal>=25?0:2.95):5.95):(subtotal>=55?0:5.95));
     const total=round(afterDiscount+shipping);
     if(total<=0)return res.status(400).json({error:"Het bestelbedrag is ongeldig."});
 
@@ -130,6 +132,8 @@ export default async function handler(req,res){
         shipping_postal_code:fulfillmentMethod==="pickup"?"":postal,
         shipping_city:fulfillmentMethod==="pickup"?"":city,
         shipping_country:country,
+        fulfillment_method:fulfillmentMethod,
+        pickup_address:fulfillmentMethod==="pickup"?"Lendeleedsestraat 191, 8870 Izegem":null,
         subtotal,
         discount_amount:discount,
         shipping_cost:shipping,
