@@ -37,7 +37,7 @@ function state(){
   const items=details();
   const fulfillmentMethod=q("input[name=fulfillmentMethod]:checked")?.value==="pickup"?"pickup":"delivery";
   const subtotal=roundMoney(items.reduce((a,i)=>a+i.price*i.quantity,0));
-  const code=(q("#discountCode")?.value||loadDiscountCode()).trim().toUpperCase();
+  const code=(q("#discountCode") ? q("#discountCode").value : loadDiscountCode()).trim().toUpperCase();
   const previewDiscount=code==="SWEET10"?Math.round(subtotal*.10*100)/100:0;
   const discounted=Math.max(0,subtotal-previewDiscount);
   const shipping=fulfillmentMethod==="pickup"?0:(subtotal>=55?0:(items.length?5.95:0));
@@ -123,8 +123,8 @@ document.addEventListener("DOMContentLoaded",()=>{
   };
   document.querySelectorAll('input[name="fulfillmentMethod"]').forEach(el=>el.addEventListener("change",syncFulfillment));
   syncFulfillment();
-  q("#discountCode").addEventListener("input",()=>{const v=q("#discountCode").value.trim().toUpperCase();q("#discountCode").value=v;if(v==="SWEET10")setCouponMessage("10% korting aangevraagd. We controleren bij het afrekenen of dit je eerste bestelling is.",true);else if(v)setCouponMessage("Code wordt gecontroleerd bij het afrekenen.",false);else setCouponMessage("");render()});
-  q("#couponApply").addEventListener("click",()=>{const v=q("#discountCode").value.trim().toUpperCase();saveDiscountCode(v);if(v==="SWEET10"){setCouponMessage("Code opgeslagen.",true)}else setCouponMessage("Onbekende promotiecode.",false);render()});
+  q("#discountCode").addEventListener("input",()=>{const v=q("#discountCode").value.trim().toUpperCase();q("#discountCode").value=v;saveDiscountCode(v);if(v==="SWEET10")setCouponMessage("10% korting aangevraagd. We controleren bij het afrekenen of dit je eerste bestelling is.",true);else if(v)setCouponMessage("Code wordt gecontroleerd bij het afrekenen.",false);else setCouponMessage("");render()});
+  q("#couponApply").addEventListener("click",()=>{const v=q("#discountCode").value.trim().toUpperCase();saveDiscountCode(v);if(!v){setCouponMessage("Kortingscode verwijderd.",true)}else if(v==="SWEET10"){setCouponMessage("Code opgeslagen.",true)}else setCouponMessage("Onbekende promotiecode.",false);render()});
   q("#checkoutForm").addEventListener("submit",submitCheckout);
   window.addEventListener("storage",e=>{if(e.key===STORAGE_KEY)render();});
   window.addEventListener("hb-cart-change",render);
