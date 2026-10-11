@@ -45,11 +45,6 @@
 <div class="field"><label for="postalCode">Postcode *</label><input id="postalCode" name="postalCode" autocomplete="postal-code" required placeholder="8870"></div>
 <div class="field"><label for="city">Gemeente *</label><input id="city" name="city" autocomplete="address-level2" required placeholder="Gemeente"></div>
 </div>
-<div class="coupon">
-<div class="coupon-top"><div><strong>10% korting op je eerste bestelling</strong><br><small>Gebruik code SWEET10. We controleren automatisch of dit je eerste betaalde bestelling is.</small></div><strong>10%</strong></div>
-<div class="coupon-row"><input id="discountCode" name="discountCode" inputmode="text" autocomplete="off" placeholder="Promotiecode"><button type="button" id="couponApply">Toepassen</button></div>
-<div id="couponMessage" class="coupon-message"></div>
-</div>
 <div id="checkoutError" class="error" role="alert"></div>
 <button class="pay" id="payButton" type="submit">Betaal veilig via Mollie</button>
 <div class="secure">Je betaling wordt uitgevoerd op de beveiligde betaalomgeving van Mollie.</div>
@@ -62,7 +57,6 @@
 <div id="checkoutItems" class="summary-list"></div>
 <div class="totals">
 <div class="row"><span>Subtotaal</span><strong id="subtotal">€0,00</strong></div>
-<div class="row discount" id="discountRow" style="display:none"><span>10% korting</span><strong id="discountAmount">- €0,00</strong></div>
 <div class="row"><span id="shippingLabel">Verzending</span><strong id="shipping">€0,00</strong></div>
 <div class="row total"><span>Totaal</span><strong id="total">€0,00</strong></div>
 </div>
@@ -70,6 +64,6 @@
 </div>
 </div>
 </div></main>
-<script src="checkout.js?v=coupon-clear-fix2-20261011"></script>
+<script src="checkout.js?v=no-discount-20261011-1"></script>
 </body>
 </html>
