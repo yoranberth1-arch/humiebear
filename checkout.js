@@ -107,8 +107,19 @@ document.addEventListener("DOMContentLoaded",()=>{
   q("#discountCode").addEventListener("input",()=>{const v=q("#discountCode").value.trim().toUpperCase();q("#discountCode").value=v;if(v==="SWEET10")setCouponMessage("10% korting aangevraagd. We controleren bij het afrekenen of dit je eerste bestelling is.",true);else if(v)setCouponMessage("Code wordt gecontroleerd bij het afrekenen.",false);else setCouponMessage("");render()});
   q("#couponApply").addEventListener("click",()=>{const v=q("#discountCode").value.trim().toUpperCase();saveDiscountCode(v);if(v==="SWEET10"){setCouponMessage("Code opgeslagen.",true)}else setCouponMessage("Onbekende promotiecode.",false);render()});
   const fulfillmentInputs=[...document.querySelectorAll('input[name="fulfillmentMethod"]')];
-  const addressFields=q("#addressFields");
-  function updateFulfillment(){const pickup=q('input[name="fulfillmentMethod"]:checked')?.value==="pickup";if(addressFields){addressFields.hidden=pickup;addressFields.querySelectorAll("input").forEach(input=>{input.required=!pickup;});}render();}
+  const addressFieldSelectors=["#street","#houseNumber","#postalCode","#city"];
+  function updateFulfillment(){
+    const pickup=q('input[name="fulfillmentMethod"]:checked')?.value==="pickup";
+    addressFieldSelectors.forEach(selector=>{
+      const input=q(selector);
+      if(!input)return;
+      const field=input.closest(".field");
+      if(field)field.hidden=pickup;
+      input.required=!pickup;
+      if(pickup)input.setCustomValidity("");
+    });
+    render();
+  }
   fulfillmentInputs.forEach(input=>input.addEventListener("change",updateFulfillment));
   updateFulfillment();
   q("#checkoutForm").addEventListener("submit",submitCheckout);
