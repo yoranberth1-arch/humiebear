@@ -98,15 +98,8 @@ export default async function handler(req,res){
     const items=inputItems.map(calcItem);
     const subtotal=round(items.reduce((sum,x)=>sum+x.line_total,0));
 
-    let discount=0,discountCode="";
-    const requested=clean(body.discountCode,40).toUpperCase();
-    if(requested==="SWEET10"){
-      const prior=await sb("orders?select=id&customer_email=eq."+encodeURIComponent(email)+"&payment_status=eq.paid&limit=1");
-      if(prior?.length)return res.status(400).json({error:"SWEET10 is alleen geldig voor een eerste bestelling."});
-      discount=round(subtotal*0.10);discountCode="SWEET10";
-    }else if(requested){
-      return res.status(400).json({error:"Deze promotiecode bestaat niet."});
-    }
+    // Kortingscodes zijn uitgeschakeld; bestellingen worden zonder korting afgerekend.
+    const discount=0,discountCode="";
 
     const afterDiscount=round(subtotal-discount);
     // Free shipping is based on product subtotal; discount codes do not change the shipping threshold.
