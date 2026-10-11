@@ -41,7 +41,7 @@ function state(){
   const code="";
   const previewDiscount=0;
   const discounted=subtotal;
-  const shipping=fulfillmentMethod==="pickup"?0:(fulfillmentMethod==="local_delivery"?(localDeliveryEligible?(subtotal>=25?0:2.95):(items.length?5.95:0)):(subtotal>=55?0:(items.length?5.95:0)));
+  const shipping=fulfillmentMethod==="pickup"||fulfillmentMethod==="local_delivery"?0:(subtotal>=55?0:(items.length?5.95:0));
   const total=roundMoney(Math.max(0,discounted+shipping));
   return{items,subtotal,code,previewDiscount,discounted,shipping,total,fulfillmentMethod,localDeliveryEligible};
 }
