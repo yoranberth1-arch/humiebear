@@ -123,8 +123,8 @@ document.addEventListener("DOMContentLoaded",()=>{
   };
   document.querySelectorAll('input[name="fulfillmentMethod"]').forEach(el=>el.addEventListener("change",syncFulfillment));
   syncFulfillment();
-  q("#discountCode").addEventListener("input",()=>{const v=q("#discountCode").value.trim().toUpperCase();q("#discountCode").value=v;saveDiscountCode(v);if(v==="SWEET10")setCouponMessage("10% korting aangevraagd. We controleren bij het afrekenen of dit je eerste bestelling is.",true);else if(v)setCouponMessage("Code wordt gecontroleerd bij het afrekenen.",false);else setCouponMessage("");render()});
-  q("#couponApply").addEventListener("click",()=>{const v=q("#discountCode").value.trim().toUpperCase();saveDiscountCode(v);if(!v){setCouponMessage("Kortingscode verwijderd.",true)}else if(v==="SWEET10"){setCouponMessage("Code opgeslagen.",true)}else setCouponMessage("Onbekende promotiecode.",false);render()});
+  q("#discountCode").addEventListener("input",()=>{const v=q("#discountCode").value.trim().toUpperCase();q("#discountCode").value=v;saveDiscountCode(v);hideError();const payButton=q("#payButton");if(payButton){payButton.disabled=false;payButton.textContent="Betaal veilig via Mollie"}if(v==="SWEET10")setCouponMessage("10% korting aangevraagd. We controleren bij het afrekenen of dit je eerste bestelling is.",true);else if(v)setCouponMessage("Code wordt gecontroleerd bij het afrekenen.",false);else setCouponMessage("");render()});
+  q("#couponApply").addEventListener("click",()=>{const v=q("#discountCode").value.trim().toUpperCase();saveDiscountCode(v);hideError();if(!v){setCouponMessage("Kortingscode verwijderd.",true)}else if(v==="SWEET10"){setCouponMessage("Code opgeslagen.",true)}else setCouponMessage("Onbekende promotiecode.",false);render()});
   q("#checkoutForm").addEventListener("submit",submitCheckout);
   window.addEventListener("storage",e=>{if(e.key===STORAGE_KEY)render();});
   window.addEventListener("hb-cart-change",render);
