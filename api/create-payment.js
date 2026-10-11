@@ -133,7 +133,7 @@ export default async function handler(req,res){
         shipping_city:fulfillmentMethod==="pickup"?"":city,
         shipping_country:country,
         fulfillment_method:fulfillmentMethod,
-        pickup_address:fulfillmentMethod==="pickup"?"Lendeleedsestraat 191, 8870 Izegem":null,
+        pickup_address:fulfillmentMethod==="pickup"?"Lendeleedsestraat 191, bij Coiffure Belle A'mie, 8870 Izegem — bij Coiffure Belle A'mie":null,
         subtotal,
         discount_amount:discount,
         shipping_cost:shipping,
