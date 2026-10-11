@@ -1,6 +1,6 @@
 (() => {
 "use strict";
-const CONFIG={pricePer100g:1.70,freeBagFrom:500,currency:"EUR",locale:"nl-BE",storageKey:"hummieBearShopCartV2",email:"hummiebearbusiness@gmail.com",tiktokUrl:"https://www.tiktok.com/@hummiebear"};
+const CONFIG={pricePer100g:1.60,freeBagFrom:500,currency:"EUR",locale:"nl-BE",storageKey:"hummieBearShopCartV2",email:"hummiebearbusiness@gmail.com",tiktokUrl:"https://www.tiktok.com/@hummiebear"};
 const PRODUCTS=[
 ["aardbeien","Aardbeien","Aardbei-vormige fruitgom","fruit","🍓","https://www.snoepzoet.be/cdn/shop/products/Zoet-Haribo-Aardbeien.jpg?v=1500372953","Haribo"],
 ["spek-lardons","Spek","Haribo spek / marshmallow","spek","🥓","https://snoepstore.nl/7312-large_default/ruitspek-120-stuks-haribo-.jpg","Haribo"],
