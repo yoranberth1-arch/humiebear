@@ -2,7 +2,7 @@
 "use strict";
 const STORAGE_KEY="hummieBearShopCartV2";
 const DISCOUNT_KEY="hummieBearDiscountCode";
-const PRICE_PER_100G=1.70;
+const PRICE_PER_100G=1.60;
 const DEAL_PRICES=new Map([
 ["Zoete Snoepbox 500 g",7.95],["Zoete Snoepbox 1 kg",15.90],["Zoete Snoepbox 1,5 kg",23.75],["Zoete Snoepbox 2 kg",31.50],
 ["Zure Snoepbox 500 g",7.95],["Zure Snoepbox 1 kg",15.90],["Zure Snoepbox 1,5 kg",23.75],["Zure Snoepbox 2 kg",31.50],
