@@ -49,6 +49,7 @@ function render(){
   q("#checkoutEmpty").style.display="none";q("#checkoutContent").style.display="";
   list.innerHTML=s.items.map(i=>`<div class="summary-item"><img src="${escapeHtml(i.image)}" alt=""><div><h3>${escapeHtml(i.name)}</h3><p>${i.grams?escapeHtml(i.grams+" g")+" · ":""}${i.quantity} × ${money(i.price)}</p></div><strong>${money(i.price*i.quantity)}</strong></div>`).join("");
   q("#subtotal").textContent=money(s.subtotal);
+  q("#shippingLabel").textContent=s.fulfillmentMethod==="local_delivery"?"Lokale levering":"Verzending";
   q("#shipping").textContent=s.shipping===0?"GRATIS":money(s.shipping);
   q("#total").textContent=money(s.total);
 }
