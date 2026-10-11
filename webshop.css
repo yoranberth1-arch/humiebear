@@ -297,3 +297,19 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid rgba(
 .offer-code span{display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border:2px dashed var(--hb-pink);border-radius:14px;background:#fff6fa;color:var(--hb-pink-2);font-size:18px;font-weight:1000;letter-spacing:.14em}
 .first-order-offer .btn{max-width:390px;margin:0 auto;min-height:48px;font-size:11px}
 @media(max-width:620px){.first-order-offer .popup-top{padding:38px 20px 25px}.first-order-offer .popup-top h2{font-size:43px}.offer-code span{font-size:15px}}
+
+
+/* Cart summary: consistent alignment for totals and shipping */
+.cart-summary{width:100%;box-sizing:border-box;padding:18px 0 4px;gap:0}
+.cart-summary .summary-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:18px;padding:8px 2px;font-size:13px;line-height:1.4}
+.cart-summary .summary-row>span{justify-self:start;text-align:left}
+.cart-summary .summary-row>strong{justify-self:end;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.cart-summary .cart-shipping-note{margin:0;padding:0 2px 7px;text-align:left;font-size:10px;line-height:1.45;font-weight:600;color:var(--hb-muted)}
+.cart-summary .summary-row.total{margin-top:4px;padding:14px 2px 12px;border-top:1px solid var(--hb-line);font-size:17px}
+.cart-summary #checkoutButton{width:100%;box-sizing:border-box;margin-top:8px;text-align:center}
+@media(max-width:620px){
+ .drawer{padding:20px 18px calc(20px + env(safe-area-inset-bottom))}
+ .cart-summary .summary-row{font-size:13px;padding:9px 2px}
+ .cart-summary .summary-row.total{font-size:17px}
+ .cart-summary .cart-shipping-note{font-size:10px}
+}
