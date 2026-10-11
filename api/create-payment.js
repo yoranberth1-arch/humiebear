@@ -118,7 +118,8 @@ export default async function handler(req,res){
     }
 
     const afterDiscount=round(subtotal-discount);
-    const shipping=fulfillmentMethod==="pickup"?0:(afterDiscount>=55?0:5.95);
+    // Free shipping is based on the product subtotal; a discount code does not change the shipping threshold.
+    const shipping=fulfillmentMethod==="pickup"?0:(subtotal>=55?0:5.95);
     const total=round(afterDiscount+shipping);
     if(total<=0)return res.status(400).json({error:"Het bestelbedrag is ongeldig."});
 
