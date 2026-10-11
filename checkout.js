@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   };
   document.querySelectorAll('input[name="fulfillmentMethod"]').forEach(el=>el.addEventListener("change",syncFulfillment));
   syncFulfillment();
+  q("#postalCode")?.addEventListener("input",render);
   q("#checkoutForm").addEventListener("submit",submitCheckout);
   window.addEventListener("storage",e=>{if(e.key===STORAGE_KEY)render();});
   window.addEventListener("hb-cart-change",render);
