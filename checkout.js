@@ -40,7 +40,7 @@ function state(){
   const code=(q("#discountCode")?.value||loadDiscountCode()).trim().toUpperCase();
   const previewDiscount=code==="SWEET10"?Math.round(subtotal*.10*100)/100:0;
   const discounted=Math.max(0,subtotal-previewDiscount);
-  const shipping=fulfillmentMethod==="pickup"?0:(discounted>=55?0:(items.length?5.95:0));
+  const shipping=fulfillmentMethod==="pickup"?0:(subtotal>=55?0:(items.length?5.95:0));
   const total=roundMoney(Math.max(0,discounted+shipping));
   return{items,subtotal,code,previewDiscount,discounted,shipping,total,fulfillmentMethod};
 }
