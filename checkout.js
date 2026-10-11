@@ -118,6 +118,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
   fulfillmentInputs.forEach(input=>input.addEventListener("change",updateFulfillment));
   updateFulfillment();
+  q("#postalCode")?.addEventListener("input",render);
   q("#checkoutForm").addEventListener("submit",submitCheckout);
 });
 })();
