@@ -9,6 +9,8 @@ const DEAL_PRICES=new Map([
 ]);
 const q=(s,r=document)=>r.querySelector(s);
 const money=v=>new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(v)||0);
+const LOCAL_DELIVERY_POSTCODES=new Set(["8870","8770","8860","8850","8780","8760"]);
+const isLocalDeliveryPostcode=value=>LOCAL_DELIVERY_POSTCODES.has(String(value||"").replace(/\D/g,"").slice(0,4));
 const escapeHtml=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 const loadCart=()=>{try{const v=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");return Array.isArray(v)?v.filter(x=>x&&x.id):[]}catch{return[]}};
 function itemDetails(item){
@@ -29,14 +31,16 @@ function itemDetails(item){
 const details=()=>loadCart().map(itemDetails);
 function state(){
   const items=details();
-  const fulfillmentMethod=q('input[name="fulfillmentMethod"]:checked')?.value==="pickup"?"pickup":"delivery";
+  const selectedMethod=q('input[name="fulfillmentMethod"]:checked')?.value||"delivery";
+  const fulfillmentMethod=["pickup","local_delivery"].includes(selectedMethod)?selectedMethod:"delivery";
+  const localDeliveryEligible=isLocalDeliveryPostcode(q("#postalCode")?.value);
   const subtotal=items.reduce((a,i)=>a+i.price*i.quantity,0);
   const code="";
   const previewDiscount=0;
   const discounted=subtotal;
-  const shipping=fulfillmentMethod==="pickup"?0:(subtotal>=55?0:(items.length?5.95:0));
+  const shipping=fulfillmentMethod==="pickup"?0:(fulfillmentMethod==="local_delivery"?(localDeliveryEligible?(subtotal>=25?0:2.95):(items.length?5.95:0)):(subtotal>=55?0:(items.length?5.95:0)));
   const total=Math.max(0,discounted+shipping);
-  return{items,subtotal,code,previewDiscount,discounted,shipping,total,fulfillmentMethod};
+  return{items,subtotal,code,previewDiscount,discounted,shipping,total,fulfillmentMethod,localDeliveryEligible};
 }
 function render(){
   const s=state();
@@ -60,7 +64,8 @@ async function submitCheckout(e){
   const s=state();
   if(!s.items.length){showError("Je mandje is leeg.");return}
   const data=Object.fromEntries(new FormData(form).entries());
-  const fulfillmentMethod=data.fulfillmentMethod==="pickup"?"pickup":"delivery";
+  const fulfillmentMethod=["pickup","local_delivery"].includes(data.fulfillmentMethod)?data.fulfillmentMethod:"delivery";
+  if(fulfillmentMethod==="local_delivery"&&!isLocalDeliveryPostcode(data.postalCode)){showError("Lokale levering is enkel mogelijk in de postcodezone 8870, 8770, 8860, 8850, 8780 en 8760. Kies gewone levering of pas je postcode aan.");return;}
   const customer={
     name:String(data.name||"").trim(),email:String(data.email||"").trim().toLowerCase(),
     phone:String(data.phone||"").trim(),street:fulfillmentMethod==="pickup"?"":String(data.street||"").trim(),
