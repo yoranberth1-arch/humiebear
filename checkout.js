@@ -25,6 +25,7 @@ function itemDetails(item){
     const price=Number.isFinite(base)?base:((grams/100)*PRICE_PER_100G+(type==="gift-box"?3.5:0));
     return{name,grams,price,quantity:Number(item.quantity||1),image:item.customMix?.[0]?.image||meta.image||"images/gummy-candy.png",meta,raw:item};
   }
+  if(item.meta?.type==="delicacy"){const names={"mallow-fondant":"Mallow Antwerps spek fondant","mallow-melkchocolade":"Mallow Antwerps spek melkchocolade","mallow-melkchocolade-kokos":"Mallow Antwerps spek melkchocolade kokos","mallow-natuur":"Mallow Antwerps spek natuur"};if(names[item.id])return{name:names[item.id],grams:0,price:6,quantity:Number(item.quantity||1),image:item.image||"images/gummy-candy.png",meta:{type:"delicacy"},raw:item};}
   const grams=Number(item.grams||100);
   return{name:item.name||item.id.replace(/-/g," "),grams,price:(grams/100)*PRICE_PER_100G,quantity:Number(item.quantity||1),image:item.image||"images/gummy-candy.png",meta:item.meta||null,raw:item};
 }
