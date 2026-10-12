@@ -195,7 +195,19 @@ export default async function handler(req,res){
           "Totaal: €" + total.toFixed(2),
           "",
           "Producten:",
-          ...items.map(item => "- " + item.name + " × " + item.quantity + " = €" + item.line_total.toFixed(2))
+          ...items.flatMap(item => {
+            const lines = ["- " + item.name + " × " + item.quantity + " = €" + item.line_total.toFixed(2)];
+            if (["personalized-bag", "gift-box"].includes(item.meta?.type)) {
+              lines.push("  Formaat: " + (item.meta.size || item.grams || "-") + " g");
+              lines.push("  Sticker: " + (item.meta.sticker || "Geen opgegeven"));
+              lines.push("  Boodschap: " + (item.meta.note || "Geen boodschap opgegeven"));
+              if (Array.isArray(item.meta.selections)) {
+                lines.push("  Gekozen snoep:");
+                for (const selection of item.meta.selections) lines.push("    • " + selection.name + " — " + selection.grams + " g");
+              }
+            }
+            return lines;
+          })
         ];
 
         const emailResponse = await fetch("https://api.resend.com/emails", {
