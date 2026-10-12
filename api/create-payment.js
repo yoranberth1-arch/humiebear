@@ -55,6 +55,12 @@ export default async function handler(req,res){
     const qty=Number(item?.quantity);
     if(!Number.isInteger(qty)||qty<1||qty>100)throw new Error("Ongeldige hoeveelheid in de bestelling.");
 
+    if(meta?.type==="delicacy"){
+      const delicacies=new Map([["mallow-fondant","Mallow Antwerps spek fondant"],["mallow-melkchocolade","Mallow Antwerps spek melkchocolade"],["mallow-melkchocolade-kokos","Mallow Antwerps spek melkchocolade kokos"],["mallow-natuur","Mallow Antwerps spek natuur"]]);
+      const id=clean(item?.id,120),name=delicacies.get(id);if(!name)throw new Error("Ongeldige delicatesse.");
+      return{name,product_id:null,quantity:qty,unit_price:6,line_total:round(6*qty),grams:null,meta:{type:"delicacy",pack_size:10}};
+    }
+
     if(meta?.type==="deal"){
       const name=clean(meta.dealName,120),price=DEAL_PRICES.get(name);
       if(price==null)throw new Error("Ongeldige voordeelbox.");
