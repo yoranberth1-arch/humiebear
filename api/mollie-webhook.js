@@ -37,7 +37,19 @@ export default async function handler(req,res){
     const from=process.env.RESEND_FROM_EMAIL;
     if(!key||!from)throw new Error("RESEND_API_KEY or RESEND_FROM_EMAIL is not configured.");
 
-    const rows=(items||[]).map(i=>`<tr><td style="padding:8px 0;border-bottom:1px solid #eee">${String(i.product_name||"Artikel")} × ${Number(i.quantity||1)}${i.meta?.grams?" · "+String(i.meta.grams)+" g":""}</td><td style="padding:8px 0;border-bottom:1px solid #eee;text-align:right">${new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(i.line_total)||0)}</td></tr>`).join("");
+    const escHtml=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+    const rows=(items||[]).map(i=>{
+      const meta=i.meta||{};
+      const personalized=["personalized-bag","gift-box"].includes(meta.type);
+      const details=personalized?[
+        meta.size?"Formaat: "+meta.size+" g":"",
+        "Sticker: "+(meta.sticker||"Geen opgegeven"),
+        "Boodschap: "+(meta.note||"Geen boodschap opgegeven")
+      ].filter(Boolean).map(line=>'<div style="margin-top:4px;color:#786f68;font-size:12px">'+escHtml(line)+'</div>').join(""):"";
+      const selections=personalized&&Array.isArray(meta.selections)&&meta.selections.length
+        ?'<div style="margin-top:7px;font-size:12px;color:#38261f"><strong>Gekozen snoep</strong><ul style="margin:4px 0 0;padding-left:18px">'+meta.selections.map(s=>'<li>'+escHtml(s.name||"Snoep")+" — "+Number(s.grams||0)+' g</li>').join("")+'</ul></div>':"";
+      return '<tr><td style="padding:10px 0;border-bottom:1px solid #eee">'+escHtml(i.product_name||"Artikel")+' × '+Number(i.quantity||1)+(meta.grams?' · '+Number(meta.grams)+' g':"")+details+selections+'</td><td style="padding:10px 0;border-bottom:1px solid #eee;text-align:right;white-space:nowrap">'+new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(i.line_total)||0)+'</td></tr>';
+    }).join("");
     const total=new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(order.total)||0);
     const discount=Number(order.discount_amount||0)>0?`<p style="margin:6px 0;color:#27744a">Korting ${clean(order.discount_code)}: − ${new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(order.discount_amount))}</p>`:"";
     const fullName=[order.customer_first_name,order.customer_last_name].filter(Boolean).join(" ");
