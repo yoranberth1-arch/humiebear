@@ -54,7 +54,7 @@ function render(){
   const list=q("#checkoutItems");
   if(!s.items.length){q("#checkoutEmpty").style.display="block";q("#checkoutContent").style.display="none";return}
   q("#checkoutEmpty").style.display="none";q("#checkoutContent").style.display="";
-  list.innerHTML=s.items.map(i=>`<div class="summary-item"><img src="${escapeHtml(i.image)}" alt=""><div><h3>${escapeHtml(i.name)}</h3><p>${i.grams?escapeHtml(i.grams+" g")+" · ":""}${i.quantity} × ${money(i.price)}</p></div><strong>${money(i.price*i.quantity)}</strong></div>`).join("");
+  list.innerHTML=s.items.map((i,index)=>`<div class="summary-item"><img src="${escapeHtml(i.image)}" alt=""><div class="summary-item-info"><h3>${escapeHtml(i.name)}</h3><p>${i.grams?escapeHtml(i.grams+" g")+" · ":""}${i.quantity} × ${money(i.price)}</p><button type="button" class="summary-remove" data-remove-checkout="${index}">Verwijder uit bestelling</button></div><strong>${money(i.price*i.quantity)}</strong></div>`).join("");
   q("#subtotal").textContent=money(s.subtotal);
   q("#shippingLabel").textContent=s.fulfillmentMethod==="pickup"?"Afhalen":(s.fulfillmentMethod==="local_delivery"?"Lokale levering":"Verzending");
   q("#shipping").textContent=s.fulfillmentMethod==="pickup"?"GRATIS":(s.shipping===0?"GRATIS":money(s.shipping));
@@ -125,6 +125,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   document.querySelectorAll('input[name="fulfillmentMethod"]').forEach(el=>el.addEventListener("change",syncFulfillment));
   syncFulfillment();
   q("#postalCode")?.addEventListener("input",render);
+  q("#checkoutItems").addEventListener("click",e=>{const btn=e.target.closest("[data-remove-checkout]");if(!btn)return;const raw=loadCart();const index=Number(btn.dataset.removeCheckout);if(!Number.isInteger(index)||index<0||index>=raw.length)return;raw.splice(index,1);try{localStorage.setItem(STORAGE_KEY,JSON.stringify(raw));window.dispatchEvent(new StorageEvent("storage",{key:STORAGE_KEY}));}catch{}if(!raw.length){q("#checkoutEmpty").style.display="block";q("#checkoutContent").style.display="none";}else render();});
   q("#checkoutForm").addEventListener("submit",submitCheckout);
   window.addEventListener("storage",e=>{if(e.key===STORAGE_KEY)render();});
   window.addEventListener("hb-cart-change",render);
