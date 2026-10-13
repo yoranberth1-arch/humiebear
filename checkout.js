@@ -28,7 +28,7 @@ function itemDetails(item){
     const price=Number.isFinite(base)?base:(mixedPrice(item.customMix)+(type==="gift-box"?3.5:0));
     return{name,grams,price,quantity:Number(item.quantity||1),image:item.customMix?.[0]?.image||meta.image||"images/gummy-candy.png",meta,raw:item};
   }
-  if(item.meta?.type==="delicacy"){const names={"mallow-fondant":"Mallow Antwerps spek fondant","mallow-melkchocolade":"Mallow Antwerps spek melkchocolade","mallow-melkchocolade-kokos":"Mallow Antwerps spek melkchocolade kokos","mallow-natuur":"Mallow Antwerps spek natuur"};if(names[item.id])return{name:names[item.id],grams:0,price:6,quantity:Number(item.quantity||1),image:item.image||"images/gummy-candy.png",meta:{type:"delicacy"},raw:item};}
+  if(item.meta?.type==="delicacy"){const names={"mallow-fondant":"Mallow Antwerps spek fondant","mallow-melkchocolade":"Mallow Antwerps spek melkchocolade","mallow-melkchocolade-kokos":"Mallow Antwerps spek melkchocolade kokos","mallow-natuur":"Mallow Antwerps spek natuur"};if(names[item.id])return{name:names[item.id],grams:0,unitLabel:"8 stuks",price:6,quantity:Number(item.quantity||1),image:item.image||"images/gummy-candy.png",meta:{type:"delicacy"},raw:item};}
   const grams=Number(item.grams||100);
   return{name:item.name||item.id.replace(/-/g," "),grams,price:roundMoney((grams/100)*pricePer100gForId(item.id)),quantity:Number(item.quantity||1),image:item.image||"images/gummy-candy.png",meta:item.meta||null,raw:item};
 }
@@ -51,7 +51,7 @@ function render(){
   const list=q("#checkoutItems");
   if(!s.items.length){q("#checkoutEmpty").style.display="block";q("#checkoutContent").style.display="none";return}
   q("#checkoutEmpty").style.display="none";q("#checkoutContent").style.display="";
-  list.innerHTML=s.items.map((i,index)=>`<div class="summary-item"><img src="${escapeHtml(i.image)}" alt=""><div class="summary-item-info"><h3>${escapeHtml(i.name)}</h3><p>${i.grams?escapeHtml(i.grams+" g")+" · ":""}${i.quantity} × ${money(i.price)}</p><button type="button" class="summary-remove" data-remove-checkout="${index}">Verwijder uit bestelling</button></div><strong>${money(i.price*i.quantity)}</strong></div>`).join("");
+  list.innerHTML=s.items.map((i,index)=>`<div class="summary-item"><img src="${escapeHtml(i.image)}" alt=""><div class="summary-item-info"><h3>${escapeHtml(i.name)}</h3><p>${i.unitLabel?escapeHtml(i.unitLabel)+" · ":""}${i.grams?escapeHtml(i.grams+" g")+" · ":""}${i.quantity} × ${money(i.price)}</p><button type="button" class="summary-remove" data-remove-checkout="${index}">Verwijder uit bestelling</button></div><strong>${money(i.price*i.quantity)}</strong></div>`).join("");
   q("#subtotal").textContent=money(s.subtotal);
   q("#shippingLabel").textContent=s.fulfillmentMethod==="local_delivery"?"Lokale levering":"Verzending";
   q("#shipping").textContent=s.shipping===0?"GRATIS":money(s.shipping);
