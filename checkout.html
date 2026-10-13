@@ -25,7 +25,7 @@ alt=""
 /></noscript>
 <!-- End Meta Pixel Code -->
 
-<style>.fulfillment-field{margin:18px 0}.fulfillment-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}.fulfillment-options>label{display:flex;gap:10px;align-items:flex-start;padding:14px;border:1px solid #eaded5;border-radius:14px;cursor:pointer;background:#fff}.fulfillment-options input{margin-top:3px;accent-color:#d85f92}.fulfillment-options span{display:grid;gap:5px}.fulfillment-options strong{font-size:12px}.fulfillment-options small{font-size:10px;color:#7b7069}.summary-remove{display:inline-block;margin-top:6px;padding:5px 0;border:0;background:transparent;color:#c34c83;text-decoration:underline;font:inherit;font-size:12px;font-weight:700;cursor:pointer}.form-grid[hidden]{display:none!important}@media(max-width:600px){.fulfillment-options{grid-template-columns:1fr}}</style></head>
+<style>.fulfillment-field{margin:18px 0}.fulfillment-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}.fulfillment-options>label{display:flex;gap:10px;align-items:flex-start;padding:14px;border:1px solid #eaded5;border-radius:14px;cursor:pointer;background:#fff}.fulfillment-options input{margin-top:3px;accent-color:#d85f92}.fulfillment-options span{display:grid;gap:5px}.fulfillment-options strong{font-size:12px}.fulfillment-options small{font-size:10px;color:#7b7069}.summary-remove{display:inline-block;margin-top:6px;padding:5px 0;border:0;background:transparent;color:#c34c83;text-decoration:underline;font:inherit;font-size:12px;font-weight:700;cursor:pointer}.form-grid[hidden]{display:none!important}.local-delivery-status{font-size:12px;line-height:1.5;margin:10px 0 0;padding:11px 13px;border-radius:12px;border:1px solid #eaded5;background:#fff8f2;color:#6b4d5b}.local-delivery-status.is-info{background:#fff8f2;border-color:#eaded5;color:#6b4d5b}.local-delivery-status.is-success{background:#ecfdf3;border-color:#a6f4c5;color:#067647}.local-delivery-status.is-warning{background:#fff4ed;border-color:#fed7aa;color:#9a3412}@media(max-width:600px){.fulfillment-options{grid-template-columns:1fr}}</style></head>
 <body>
 <header class="top"><div class="container top-inner"><a class="brand" href="shop.html"><span class="brand-mark">HB</span>Hummie Bear</a><a class="back" href="shop.html">← Terug naar webshop</a></div></header>
 <main class="page"><div class="container">
@@ -35,9 +35,9 @@ alt=""
 <section class="card">
 <div class="eyebrow">AFREKENEN</div>
 <h1>Jouw gegevens</h1>
-<p>Kies gewone levering, lokale levering rond Izegem of gratis afhalen.</p>
+<p>Kies gewone levering, gratis lokale levering in de deelnemende postcodezones of gratis afhalen na afspraak.</p>
 <form id="checkoutForm">
-<div class="field full fulfillment-field"><label>Hoe wil je je bestelling ontvangen? *</label><div class="fulfillment-options"><label><input type="radio" name="fulfillmentMethod" value="delivery" checked> <span><strong>Gewone levering</strong><small>€5,95 · gratis vanaf €55</small></span></label><label><input type="radio" name="fulfillmentMethod" value="local_delivery"> <span><strong>Lokale levering rond Izegem</strong><small>Gratis vanaf €25 · €5,95 bij bestellingen onder €25</small></span></label><label><input type="radio" name="fulfillmentMethod" value="pickup"> <span><strong>Gratis afhalen na afspraak</strong><small>Maak een afspraak via <a href="tel:+32468031363" style="color:inherit;text-decoration:underline;font-weight:700">0468/031363</a></small></span></label></div><p style="font-size:12px;color:#7b7069;margin:8px 0 0">Lokale levering voor postcodes 8870, 8770, 8860, 8850, 8780 en 8760.</p></div><div class="form-grid" id="addressFields">
+<div class="field full fulfillment-field"><label>Hoe wil je je bestelling ontvangen? *</label><div class="fulfillment-options"><label><input type="radio" name="fulfillmentMethod" value="delivery" checked> <span><strong>Gewone levering</strong><small>€5,95 · gratis vanaf €55</small></span></label><label><input type="radio" name="fulfillmentMethod" value="local_delivery"> <span><strong>Gratis lokale levering</strong><small>Gratis in de deelnemende postcodezones</small></span></label><label><input type="radio" name="fulfillmentMethod" value="pickup"> <span><strong>Gratis afhalen na afspraak</strong><small>Maak een afspraak via <a href="tel:+32468031363" style="color:inherit;text-decoration:underline;font-weight:700">0468/031363</a></small></span></label></div><p id="localDeliveryStatus" class="local-delivery-status" aria-live="polite">Gratis lokale levering in de deelnemende postcodezones: 8870, 8770, 8860, 8531, 8520 en 8800.</p></div><div class="form-grid" id="addressFields">
 <div class="field full"><label for="name">Naam *</label><input id="name" name="name" autocomplete="name" required placeholder="Voor- en achternaam"></div>
 <div class="field"><label for="email">E-mailadres *</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="jouw@email.be"></div>
 <div class="field"><label for="phone">Telefoonnummer *</label><input id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="+32 ..."></div>
@@ -64,6 +64,6 @@ alt=""
 </div>
 </div>
 </div></main>
-<script src="checkout.js?v=cuberdons-premium-230-20261013-1"></script>
+<script src="checkout.js?v=local-delivery-zones-20261013-1"></script>
 </body>
 </html>
