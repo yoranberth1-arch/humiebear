@@ -12,7 +12,8 @@ const DEAL_PRICES=new Map([
 ]);
 const q=(s,r=document)=>r.querySelector(s);
 const money=v=>new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(v)||0);
-const LOCAL_DELIVERY_POSTCODES=new Set(["8870","8770","8860","8850","8780","8760"]);
+const LOCAL_DELIVERY_POSTCODES=new Set(["8870","8770","8860","8531","8520","8800"]);
+const LOCAL_DELIVERY_POSTCODES_LABEL="8870, 8770, 8860, 8531, 8520 en 8800";
 const isLocalDeliveryPostcode=value=>LOCAL_DELIVERY_POSTCODES.has(String(value||"").replace(/\D/g,"").slice(0,4));
 const escapeHtml=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 const loadCart=()=>{try{const v=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");return Array.isArray(v)?v.filter(x=>x&&x.id):[]}catch{return[]}};
@@ -42,7 +43,7 @@ function state(){
   const code="";
   const previewDiscount=0;
   const discounted=subtotal;
-  const shipping=fulfillmentMethod==="pickup"?0:(fulfillmentMethod==="local_delivery"?(subtotal>=25?0:(items.length?5.95:0)):(subtotal>=55?0:(items.length?5.95:0)));
+  const shipping=fulfillmentMethod==="pickup"||fulfillmentMethod==="local_delivery"?0:(subtotal>=55?0:(items.length?5.95:0));
   const total=Math.max(0,discounted+shipping);
   return{items,subtotal,code,previewDiscount,discounted,shipping,total,fulfillmentMethod,localDeliveryEligible};
 }
@@ -62,6 +63,27 @@ function setCouponMessage(text,ok=false){
 }
 function showError(text){const el=q("#checkoutError");el.textContent=text;el.classList.add("show")}
 function hideError(){q("#checkoutError").classList.remove("show")}
+function updateLocalDeliveryStatus(){
+  const el=q("#localDeliveryStatus");
+  if(!el)return;
+  const method=q('input[name="fulfillmentMethod"]:checked')?.value||"delivery";
+  const postal=String(q("#postalCode")?.value||"").replace(/\D/g,"").slice(0,4);
+  el.className="local-delivery-status";
+  if(method!=="local_delivery"){
+    el.textContent="Gratis lokale levering in de deelnemende postcodezones: "+LOCAL_DELIVERY_POSTCODES_LABEL+".";
+    return;
+  }
+  if(!postal){
+    el.classList.add("is-info");
+    el.textContent="Vul je postcode in om te controleren of je adres in aanmerking komt. Postcodezones: "+LOCAL_DELIVERY_POSTCODES_LABEL+".";
+  }else if(isLocalDeliveryPostcode(postal)){
+    el.classList.add("is-success");
+    el.textContent="Goed nieuws! Deze postcode valt binnen onze lokale leveringszone. Je lokale levering is gratis.";
+  }else{
+    el.classList.add("is-warning");
+    el.textContent="Deze postcode valt niet binnen onze lokale leveringszone ("+LOCAL_DELIVERY_POSTCODES_LABEL+"). Kies gewone levering of pas je postcode aan.";
+  }
+}
 async function submitCheckout(e){
   e.preventDefault();hideError();
   const form=e.currentTarget;
@@ -70,7 +92,7 @@ async function submitCheckout(e){
   if(!s.items.length){showError("Je mandje is leeg.");return}
   const data=Object.fromEntries(new FormData(form).entries());
   const fulfillmentMethod=["pickup","local_delivery"].includes(data.fulfillmentMethod)?data.fulfillmentMethod:"delivery";
-  if(fulfillmentMethod==="local_delivery"&&!isLocalDeliveryPostcode(data.postalCode)){showError("Lokale levering is enkel mogelijk in de postcodezone 8870, 8770, 8860, 8850, 8780 en 8760. Kies gewone levering of pas je postcode aan.");return;}
+  if(fulfillmentMethod==="local_delivery"&&!isLocalDeliveryPostcode(data.postalCode)){showError("Gratis lokale levering is enkel mogelijk in de deelnemende postcodezones: "+LOCAL_DELIVERY_POSTCODES_LABEL+". Kies gewone levering of pas je postcode aan.");return;}
   const customer={
     name:String(data.name||"").trim(),email:String(data.email||"").trim().toLowerCase(),
     phone:String(data.phone||"").trim(),street:fulfillmentMethod==="pickup"?"":String(data.street||"").trim(),
@@ -119,10 +141,11 @@ document.addEventListener("DOMContentLoaded",()=>{
       if(pickup)input.setCustomValidity("");
     });
     render();
+    updateLocalDeliveryStatus();
   }
   fulfillmentInputs.forEach(input=>input.addEventListener("change",updateFulfillment));
   updateFulfillment();
-  q("#postalCode")?.addEventListener("input",render);
+  q("#postalCode")?.addEventListener("input",()=>{render();updateLocalDeliveryStatus();});
   q("#checkoutItems").addEventListener("click",e=>{const btn=e.target.closest("[data-remove-checkout]");if(!btn)return;const raw=loadCart();const index=Number(btn.dataset.removeCheckout);if(!Number.isInteger(index)||index<0||index>=raw.length)return;raw.splice(index,1);try{localStorage.setItem(STORAGE_KEY,JSON.stringify(raw));window.dispatchEvent(new StorageEvent("storage",{key:STORAGE_KEY}));}catch{}if(!raw.length){q("#checkoutEmpty").style.display="block";q("#checkoutContent").style.display="none";}else render();});
   q("#checkoutForm").addEventListener("submit",submitCheckout);
 });
