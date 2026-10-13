@@ -160,7 +160,7 @@ function checkout(){
  window.location.href="checkout.html";
 }
 function toast(m){const el=q("#toast");if(!el)return;el.textContent=m;el.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("show"),3000)}
-function imageProxyUrl(url){return "https://images.weserv.nl/?url="+encodeURIComponent(url)+"&w=900&q=88"}
+function imageProxyUrl(url){if(!url)return "images/gummy-candy.png";if(/^(\/|\.\/|\.\.\/|images\/)/i.test(url))return url;return "https://images.weserv.nl/?url="+encodeURIComponent(url)+"&w=900&q=88"}
 function productCard(p){
  const special=p.type==="delicacy";
  const badge=special?"BELGISCHE DELICATESSE":(p.category==="zuur"?"ZOET-ZUUR":"SCHEPSNOEP");
