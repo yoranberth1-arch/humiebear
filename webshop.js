@@ -153,7 +153,7 @@ function addSavedPickMix(){const mix=loadPickMixDraft();if(!mix){toast("Je Pick 
  q("#cartSubtotal").textContent=eur(subtotal);
  q("#cartShipping").textContent=shipping===0?"GRATIS":eur(shipping);
  q("#cartTotal").textContent=eur(cartTotal());
- q("#cartShippingNote").textContent=subtotal===0?"":"🚚 Gratis lokale levering in deelnemende postcodezones: 8870, 8770, 8860, 8531, 8520 en 8800. "+(subtotal>=55?"Gewone verzending is gratis vanaf €55.":"Gewone verzending kost €5,95 en is gratis vanaf €55.")+(totalCandyGrams>=CONFIG.freeBagFrom?" 🎁 Gratis snoepzakje inbegrepen.":"");
+ q("#cartShippingNote").textContent=subtotal===0?"":"🚚 Gratis lokale levering in deelnemende postcodezones: 8870, 8770, 8860, 8850, 8780 en 8760. "+(subtotal>=55?"Gewone verzending is gratis vanaf €55.":"Gewone verzending kost €5,95 en is gratis vanaf €55.")+(totalCandyGrams>=CONFIG.freeBagFrom?" 🎁 Gratis snoepzakje inbegrepen.":"");
 }
 async function checkout(){
  const items=cartItemsDetailed();
