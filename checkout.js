@@ -2,6 +2,9 @@
 "use strict";
 const STORAGE_KEY="hummieBearShopCartV2";
 const PRICE_PER_100G=1.60;
+const PRODUCT_PRICE_PER_100G_BY_ID={"cuberdons":2.30};
+function pricePer100gForId(id){return Number(PRODUCT_PRICE_PER_100G_BY_ID[String(id||"")])||PRICE_PER_100G}
+function mixedPrice(items){return Math.round(((items||[]).reduce((sum,item)=>sum+(Math.max(0,Number(item.grams)||0)/100)*pricePer100gForId(item.id),0)+Number.EPSILON)*100)/100}
 const DEAL_PRICES=new Map([
 ["Zoete Snoepbox 500 g",7.95],["Zoete Snoepbox 1 kg",15.90],["Zoete Snoepbox 1,5 kg",23.75],["Zoete Snoepbox 2 kg",31.50],
 ["Zure Snoepbox 500 g",7.95],["Zure Snoepbox 1 kg",15.90],["Zure Snoepbox 1,5 kg",23.75],["Zure Snoepbox 2 kg",31.50],
@@ -22,12 +25,12 @@ function itemDetails(item){
     if(type==="personalized-bag")name="Gepersonaliseerde snoepzak";
     if(type==="gift-box")name="Gepersonaliseerde snoepdoos";
     const base=Number(meta.priceOverride);
-    const price=Number.isFinite(base)?base:((grams/100)*PRICE_PER_100G+(type==="gift-box"?3.5:0));
+    const price=Number.isFinite(base)?base:(mixedPrice(item.customMix)+(type==="gift-box"?3.5:0));
     return{name,grams,price,quantity:Number(item.quantity||1),image:item.customMix?.[0]?.image||meta.image||"images/gummy-candy.png",meta,raw:item};
   }
   if(item.meta?.type==="delicacy"){const names={"mallow-fondant":"Mallow Antwerps spek fondant","mallow-melkchocolade":"Mallow Antwerps spek melkchocolade","mallow-melkchocolade-kokos":"Mallow Antwerps spek melkchocolade kokos","mallow-natuur":"Mallow Antwerps spek natuur"};if(names[item.id])return{name:names[item.id],grams:0,price:6,quantity:Number(item.quantity||1),image:item.image||"images/gummy-candy.png",meta:{type:"delicacy"},raw:item};}
   const grams=Number(item.grams||100);
-  return{name:item.name||item.id.replace(/-/g," "),grams,price:(grams/100)*PRICE_PER_100G,quantity:Number(item.quantity||1),image:item.image||"images/gummy-candy.png",meta:item.meta||null,raw:item};
+  return{name:item.name||item.id.replace(/-/g," "),grams,price:roundMoney((grams/100)*pricePer100gForId(item.id)),quantity:Number(item.quantity||1),image:item.image||"images/gummy-candy.png",meta:item.meta||null,raw:item};
 }
 const details=()=>loadCart().map(itemDetails);
 function state(){
