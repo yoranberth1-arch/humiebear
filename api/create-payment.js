@@ -120,7 +120,7 @@ export default async function handler(req,res){
     const afterDiscount=round(subtotal-discount);
     // Free shipping is based on the product subtotal; a discount code does not change the shipping threshold.
     const localDeliveryEligible=new Set(["8870","8770","8860","8850","8780","8760"]).has(postal.replace(/\D/g,"").slice(0,4));
-    const shipping=fulfillmentMethod==="pickup"||fulfillmentMethod==="local_delivery"?0:(subtotal>=55?0:5.95);
+    const shipping=fulfillmentMethod==="pickup"?0:(fulfillmentMethod==="local_delivery"?(subtotal>=25?0:5.95):(subtotal>=55?0:5.95));
     const total=round(afterDiscount+shipping);
     if(total<=0)return res.status(400).json({error:"Het bestelbedrag is ongeldig."});
 
