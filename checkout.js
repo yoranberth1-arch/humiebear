@@ -155,7 +155,7 @@ function updateLocalDeliveryStatus(){
   const postal=String(q("#postalCode")?.value||"").replace(/\D/g,"").slice(0,4);
   el.className="local-delivery-status";
   if(method!=="local_delivery"){
-    el.textContent="Gratis lokale levering in deelnemende postcodezones: "+LOCAL_DELIVERY_POSTCODES_LABEL+".";
+    el.textContent="Lokale levering in deelnemende postcodezones: "+LOCAL_DELIVERY_POSTCODES_LABEL+". Gratis vanaf €25; onder €25 kost ze €5,95.";
   }else if(!postal){
     el.classList.add("is-info");
     el.textContent="Vul je postcode in om te controleren of je adres in aanmerking komt. Zones: "+LOCAL_DELIVERY_POSTCODES_LABEL+".";
