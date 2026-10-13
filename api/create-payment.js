@@ -103,7 +103,7 @@ export default async function handler(req,res){
     if(fulfillmentMethod==="pickup"){
       customer.street="Lendeleedsestraat";customer.houseNumber="191";customer.postalCode="8870";customer.city="Izegem";
     }else if(!street||!number||!postal||!city)return res.status(400).json({error:"Vul je volledige leveradres in."});
-    if(fulfillmentMethod==="local_delivery"&&!new Set(["8870","8770","8860","8850","8780","8760"]).has(postal.replace(/\D/g,"").slice(0,4)))return res.status(400).json({error:"Gratis lokale levering is enkel mogelijk in de deelnemende postcodezones: 8870, 8770, 8860, 8850, 8780 en 8760."});
+    if(fulfillmentMethod==="local_delivery"&&!new Set(["8870","8770","8860","8850","8780","8760"]).has(postal.replace(/\D/g,"").slice(0,4)))return res.status(400).json({error:"Lokale levering is enkel mogelijk in de deelnemende postcodezones: 8870, 8770, 8860, 8850, 8780 en 8760."});
 
     const items=inputItems.map(calcItem);
     const subtotal=round(items.reduce((sum,x)=>sum+x.line_total,0));
@@ -114,7 +114,7 @@ export default async function handler(req,res){
     const afterDiscount=round(subtotal-discount);
     // Free shipping is based on product subtotal; discount codes do not change the shipping threshold.
     const localDeliveryEligible=new Set(["8870","8770","8860","8850","8780","8760"]).has(postal.replace(/\D/g,"").slice(0,4));
-    const shipping=fulfillmentMethod==="pickup"||fulfillmentMethod==="local_delivery"?0:(subtotal>=55?0:5.95);
+    const shipping=fulfillmentMethod==="pickup"?0:(fulfillmentMethod==="local_delivery"?(subtotal>=25?0:5.95):(subtotal>=55?0:5.95));
     const total=round(afterDiscount+shipping);
     if(total<=0)return res.status(400).json({error:"Het bestelbedrag is ongeldig."});
 
