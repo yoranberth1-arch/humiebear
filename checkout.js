@@ -12,8 +12,8 @@ const DEAL_PRICES=new Map([
 ]);
 const q=(s,r=document)=>r.querySelector(s);
 const money=v=>new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR"}).format(Number(v)||0);
-const LOCAL_DELIVERY_POSTCODES=new Set(["8870","8770","8860","8531","8520","8800"]);
-const LOCAL_DELIVERY_POSTCODES_LABEL="8870, 8770, 8860, 8531, 8520 en 8800";
+const LOCAL_DELIVERY_POSTCODES=new Set(["8870","8770","8860","8850","8780","8760"]);
+const LOCAL_DELIVERY_POSTCODES_LABEL="8870, 8770, 8860, 8850, 8780 en 8760";
 const isLocalDeliveryPostcode=value=>LOCAL_DELIVERY_POSTCODES.has(String(value||"").replace(/\D/g,"").slice(0,4));
 const escapeHtml=v=>String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 const loadCart=()=>{try{const v=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");return Array.isArray(v)?v.filter(x=>x&&x.id):[]}catch{return[]}};
