@@ -128,7 +128,7 @@ function state(){
   const code="";
   const previewDiscount=0;
   const discounted=subtotal;
-  const shipping=fulfillmentMethod==="pickup"||fulfillmentMethod==="local_delivery"?0:(subtotal>=55?0:(items.length?5.95:0));
+  const shipping=fulfillmentMethod==="pickup"?0:(fulfillmentMethod==="local_delivery"?(items.length?(subtotal>=25?0:5.95):0):(subtotal>=55?0:(items.length?5.95:0)));
   const total=roundMoney(Math.max(0,discounted+shipping));
   return{items,subtotal,code,previewDiscount,discounted,shipping,total,fulfillmentMethod,localDeliveryEligible};
 }
@@ -161,7 +161,8 @@ function updateLocalDeliveryStatus(){
     el.textContent="Vul je postcode in om te controleren of je adres in aanmerking komt. Zones: "+LOCAL_DELIVERY_POSTCODES_LABEL+".";
   }else if(isLocalDeliveryPostcode(postal)){
     el.classList.add("is-success");
-    el.textContent="Goed nieuws! Deze postcode valt binnen onze lokale leveringszone. Je lokale levering is gratis.";
+    const subtotal=state().subtotal;
+    el.textContent=subtotal>=25?"Goed nieuws! Deze postcode valt binnen onze lokale leveringszone. Je lokale levering is gratis vanaf €25.":"Deze postcode valt binnen onze lokale leveringszone. Bij een bestelling onder €25 betaal je €5,95 lokale levering; vanaf €25 is lokale levering gratis.";
   }else{
     el.classList.add("is-warning");
     el.textContent="Deze postcode valt niet binnen onze lokale leveringszone ("+LOCAL_DELIVERY_POSTCODES_LABEL+"). Kies gewone levering of pas je postcode aan.";
@@ -176,7 +177,7 @@ async function submitCheckout(e){
   if(typeof window.fbq==="function")window.fbq('track','InitiateCheckout',{content_type:'product',num_items:s.items.reduce((n,i)=>n+i.quantity,0),value:s.total,currency:'EUR'});
   const data=Object.fromEntries(new FormData(form).entries());
   const fulfillmentMethod=["pickup","local_delivery"].includes(data.fulfillmentMethod)?data.fulfillmentMethod:"delivery";
-  if(fulfillmentMethod==="local_delivery"&&!isLocalDeliveryPostcode(data.postalCode)){showError("Gratis lokale levering is enkel mogelijk in de deelnemende postcodezones: "+LOCAL_DELIVERY_POSTCODES_LABEL+". Kies gewone levering of pas je postcode aan.");return;}
+  if(fulfillmentMethod==="local_delivery"&&!isLocalDeliveryPostcode(data.postalCode)){showError("Lokale levering is enkel mogelijk in de deelnemende postcodezones: "+LOCAL_DELIVERY_POSTCODES_LABEL+". Kies gewone levering of pas je postcode aan.");return;}
   const customer={
     name:String(data.name||"").trim(),email:String(data.email||"").trim().toLowerCase(),
     phone:String(data.phone||"").trim(),
