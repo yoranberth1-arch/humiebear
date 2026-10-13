@@ -2,6 +2,9 @@
 "use strict";
 const STORAGE_KEY="hummieBearShopCartV2";
 const PRICE_PER_100G=1.60;
+const PRODUCT_PRICE_PER_100G_BY_ID={"cuberdons":2.30};
+function pricePer100gForId(id){return Number(PRODUCT_PRICE_PER_100G_BY_ID[String(id||"")])||PRICE_PER_100G}
+function mixedPrice(items){return Math.round(((items||[]).reduce((sum,item)=>sum+(Math.max(0,Number(item.grams)||0)/100)*pricePer100gForId(item.id),0)+Number.EPSILON)*100)/100}
 const roundMoney=v=>Math.round((Number(v||0)+Number.EPSILON)*100)/100;
 const DEAL_PRICES=new Map([
 ["Zoete Snoepbox 500 g",7.95],["Zoete Snoepbox 1 kg",15.90],["Zoete Snoepbox 1,5 kg",23.75],["Zoete Snoepbox 2 kg",31.50],
@@ -101,7 +104,7 @@ function itemDetails(item){
     let name=meta.dealName||"Gepersonaliseerde snoepmix";
     if(type==="personalized-bag")name="Gepersonaliseerde snoepzak";
     if(type==="gift-box")name="Gepersonaliseerde snoepdoos";
-    const fallbackPrice=roundMoney((grams/100)*PRICE_PER_100G+(type==="gift-box"?3.5:0));
+    const fallbackPrice=roundMoney(mixedPrice(item.customMix)+(type==="gift-box"?3.5:0));
     const override=meta.priceOverride;
     const base=override===null||override===undefined||override===""?fallbackPrice:Number(override);
     const price=roundMoney(Number.isFinite(base)?base:fallbackPrice);
@@ -112,7 +115,7 @@ function itemDetails(item){
     if(names[item.id])return{name:names[item.id],grams:0,price:6,quantity:Number(item.quantity||1),image:getCartImage(item.id,item.image),meta:{type:"delicacy"},raw:item};
   }
   const grams=Number(item.grams||100);
-  return{name:item.name||item.id.replace(/-/g," "),grams,price:roundMoney((grams/100)*PRICE_PER_100G),quantity:Number(item.quantity||1),image:getCartImage(item.id,item.image),meta:item.meta||null,raw:item};
+  return{name:item.name||item.id.replace(/-/g," "),grams,price:roundMoney((grams/100)*pricePer100gForId(item.id)),quantity:Number(item.quantity||1),image:getCartImage(item.id,item.image),meta:item.meta||null,raw:item};
 }
 const details=()=>loadCart().map(itemDetails);
 function state(){

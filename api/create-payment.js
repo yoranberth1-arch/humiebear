@@ -14,6 +14,8 @@ export default async function handler(req,res){
   const clean=(v,max=255)=>String(v??"").trim().slice(0,max);
   const round=v=>Math.round((Number(v)+Number.EPSILON)*100)/100;
   const validGrams=v=>Number.isInteger(Number(v))&&Number(v)>=100&&Number(v)<=5000&&Number(v)%100===0;
+  const pricePer100gForId=id=>clean(id,120)==="cuberdons"?2.30:1.60;
+  const premiumMixExtra=mix=>round((Array.isArray(mix)?mix:[]).reduce((sum,x)=>sum+(clean(x?.id,120)==="cuberdons"&&validGrams(x?.grams)?Number(x.grams)/100*0.70:0),0));
   const DEAL_PRICES=new Map(Object.entries({
     "Zoete Snoepbox 500 g":7.95,"Zoete Snoepbox 1 kg":15.90,"Zoete Snoepbox 1,5 kg":23.75,"Zoete Snoepbox 2 kg":31.50,
     "Zure Snoepbox 500 g":7.95,"Zure Snoepbox 1 kg":15.90,"Zure Snoepbox 1,5 kg":23.75,"Zure Snoepbox 2 kg":31.50,
@@ -65,7 +67,7 @@ export default async function handler(req,res){
 
     if(meta?.type==="personalized-bag"){
       const size=Number(meta.size);if(!validGrams(size))throw new Error("Ongeldig snoepzakformaat.");
-      const price=round((size/100)*1.60);
+      const price=round((size/100)*1.60+premiumMixExtra(item?.customMix));
       return{
         name:"Gepersonaliseerde snoepzak",quantity:qty,unit_price:price,line_total:round(price*qty),grams:size,
         meta:{type:"personalized-bag",size,sticker:clean(meta.sticker,120),note:clean(meta.note,500),
@@ -74,7 +76,7 @@ export default async function handler(req,res){
     }
 
     const grams=Number(item?.grams);if(!validGrams(grams))throw new Error("Ongeldig snoepgewicht.");
-    const price=round((grams/100)*1.60);
+    const price=round((grams/100)*pricePer100gForId(item?.id)+premiumMixExtra(item?.customMix));
     return{name:clean(item?.name,120)||clean(item?.id,120)||"Schepsnoep",product_id:(["cuberdon-box","live-box","live-box-xl","snoepmix-1000","snoepmix-500","sweet-gift-box"].includes(clean(item?.id,120))?clean(item?.id,120):null),quantity:qty,unit_price:price,line_total:round(price*qty),grams,meta:null};
   }
 
