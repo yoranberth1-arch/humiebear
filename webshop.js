@@ -156,7 +156,7 @@ function addSavedPickMix(){const mix=loadPickMixDraft();if(!mix){toast("Je Pick 
  q("#cartSubtotal").textContent=eur(subtotal);
  q("#cartShipping").textContent=shipping===0?"GRATIS":eur(shipping);
  q("#cartTotal").textContent=eur(cartTotal());
- q("#cartShippingNote").textContent=subtotal===0?"":"🚚 Gratis lokale levering in deelnemende postcodezones: 8870, 8770, 8860, 8850, 8780 en 8760. Gewone verzending kost €5,95 en is gratis vanaf €55."+(totalCandyGrams>=CONFIG.freeBagFrom?" 🎁 Gratis snoepzakje inbegrepen.":"");
+ q("#cartShippingNote").textContent=subtotal===0?"":"🚚 Lokale levering is gratis vanaf €25 in postcodezones 8870, 8770, 8860, 8850, 8780 en 8760; onder €25 kost lokale levering €5,95. Gewone verzending kost €5,95 en is gratis vanaf €55."+(totalCandyGrams>=CONFIG.freeBagFrom?" 🎁 Gratis snoepzakje inbegrepen.":"");
 }
 function checkout(){
  const items=cartItemsDetailed();
