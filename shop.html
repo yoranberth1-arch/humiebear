@@ -28,6 +28,23 @@ body:has(main) main>section:not(#persoonlijk){display:none!important}
 @media(max-width:760px){#persoonlijk{padding-top:30px!important;padding-bottom:36px!important}#persoonlijk .section-head{display:block;margin-bottom:22px}#persoonlijk .section-head h2{font-size:clamp(30px,8vw,39px);line-height:1.05}#persoonlijk .section-head p{font-size:14px;line-height:1.5;margin-top:10px}#persoonlijk .category-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}#persoonlijk .category-card{min-height:220px;border-radius:23px}#persoonlijk .category-card img{height:220px;min-height:220px}#persoonlijk .category-content{padding:14px 13px 15px;padding-right:13px;background:linear-gradient(180deg,rgba(35,21,18,0) 0%,rgba(35,21,18,.25) 25%,rgba(35,21,18,.92) 100%)}#persoonlijk .category-content strong{font-size:clamp(16px,4.3vw,19px);margin-bottom:6px}#persoonlijk .category-content span{font-size:12px;line-height:1.35}#persoonlijk .category-card:after{right:10px;bottom:10px;width:30px;height:30px;font-size:26px}#persoonlijk .category-content{padding-bottom:49px}}
 @media(prefers-reduced-motion:reduce){#persoonlijk .category-card img{transition:none}}
 
+/* Fix washed-out category photography: webshop.css sets .category-card img to opacity:.34.
+   Override the base rule specifically for the four main landing categories. */
+#persoonlijk .category-card img{
+  opacity:1 !important;
+  filter:brightness(1.08) saturate(1.18) contrast(1.06);
+  object-position:center 45%;
+}
+#persoonlijk .category-card:hover img,
+#persoonlijk .category-card:focus-visible img{
+  opacity:1 !important;
+  filter:brightness(1.1) saturate(1.2) contrast(1.07);
+}
+#persoonlijk .category-content{
+  background:linear-gradient(180deg,rgba(35,21,18,0) 0%,rgba(35,21,18,.12) 32%,rgba(35,21,18,.84) 100%);
+  text-shadow:0 2px 9px rgba(0,0,0,.28);
+}
+
 </style><!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
