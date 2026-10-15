@@ -40,6 +40,27 @@ body:has(main) main>section:not(#persoonlijk){display:none!important}
   #persoonlijk .category-card{grid-column:auto;height:220px;min-height:220px}
   #persoonlijk .category-card img{height:220px;min-height:220px;object-fit:cover}
 }
+
+/* Category photo polish: brighter, warmer photos while keeping the real people photo */
+#persoonlijk .category-card img{
+  filter:brightness(1.12) saturate(1.13) contrast(1.025);
+  object-position:center 45%;
+}
+#persoonlijk .category-card:hover img,
+#persoonlijk .category-card:focus-visible img{
+  filter:brightness(1.15) saturate(1.17) contrast(1.035);
+}
+#persoonlijk .category-content{
+  background:linear-gradient(180deg,rgba(35,21,18,0) 0%,rgba(35,21,18,.18) 35%,rgba(35,21,18,.82) 100%);
+  text-shadow:0 2px 9px rgba(0,0,0,.28);
+}
+#persoonlijk .category-card{
+  box-shadow:0 14px 34px rgba(57,38,29,.12);
+}
+@media(prefers-reduced-motion:reduce){
+  #persoonlijk .category-card img{transition:none}
+}
+
 </style><!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
