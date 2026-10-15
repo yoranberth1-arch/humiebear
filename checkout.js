@@ -174,7 +174,7 @@ async function submitCheckout(e){
   if(!form.reportValidity())return;
   const s=state();
   if(!s.items.length){showError("Je mandje is leeg.");return}
-  if(typeof window.fbq==="function")window.fbq('track','InitiateCheckout',{content_type:'product',num_items:s.items.reduce((n,i)=>n+i.quantity,0),value:s.total,currency:'EUR'});
+  if(typeof window.fbq==="function")window.fbq('track','InitiateCheckout',{content_type:'product',num_items:s.items.reduce((n,i)=>n+i.quantity,0),value:s.total,currency:'EUR'});if(typeof window.ttq!=="undefined"&&typeof window.ttq.track==="function")window.ttq.track('InitiateCheckout',{contents:s.items.map(i=>({content_id:String(i.raw?.id||i.name),content_type:'product',content_name:i.name,quantity:Number(i.quantity)||1,price:Number(i.price)||0})),value:Number(s.total)||0,currency:'EUR'});
   const data=Object.fromEntries(new FormData(form).entries());
   const fulfillmentMethod=["pickup","local_delivery"].includes(data.fulfillmentMethod)?data.fulfillmentMethod:"delivery";
   if(fulfillmentMethod==="local_delivery"&&!isLocalDeliveryPostcode(data.postalCode)){showError("Lokale levering is enkel mogelijk in de deelnemende postcodezones: "+LOCAL_DELIVERY_POSTCODES_LABEL+". Kies gewone levering of pas je postcode aan.");return;}
