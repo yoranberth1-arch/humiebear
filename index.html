@@ -27,6 +27,8 @@
     property="og:image"
     content="https://www.hummiebear.be/images/waffle-lollipop-closeup.png"
   >
+  <meta property="og:image:alt" content="Verse lollywafel op een stokje met chocolade en kleurrijke toppings van Hummie Bear">
+  <meta name="twitter:image:alt" content="Verse lollywafels met chocolade en toppings van Hummie Bear">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Hummie Bear | Lollywafels &amp; Snoep voor Events">
@@ -45,6 +47,20 @@
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebPage",
+        "@id": "https://www.hummiebear.be/#webpage",
+        "url": "https://www.hummiebear.be/",
+        "name": "Hummie Bear | Lollywafels & Snoep voor Events",
+        "description": "Verse lollywafels op locatie en candy catering met 66 soorten snoep. Voor privéfeesten, bedrijven en evenementen in België.",
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": "https://www.hummiebear.be/images/waffle-lollipop-closeup.png",
+          "contentUrl": "https://www.hummiebear.be/images/waffle-lollipop-closeup.png",
+          "caption": "Verse lollywafels met chocolade en toppings van Hummie Bear"
+        },
+        "publisher": { "@id": "https://www.hummiebear.be/#organization" }
+      },
+      {
         "@type": "Organization",
         "@id": "https://www.hummiebear.be/#organization",
         "name": "Hummie Bear",
@@ -61,6 +77,7 @@
         "provider": { "@id": "https://www.hummiebear.be/#organization" },
         "areaServed": { "@type": "Country", "name": "België" },
         "url": "https://www.hummiebear.be/waffle.html",
+        "image": "https://www.hummiebear.be/images/waffle-lollipop-closeup.png",
         "description": "Verse lollywafels en zoete extra's op locatie voor verjaardagen, privéfeesten, communies en bedrijfsevenementen."
       }
     ]
