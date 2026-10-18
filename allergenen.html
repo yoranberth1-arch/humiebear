@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4eadf">
+  <meta name="description" content="Bekijk de allergeneninformatie van Hummie Bear voor ons snoepassortiment. Controleer bij ernstige allergieën altijd de actuele verpakking.">
+  <title>Allergeneninformatie | Hummie Bear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="announcement">HUMMIE BEAR <span>•</span> ALLERGENENINFORMATIE</div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Hummie Bear homepage">
+        <span class="brand-mark">HB</span><span>Hummie <b>Bear</b></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Menu openen" aria-expanded="false"
+        onclick="(function(btn){var nav=document.querySelector('.main-nav');if(!nav)return;var open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Menu sluiten':'Menu openen');})(this)">☰</button>
+      <nav class="main-nav" aria-label="Hoofdnavigatie">
+        <a href="index.html">Home</a>
+        <a href="shop.html" class="nav-button">Webshop</a>
+        <a href="waffle.html">Lollywafel Edition</a>
+        <a href="candy.html">Candy Edition</a>
+        <a href="index.html#prijzen">Prijzen</a>
+        <a href="allergenen.html" aria-current="page">Allergenen</a>
+        <a href="index.html#contact" class="nav-button">Vraag offerte</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <section class="page-heading">
+      <span class="eyebrow">ALLERGENENINFORMATIE</span>
+      <h1>Informatie over onze <em>snoepsoorten.</em></h1>
+      <p>Bekijk hieronder de allergeneninformatie voor ons snoepassortiment. Recepturen en leveranciers kunnen wijzigen; controleer bij ernstige allergieën altijd de actuele verpakking en neem bij twijfel contact met ons op.</p>
+      <div class="notice-card"><strong>Belangrijk:</strong> deze informatie is bedoeld als hulpmiddel. De actuele productverpakking en informatie van de fabrikant zijn leidend, zeker bij ernstige allergieën of kruisbesmettingsrisico's.</div>
+    </section>
+    <section class="section" style="padding-top:24px">
+      <a href="images/allergenen-poster.png" target="_blank" rel="noopener" aria-label="Open allergenenposter op volledige grootte">
+        <img src="images/allergenen-poster.png" alt="Hummie Bear allergeneninformatie voor 66 snoepsoorten" loading="lazy" style="display:block;width:100%;height:auto;border-radius:18px;background:#fff;border:1px solid #e5e7eb;box-shadow:0 12px 32px rgba(0,0,0,.08)">
+      </a>
+      <p style="margin-top:18px;color:var(--muted);font-size:13px">Klik op de poster om deze groter te bekijken.</p>
+      <div style="margin-top:32px"><a class="btn btn-primary" href="index.html#contact">Vraag ons over allergenen →</a> <a class="btn btn-ghost" href="index.html">Terug naar de homepage</a></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-top">
+      <a class="brand footer-brand" href="index.html"><span class="brand-mark">HB</span><span>Hummie <b>Bear</b></span></a>
+      <p>Sweet experiences on wheels.</p>
+      <div class="footer-links"><a href="index.html#editions">Edities</a><a href="index.html#prijzen">Prijzen</a><a href="index.html#contact">Offerte</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Hummie Bear</span><span>Gemaakt in België</span></div>
+  </footer>
+</body>
+</html>
