@@ -136,7 +136,7 @@
           </small>
 
           <b>
-            €20 p.p.
+            Vanaf €19,50 p.p.
           </b>
 
           <em>
@@ -694,7 +694,7 @@
       const startup =
         guests >= 20 && guests < 30 ? 150 : 0;
 
-      let price = guests * 20;
+      let price = guests * 19.5;
 
       if (formData) {
         const waffleOptions = getValues(formData, "waffle_options");
