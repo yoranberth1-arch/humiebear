@@ -1755,3 +1755,32 @@ body{
 @media(prefers-reduced-motion:reduce){
   .quote-float{transition:none}
 }
+
+
+/* Prominent product photography on the wafelkraam landing page. */
+.waffle-hero-image{
+  width:100%;
+  max-width:860px;
+  margin:30px 0 0;
+  overflow:hidden;
+  border-radius:24px;
+  background:#fff;
+  box-shadow:0 16px 42px rgba(95,52,64,.12);
+}
+.waffle-hero-image img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:3/2;
+  object-fit:cover;
+}
+.waffle-hero-image figcaption{
+  padding:12px 16px;
+  color:#6e5360;
+  font-size:13px;
+  line-height:1.5;
+}
+@media(max-width:600px){
+  .waffle-hero-image{margin-top:22px;border-radius:18px;}
+  .waffle-hero-image figcaption{font-size:12px;padding:10px 12px;}
+}
