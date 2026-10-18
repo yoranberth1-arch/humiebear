@@ -45,5 +45,50 @@ alt=""
     <a href="shop.html" style="display:inline-block;margin-top:18px;padding:14px 22px;border-radius:12px;background:#111;color:#fff;text-decoration:none;font-weight:800">Terug naar de webshop</a>
   </section>
 </main>
+
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var orderNumber = params.get("order");
+  if (!orderNumber) return;
+  var conversionId = "AW-18495221090/7HUTCMiX3pEdEOLamvNE";
+  var storageKey = "hummiebear_google_ads_purchase_" + orderNumber;
+  try { if (sessionStorage.getItem(storageKey) === "sent") return; } catch (e) {}
+  var deadline = Date.now() + 120000;
+  var finished = false;
+  async function checkPayment(){
+    if (finished || Date.now() > deadline) return;
+    try {
+      var response = await fetch("/api/order-status?order=" + encodeURIComponent(orderNumber), {
+        method: "GET",
+        cache: "no-store",
+        headers: { "Accept": "application/json" }
+      });
+      if (response.ok) {
+        var data = await response.json();
+        if (data.paid === true && data.transaction_id && Number(data.value) > 0 && data.currency === "EUR") {
+          finished = true;
+          try {
+            if (sessionStorage.getItem(storageKey) === "sent") return;
+            sessionStorage.setItem(storageKey, "sent");
+          } catch (e) {}
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "conversion", {
+              send_to: conversionId,
+              value: Number(data.value),
+              currency: data.currency,
+              transaction_id: String(data.transaction_id)
+            });
+          }
+          return;
+        }
+      }
+    } catch (e) {}
+    window.setTimeout(checkPayment, 3000);
+  }
+  checkPayment();
+})();
+</script>
+
 </body>
 </html>
