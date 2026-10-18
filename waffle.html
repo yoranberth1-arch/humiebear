@@ -146,5 +146,26 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <span>Gemaakt in België</span>
   </div>
 </footer>
+
+  <a class="quote-float" href="index.html?edition=waffle#contact" aria-label="Vraag offerte aan">
+    <span class="quote-float-icon" aria-hidden="true">↗</span>
+    <span class="quote-float-copy">
+      <strong>Vraag offerte aan</strong>
+      <small>Vrijblijvend · afgestemd op jouw event</small>
+    </span>
+    <span class="quote-float-arrow" aria-hidden="true">→</span>
+  </a>
+  <script>
+    (function () {
+      var quoteButton = document.querySelector(".quote-float");
+      var contactSection = document.querySelector("#contact");
+      if (!quoteButton || !contactSection || !("IntersectionObserver" in window)) return;
+      var observer = new IntersectionObserver(function (entries) {
+        quoteButton.classList.toggle("quote-float-hidden", entries[0].isIntersecting);
+      }, { threshold: 0.12 });
+      observer.observe(contactSection);
+    })();
+  </script>
+
 </body>
 </html>
