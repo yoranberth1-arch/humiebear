@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Hummie Bear lollywafel</title>
+  <rect width="64" height="64" rx="16" fill="#fff1e7"/>
+  <circle cx="32" cy="29" r="23" fill="#ef5b86"/>
+  <path d="M28 44h8l4 16H24z" fill="#b66b3e" stroke="#fff1e7" stroke-width="2" stroke-linejoin="round"/>
+  <circle cx="32" cy="27" r="15.5" fill="#f7c45b" stroke="#fff1e7" stroke-width="2.5"/>
+  <g fill="none" stroke="#b66b3e" stroke-width="2" stroke-linecap="round" opacity=".9">
+    <path d="M22 17l20 20M18 23l17 17M28 13l18 18M42 16L21 37M47 24L28 43M45 34L37 42"/>
+  </g>
+  <circle cx="25" cy="20" r="2" fill="#fff1e7"/>
+  <circle cx="38" cy="31" r="2" fill="#fff1e7"/>
+  <circle cx="29" cy="35" r="1.6" fill="#fff1e7"/>
+</svg>
