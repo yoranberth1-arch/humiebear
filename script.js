@@ -132,7 +132,7 @@
           </strong>
 
           <small>
-            Verse lollywafels, popcorn met smaak naar keuze, milkshakes, ijs en chocomousse.
+            Verse lollywafels, popcorn met smaak naar keuze, ijs en chocomousse.
           </small>
 
           <b>
