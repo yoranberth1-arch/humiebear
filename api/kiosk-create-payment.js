@@ -36,7 +36,7 @@ module.exports=async function(req,res){
       description:'Hummie Bear bestelling '+number,
       redirectUrl:origin+'/kiosk-result.html?order='+encodeURIComponent(order.id),
       cancelUrl:origin+'/self-order.html',
-      webhookUrl:origin+'/api/kiosk-webhook',
+      webhookUrl:origin+'/api/kiosk-webhook.js',
       metadata:{order_id:order.id,order_number:number}
     })});
     await sb('/rest/v1/kiosk_orders?id=eq.'+encodeURIComponent(order.id),{method:'PATCH',body:JSON.stringify({mollie_payment_id:payment.id})});
