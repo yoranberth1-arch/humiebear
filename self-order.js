@@ -4,17 +4,17 @@ const money=c=>(Number(c||0)/100).toLocaleString('nl-BE',{style:'currency',curre
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const team=new URLSearchParams(location.search).get('team')==='1';
 const photos={
- hero:'https://ggm.bynder.com/asset/a05b3439-d9e6-4deb-a226-786436f9474a/JPG/lolly_on_a_stick_waffle-jpg.jpg',
- 'choc-milk':'https://pekis.net/sites/default/files/styles/social_share_1200/public/2025-05/tempered_chocolate.webp?itok=mZqd-eqd',
- 'choc-white':'https://pekis.net/sites/default/files/styles/social_share_1200/public/2025-05/tempered_chocolate.webp?itok=mZqd-eqd',
- 'sauce-strawberry':'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=720&q=80',
- 'sauce-caramel':'https://reggieschurros.com/cdn/shop/files/14EADACF-D673-4A9E-BF0D-80C6ABA20D22.png?v=1743453594&width=1000',
- 'top-brazil':'https://ggm.bynder.com/asset/a05b3439-d9e6-4deb-a226-786436f9474a/JPG/lolly_on_a_stick_waffle-jpg.jpg',
- 'top-oreo':'https://porkkinggood.com/cdn/shop/articles/oreo_crumbs.png?v=1583931390&width=900',
- 'top-speculoos':'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=720&q=80',
- 'top-marshmallow':'https://foliay.com/cdn/shop/files/BK4022S_moreslceCreamToppings-1_530x%402x.jpg?v=1744077140',
- 'top-coco':'https://cdn.mindmegette.hu/2025/09/_vF8JjrUk_at_znLVdT9fIQaPv_rlE1mzHb6czayKgM/fill/0/0/no/1/aHR0cHM6Ly9jbXNjZG4uYXBwLmNvbnRlbnQucHJpdmF0ZS9jb250ZW50L2MxMzExNjFhNTViMTRlYTI5ZGY2ZWMyMzY2YTA5NDc3.webp',
- 'top-sprinkles':'https://foliay.com/cdn/shop/files/BK4022S_moreslceCreamToppings-1_530x%402x.jpg?v=1744077140'
+ hero:'https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=1000&q=85',
+ 'choc-milk':'https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=720&q=85',
+ 'choc-white':'https://images.unsplash.com/photo-1548907040-4d42a8f2a4c4?auto=format&fit=crop&w=720&q=85',
+ 'sauce-strawberry':'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=720&q=85',
+ 'sauce-caramel':'https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=720&q=85',
+ 'top-brazil':'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=720&q=85',
+ 'top-oreo':'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=720&q=85',
+ 'top-speculoos':'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=720&q=85',
+ 'top-marshmallow':'https://images.unsplash.com/photo-1581798459219-318e76aecc7b?auto=format&fit=crop&w=720&q=85',
+ 'top-coco':'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=720&q=85',
+ 'top-sprinkles':'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&w=720&q=85'
 };
 const fallbackEmoji={'chocolate':'🍫','sauce':'🍓','topping':'✨'};
 if(team){$('#customer-view').hidden=true;$('#kitchen-view').hidden=false;initKitchen()}else initCustomer();
