@@ -1016,3 +1016,23 @@
     font-size:.86rem !important;
   }
 }
+
+
+/* Quote-only detail for the Lollywafel price estimate. */
+.price-estimate-breakdown {
+  margin: 0.55rem 0 0;
+  color: #756b66;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+.package-choice-grid {
+  margin-bottom: 1rem;
+}
+
+.drink-quantity-label {
+  display: grid;
+  gap: 0.45rem;
+  width: 100%;
+}
