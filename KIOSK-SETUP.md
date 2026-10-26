@@ -10,10 +10,10 @@ This is an isolated first implementation on branch `self-ordering-kiosk`. It doe
 - Paid public mode or included/private-event mode with prices hidden
 - Mollie hosted checkout; order becomes paid only after server retrieves the payment status in the webhook
 - Kitchen status changes, sound alert, sales/order overview, refund request
-- Basic stock availability by deactivating an option in Supabase
+- Stock availability controls directly on the kitchen screen (toggle chocolate, sauces and toppings on/off)
 
 ## Database
-Run `supabase/migrations/202610260001_kiosk.sql` against the intended Supabase project after checking that the project is correct. The migration is additive and creates only `kiosk_*` tables.
+The additive migration `supabase/migrations/202610260001_kiosk.sql` has been applied to the active Supabase project `hummie bear new` (`yrcajvpstbyupohjbavm`). It created only `kiosk_*` tables and seeded the waffle options. If you later use a different project, run the migration there too.
 
 ## Vercel environment variables
 Set these in the Vercel project, for Preview first:
