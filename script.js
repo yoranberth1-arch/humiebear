@@ -135,11 +135,11 @@
           </strong>
 
           <small>
-            Verse lollywafels, popcorn met smaak naar keuze, ijs en chocomousse.
+            Verse lollywafels, popcorn met smaak naar keuze en ijs. Basis €17 p.p. · Premium €19,50 p.p.
           </small>
 
           <b>
-            Vanaf €19,50 p.p.
+            Basis €17 p.p. · Premium €19,50 p.p.
           </b>
 
           <em>
@@ -700,7 +700,7 @@
 
       const startup = guests >= 20 && guests < 30 ? 150 : 0;
       const packageTier = formData ? getValue(formData, "waffle_package") : "basis";
-      const perPersonPrice = packageTier === "premium" ? 19.5 : 15;
+      const perPersonPrice = packageTier === "premium" ? 19.5 : 17;
 
       let price = guests * perPersonPrice;
 
@@ -803,7 +803,7 @@
       if (edition === "waffle" && guests >= 20 && formData) {
         const premium = getValue(formData, "waffle_package") === "premium";
         const tierName = premium ? "Premiumformule" : "Basisformule";
-        const perPersonPrice = premium ? 19.5 : 15;
+        const perPersonPrice = premium ? 19.5 : 17;
         const startup = guests < 30 ? 150 : 0;
         const options = getValues(formData, "waffle_options");
         const bagSelected = options.includes("Snoepzakje + €5 p.p.");
@@ -824,7 +824,7 @@
       } else if (edition === "waffle" && guests > 0 && guests < 20) {
         estimateBreakdown.textContent = "Minimum 20 personen. Voor 20–29 personen geldt €150 opstartkost; vanaf 30 personen vervalt die.";
       } else if (edition === "waffle" && guests <= 0) {
-        estimateBreakdown.textContent = "Basis €15 p.p. · Premium €19,50 p.p. · €150 opstartkost van 20–29 personen.";
+        estimateBreakdown.textContent = "Basis €17 p.p. · Premium €19,50 p.p. · €150 opstartkost van 20–29 personen.";
       } else {
         estimateBreakdown.textContent = "";
       }
