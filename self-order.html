@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#101010"><title>Bestellen | Hummie Bear</title>
+<link rel="stylesheet" href="/self-order.css">
+</head>
+<body>
+<header class="top"><div class="logo">HUMMIE <b>BEAR</b></div><div id="event-label">Lollywafel Edition</div></header>
+<main id="customer-view">
+<section class="intro"><p class="eyebrow">SWEET MOMENTS</p><h1>Stel jouw lollywafel samen.</h1><p>Kies je chocolade, saus en toppings. Vul je naam in en plaats je bestelling.</p></section>
+<div id="notice" class="notice" hidden></div>
+<section class="builder">
+<label class="field">Jouw naam<input id="customer-name" maxlength="60" autocomplete="given-name" placeholder="Voornaam" required></label>
+<div class="section-title"><h2>1. Kies je chocolade</h2><small>Per wafel</small></div><div id="chocolate-options" class="choice-grid"></div>
+<div class="section-title"><h2>2. Kies je saus</h2><small>Per wafel</small></div><div id="sauce-options" class="choice-grid"></div>
+<div class="section-title"><h2>3. Kies je toppings</h2><small id="topping-note">Extra toppings kunnen extra kosten</small></div><div id="topping-options" class="choice-grid"></div>
+<div class="section-title"><h2>4. Hoeveel wafels?</h2></div><div class="qty"><button id="minus" aria-label="Minder wafels">−</button><strong id="qty">1</strong><button id="plus" aria-label="Meer wafels">+</button></div>
+<div class="summary"><div><span id="price-label">Prijs</span><strong id="total">€ 5,00</strong></div><button id="add-order" class="primary">Toevoegen aan bestelling</button></div>
+</section>
+<section class="cart"><div class="section-title"><h2>Jouw bestelling</h2><span id="cart-count">0 wafels</span></div><div id="cart-items"><p class="muted">Je bestelling is nog leeg.</p></div><div class="summary grand"><span>Totaal</span><strong id="grand-total">€ 0,00</strong></div><button id="checkout" class="primary wide" disabled>Verder naar betalen</button><p class="fine" id="payment-note">Je betaalt veilig via Mollie.</p></section>
+</main>
+<main id="kitchen-view" hidden>
+<section class="intro"><p class="eyebrow">HUMMIE BEAR · TEAM</p><h1>Bestellingen</h1><p>Open deze pagina op de smartphone en hou hem open tijdens het evenement.</p></section>
+<div class="adminbar"><input id="admin-token" type="password" placeholder="Beheertoken"><button id="save-token">Verbinden</button><button id="sound-toggle">Geluid aan</button></div>
+<div id="kitchen-orders" class="orders"><p class="muted">Vul de beheertoken in om bestellingen te laden.</p></div>
+<section class="admin-settings">
+<h2>Evenementinstellingen</h2><p class="muted">Wijzig de verkoopmodus of prijs. Instellingen worden opgeslagen op de server.</p>
+<label class="field">Naam evenement<input id="setting-event" maxlength="100" placeholder="Bijv. Zondagmarkt"></label>
+<label class="field">Prijsmodus<select id="setting-mode"><option value="paid">Publieke verkoop — betalen</option><option value="included">Privé-evenement — inbegrepen, geen prijs tonen</option></select></label>
+<label class="field">Prijs per wafel (€)<input id="setting-price" type="number" min="0" step="0.50" value="5.00"></label>
+<label class="field">Prijs per extra topping (€)<input id="setting-topping-price" type="number" min="0" step="0.50" value="0.50"></label>
+<button id="save-settings" class="primary">Instellingen opslaan</button>
+</section>
+</main>
+<footer><span>Hummie Bear · Sweetness on wheels</span><a href="/self-order.html?team=1">Team / bakscherm</a></footer>
+<script src="/self-order.js"></script>
+</body></html>
