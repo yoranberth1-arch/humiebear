@@ -95,6 +95,9 @@
   const waffleFields =
     $("#waffle-fields");
 
+  const wafflePackageFields =
+    $("#waffle-package-fields");
+
   const bagFields =
     $("#bag-fields");
 
@@ -360,8 +363,12 @@
     const bagsSelected =
       selected.includes("Snoepzakken op maat");
 
+    const standaloneWaffleSelected =
+      selected.includes("Hummie Bear Waffle Edition");
+
     if (candyFields) candyFields.hidden = !candySelected;
     if (waffleFields) waffleFields.hidden = !waffleSelected;
+    if (wafflePackageFields) wafflePackageFields.hidden = !standaloneWaffleSelected;
     if (bagFields) bagFields.hidden = !bagsSelected;
 
     editionInputs.forEach((input) => {
@@ -691,15 +698,20 @@
 
     if (edition === "waffle") {
 
-      const startup =
-        guests >= 20 && guests < 30 ? 150 : 0;
+      const startup = guests >= 20 && guests < 30 ? 150 : 0;
+      const packageTier = formData ? getValue(formData, "waffle_package") : "basis";
+      const perPersonPrice = packageTier === "premium" ? 19.5 : 15;
 
-      let price = guests * 19.5;
+      let price = guests * perPersonPrice;
 
       if (formData) {
         const waffleOptions = getValues(formData, "waffle_options");
         if (waffleOptions.includes("Snoepzakje + €5 p.p.")) {
           price += guests * 5;
+        }
+        if (waffleOptions.includes("Frisdrank + €2 per blik")) {
+          const drinkQuantity = Number(getValue(formData, "waffle_drink_quantity") || 0);
+          if (Number.isFinite(drinkQuantity) && drinkQuantity > 0) price += drinkQuantity * 2;
         }
       }
 
@@ -769,65 +781,59 @@
   ========================================================= */
 
   function updateEstimate() {
+    if (!guestsInput) return;
 
-    if (!guestsInput) {
-      return;
-    }
-
-
-    const edition =
-      getSelectedEdition();
-
-
-    const guests =
-      Number(
-        guestsInput.value || 0
-      );
-
-
-    const formData =
-      form
-        ? new FormData(form)
-        : null;
-
-
-    const price =
-      calculatePrice(
-        edition,
-        guests,
-        formData
-      );
-
-
+    const edition = getSelectedEdition();
+    const guests = Number(guestsInput.value || 0);
+    const formData = form ? new FormData(form) : null;
+    const price = calculatePrice(edition, guests, formData);
     const estimateElements = [
-      $("#estimated-price"),
-      $("#price-estimate"),
-      $(".estimated-price"),
-      $(".price-estimate")
+      $("#estimated-price"), $("#price-estimate"), $(".estimated-price"), $(".price-estimate")
     ].filter(Boolean);
 
+    let priceLabel = price === null ? "Prijs op maat" : formatPrice(price);
+    if (edition === "waffle") {
+      if (guests <= 0) priceLabel = "Vul aantal personen in";
+      else if (guests < 20) priceLabel = "Minimum 20 personen";
+    }
+    estimateElements.forEach((element) => { element.textContent = priceLabel; });
 
-    estimateElements.forEach(
-      (element) => {
-
-        element.textContent =
-          price === null
-            ? "Prijs op maat"
-            : formatPrice(price);
-
+    const estimateBreakdown = $("#price-estimate-breakdown");
+    if (estimateBreakdown) {
+      if (edition === "waffle" && guests >= 20 && formData) {
+        const premium = getValue(formData, "waffle_package") === "premium";
+        const tierName = premium ? "Premiumformule" : "Basisformule";
+        const perPersonPrice = premium ? 19.5 : 15;
+        const startup = guests < 30 ? 150 : 0;
+        const options = getValues(formData, "waffle_options");
+        const bagSelected = options.includes("Snoepzakje + €5 p.p.");
+        const bagTotal = bagSelected ? guests * 5 : 0;
+        const drinksSelected = options.includes("Frisdrank + €2 per blik");
+        const drinkQuantity = Number(getValue(formData, "waffle_drink_quantity") || 0);
+        const drinkTotal = drinksSelected && Number.isFinite(drinkQuantity) && drinkQuantity > 0 ? drinkQuantity * 2 : 0;
+        estimateBreakdown.textContent = [
+          tierName + ": " + guests + " × " + formatPrice(perPersonPrice) + " = " + formatPrice(guests * perPersonPrice),
+          "Opstartkost: " + formatPrice(startup),
+          "Snoepzakjes: " + formatPrice(bagTotal) + (bagSelected ? " (" + guests + " × €5,00)" : ""),
+          drinksSelected && drinkTotal > 0
+            ? "Frisdrank: " + formatPrice(drinkTotal) + " (" + drinkQuantity + " × €2,00)"
+            : drinksSelected
+              ? "Frisdrank: vul het aantal blikjes in (€2,00 per blikje); nog niet opgenomen in het totaal."
+              : "Frisdrank optioneel en niet inbegrepen: €2,00 per blikje."
+        ].join("\n");
+      } else if (edition === "waffle" && guests > 0 && guests < 20) {
+        estimateBreakdown.textContent = "Minimum 20 personen. Voor 20–29 personen geldt €150 opstartkost; vanaf 30 personen vervalt die.";
+      } else if (edition === "waffle" && guests <= 0) {
+        estimateBreakdown.textContent = "Basis €15 p.p. · Premium €19,50 p.p. · €150 opstartkost van 20–29 personen.";
+      } else {
+        estimateBreakdown.textContent = "";
       }
-    );
-
+    }
   }
 
-
-  if (guestsInput) {
-
-    guestsInput.addEventListener(
-      "input",
-      updateEstimate
-    );
-
+  if (form) {
+    form.addEventListener("input", updateEstimate);
+    form.addEventListener("change", updateEstimate);
   }
 
 
@@ -1028,6 +1034,12 @@
             formData,
             "waffle_options"
           ),
+
+        waffle_package:
+          edition === "waffle" ? getValue(formData, "waffle_package") : null,
+
+        waffle_drink_quantity:
+          edition === "waffle" ? getValue(formData, "waffle_drink_quantity") : null,
 
         candy_options:
           getValues(
