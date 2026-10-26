@@ -7,7 +7,7 @@ const photos={
  hero:'https://www.cfw.co.uk/site/SCA/cfw-product-images/Neumarker%20Thermocook%20Plates%20Only%20-%20Rectangle%20Waffle%20on%20a%20Stick_main-3.jpg',
  'choc-milk':'https://lollywaffle.com/wp-content/uploads/2022/05/products-Resized-Milk_3-scaled.jpg',
  'choc-white':'https://lollywaffle.com/wp-content/uploads/2022/05/products-Resized-White-Chocolate-scaled.jpg',
- 'sauce-strawberry':'https://www.linsfood.com/wp-content/uploads/2018/06/Strawberry-Coulis.jpg',
+ 'sauce-strawberry':'https://seasonsinthekitchen.com/wp-content/uploads/2024/08/Strawberry-coulis-3.jpg',
  'sauce-caramel':'https://lollywaffle.com/wp-content/uploads/2024/11/Liquid-Caramel-for-Fountains-600x752.jpg',
  'top-brazil':'https://centraldealimentos.cdn.magazord.com.br/img/2025/10/produto/11078/castanha.png?ims=fit-in%2F600x600%2Ffilters%3Afill%28white%29',
  'top-oreo':'https://www.porkkinggood.com/cdn/shop/articles/oreo_crumbs.png?v=1583931390&width=900',
