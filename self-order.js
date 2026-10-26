@@ -108,6 +108,7 @@ function renderReview(){
  const name=$('#customer-name').value.trim()||'Je bestelling';
  const ch=config.options.find(o=>o.id===choices.chocolate),sa=config.options.find(o=>o.id===choices.sauce),tops=choices.toppings.map(id=>config.options.find(o=>o.id===id)).filter(Boolean);
  $('#review-name').textContent='Lollywafel';
+ $('#quantity-detail').textContent=(ch?ch.name:'Chocolade')+' · '+(sa?sa.name:'Saus')+(tops.length?' · '+tops.map(t=>t.name).join(', '):'');
  $('#review-choice').textContent=(ch?ch.name:'Chocolade niet gekozen')+' · '+(sa?sa.name:'Saus niet gekozen')+' · '+(tops.length?tops.map(t=>t.name).join(', '):'Geen extra toppings');
  $('#review-quantity').textContent=qty+' '+(qty===1?'wafel':'wafels');
  $('#review-customer').textContent=name;
