@@ -16,7 +16,7 @@ const photos={
  'top-coco':'https://upload.wikimedia.org/wikipedia/commons/3/3d/Chocolate_Balls_with_Cocoa_Powder.jpg',
  'top-sprinkles':'https://www.webstaurantstore.com/images/products/extra_large/757305/2805482.jpg'
 };
-const fallbackEmoji={'chocolate':'🍫','sauce':'🍓','topping':'✨'};
+const fallbackEmoji={'choc-milk':'🍫','choc-white':'🍫','sauce-strawberry':'🍓','sauce-caramel':'🍯','top-brazil':'🥜','top-oreo':'🍪','top-speculoos':'🍪','top-marshmallow':'☁️','top-coco':'🍫','top-sprinkles':'🌈'};
 if(team){$('#customer-view').hidden=true;$('#kitchen-view').hidden=false;initKitchen()}else initCustomer();
 
 async function api(url,opts={}){const r=await fetch(url,{...opts,headers:{'content-type':'application/json',...(opts.headers||{})},cache:'no-store'});const d=await r.json().catch(()=>({error:'Ongeldige serverrespons'}));if(!r.ok)throw new Error(d.error||'Er ging iets mis');return d}
@@ -63,7 +63,7 @@ function renderOptions(target,items,kind){
   el.innerHTML=items.map(o=>{
     const selected=kind==='toppings'?choices.toppings.includes(o.id):choices[kind]===o.id;
     const label=kind==='toppings'?(config.mode==='included'?'Inbegrepen':'+ '+money(config.extra_topping_price_cents)):(kind==='chocolate'?'Tik om te kiezen':'Tik om te kiezen');
-    return '<button type="button" class="product-choice '+(selected?'selected':'')+'" data-kind="'+kind+'" data-id="'+esc(o.id)+'" aria-pressed="'+selected+'"><span class="choice-photo-wrap"><img class="choice-photo" src="'+esc(productPhoto(o.id,kind))+'" alt="'+esc(o.name)+'" loading="eager" decoding="async" onerror="this.hidden=true"><span class="choice-photo-fallback" aria-hidden="true">'+(fallbackEmoji[kind==='toppings'?'topping':kind])+'</span><span class="choice-check" aria-hidden="true">✓</span></span><span class="choice-label">'+esc(o.name)+'</span><span class="choice-caption">'+esc(label)+'</span></button>';
+    return '<button type="button" class="product-choice '+(selected?'selected':'')+'" data-kind="'+kind+'" data-id="'+esc(o.id)+'" aria-pressed="'+selected+'"><span class="choice-photo-wrap"><img class="choice-photo" src="'+esc(productPhoto(o.id,kind))+'" alt="'+esc(o.name)+'" loading="eager" decoding="async" onerror="this.hidden=true"><span class="choice-photo-fallback" aria-hidden="true">'+(fallbackEmoji[o.id]||'✨')+'</span><span class="choice-check" aria-hidden="true">✓</span></span><span class="choice-label">'+esc(o.name)+'</span><span class="choice-caption">'+esc(label)+'</span></button>';
   }).join('');
   el.querySelectorAll('.product-choice').forEach(b=>b.addEventListener('click',()=>{
     const id=b.dataset.id,k=b.dataset.kind;
