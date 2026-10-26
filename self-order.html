@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f5eadb">
+<meta name="description" content="Stel jouw Hummie Bear lollywafel samen en bestel eenvoudig.">
 <title>Bestellen | Hummie Bear</title>
 <link rel="stylesheet" href="/self-order.css">
 </head>
@@ -12,53 +13,130 @@
   <a class="brand" href="/self-order.html" aria-label="Hummie Bear start"><span class="logo">HUMMIE <b>BEAR</b></span><span id="event-label">Lollywafel Edition</span></a>
   <a class="team-link" href="/self-order.html?team=1">Bakscherm</a>
 </header>
+
 <main id="customer-view">
-  <section class="intro">
-    <div class="intro-copy"><p class="eyebrow">SWEET MOMENTS · SWEETNESS ON WHEELS</p><h1>Jouw lollywafel.<br><em>Jouw favorieten.</em></h1><p>Kies je chocolade, saus en toppings. Wij maken jouw wafel vers klaar.</p></div>
-    <img class="hero-photo" src="https://ggm.bynder.com/asset/a05b3439-d9e6-4deb-a226-786436f9474a/JPG/lolly_on_a_stick_waffle-jpg.jpg" alt="Lollywafel met chocolade en toppings" onerror="this.hidden=true">
-  </section>
   <div id="notice" class="notice" hidden role="status" aria-live="polite"></div>
-  <section class="builder">
-    <label class="field">Hoe mogen we je noemen?<input id="customer-name" maxlength="60" autocomplete="given-name" placeholder="Vul je voornaam in" required></label>
-    <div class="section-title"><div><span class="step">01</span><h2>Kies je chocolade</h2></div><small>Verplicht · per wafel</small></div>
-    <div id="chocolate-options" class="choice-grid" role="group" aria-label="Kies je chocolade"><p class="loading">Keuzes laden…</p></div>
-    <div class="section-title"><div><span class="step">02</span><h2>Kies je saus</h2></div><small>Verplicht · per wafel</small></div>
-    <div id="sauce-options" class="choice-grid" role="group" aria-label="Kies je saus"><p class="loading">Keuzes laden…</p></div>
-    <div class="section-title"><div><span class="step">03</span><h2>Maak 'm af</h2></div><small id="topping-note">Kies je toppings</small></div>
-    <p class="section-help">Tik op een foto om een topping toe te voegen. Tik nog eens om hem uit te zetten.</p>
-    <div id="topping-options" class="choice-grid toppings" role="group" aria-label="Kies je toppings"><p class="loading">Keuzes laden…</p></div>
-    <div class="quantity-row"><div><span class="step">04</span><h2>Hoeveel wafels?</h2><p class="section-help">Je kan meerdere wafels met dezelfde keuze toevoegen.</p></div><div class="qty"><button id="minus" type="button" aria-label="Minder wafels">−</button><output id="qty">1</output><button id="plus" type="button" aria-label="Meer wafels">+</button></div></div>
-    <div class="builder-actions"><div class="price-preview"><span id="price-label">Prijs per wafel</span><strong id="total">€ 5,00</strong></div><button id="add-order" type="button" class="primary">Voeg wafel toe <span aria-hidden="true">＋</span></button></div>
-  </section>
-  <section class="cart">
-    <div class="section-title cart-title"><div><p class="eyebrow">BIJNA KLAAR</p><h2>Jouw bestelling</h2></div><span id="cart-count" class="count-pill">0 wafels</span></div>
-    <div id="cart-items"><p class="empty-cart">Je bestelling is nog leeg. Kies hierboven je eerste lollywafel.</p></div>
-    <div class="grand-total"><span>Totaal</span><strong id="grand-total">€ 0,00</strong></div>
-    <div id="payment-options" class="payment-options">
-      <h3>Hoe wil je betalen?</h3>
-      <button type="button" class="payment-choice selected" data-payment="mollie"><span class="pay-icon">↗</span><span><strong>Online betalen</strong><small>Veilig via Mollie · Bancontact en meer</small></span><span class="radio-dot"></span></button>
-      <button type="button" class="payment-choice" data-payment="cash"><span class="pay-icon">€</span><span><strong>Cash in de truck</strong><small>Betaal contant aan onze medewerker</small></span><span class="radio-dot"></span></button>
+  <section class="welcome" id="welcome-panel">
+    <div class="welcome-copy">
+      <p class="eyebrow">SWEET MOMENTS · SWEETNESS ON WHEELS</p>
+      <div class="brand-mark">HUMMIE <b>BEAR</b><span>Lollywafel Edition</span></div>
+      <h1>Jouw wafel.<br><em>Jouw moment.</em></h1>
+      <p>Versgebakken, jouw favoriete chocolade en toppings. Stel je lollywafel helemaal zelf samen.</p>
+      <button id="start-order" type="button" class="primary start-button">Maak je lollywafel <span aria-hidden="true">→</span></button>
+      <div class="welcome-highlights"><span>Verse lollywafels</span><span>Jouw favoriete toppings</span><span>Snel en eenvoudig bestellen</span></div>
     </div>
-    <button id="checkout" type="button" class="primary wide" disabled>Verder naar betalen</button>
-    <p class="fine" id="payment-note">Je online betaling verloopt veilig via Mollie.</p>
+    <div class="welcome-image-wrap"><img class="welcome-image" src="https://ggm.bynder.com/asset/a05b3439-d9e6-4deb-a226-786436f9474a/JPG/lolly_on_a_stick_waffle-jpg.jpg" alt="Lollywafel op een stokje met chocolade en toppings" onerror="this.hidden=true"></div>
+  </section>
+
+  <section id="wizard" hidden>
+    <div class="wizard-topline">
+      <button id="wizard-back-top" type="button" class="back-link" hidden>← Terug</button>
+      <div class="progress-wrap"><span id="step-counter">Stap 1 van 7</span><div class="progress-track"><span id="progress-fill"></span></div></div>
+      <button id="restart-order" type="button" class="restart-link">Opnieuw</button>
+    </div>
+    <div class="wizard-card">
+      <div class="step-panel" data-step-panel="0">
+        <p class="eyebrow">STAP 1 · WIE BESTELT?</p>
+        <h1>Hoe mogen we je noemen?</h1>
+        <p class="step-description">Dan weten we voor wie de lollywafel is.</p>
+        <label class="field">Jouw voornaam<input id="customer-name" maxlength="60" autocomplete="given-name" placeholder="Bijvoorbeeld Emma" enterkeyhint="go" required></label>
+      </div>
+      <div class="step-panel" data-step-panel="1" hidden>
+        <p class="eyebrow">STAP 2 · JOUW WAFEL</p>
+        <h1>Kies je lollywafel</h1>
+        <p class="step-description">Een versgebakken wafel op een stokje. Daarna kies je zelf de afwerking.</p>
+        <button id="waffle-card" type="button" class="waffle-product selected" aria-pressed="true">
+          <img src="https://ggm.bynder.com/asset/a05b3439-d9e6-4deb-a226-786436f9474a/JPG/lolly_on_a_stick_waffle-jpg.jpg" alt="Lollywafel op een stokje" onerror="this.hidden=true">
+          <span class="waffle-product-copy"><span class="selected-pill">✓ Geselecteerd</span><strong>Lollywafel</strong><small>Op een stokje · zelf samenstellen</small><b id="waffle-base-price">€ 5,00</b></span>
+          <span class="choice-check" aria-hidden="true">✓</span>
+        </button>
+      </div>
+      <div class="step-panel" data-step-panel="2" hidden>
+        <p class="eyebrow">STAP 3 · CHOCOLADE</p>
+        <h1>Kies je chocolade</h1>
+        <p class="step-description">Welke chocolade wil je over jouw lollywafel?</p>
+        <div id="chocolate-options" class="choice-grid" role="group" aria-label="Kies je chocolade"><p class="loading">Keuzes laden…</p></div>
+      </div>
+      <div class="step-panel" data-step-panel="3" hidden>
+        <p class="eyebrow">STAP 4 · SAUS</p>
+        <h1>Kies je saus</h1>
+        <p class="step-description">Kies jouw favoriet. Eén saus per wafel.</p>
+        <div id="sauce-options" class="choice-grid" role="group" aria-label="Kies je saus"><p class="loading">Keuzes laden…</p></div>
+      </div>
+      <div class="step-panel" data-step-panel="4" hidden>
+        <p class="eyebrow">STAP 5 · TOPPINGS</p>
+        <h1>Maak 'm helemaal af</h1>
+        <p class="step-description">Tik op de foto's om toppings te kiezen. Je mag er meerdere nemen.</p>
+        <div id="topping-note" class="price-hint">Elke extra topping: € 0,50</div>
+        <div id="topping-options" class="choice-grid toppings" role="group" aria-label="Kies je toppings"><p class="loading">Keuzes laden…</p></div>
+      </div>
+      <div class="step-panel" data-step-panel="5" hidden>
+        <p class="eyebrow">STAP 6 · AANTAL</p>
+        <h1>Hoeveel wafels?</h1>
+        <p class="step-description">De gekozen chocolade, saus en toppings gelden voor elke wafel in deze bestelling.</p>
+        <div class="quantity-card">
+          <img src="https://ggm.bynder.com/asset/a05b3439-d9e6-4deb-a226-786436f9474a/JPG/lolly_on_a_stick_waffle-jpg.jpg" alt="" aria-hidden="true" onerror="this.hidden=true">
+          <div class="quantity-copy"><strong>Lollywafel</strong><span id="quantity-detail">Jouw gekozen afwerking</span><strong id="qty-price">€ 5,00 per wafel</strong></div>
+          <div class="qty"><button id="minus" type="button" aria-label="Minder wafels">−</button><output id="qty">1</output><button id="plus" type="button" aria-label="Meer wafels">+</button></div>
+        </div>
+        <div class="total-card"><span id="qty-summary">Totaal voor 1 wafel</span><strong id="total">€ 5,00</strong></div>
+      </div>
+      <div class="step-panel" data-step-panel="6" hidden>
+        <p class="eyebrow">STAP 7 · CONTROLEREN EN BETALEN</p>
+        <h1>Klopt je bestelling?</h1>
+        <p class="step-description">Controleer je keuzes. Bijna klaar!</p>
+        <div class="review-card">
+          <img class="review-photo" src="https://ggm.bynder.com/asset/a05b3439-d9e6-4deb-a226-786436f9474a/JPG/lolly_on_a_stick_waffle-jpg.jpg" alt="Lollywafel" onerror="this.hidden=true">
+          <div class="review-details"><strong id="review-name">Jouw lollywafel</strong><p id="review-choice"></p><p id="review-quantity"></p><button id="change-choices" type="button" class="text-button">Keuzes aanpassen</button></div>
+          <strong id="review-total" class="review-price">€ 5,00</strong>
+        </div>
+        <div class="review-line"><span>Naam</span><strong id="review-customer"></strong></div>
+        <div class="review-line"><span>Aantal</span><strong id="review-count"></strong></div>
+        <div class="grand-total"><span>Totaal</span><strong id="grand-total">€ 5,00</strong></div>
+        <div id="payment-options" class="payment-options">
+          <h2>Hoe wil je betalen?</h2>
+          <button type="button" class="payment-choice selected" data-payment="mollie" aria-pressed="true"><span class="pay-icon" aria-hidden="true">↗</span><span><strong>Online betalen</strong><small>Veilig via Mollie · Bancontact en meer</small></span><span class="radio-dot" aria-hidden="true"></span></button>
+          <button type="button" class="payment-choice" data-payment="cash" aria-pressed="false"><span class="pay-icon" aria-hidden="true">€</span><span><strong>Cash in de truck</strong><small>Je betaalt contant aan onze medewerker</small></span><span class="radio-dot" aria-hidden="true"></span></button>
+          <p id="payment-note" class="fine">Online betalen verloopt veilig via Mollie.</p>
+        </div>
+        <div id="included-note" class="included-note" hidden>Deze bestelling is inbegrepen bij het evenement. Je hoeft niet te betalen.</div>
+      </div>
+    </div>
+    <div class="wizard-footer">
+      <button id="back-step" type="button" class="secondary-button" hidden>← Terug</button>
+      <div class="footer-price"><small id="footer-price-label">Prijs per wafel</small><strong id="footer-price">€ 5,00</strong></div>
+      <button id="next-step" type="button" class="primary">Verder <span aria-hidden="true">→</span></button>
+      <button id="place-order" type="button" class="primary" hidden>Bestelling plaatsen <span aria-hidden="true">→</span></button>
+    </div>
+    <p class="privacy-note">Je bestelling wordt pas verwerkt na de vereiste betaling of na bevestiging van cash door onze medewerker.</p>
+  </section>
+
+  <section id="order-confirmation" class="confirmation" hidden>
+    <div class="confirmation-mark">✓</div><p class="eyebrow">HUMMIE BEAR · LOLLYWAFEL EDITION</p>
+    <h1 id="confirmation-title">Bestelling ontvangen!</h1><p id="confirmation-message">We gaan met jouw bestelling aan de slag.</p>
+    <div class="order-number-label">Jouw bestelnummer</div><div id="confirmed-order-number" class="order-number">HB-00000000</div>
+    <p id="confirmation-help" class="step-description">Hou je nummer bij de hand. Je ziet op het bakscherm wanneer je bestelling klaar is.</p>
+    <button id="new-order" type="button" class="primary">Nieuwe bestelling <span aria-hidden="true">↻</span></button>
   </section>
 </main>
+
 <main id="kitchen-view" hidden>
-  <section class="intro kitchen-intro"><div class="intro-copy"><p class="eyebrow">HUMMIE BEAR · TEAM</p><h1>Bakscherm <em>& bestellingen</em></h1><p>Open dit scherm op je smartphone en laat het aan tijdens het evenement.</p></div></section>
+  <section class="kitchen-hero"><p class="eyebrow">HUMMIE BEAR · TEAM</p><h1>Bakscherm</h1><p>Nieuwe bestellingen verschijnen hier automatisch.</p></section>
   <div class="adminbar"><input id="admin-token" type="password" autocomplete="current-password" placeholder="Beheertoken"><button id="save-token" type="button">Verbinden</button><button id="sound-toggle" type="button">Geluid aan</button></div>
   <div id="sales-summary" class="notice">Verbind om verkoopstatistieken te laden.</div>
-  <div id="kitchen-orders" class="orders"><p class="muted">Vul de beheertoken in om bestellingen te laden.</p></div>
+  <div class="orders-layout"><div class="orders-heading"><h2>Bestellingen</h2><span class="live-indicator">● Automatisch vernieuwen</span></div><div id="kitchen-orders" class="orders"><p class="muted">Vul de beheertoken in om bestellingen te laden.</p></div></div>
   <section class="admin-settings">
-    <h2>Evenementinstellingen</h2><p class="muted">Pas prijs of inbegrepen modus aan voor je huidige evenement.</p>
+    <h2>Evenementinstellingen</h2><p class="muted">Pas prijs, toppings en inbegrepen modus aan.</p>
     <label class="field">Naam evenement<input id="setting-event" maxlength="100" placeholder="Bijv. Zondagmarkt"></label>
     <label class="field">Prijsmodus<select id="setting-mode"><option value="paid">Publieke verkoop — betalen</option><option value="included">Privé-evenement — inbegrepen, geen prijzen</option></select></label>
     <label class="field">Prijs per wafel (€)<input id="setting-price" type="number" min="0" step="0.50" value="5.00"></label>
     <label class="field">Prijs per extra topping (€)<input id="setting-topping-price" type="number" min="0" step="0.50" value="0.50"></label>
     <button id="save-settings" type="button" class="primary">Instellingen opslaan</button>
-    <div class="section-title"><div><span class="step">05</span><h2>Voorraad / beschikbaarheid</h2></div></div><p class="muted">Schakel een ingrediënt uit als het op is.</p>
+    <div class="section-title"><div><span class="step">+</span><h2>Voorraad / beschikbaarheid</h2></div></div><p class="muted">Schakel een ingrediënt uit als het op is.</p>
     <div id="stock-options" class="choice-grid"><p class="muted">Verbind eerst met het beheerscherm.</p></div>
   </section>
 </main>
 <footer><span>Hummie Bear · Sweetness on wheels</span><span>Een beetje zoet maakt je dag.</span></footer>
 <script src="/self-order.js"></script>
-</body></html>
+</body>
+</html>
