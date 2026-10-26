@@ -1,5 +1,5 @@
 const $=s=>document.querySelector(s);
-let config=null,serverReady=false,step=0,qty=1,choices={chocolate:null,sauce:null,toppings:[]},paymentMethod='mollie',soundOn=true,lastOrderIds=new Set(),waffleSelected=true;
+let config=null,serverReady=false,step=0,qty=1,choices={chocolate:null,sauce:null,toppings:[]},paymentMethod='mollie',soundOn=true,lastOrderIds=new Set(),waffleSelected=true,kitchenRefreshInFlight=false,settingsDirty=false,kitchenHasLoaded=false;
 const money=c=>(Number(c||0)/100).toLocaleString('nl-BE',{style:'currency',currency:'EUR'});
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const team=new URLSearchParams(location.search).get('team')==='1';
@@ -161,22 +161,28 @@ async function initKitchen(){
   const saved=sessionStorage.getItem('hb-kiosk-token');if(saved)$('#admin-token').value=saved;
   $('#save-token').onclick=()=>{sessionStorage.setItem('hb-kiosk-token',$('#admin-token').value.trim());loadKitchen(true)};
   $('#sound-toggle').onclick=()=>{soundOn=!soundOn;$('#sound-toggle').textContent=soundOn?'Geluid aan':'Geluid uit'};
+  ['setting-event','setting-mode','setting-price','setting-topping-price'].forEach(id=>{
+    const field=$('#'+id);field.addEventListener('input',()=>settingsDirty=true);field.addEventListener('change',()=>settingsDirty=true);
+  });
   $('#save-settings').onclick=saveSettings;await loadKitchen(true);setInterval(()=>loadKitchen(false),4000);
 }
 function token(){return sessionStorage.getItem('hb-kiosk-token')||$('#admin-token').value.trim()}
 async function loadKitchen(showError){
-  if(!token())return;
+  if(!token()||kitchenRefreshInFlight)return;
+  kitchenRefreshInFlight=true;
   try{
     const d=await api('/api/kiosk-admin.js',{headers:{'x-kiosk-admin':token()}});
     renderOrders(d.orders||[]);renderStock(d.options||[]);
-    if(d.settings){$('#setting-event').value=d.settings.event_name||'';$('#setting-mode').value=d.settings.mode;$('#setting-price').value=(d.settings.base_price_cents/100).toFixed(2);$('#setting-topping-price').value=(d.settings.extra_topping_price_cents/100).toFixed(2)}
+    if(d.settings&&!settingsDirty){$('#setting-event').value=d.settings.event_name||'';$('#setting-mode').value=d.settings.mode;$('#setting-price').value=(d.settings.base_price_cents/100).toFixed(2);$('#setting-topping-price').value=(d.settings.extra_topping_price_cents/100).toFixed(2)}
   }catch(e){if(showError)$('#kitchen-orders').innerHTML='<p class="muted">'+esc(e.message)+'</p>'}
+  finally{kitchenRefreshInFlight=false}
 }
 function renderOrders(orders){
   const visible=orders.filter(o=>['paid','included','refund_pending','refunded'].includes(o.payment_status)||(o.payment_method==='cash'&&o.payment_status==='pending'));
   const fresh=visible.filter(o=>o.status==='new'&&!lastOrderIds.has(o.id));
-  if(soundOn&&lastOrderIds.size&&fresh.length){try{const C=window.AudioContext||window.webkitAudioContext;if(C){const c=new C(),osc=c.createOscillator(),gain=c.createGain();osc.connect(gain);gain.connect(c.destination);osc.frequency.value=880;gain.gain.value=.1;osc.start();osc.stop(c.currentTime+.22)}}catch{}}
+  if(soundOn&&kitchenHasLoaded&&fresh.length){try{const C=window.AudioContext||window.webkitAudioContext;if(C){const c=new C(),osc=c.createOscillator(),gain=c.createGain();osc.connect(gain);gain.connect(c.destination);osc.frequency.value=880;gain.gain.value=.1;osc.start();osc.stop(c.currentTime+.22)}}catch{}}
   visible.forEach(o=>lastOrderIds.add(o.id));
+  kitchenHasLoaded=true;
   const paid=visible.filter(o=>o.payment_status==='paid'),cashDue=visible.filter(o=>o.payment_method==='cash'&&o.payment_status==='pending'),included=visible.filter(o=>o.payment_status==='included');
   const revenue=paid.reduce((sum,o)=>sum+Number(o.total_cents||0),0);
   $('#sales-summary').innerHTML='<strong>'+visible.length+'</strong> bestellingen · <strong>'+money(revenue)+'</strong> ontvangen · <strong>'+cashDue.length+'</strong> cash nog te innen · <strong>'+included.length+'</strong> inbegrepen';
@@ -184,16 +190,17 @@ function renderOrders(orders){
   if(!visible.length){el.innerHTML='<p class="muted">Nog geen betaalde, cash- of inbegrepen bestellingen.</p>';return}
   el.innerHTML=visible.map(o=>{
     const isCashDue=o.payment_method==='cash'&&o.payment_status==='pending';
+    const canProcess=['paid','included'].includes(o.payment_status);
     const payLabel=o.payment_status==='included'?'Inbegrepen':isCashDue?'Cash te ontvangen':o.payment_status==='refund_pending'?'Terugbetaling bezig':o.payment_status==='refunded'?'Terugbetaald':o.payment_method==='cash'?'Cash ontvangen':'Online betaald';
     const payClass=isCashDue?'status cash-due':'status';
-    return '<article class="order-card"><div class="order-head"><strong>#'+esc(o.order_number)+' · '+esc(o.customer_name)+'</strong><span class="'+payClass+'">'+esc(o.status==='new'?'Nieuw':o.status==='preparing'?'In bereiding':o.status==='ready'?'Klaar':'Afgehandeld')+'</span></div><p class="muted">'+new Date(o.created_at).toLocaleTimeString('nl-BE',{hour:'2-digit',minute:'2-digit'})+' · '+esc(payLabel)+'</p><ul>'+(o.items||[]).map(i=>'<li><b>Lollywafel</b> · '+esc(i.chocolate)+' · '+esc(i.sauce)+(i.toppings?.length?' · '+esc(i.toppings.join(', ')):'')+'</li>').join('')+'</ul><p><strong>'+(o.price_mode==='included'?'Inbegrepen':money(o.total_cents))+'</strong></p><div class="order-actions">'+(isCashDue?'<button class="cash-confirm" data-cash="'+esc(o.id)+'">Cash ontvangen</button>':'')+(o.status==='new'?'<button data-status="preparing" data-id="'+esc(o.id)+'">In bereiding</button>':'')+(o.status!=='ready'&&o.status!=='completed'?'<button class="ready" data-status="ready" data-id="'+esc(o.id)+'">Klaar</button>':'')+(o.status==='ready'?'<button data-status="completed" data-id="'+esc(o.id)+'">Afgegeven</button>':'')+(o.payment_method==='mollie'&&o.payment_status==='paid'?'<button data-refund="'+esc(o.id)+'">Terugbetalen</button>':'')+'</div></article>'
+    return '<article class="order-card"><div class="order-head"><strong>#'+esc(o.order_number)+' · '+esc(o.customer_name)+'</strong><span class="'+payClass+'">'+esc(o.status==='new'?'Nieuw':o.status==='preparing'?'In bereiding':o.status==='ready'?'Klaar':'Afgehandeld')+'</span></div><p class="muted">'+new Date(o.created_at).toLocaleTimeString('nl-BE',{hour:'2-digit',minute:'2-digit'})+' · '+esc(payLabel)+'</p><ul>'+(o.items||[]).map(i=>'<li><b>Lollywafel</b> · '+esc(i.chocolate)+' · '+esc(i.sauce)+(i.toppings?.length?' · '+esc(i.toppings.join(', ')):'')+'</li>').join('')+'</ul><p><strong>'+(o.price_mode==='included'?'Inbegrepen':money(o.total_cents))+'</strong></p><div class="order-actions">'+(isCashDue?'<button class="cash-confirm" data-cash="'+esc(o.id)+'">Cash ontvangen</button>':'')+(canProcess&&o.status==='new'?'<button data-status="preparing" data-id="'+esc(o.id)+'">In bereiding</button>':'')+(canProcess&&o.status!=='ready'&&o.status!=='completed'?'<button class="ready" data-status="ready" data-id="'+esc(o.id)+'">Klaar</button>':'')+(canProcess&&o.status==='ready'?'<button data-status="completed" data-id="'+esc(o.id)+'">Afgegeven</button>':'')+(o.payment_method==='mollie'&&o.payment_status==='paid'?'<button data-refund="'+esc(o.id)+'">Terugbetalen</button>':'')+'</div></article>'
   }).join('');
   el.querySelectorAll('.order-card').forEach(card=>{if(card.querySelector('[data-cash]'))card.querySelectorAll('[data-status]').forEach(button=>button.remove())});
   el.querySelectorAll('[data-status]').forEach(b=>b.onclick=async()=>{try{await api('/api/kiosk-admin.js',{method:'POST',headers:{'x-kiosk-admin':token()},body:JSON.stringify({action:'status',order_id:b.dataset.id,status:b.dataset.status})});loadKitchen(false)}catch(e){alert(e.message)}});
   el.querySelectorAll('[data-cash]').forEach(b=>b.onclick=async()=>{if(!confirm('Bevestig dat het cashgeld in de truck ontvangen is?'))return;b.disabled=true;try{await api('/api/kiosk-admin.js',{method:'POST',headers:{'x-kiosk-admin':token()},body:JSON.stringify({action:'cash_received',order_id:b.dataset.cash})});loadKitchen(false)}catch(e){b.disabled=false;alert(e.message)}});
   el.querySelectorAll('[data-refund]').forEach(b=>b.onclick=async()=>{if(!confirm('Volledige online betaling via Mollie terugbetalen?'))return;try{await api('/api/kiosk-refund.js',{method:'POST',headers:{'x-kiosk-admin':token()},body:JSON.stringify({order_id:b.dataset.refund})});alert('Terugbetaling aangevraagd bij Mollie.');loadKitchen(false)}catch(e){alert(e.message)}});
 }
-async function saveSettings(){try{await api('/api/kiosk-admin.js',{method:'POST',headers:{'x-kiosk-admin':token()},body:JSON.stringify({action:'settings',event_name:$('#setting-event').value,mode:$('#setting-mode').value,base_price_cents:Math.round(Number($('#setting-price').value)*100),extra_topping_price_cents:Math.round(Number($('#setting-topping-price').value)*100)})});alert('Instellingen opgeslagen.');loadKitchen(false)}catch(e){alert(e.message)}}
+async function saveSettings(){try{await api('/api/kiosk-admin.js',{method:'POST',headers:{'x-kiosk-admin':token()},body:JSON.stringify({action:'settings',event_name:$('#setting-event').value,mode:$('#setting-mode').value,base_price_cents:Math.round(Number($('#setting-price').value)*100),extra_topping_price_cents:Math.round(Number($('#setting-topping-price').value)*100)})});alert('Instellingen opgeslagen.');settingsDirty=false;loadKitchen(false)}catch(e){alert(e.message)}}
 function renderStock(options){
   const el=$('#stock-options');if(!el)return;
   el.innerHTML=options.map(o=>'<label class="stock-choice"><input type="checkbox" data-stock="'+esc(o.id)+'" '+(o.active?'checked':'')+'><span><strong>'+esc(o.name)+'</strong><small>'+(o.kind==='topping'?'Topping':o.kind==='sauce'?'Saus':'Chocolade')+'</small></span></label>').join('');
