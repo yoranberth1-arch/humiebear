@@ -17,3 +17,19 @@ footer{border-top:1px solid var(--line);margin-top:12px;padding:18px clamp(14px,
 @media(max-width:360px){.logo{font-size:.8rem}#event-label{display:none}.wizard-footer{grid-template-columns:auto minmax(0,1fr)}.footer-price{display:none}.wizard-footer .primary{grid-column:2}.choice-photo-wrap{height:104px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
 @media print{.top,.wizard-footer,footer,.payment-options,#place-order{display:none!important}body{background:white}.confirmation,.wizard-card{box-shadow:none;border:0}}
+
+
+/* Payment return and receipt */
+.muted{color:var(--muted)}
+.result-confirmation{margin-top:14px}
+.result-confirmation .eyebrow{margin-bottom:12px}
+.result-confirmation h1{font-size:clamp(2rem,6vw,2.8rem)}
+.status-text{font-size:.84rem;font-weight:750;margin-top:16px}
+.receipt-panel{margin-top:22px;padding:18px;text-align:left;background:#fff;border:1px solid var(--line);border-radius:16px}
+.receipt-panel h2{font-size:1.14rem;line-height:1.25;margin:0 0 10px}
+.receipt-panel p{font-size:.85rem;line-height:1.45}
+.receipt-panel ul{padding-left:20px;line-height:1.5;font-size:.88rem}
+.receipt-panel li{margin:4px 0}
+.result-confirmation #print{width:100%;margin-top:14px}
+.return-link a{color:#b92358;font-weight:850;text-decoration:none}
+
