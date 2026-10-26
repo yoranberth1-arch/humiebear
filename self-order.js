@@ -1,5 +1,5 @@
 const $=s=>document.querySelector(s);
-let config=null,cart=[],qty=1,choices={chocolate:null,sauce:null,toppings:[]},paymentMethod='mollie',soundOn=true,lastOrderIds=new Set();
+let config=null,serverReady=false,cart=[],qty=1,choices={chocolate:null,sauce:null,toppings:[]},paymentMethod='mollie',soundOn=true,lastOrderIds=new Set();
 const money=c=>(Number(c||0)/100).toLocaleString('nl-BE',{style:'currency',currency:'EUR'});
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const team=new URLSearchParams(location.search).get('team')==='1';
@@ -20,6 +20,18 @@ const fallbackEmoji={'chocolate':'🍫','sauce':'🍓','topping':'✨'};
 if(team){$('#customer-view').hidden=true;$('#kitchen-view').hidden=false;initKitchen()}else initCustomer();
 
 async function api(url,opts={}){const r=await fetch(url,{...opts,headers:{'content-type':'application/json',...(opts.headers||{})},cache:'no-store'});const d=await r.json().catch(()=>({error:'Ongeldige serverrespons'}));if(!r.ok)throw new Error(d.error||'Er ging iets mis');return d}
+const demoOptions=[
+ {id:'choc-milk',name:'Melkchocolade',kind:'chocolate'},
+ {id:'choc-white',name:'Witte chocolade',kind:'chocolate'},
+ {id:'sauce-strawberry',name:'Aardbeiensaus',kind:'sauce'},
+ {id:'sauce-caramel',name:'Caramelsaus',kind:'sauce'},
+ {id:'top-brazil',name:'Braziliaanse nootjes',kind:'topping'},
+ {id:'top-oreo',name:'Oreo-kruimels',kind:'topping'},
+ {id:'top-speculoos',name:'Speculooskruimels',kind:'topping'},
+ {id:'top-marshmallow',name:'Marshmallows',kind:'topping'},
+ {id:'top-coco',name:'Kleine coco balls',kind:'topping'},
+ {id:'top-sprinkles',name:'Sprinkles',kind:'topping'}
+];
 async function initCustomer(){
   $('#minus').onclick=()=>{qty=Math.max(1,qty-1);$('#qty').textContent=qty;updateTotals()};
   $('#plus').onclick=()=>{qty=Math.min(20,qty+1);$('#qty').textContent=qty;updateTotals()};
@@ -27,17 +39,22 @@ async function initCustomer(){
   document.querySelectorAll('[data-payment]').forEach(b=>b.onclick=()=>{paymentMethod=b.dataset.payment;document.querySelectorAll('[data-payment]').forEach(x=>x.classList.toggle('selected',x===b));updatePaymentLabel()});
   try{
     config=await api('/api/kiosk-config');
-    $('#event-label').textContent=config.event_name||'Lollywafel Edition';
-    $('#price-label').textContent=config.mode==='included'?'Inbegrepen per wafel':'Prijs per wafel';
-    $('#payment-note').textContent=config.mode==='included'?'Dit is een inbegrepen bestelling; er wordt geen betaling gevraagd.':'Online betalen gaat veilig via Mollie. Kies cash als je in de truck wilt betalen.';
-    $('#topping-note').textContent=config.mode==='included'?'Kies je favoriete toppings':'€ 0,50 per extra topping';
-    if(!Array.isArray(config.options)||config.options.length===0)throw new Error('Er zijn nog geen productkeuzes beschikbaar. Controleer de serverinstellingen.');
-    renderOptions('chocolate-options',config.options.filter(o=>o.kind==='chocolate'),'chocolate');
-    renderOptions('sauce-options',config.options.filter(o=>o.kind==='sauce'),'sauce');
-    renderOptions('topping-options',config.options.filter(o=>o.kind==='topping'),'toppings');
-    $('#payment-options').hidden=config.mode==='included';
-    updatePaymentLabel();updateTotals();
-  }catch(e){notice(e.message,true);['chocolate-options','sauce-options','topping-options'].forEach(id=>$('#'+id).innerHTML='<p class="choice-error">De keuzes kunnen niet worden geladen. Vernieuw de pagina of meld dit aan de medewerker.</p>');$('#add-order').disabled=true}
+    if(!Array.isArray(config.options)||config.options.length===0)throw new Error('De productkeuzes zijn nog niet beschikbaar.');
+    serverReady=true;
+  }catch(e){
+    serverReady=false;
+    config={event_name:'Lollywafel Edition',mode:'paid',base_price_cents:500,extra_topping_price_cents:50,options:demoOptions};
+    notice('Previewmodus: je kan de keuzes en winkelmand testen. Bestellingen/betalingen worden pas actief nadat de serverinstellingen zijn ingevuld.',true);
+  }
+  $('#event-label').textContent=config.event_name||'Lollywafel Edition';
+  $('#price-label').textContent=config.mode==='included'?'Inbegrepen per wafel':'Prijs per wafel';
+  $('#payment-note').textContent=serverReady?(config.mode==='included'?'Dit is een inbegrepen bestelling; er wordt geen betaling gevraagd.':'Online betalen gaat veilig via Mollie. Kies cash als je in de truck wilt betalen.'):'Visuele preview: selecteren werkt, maar er worden nog geen echte bestellingen aangemaakt.';
+  $('#topping-note').textContent=config.mode==='included'?'Kies je favoriete toppings':'€ 0,50 per extra topping';
+  $('#payment-options').hidden=config.mode==='included';
+  renderOptions('chocolate-options',config.options.filter(o=>o.kind==='chocolate'),'chocolate');
+  renderOptions('sauce-options',config.options.filter(o=>o.kind==='sauce'),'sauce');
+  renderOptions('topping-options',config.options.filter(o=>o.kind==='topping'),'toppings');
+  updatePaymentLabel();updateTotals();
 }
 function productPhoto(id,kind){return photos[id]||photos.hero}
 function renderOptions(target,items,kind){
@@ -92,6 +109,7 @@ function renderCart(){
 }
 async function checkout(){
   const name=$('#customer-name').value.trim();if(!name){notice('Vul je voornaam in.');$('#customer-name').focus();return}if(!cart.length)return;
+  if(!serverReady){notice('Dit is nu alleen de visuele preview. Om bestellingen te activeren moeten de servergeheimen in Vercel nog ingevuld worden. Deel die sleutels niet in de chat.',true);return}
   const btn=$('#checkout');btn.disabled=true;btn.textContent='Bestelling wordt klaargemaakt…';
   try{
     const result=await api('/api/kiosk-create-payment',{method:'POST',body:JSON.stringify({customer_name:name,payment_method:config.mode==='included'?'included':paymentMethod,items:cart.map(i=>({chocolate_id:i.chocolate_id,sauce_id:i.sauce_id,topping_ids:i.topping_ids}))})});
@@ -119,7 +137,6 @@ async function loadKitchen(showError){
     if(d.settings){$('#setting-event').value=d.settings.event_name||'';$('#setting-mode').value=d.settings.mode;$('#setting-price').value=(d.settings.base_price_cents/100).toFixed(2);$('#setting-topping-price').value=(d.settings.extra_topping_price_cents/100).toFixed(2)}
   }catch(e){if(showError)$('#kitchen-orders').innerHTML='<p class="muted">'+esc(e.message)+'</p>'}
 }
-function token(){return sessionStorage.getItem('hb-kiosk-token')||$('#admin-token').value.trim()}
 function renderOrders(orders){
   const visible=orders.filter(o=>['paid','included','refund_pending','refunded'].includes(o.payment_status)||(o.payment_method==='cash'&&o.payment_status==='pending'));
   const fresh=visible.filter(o=>o.status==='new'&&!lastOrderIds.has(o.id));
