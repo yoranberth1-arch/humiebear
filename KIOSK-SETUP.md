@@ -12,7 +12,7 @@ This is the isolated self-service kiosk on branch `self-ordering-kiosk`. It does
 - Paid public mode or included/private-event mode with prices hidden
 - Cash versus Mollie payment selection on the customer kiosk; cash stays pending until staff confirms the cash was received
 - Mollie hosted checkout; order becomes paid only after the server verifies the Mollie status in the webhook. Cash orders are never treated as paid until a staff member taps “Cash ontvangen”.
-- Kitchen status changes, sound alert, sales/order overview, refund request
+- Kitchen status changes in sequence (new → preparing → ready → completed), sound alert, sales/order overview, refund request
 - Stock availability controls directly on the kitchen screen (toggle chocolate, sauces and toppings on/off)
 
 ## Database
@@ -48,7 +48,7 @@ The existing `vercel.json` already routes `api/*.js` to Vercel Node functions. T
 - Admin token is a simple shared secret suitable for a controlled pilot. Before broad production use, replace it with Supabase Auth staff accounts and role-based policies.
 - Earlier pilot checks recorded that the seven-step flow and test-mode Mollie payment returned through the test webhook. In the latest audit, guest access to the Vercel Preview was blocked by Vercel deployment protection, so a fresh independent end-to-end guest test could not be repeated.
 - A successful paid Mollie **test-mode** checkout was completed end-to-end: the test payment returned to the receipt page and the verified webhook marked the order paid. The test order was removed afterward. No live charge was made. Failed/canceled payments and the refund workflow still need dedicated test-mode verification before production.
-- Refund creation now sends a stable Mollie `Idempotency-Key` based on the order UUID, and staff status updates require a paid/included order. Order-creation still needs durable idempotency/rate limiting and abandoned-order cleanup before wider production use.
+- Refund creation now sends a stable Mollie `Idempotency-Key` based on the order UUID. Staff status changes require a paid/included order, enforce the allowed status sequence, use conditional updates to reduce race conditions, and admin/order-status responses disable caching. Order-creation still needs durable idempotency/rate limiting and abandoned-order cleanup before wider production use.
 
 ## Launch blockers (do not skip)
 - The customer page is not currently published on `www.hummiebear.be`; `/self-order.html` on that live domain returns 404. The live site remains unchanged by this branch.
