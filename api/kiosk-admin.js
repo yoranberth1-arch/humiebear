@@ -1,5 +1,6 @@
 const {sb,admin,mollieFetch}=require('../kiosk-lib');
 module.exports=async function(req,res){
+  res.setHeader('Cache-Control','no-store, max-age=0');
   if(!admin(req))return res.status(401).json({error:'Geen toegang. Controleer de beheertoken.'});
   try{
     if(req.method==='GET'){
@@ -20,8 +21,20 @@ module.exports=async function(req,res){
     if(req.method!=='POST')return res.status(405).json({error:'Method not allowed'});
     const b=req.body||{};
     if(b.action==='status'){
+      const id=String(b.order_id||'');
+      if(!/^[0-9a-f-]{36}$/i.test(id))return res.status(400).json({error:'Ongeldige bestelling.'});
       if(!['preparing','ready','completed'].includes(b.status))return res.status(400).json({error:'Ongeldige status.'});
-      await sb('/rest/v1/kiosk_orders?id=eq.'+encodeURIComponent(b.order_id),{method:'PATCH',body:JSON.stringify({status:b.status,updated_at:new Date().toISOString()})});
+      const rows=await sb('/rest/v1/kiosk_orders?id=eq.'+encodeURIComponent(id)+'&select=id,payment_status,status');
+      const order=rows[0];
+      if(!order)return res.status(404).json({error:'Bestelling niet gevonden.'});
+      if(!['paid','included'].includes(order.payment_status))return res.status(409).json({error:'Bevestig eerst de betaling voordat de bestelling in bereiding gaat.'});
+      const allowedFrom={preparing:['new'],ready:['preparing'],completed:['ready']};
+      if(!allowedFrom[b.status].includes(order.status))return res.status(409).json({error:'Deze statusovergang is niet toegestaan. Vernieuw het bakscherm.'});
+      const updated=await sb('/rest/v1/kiosk_orders?id=eq.'+encodeURIComponent(id)+'&payment_status=in.(paid,included)&status=eq.'+encodeURIComponent(order.status),{
+        method:'PATCH',headers:{Prefer:'return=representation'},
+        body:JSON.stringify({status:b.status,updated_at:new Date().toISOString()})
+      });
+      if(!Array.isArray(updated)||!updated.length)return res.status(409).json({error:'De bestelstatus is intussen gewijzigd. Vernieuw het bakscherm.'});
       return res.status(200).json({ok:true});
     }
     if(b.action==='cash_received'){
@@ -30,10 +43,11 @@ module.exports=async function(req,res){
       const rows=await sb('/rest/v1/kiosk_orders?id=eq.'+encodeURIComponent(id)+'&select=id,payment_method,payment_status');
       const o=rows[0];
       if(!o||o.payment_method!=='cash'||o.payment_status!=='pending')return res.status(409).json({error:'Deze bestelling staat niet meer open voor cashbetaling.'});
-      await sb('/rest/v1/kiosk_orders?id=eq.'+encodeURIComponent(id)+'&payment_method=eq.cash&payment_status=eq.pending',{
+      const updated=await sb('/rest/v1/kiosk_orders?id=eq.'+encodeURIComponent(id)+'&payment_method=eq.cash&payment_status=eq.pending',{
         method:'PATCH',headers:{Prefer:'return=representation'},
         body:JSON.stringify({payment_status:'paid',paid_at:new Date().toISOString(),updated_at:new Date().toISOString()})
       });
+      if(!Array.isArray(updated)||!updated.length)return res.status(409).json({error:'Cash is intussen al bevestigd. Vernieuw het bakscherm.'});
       return res.status(200).json({ok:true});
     }
     if(b.action==='option'){

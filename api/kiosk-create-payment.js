@@ -14,12 +14,18 @@ module.exports=async function(req,res){
     const byId=new Map(opts.map(o=>[o.id,o]));
     let total=0;
     const lines=items.map(raw=>{
-      const chocolate=byId.get(raw.chocolate_id),sauce=byId.get(raw.sauce_id),toppingIds=Array.isArray(raw.topping_ids)?[...new Set(raw.topping_ids)]:[];
-      if(!chocolate||chocolate.kind!=='chocolate'||!sauce||sauce.kind!=='sauce'||toppingIds.some(id=>byId.get(id)?.kind!=='topping'))throw new Error('Een gekozen optie is niet meer beschikbaar.');
+      if(!raw||typeof raw!=='object')throw new Error('Een gekozen optie is ongeldig.');
+      const noChocolate=raw.chocolate_id==='choc-none';
+      const noSauce=raw.sauce_id==='sauce-none';
+      const chocolate=noChocolate?null:byId.get(raw.chocolate_id);
+      const sauce=noSauce?null:byId.get(raw.sauce_id);
+      const toppingIds=Array.isArray(raw.topping_ids)?[...new Set(raw.topping_ids)]:[];
+      if((!noChocolate&&(!chocolate||chocolate.kind!=='chocolate'))||(!noSauce&&(!sauce||sauce.kind!=='sauce'))||toppingIds.some(id=>byId.get(id)?.kind!=='topping'))throw new Error('Een gekozen optie is niet meer beschikbaar.');
       const toppings=toppingIds.map(id=>byId.get(id));
-      const price=settings.base_price_cents+toppings.length*settings.extra_topping_price_cents;
+      const isNatural=noChocolate&&noSauce&&toppingIds.length===0;
+      const price=(isNatural?400:settings.base_price_cents)+toppings.length*settings.extra_topping_price_cents;
       total+=price;
-      return {chocolate_id:chocolate.id,chocolate:chocolate.name,sauce_id:sauce.id,sauce:sauce.name,topping_ids:toppingIds,toppings:toppings.map(t=>t.name),price_cents:price};
+      return {chocolate_id:chocolate?.id||null,chocolate:noChocolate?'Geen chocolade (naturel)':chocolate.name,sauce_id:sauce?.id||null,sauce:noSauce?'Geen saus':sauce.name,topping_ids:toppingIds,toppings:toppings.map(t=>t.name),price_cents:price};
     });
     if(!Number.isSafeInteger(total)||total<0)throw new Error('De berekende prijs is ongeldig.');
     const number='HB-'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+crypto.randomBytes(3).toString('hex').toUpperCase();
