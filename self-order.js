@@ -4,11 +4,11 @@ const money=c=>(Number(c||0)/100).toLocaleString('nl-BE',{style:'currency',curre
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const team=new URLSearchParams(location.search).get('team')==='1';
 const photos={
- hero:'https://ggm.bynder.com/asset/a05b3439-d9e6-4deb-a226-786436f9474a/JPG/lolly_on_a_stick_waffle-jpg.jpg',
- 'choc-milk':'https://funchal.vtexassets.com/arquivos/ids/207635/foto_1_003.jpg?v=638724684416130000',
- 'choc-white':'https://snapcalorie-webflow-website.s3.us-east-2.amazonaws.com/media/recipe_pics_v2/medium/white_chocolate_sauce.jpg',
+ hero:'https://www.cfw.co.uk/site/SCA/cfw-product-images/Neumarker%20Thermocook%20Plates%20Only%20-%20Rectangle%20Waffle%20on%20a%20Stick_main-3.jpg',
+ 'choc-milk':'https://lollywaffle.com/wp-content/uploads/2022/05/products-Resized-Milk_3-scaled.jpg',
+ 'choc-white':'https://lollywaffle.com/wp-content/uploads/2022/05/products-Resized-White-Chocolate-scaled.jpg',
  'sauce-strawberry':'https://www.linsfood.com/wp-content/uploads/2018/06/Strawberry-Coulis.jpg',
- 'sauce-caramel':'https://bakewithzoha.com/wp-content/uploads/2024/09/salted-caramel-3.jpg',
+ 'sauce-caramel':'https://lollywaffle.com/wp-content/uploads/2024/11/Liquid-Caramel-for-Fountains-600x752.jpg',
  'top-brazil':'https://centraldealimentos.cdn.magazord.com.br/img/2025/10/produto/11078/castanha.png?ims=fit-in%2F600x600%2Ffilters%3Afill%28white%29',
  'top-oreo':'https://www.porkkinggood.com/cdn/shop/articles/oreo_crumbs.png?v=1583931390&width=900',
  'top-speculoos':'https://www.ovgrp.com/api/media/file/2031-Speculoos-Biscuit-Crumb-1.jpg',
