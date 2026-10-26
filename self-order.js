@@ -1,5 +1,5 @@
 const $=s=>document.querySelector(s);
-let config=null,serverReady=false,cart=[],qty=1,choices={chocolate:null,sauce:null,toppings:[]},paymentMethod='mollie',soundOn=true,lastOrderIds=new Set();
+let config=null,serverReady=false,step=0,qty=1,choices={chocolate:null,sauce:null,toppings:[]},paymentMethod='mollie',soundOn=true,lastOrderIds=new Set(),waffleSelected=true;
 const money=c=>(Number(c||0)/100).toLocaleString('nl-BE',{style:'currency',currency:'EUR'});
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const team=new URLSearchParams(location.search).get('team')==='1';
@@ -18,7 +18,6 @@ const photos={
 };
 const fallbackEmoji={'choc-milk':'🍫','choc-white':'🍫','sauce-strawberry':'🍓','sauce-caramel':'🍯','top-brazil':'🥜','top-oreo':'🍪','top-speculoos':'🍪','top-marshmallow':'☁️','top-coco':'🍫','top-sprinkles':'🌈'};
 if(team){$('#customer-view').hidden=true;$('#kitchen-view').hidden=false;initKitchen()}else initCustomer();
-
 async function api(url,opts={}){const r=await fetch(url,{...opts,headers:{'content-type':'application/json',...(opts.headers||{})},cache:'no-store'});const d=await r.json().catch(()=>({error:'Ongeldige serverrespons'}));if(!r.ok)throw new Error(d.error||'Er ging iets mis');return d}
 const demoOptions=[
  {id:'choc-milk',name:'Melkchocolade',kind:'chocolate'},
@@ -33,97 +32,124 @@ const demoOptions=[
  {id:'top-sprinkles',name:'Sprinkles',kind:'topping'}
 ];
 async function initCustomer(){
-  $('#minus').onclick=()=>{qty=Math.max(1,qty-1);$('#qty').textContent=qty;updateTotals()};
-  $('#plus').onclick=()=>{qty=Math.min(20,qty+1);$('#qty').textContent=qty;updateTotals()};
-  $('#add-order').onclick=addItems;$('#checkout').onclick=checkout;
-  document.querySelectorAll('[data-payment]').forEach(b=>b.onclick=()=>{paymentMethod=b.dataset.payment;document.querySelectorAll('[data-payment]').forEach(x=>x.classList.toggle('selected',x===b));updatePaymentLabel()});
-  try{
-    config=await api('/api/kiosk-config.js');
-    if(!Array.isArray(config.options)||config.options.length===0)throw new Error('De productkeuzes zijn nog niet beschikbaar.');
-    serverReady=true;
-  }catch(e){
-    serverReady=false;
-    config={event_name:'Lollywafel Edition',mode:'paid',base_price_cents:500,extra_topping_price_cents:50,options:demoOptions};
-    notice('Previewmodus: je kan de keuzes en winkelmand testen. Bestellingen/betalingen worden pas actief nadat de serverinstellingen zijn ingevuld.',true);
-  }
-  $('#event-label').textContent=config.event_name||'Lollywafel Edition';
-  $('#price-label').textContent=config.mode==='included'?'Inbegrepen per wafel':'Prijs per wafel';
-  $('#payment-note').textContent=serverReady?(config.mode==='included'?'Dit is een inbegrepen bestelling; er wordt geen betaling gevraagd.':'Online betalen gaat veilig via Mollie. Kies cash als je in de truck wilt betalen.'):'Visuele preview: selecteren werkt, maar er worden nog geen echte bestellingen aangemaakt.';
-  $('#topping-note').textContent=config.mode==='included'?'OPTIONEEL · inbegrepen':'OPTIONEEL · € 0,50 per topping per wafel';
-  $('#payment-options').hidden=config.mode==='included';
-  renderOptions('chocolate-options',config.options.filter(o=>o.kind==='chocolate'),'chocolate');
-  renderOptions('sauce-options',config.options.filter(o=>o.kind==='sauce'),'sauce');
-  renderOptions('topping-options',config.options.filter(o=>o.kind==='topping'),'toppings');
-  updatePaymentLabel();updateTotals();
+ $('#start-order').onclick=()=>{ $('#welcome-panel').hidden=true;$('#wizard').hidden=false;goToStep(0);$('#customer-name').focus();window.scrollTo({top:0,behavior:'smooth'})};
+ $('#restart-order').onclick=resetOrder;$('#wizard-back-top').onclick=backStep;$('#back-step').onclick=backStep;$('#next-step').onclick=nextStep;$('#place-order').onclick=checkout;$('#change-choices').onclick=()=>goToStep(2);
+ $('#waffle-card').onclick=()=>{waffleSelected=!waffleSelected;$('#waffle-card').classList.toggle('selected',waffleSelected);$('#waffle-card').setAttribute('aria-pressed',String(waffleSelected));$('#waffle-card .selected-pill').textContent=waffleSelected?'✓ Geselecteerd':'Tik om te kiezen'};
+ $('#minus').onclick=()=>{qty=Math.max(1,qty-1);$('#qty').textContent=qty;updateTotals();renderReview()};
+ $('#plus').onclick=()=>{qty=Math.min(20,qty+1);$('#qty').textContent=qty;updateTotals();renderReview()};
+ document.querySelectorAll('[data-payment]').forEach(b=>b.onclick=()=>{paymentMethod=b.dataset.payment;document.querySelectorAll('[data-payment]').forEach(x=>{const selected=x===b;x.classList.toggle('selected',selected);x.setAttribute('aria-pressed',String(selected))});updatePaymentLabel()});
+ try{
+  config=await api('/api/kiosk-config.js');
+  if(!Array.isArray(config.options)||config.options.length===0)throw new Error('De productkeuzes zijn niet beschikbaar.');
+  serverReady=true;
+ }catch(e){
+  serverReady=false;
+  config={event_name:'Lollywafel Edition',mode:'paid',base_price_cents:500,extra_topping_price_cents:50,options:demoOptions};
+  showNotice('De bestelapp kan de productinstellingen niet bereiken. Je kunt de vormgeving bekijken, maar bestellingen staan tijdelijk uit.',true);
+ }
+ $('#event-label').textContent=config.event_name||'Lollywafel Edition';
+ $('#waffle-base-price').textContent=config.mode==='included'?'Inbegrepen':money(config.base_price_cents);
+ $('#topping-note').textContent=config.mode==='included'?'Alle toppings zijn inbegrepen':'Elke extra topping: '+money(config.extra_topping_price_cents);
+ $('#payment-options').hidden=config.mode==='included';$('#included-note').hidden=config.mode!=='included';
+ renderOptions('chocolate-options',config.options.filter(o=>o.kind==='chocolate'),'chocolate');
+ renderOptions('sauce-options',config.options.filter(o=>o.kind==='sauce'),'sauce');
+ renderOptions('topping-options',config.options.filter(o=>o.kind==='topping'),'toppings');
+ updateTotals();updatePaymentLabel();
 }
-function productPhoto(id,kind){return photos[id]||photos.hero}
+function goToStep(next){
+ step=Math.max(0,Math.min(6,next));
+ document.querySelectorAll('[data-step-panel]').forEach(p=>p.hidden=Number(p.dataset.stepPanel)!==step);
+ $('#step-counter').textContent='Stap '+(step+1)+' van 7';
+ $('#progress-fill').style.width=((step+1)/7*100)+'%';
+ $('#back-step').hidden=step===0;$('#wizard-back-top').hidden=step===0;
+ $('#next-step').hidden=step===6;$('#place-order').hidden=step!==6;
+ $('#footer-price-label').textContent=config?.mode==='included'?'Prijs inbegrepen':'Totaal';
+ $('#footer-price').textContent=config?.mode==='included'?'Inbegrepen':money(currentTotal());
+ if(step===6)renderReview();
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function backStep(){if(step>0)goToStep(step-1);else{$('#wizard').hidden=true;$('#welcome-panel').hidden=false;window.scrollTo({top:0,behavior:'smooth'})}}
+function nextStep(){
+ if(step===0&&!$('#customer-name').value.trim()){showNotice('Vul eerst je voornaam in.');$('#customer-name').focus();return}
+ if(step===1&&!waffleSelected){showNotice('Selecteer de lollywafel om verder te gaan.');return}
+ if(step===2&&!choices.chocolate){showNotice('Kies eerst melkchocolade of witte chocolade.');return}
+ if(step===3&&!choices.sauce){showNotice('Kies eerst aardbeiensaus of karamelsaus.');return}
+ if(step<6)goToStep(step+1);
+}
 function renderOptions(target,items,kind){
-  const el=$('#'+target);
-  if(!items.length){el.innerHTML='<p class="choice-error">Geen keuzes beschikbaar. Controleer de voorraad op het bakscherm.</p>';return}
-  el.innerHTML=items.map(o=>{
-    const selected=kind==='toppings'?choices.toppings.includes(o.id):choices[kind]===o.id;
-    const label=kind==='toppings'?(config.mode==='included'?'Inbegrepen':'+ '+money(config.extra_topping_price_cents)):(kind==='chocolate'?'Tik om te kiezen':'Tik om te kiezen');
-    return '<button type="button" class="product-choice '+(selected?'selected':'')+'" data-kind="'+kind+'" data-id="'+esc(o.id)+'" aria-pressed="'+selected+'"><span class="choice-photo-wrap"><img class="choice-photo" src="'+esc(productPhoto(o.id,kind))+'" alt="'+esc(o.name)+'" loading="eager" decoding="async" onerror="this.hidden=true"><span class="choice-photo-fallback" aria-hidden="true">'+(fallbackEmoji[o.id]||'✨')+'</span><span class="choice-check" aria-hidden="true">✓</span></span><span class="choice-label">'+esc(o.name)+'</span><span class="choice-caption">'+esc(label)+'</span></button>';
-  }).join('');
-  el.querySelectorAll('.product-choice').forEach(b=>b.addEventListener('click',()=>{
-    const id=b.dataset.id,k=b.dataset.kind;
-    if(k==='toppings'){
-      choices.toppings=choices.toppings.includes(id)?choices.toppings.filter(x=>x!==id):[...choices.toppings,id];
-      b.classList.toggle('selected',choices.toppings.includes(id));b.setAttribute('aria-pressed',String(choices.toppings.includes(id)));
-    }else{
-      choices[k]=id;el.querySelectorAll('.product-choice').forEach(x=>{const s=x===b;x.classList.toggle('selected',s);x.setAttribute('aria-pressed',String(s))});
-    }
-    updateTotals();
-  }));
+ const el=$('#'+target);
+ if(!items.length){el.innerHTML='<p class="choice-error">Geen keuzes beschikbaar. Meld dit aan de medewerker.</p>';return}
+ el.innerHTML=items.map(o=>{
+  const selected=kind==='toppings'?choices.toppings.includes(o.id):choices[kind]===o.id;
+  const caption=kind==='toppings'?(config.mode==='included'?'Inbegrepen':'+ '+money(config.extra_topping_price_cents)):(kind==='chocolate'?'Chocolade':'Saus');
+  return '<button type="button" class="product-choice '+(selected?'selected':'')+'" data-kind="'+kind+'" data-id="'+esc(o.id)+'" aria-pressed="'+selected+'"><span class="choice-photo-wrap"><img class="choice-photo" src="'+esc(photos[o.id]||photos.hero)+'" alt="'+esc(o.name)+'" loading="eager" decoding="async" onerror="this.hidden=true"><span class="choice-photo-fallback" aria-hidden="true">'+(fallbackEmoji[o.id]||'✨')+'</span><span class="choice-check" aria-hidden="true">✓</span></span><span class="choice-label">'+esc(o.name)+'</span><span class="choice-caption">'+esc(caption)+'</span></button>';
+ }).join('');
+ el.querySelectorAll('.product-choice').forEach(b=>b.addEventListener('click',()=>{
+  const id=b.dataset.id,k=b.dataset.kind;
+  if(k==='toppings'){choices.toppings=choices.toppings.includes(id)?choices.toppings.filter(x=>x!==id):[...choices.toppings,id];}
+  else {choices[k]=id;}
+  renderOptions(target,items,kind);updateTotals();renderReview();clearNotice();
+ }));
 }
-function draftPrice(){return config.base_price_cents+choices.toppings.length*config.extra_topping_price_cents}
+function currentUnitPrice(){return config.base_price_cents+choices.toppings.length*config.extra_topping_price_cents}
+function currentTotal(){return currentUnitPrice()*qty}
 function updateTotals(){
-  if(!config)return;
-  $('#price-label').textContent=config.mode==='included'?'Inbegrepen bij het evenement':(qty===1?'Totaal voor 1 wafel':'Totaal voor '+qty+' wafels');
-  $('#total').textContent=config.mode==='included'?'Inbegrepen':money(draftPrice()*qty);
-  $('#grand-total').textContent=config.mode==='included'?'Inbegrepen':money(cart.reduce((s,i)=>s+i.price_cents,0));
-  $('#cart-count').textContent=cart.length+' '+(cart.length===1?'wafel':'wafels');
-  $('#add-order').innerHTML='Voeg '+qty+' '+(qty===1?'wafel':'wafels')+' toe <span aria-hidden="true">＋</span>';
-  updatePaymentLabel();
+ if(!config)return;
+ $('#qty').textContent=String(qty);
+ $('#total').textContent=config.mode==='included'?'Inbegrepen':money(currentTotal());
+ $('#qty-summary').textContent='Totaal voor '+qty+' '+(qty===1?'wafel':'wafels');
+ $('#qty-price').textContent=config.mode==='included'?'Inbegrepen per wafel':money(currentUnitPrice())+' per wafel';
+ $('#footer-price').textContent=config.mode==='included'?'Inbegrepen':money(currentTotal());
+ $('#footer-price-label').textContent=config.mode==='included'?'Prijs inbegrepen':('Totaal · '+qty+' '+(qty===1?'wafel':'wafels'));
+ $('#waffle-base-price').textContent=config.mode==='included'?'Inbegrepen':money(config.base_price_cents);
+}
+function renderReview(){
+ if(!config)return;
+ const name=$('#customer-name').value.trim()||'Je bestelling';
+ const ch=config.options.find(o=>o.id===choices.chocolate),sa=config.options.find(o=>o.id===choices.sauce),tops=choices.toppings.map(id=>config.options.find(o=>o.id===id)).filter(Boolean);
+ $('#review-name').textContent='Lollywafel';
+ $('#review-choice').textContent=(ch?ch.name:'Chocolade niet gekozen')+' · '+(sa?sa.name:'Saus niet gekozen')+' · '+(tops.length?tops.map(t=>t.name).join(', '):'Geen extra toppings');
+ $('#review-quantity').textContent=qty+' '+(qty===1?'wafel':'wafels');
+ $('#review-customer').textContent=name;
+ $('#review-count').textContent=String(qty);
+ $('#review-total').textContent=config.mode==='included'?'Inbegrepen':money(currentTotal());
+ $('#grand-total').textContent=config.mode==='included'?'Inbegrepen':money(currentTotal());
 }
 function updatePaymentLabel(){
-  if(!config)return;
-  $('#checkout').textContent=config.mode==='included'?'Plaats bestelling':paymentMethod==='cash'?'Bestellen · cash in de truck':'Veilig betalen via Mollie';
-  $('#payment-note').textContent=config.mode==='included'?'Je hoeft niet te betalen; deze bestelling valt binnen het evenement.':paymentMethod==='cash'?'Je betaalt cash aan onze medewerker in de truck. De bestelling verschijnt meteen op het bakscherm.':'Je wordt doorgestuurd naar de veilige online betaalpagina van Mollie.';
-}
-function addItems(){
-  const name=$('#customer-name').value.trim();
-  if(!name){notice('Vul eerst je voornaam in.');$('#customer-name').focus();return}
-  if(!choices.chocolate||!choices.sauce){notice('Kies eerst een chocolade én een saus.');return}
-  const ch=config.options.find(o=>o.id===choices.chocolate),sa=config.options.find(o=>o.id===choices.sauce),tops=choices.toppings.map(id=>config.options.find(o=>o.id===id)).filter(Boolean);
-  if(!ch||!sa){notice('Een gekozen ingrediënt is niet meer beschikbaar. Kies opnieuw.');return}
-  for(let i=0;i<qty;i++)cart.push({chocolate_id:ch.id,chocolate:ch.name,sauce_id:sa.id,sauce:sa.name,topping_ids:tops.map(t=>t.id),toppings:tops.map(t=>t.name),price_cents:draftPrice()});
-  renderCart();choices={chocolate:null,sauce:null,toppings:[]};qty=1;$('#qty').textContent='1';
-  renderOptions('chocolate-options',config.options.filter(o=>o.kind==='chocolate'),'chocolate');renderOptions('sauce-options',config.options.filter(o=>o.kind==='sauce'),'sauce');renderOptions('topping-options',config.options.filter(o=>o.kind==='topping'),'toppings');updateTotals();
-  notice('Toegevoegd aan je bestelling. Je kan nog een andere wafel samenstellen.');$('#cart-items').scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-function renderCart(){
-  const el=$('#cart-items');
-  if(!cart.length){el.innerHTML='<p class="empty-cart">Je bestelling is nog leeg. Kies hierboven je eerste lollywafel.</p>';$('#checkout').disabled=true;$('#grand-total').textContent=config?.mode==='included'?'Inbegrepen':money(0);return}
-  el.innerHTML=cart.map((i,n)=>'<div class="cart-row"><div><strong>Lollywafel '+(n+1)+'</strong><p>'+esc(i.chocolate)+' · '+esc(i.sauce)+(i.toppings.length?' · '+esc(i.toppings.join(', ')):'')+'</p><strong>'+(config.mode==='included'?'Inbegrepen':money(i.price_cents))+'</strong></div><button type="button" class="remove" data-remove="'+n+'">Verwijder</button></div>').join('');
-  el.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{cart.splice(Number(b.dataset.remove),1);renderCart();updateTotals()});
-  $('#checkout').disabled=false;$('#cart-count').textContent=cart.length+' '+(cart.length===1?'wafel':'wafels');$('#grand-total').textContent=config.mode==='included'?'Inbegrepen':money(cart.reduce((s,i)=>s+i.price_cents,0));
+ if(!config)return;
+ const btn=$('#place-order');
+ btn.textContent=config.mode==='included'?'Bestelling plaatsen':paymentMethod==='cash'?'Bestellen · cash in de truck':'Bestelling plaatsen';
+ $('#payment-note').textContent=paymentMethod==='cash'?'Betaal cash aan de medewerker. De bestelling wordt op het bakscherm getoond als “Cash te ontvangen”.':'Je wordt doorgestuurd naar de veilige online betaalpagina van Mollie.';
 }
 async function checkout(){
-  const name=$('#customer-name').value.trim();if(!name){notice('Vul je voornaam in.');$('#customer-name').focus();return}if(!cart.length)return;
-  if(!serverReady){notice('Dit is nu alleen de visuele preview. Om bestellingen te activeren moeten de servergeheimen in Vercel nog ingevuld worden. Deel die sleutels niet in de chat.',true);return}
-  const btn=$('#checkout');btn.disabled=true;btn.textContent='Bestelling wordt klaargemaakt…';
-  try{
-    const result=await api('/api/kiosk-create-payment.js',{method:'POST',body:JSON.stringify({customer_name:name,payment_method:config.mode==='included'?'included':paymentMethod,items:cart.map(i=>({chocolate_id:i.chocolate_id,sauce_id:i.sauce_id,topping_ids:i.topping_ids}))})});
-    if(result.checkout_url){location.href=result.checkout_url;return}
-    cart=[];renderCart();updateTotals();
-    if(result.payment_method==='cash')notice('Bestelling '+result.order_number+' is doorgestuurd naar de truck. Betaal daar contant aan onze medewerker.');
-    else notice('Bestelling '+result.order_number+' is geregistreerd als inbegrepen bij het evenement.');
-    window.scrollTo({top:0,behavior:'smooth'});
-  }catch(e){notice(e.message,true)}
-  finally{btn.disabled=!cart.length;updatePaymentLabel()}
+ const name=$('#customer-name').value.trim();
+ if(!name){goToStep(0);showNotice('Vul eerst je voornaam in.');$('#customer-name').focus();return}
+ if(!choices.chocolate||!choices.sauce){showNotice('Controleer je chocolade en saus.');return}
+ if(!waffleSelected){showNotice('Selecteer je lollywafel.');goToStep(1);return}
+ if(!serverReady){showNotice('Bestellen staat tijdelijk uit omdat de serverinstellingen niet bereikbaar zijn. Probeer later opnieuw.',true);return}
+ const btn=$('#place-order');btn.disabled=true;btn.textContent='Bestelling wordt klaargemaakt…';
+ try{
+  const items=Array.from({length:qty},()=>({chocolate_id:choices.chocolate,sauce_id:choices.sauce,topping_ids:[...choices.toppings]}));
+  const result=await api('/api/kiosk-create-payment.js',{method:'POST',body:JSON.stringify({customer_name:name,payment_method:config.mode==='included'?'included':paymentMethod,items})});
+  if(result.checkout_url){location.href=result.checkout_url;return}
+  $('#wizard').hidden=true;$('#welcome-panel').hidden=true;$('#order-confirmation').hidden=false;
+  $('#confirmed-order-number').textContent=result.order_number;
+  if(result.payment_method==='cash'){$('#confirmation-title').textContent='Bestelling ontvangen!';$('#confirmation-message').textContent='Bedankt '+name+'! Betaal cash aan onze medewerker in de truck.';$('#confirmation-help').textContent='Je bestelling staat op het bakscherm als “Cash te ontvangen”. Zodra wij het geld ontvangen, bevestigen we de betaling.'}
+  else{$('#confirmation-title').textContent='Bestelling geplaatst!';$('#confirmation-message').textContent='Bedankt '+name+'! Je bestelling valt binnen het evenement.';$('#confirmation-help').textContent='Je hoeft niet te betalen. Hou je bestelnummer bij de hand.'}
+ }catch(e){showNotice('Je bestelling kon niet worden geplaatst. '+e.message,true)}
+ finally{btn.disabled=false;updatePaymentLabel()}
 }
-function notice(msg,error=false){const el=$('#notice');if(!el)return;el.hidden=false;el.classList.toggle('error',error);el.textContent=msg}
+function resetOrder(){
+ step=0;qty=1;choices={chocolate:null,sauce:null,toppings:[]};paymentMethod='mollie';waffleSelected=true;
+ $('#customer-name').value='';$('#waffle-card').classList.add('selected');$('#waffle-card').setAttribute('aria-pressed','true');$('#waffle-card .selected-pill').textContent='✓ Geselecteerd';
+ document.querySelectorAll('[data-payment]').forEach(b=>{const s=b.dataset.payment==='mollie';b.classList.toggle('selected',s);b.setAttribute('aria-pressed',String(s))});
+ $('#order-confirmation').hidden=true;$('#wizard').hidden=true;$('#welcome-panel').hidden=false;clearNotice();
+ if(config){renderOptions('chocolate-options',config.options.filter(o=>o.kind==='chocolate'),'chocolate');renderOptions('sauce-options',config.options.filter(o=>o.kind==='sauce'),'sauce');renderOptions('topping-options',config.options.filter(o=>o.kind==='topping'),'toppings')}
+ goToStep(0);updateTotals();window.scrollTo({top:0,behavior:'smooth'});
+}
+$('#new-order')?.addEventListener('click',resetOrder);
+function showNotice(message,error=false){const el=$('#notice');if(!el)return;el.hidden=false;el.classList.toggle('error',error);el.textContent=message}
+function clearNotice(){const el=$('#notice');if(el){el.hidden=true;el.textContent='';el.classList.remove('error')}}
 async function initKitchen(){
   const saved=sessionStorage.getItem('hb-kiosk-token');if(saved)$('#admin-token').value=saved;
   $('#save-token').onclick=()=>{sessionStorage.setItem('hb-kiosk-token',$('#admin-token').value.trim());loadKitchen(true)};
@@ -165,3 +191,4 @@ function renderStock(options){
   el.innerHTML=options.map(o=>'<label class="stock-choice"><input type="checkbox" data-stock="'+esc(o.id)+'" '+(o.active?'checked':'')+'><span><strong>'+esc(o.name)+'</strong><small>'+(o.kind==='topping'?'Topping':o.kind==='sauce'?'Saus':'Chocolade')+'</small></span></label>').join('');
   el.querySelectorAll('[data-stock]').forEach(input=>input.onchange=async()=>{input.disabled=true;try{await api('/api/kiosk-admin.js',{method:'POST',headers:{'x-kiosk-admin':token()},body:JSON.stringify({action:'option',option_id:input.dataset.stock,active:input.checked})})}catch(e){input.checked=!input.checked;alert(e.message)}finally{input.disabled=false}});
 }
+
