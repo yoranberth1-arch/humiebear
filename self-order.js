@@ -4,17 +4,17 @@ const money=c=>(Number(c||0)/100).toLocaleString('nl-BE',{style:'currency',curre
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const team=new URLSearchParams(location.search).get('team')==='1';
 const photos={
- hero:'https://images.unsplash.com/photo-1562376552-0d160a2f238d?auto=format&fit=crop&w=1000&q=85',
- 'choc-milk':'https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=720&q=85',
- 'choc-white':'https://images.unsplash.com/photo-1548907040-4d42a8f2a4c4?auto=format&fit=crop&w=720&q=85',
- 'sauce-strawberry':'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=720&q=85',
- 'sauce-caramel':'https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=720&q=85',
- 'top-brazil':'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&w=720&q=85',
- 'top-oreo':'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=720&q=85',
- 'top-speculoos':'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=720&q=85',
- 'top-marshmallow':'https://images.unsplash.com/photo-1581798459219-318e76aecc7b?auto=format&fit=crop&w=720&q=85',
- 'top-coco':'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=720&q=85',
- 'top-sprinkles':'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&w=720&q=85'
+ hero:'https://ggm.bynder.com/asset/a05b3439-d9e6-4deb-a226-786436f9474a/JPG/lolly_on_a_stick_waffle-jpg.jpg',
+ 'choc-milk':'https://funchal.vtexassets.com/arquivos/ids/207635/foto_1_003.jpg?v=638724684416130000',
+ 'choc-white':'https://snapcalorie-webflow-website.s3.us-east-2.amazonaws.com/media/recipe_pics_v2/medium/white_chocolate_sauce.jpg',
+ 'sauce-strawberry':'https://www.linsfood.com/wp-content/uploads/2018/06/Strawberry-Coulis.jpg',
+ 'sauce-caramel':'https://bakewithzoha.com/wp-content/uploads/2024/09/salted-caramel-3.jpg',
+ 'top-brazil':'https://centraldealimentos.cdn.magazord.com.br/img/2025/10/produto/11078/castanha.png?ims=fit-in%2F600x600%2Ffilters%3Afill%28white%29',
+ 'top-oreo':'https://www.porkkinggood.com/cdn/shop/articles/oreo_crumbs.png?v=1583931390&width=900',
+ 'top-speculoos':'https://www.ovgrp.com/api/media/file/2031-Speculoos-Biscuit-Crumb-1.jpg',
+ 'top-marshmallow':'https://www.gabrielecoffee.co.uk/image/cache/catalog/Swwet-Things/Mini-White-Marsh-NEW1-800x800.jpg',
+ 'top-coco':'https://upload.wikimedia.org/wikipedia/commons/3/3d/Chocolate_Balls_with_Cocoa_Powder.jpg',
+ 'top-sprinkles':'https://www.webstaurantstore.com/images/products/extra_large/757305/2805482.jpg'
 };
 const fallbackEmoji={'chocolate':'🍫','sauce':'🍓','topping':'✨'};
 if(team){$('#customer-view').hidden=true;$('#kitchen-view').hidden=false;initKitchen()}else initCustomer();
@@ -49,7 +49,7 @@ async function initCustomer(){
   $('#event-label').textContent=config.event_name||'Lollywafel Edition';
   $('#price-label').textContent=config.mode==='included'?'Inbegrepen per wafel':'Prijs per wafel';
   $('#payment-note').textContent=serverReady?(config.mode==='included'?'Dit is een inbegrepen bestelling; er wordt geen betaling gevraagd.':'Online betalen gaat veilig via Mollie. Kies cash als je in de truck wilt betalen.'):'Visuele preview: selecteren werkt, maar er worden nog geen echte bestellingen aangemaakt.';
-  $('#topping-note').textContent=config.mode==='included'?'Kies je favoriete toppings':'€ 0,50 per extra topping';
+  $('#topping-note').textContent=config.mode==='included'?'OPTIONEEL · inbegrepen':'OPTIONEEL · € 0,50 per topping per wafel';
   $('#payment-options').hidden=config.mode==='included';
   renderOptions('chocolate-options',config.options.filter(o=>o.kind==='chocolate'),'chocolate');
   renderOptions('sauce-options',config.options.filter(o=>o.kind==='sauce'),'sauce');
@@ -62,7 +62,7 @@ function renderOptions(target,items,kind){
   if(!items.length){el.innerHTML='<p class="choice-error">Geen keuzes beschikbaar. Controleer de voorraad op het bakscherm.</p>';return}
   el.innerHTML=items.map(o=>{
     const selected=kind==='toppings'?choices.toppings.includes(o.id):choices[kind]===o.id;
-    const label=kind==='toppings'?(config.mode==='included'?'Keuze inbegrepen':'+ '+money(config.extra_topping_price_cents)):(kind==='chocolate'?'Chocolade':'Saus');
+    const label=kind==='toppings'?(config.mode==='included'?'Inbegrepen':'+ '+money(config.extra_topping_price_cents)):(kind==='chocolate'?'Tik om te kiezen':'Tik om te kiezen');
     return '<button type="button" class="product-choice '+(selected?'selected':'')+'" data-kind="'+kind+'" data-id="'+esc(o.id)+'" aria-pressed="'+selected+'"><span class="choice-photo-wrap"><img class="choice-photo" src="'+esc(productPhoto(o.id,kind))+'" alt="'+esc(o.name)+'" loading="eager" decoding="async" onerror="this.hidden=true"><span class="choice-photo-fallback" aria-hidden="true">'+(fallbackEmoji[kind==='toppings'?'topping':kind])+'</span><span class="choice-check" aria-hidden="true">✓</span></span><span class="choice-label">'+esc(o.name)+'</span><span class="choice-caption">'+esc(label)+'</span></button>';
   }).join('');
   el.querySelectorAll('.product-choice').forEach(b=>b.addEventListener('click',()=>{
@@ -79,14 +79,16 @@ function renderOptions(target,items,kind){
 function draftPrice(){return config.base_price_cents+choices.toppings.length*config.extra_topping_price_cents}
 function updateTotals(){
   if(!config)return;
-  $('#total').textContent=config.mode==='included'?'Inbegrepen':money(draftPrice());
+  $('#price-label').textContent=config.mode==='included'?'Inbegrepen bij het evenement':(qty===1?'Totaal voor 1 wafel':'Totaal voor '+qty+' wafels');
+  $('#total').textContent=config.mode==='included'?'Inbegrepen':money(draftPrice()*qty);
   $('#grand-total').textContent=config.mode==='included'?'Inbegrepen':money(cart.reduce((s,i)=>s+i.price_cents,0));
   $('#cart-count').textContent=cart.length+' '+(cart.length===1?'wafel':'wafels');
+  $('#add-order').innerHTML='Voeg '+qty+' '+(qty===1?'wafel':'wafels')+' toe <span aria-hidden="true">＋</span>';
   updatePaymentLabel();
 }
 function updatePaymentLabel(){
   if(!config)return;
-  $('#checkout').textContent=config.mode==='included'?'Plaats inbegrepen bestelling':paymentMethod==='cash'?'Bestellen · cash in de truck':'Verder naar Mollie';
+  $('#checkout').textContent=config.mode==='included'?'Plaats bestelling':paymentMethod==='cash'?'Bestellen · cash in de truck':'Veilig betalen via Mollie';
   $('#payment-note').textContent=config.mode==='included'?'Je hoeft niet te betalen; deze bestelling valt binnen het evenement.':paymentMethod==='cash'?'Je betaalt cash aan onze medewerker in de truck. De bestelling verschijnt meteen op het bakscherm.':'Je wordt doorgestuurd naar de veilige online betaalpagina van Mollie.';
 }
 function addItems(){
