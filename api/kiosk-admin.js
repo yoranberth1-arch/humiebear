@@ -1,4 +1,4 @@
-const {sb,admin}=require('../kiosk-lib');
+const {sb,admin,mollieFetch}=require('../kiosk-lib');
 module.exports=async function(req,res){
   if(!admin(req))return res.status(401).json({error:'Geen toegang. Controleer de beheertoken.'});
   try{
@@ -8,7 +8,14 @@ module.exports=async function(req,res){
         sb('/rest/v1/kiosk_settings?select=*&id=eq.true'),
         sb('/rest/v1/kiosk_options?select=id,name,kind,active&order=sort_order.asc')
       ]);
-      return res.status(200).json({orders,settings:settings[0],options});
+      for(const order of orders.filter(o=>o.payment_status==='refund_pending'&&o.refund_id&&o.mollie_payment_id)){
+        try{
+          const refund=await mollieFetch('/payments/'+encodeURIComponent(order.mollie_payment_id)+'/refunds/'+encodeURIComponent(order.refund_id));
+          if(refund.status==='refunded')await sb('/rest/v1/kiosk_orders?id=eq.'+encodeURIComponent(order.id)+'&payment_status=eq.refund_pending',{method:'PATCH',body:JSON.stringify({payment_status:'refunded',updated_at:new Date().toISOString()})});
+        }catch{}
+      }
+      const currentOrders=orders;
+      return res.status(200).json({orders:currentOrders,settings:settings[0],options});
     }
     if(req.method!=='POST')return res.status(405).json({error:'Method not allowed'});
     const b=req.body||{};
