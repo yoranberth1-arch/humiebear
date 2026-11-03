@@ -135,7 +135,7 @@
           </strong>
 
           <small>
-            Verse lollywafels, popcorn met smaak naar keuze en ijs. Basis €15 p.p. · Premium €19,50 p.p.
+            Basis: lollywafels en popcorn met smaak naar keuze. Premium bevat ook ijs en chocomousse. Basis €15 p.p. · Premium €19,50 p.p.
           </small>
 
           <b>
