@@ -135,7 +135,7 @@
           </strong>
 
           <small>
-            Basis: lollywafels en toppings. Premium bevat ook popcorn, ijs en chocomousse. Basis €15 p.p. · Premium €19,50 p.p.
+            Basis: lollywafels en toppings. Premium bevat ook ijs en chocomousse. Basis €15 p.p. · Premium €19,50 p.p.
           </small>
 
           <b>
@@ -725,9 +725,7 @@
       const candyOptions = formData
         ? getValues(formData, "candy_options")
         : [];
-      const popcornSelected = candyOptions.includes("Popcorn");
-
-      return guests * (popcornSelected ? 12 : 10) + startup;
+      return guests * 10 + startup;
 
     }
 
