@@ -96,6 +96,8 @@
     $("#waffle-fields");
   const pastaFields = $("#pasta-fields");
   const comboFields = $("#combo-fields");
+  const pastaFields = $("#pasta-fields");
+  const comboFields = $("#combo-fields");
 
   const wafflePackageFields =
     $("#waffle-package-fields");
@@ -307,6 +309,8 @@
 
     }
 
+
+    if (selected.includes("Hummie Bear Pasta Concept")) return "pasta";
 
     if (selected.includes("Hummie Bear Pasta Concept")) return "pasta";
 
@@ -1019,6 +1023,8 @@
 
         waffle_package:
           edition === "waffle" ? getValue(formData, "waffle_package") : null,
+        combo_options:
+          edition === "both" ? getValues(formData, "combo_options") : [],
         combo_options:
           edition === "both" ? getValues(formData, "combo_options") : [],
 
