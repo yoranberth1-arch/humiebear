@@ -98,6 +98,8 @@
   const wafflePackageFields =
     $("#waffle-package-fields");
 
+  const pastaFields = $("#pasta-fields");
+
   const bagFields =
     $("#bag-fields");
 
@@ -115,158 +117,10 @@
   if (editionContainer && !editionContainer.querySelector('input[name="editions"]')) {
 
     editionContainer.innerHTML = `
-
-      <label class="edition-option edition-option--waffle">
-        <input
-          type="radio"
-          name="editions"
-          value="Hummie Bear Waffle Edition"
-          required
-        >
-
-        <div class="edition-option-content">
-
-          <span class="edition-option-kicker">
-            WARME DESSERTBELEVING
-          </span>
-
-          <strong>
-            Lollywafel Edition
-          </strong>
-
-          <small>
-            Verse lollywafels, popcorn met smaak naar keuze, ijs en chocomousse.
-          </small>
-
-          <b>
-            Vanaf €19,50 p.p.
-          </b>
-
-          <em>
-            Vanaf 20 personen · 2 uur all-in
-          </em>
-
-          <span class="edition-choice-text">
-            Kies deze formule
-          </span>
-
-        </div>
-      </label>
-
-
-      <label class="edition-option edition-option--candy">
-        <input
-          type="radio"
-          name="editions"
-          value="Hummie Bear Candy Edition"
-          required
-        >
-
-        <div class="edition-option-content">
-
-          <span class="edition-option-kicker">
-            KLEURRIJK & VRIJ KIEZEN
-          </span>
-
-          <strong>
-            Candy Edition
-          </strong>
-
-          <small>
-            65 soorten snoep en 500 gram per persoon.
-          </small>
-
-          <b>
-            €10 p.p.
-          </b>
-
-          <em>
-            Vanaf 35 personen · 2 uur catering
-          </em>
-
-          <span class="edition-choice-text">
-            Kies deze formule
-          </span>
-
-        </div>
-      </label>
-
-
-      <label class="edition-option edition-option--combo">
-        <input
-          type="radio"
-          name="editions"
-          value="Beide editions"
-          required
-        >
-
-        <div class="edition-option-content">
-
-          <span class="edition-option-kicker">
-            DE VOLLEDIGE BELEVING
-          </span>
-
-          <strong>
-            Wafel + Candy Combo
-          </strong>
-
-          <small>
-            Alle Lollywafel Edition-items én 65 soorten snoep.
-          </small>
-
-          <b>
-            €29,50 p.p.
-          </b>
-
-          <em>
-            Vanaf 35 personen · 2 uur all-in
-          </em>
-
-          <span class="edition-choice-text">
-            Kies deze formule
-          </span>
-
-        </div>
-      </label>
-
-
-      <label class="edition-option edition-option--bags">
-        <input
-          type="radio"
-          name="editions"
-          value="Snoepzakken op maat"
-          required
-        >
-
-        <div class="edition-option-content">
-
-          <span class="edition-option-kicker">
-            VOLLEDIG OP MAAT
-          </span>
-
-          <strong>
-            Snoepzakken op maat
-          </strong>
-
-          <small>
-            Kies aantal, snoepmix en eventuele personalisatie.
-          </small>
-
-          <b>
-            Prijs op maat
-          </b>
-
-          <em>
-            Ideaal als traktatie of bedankje
-          </em>
-
-          <span class="edition-choice-text">
-            Kies deze formule
-          </span>
-
-        </div>
-      </label>
-
+      <label class="edition-option edition-option--pasta"><input type="radio" name="editions" value="Hummie Bear Pasta Concept" required><div class="edition-option-content"><span class="edition-option-kicker">HOOFDGERECHT</span><strong>Pasta Concept</strong><small>Verse pasta met huisgemaakte sauzen.</small><b>€15 p.p.</b><em>Vanaf 30 personen · €150 opstartkost bij 30–49 personen</em><span class="edition-choice-text">Kies Pasta →</span></div></label>
+      <label class="edition-option edition-option--waffle"><input type="radio" name="editions" value="Hummie Bear Waffle Concept" required><div class="edition-option-content"><span class="edition-option-kicker">DESSERTBELEVING</span><strong>Waffle Concept</strong><small>Lollywafels met toppings; kies basis of één extra.</small><b>€12 basis · €16 met extra</b><em>Vanaf 30 personen · 2 uur all-in</em><span class="edition-choice-text">Kies Waffle →</span></div></label>
+      <label class="edition-option edition-option--candy"><input type="radio" name="editions" value="Hummie Bear Candy Concept" required><div class="edition-option-content"><span class="edition-option-kicker">66 SOORTEN SNOEP</span><strong>Candy Concept</strong><small>500 gram snoep per persoon.</small><b>€10 p.p.</b><em>Vanaf 50 personen</em><span class="edition-choice-text">Kies Candy →</span></div></label>
+      <label class="edition-option edition-option--combo"><input type="radio" name="editions" value="Pasta + Waffle Combinatie" required><div class="edition-option-content"><span class="edition-option-kicker">HOOFDGERECHT + DESSERT</span><strong>Pasta + Waffle Combinatie</strong><small>Verse pasta met lollywafel als dessert.</small><b>€27 basis · €31 met extra p.p.</b><em>Vanaf 30 personen</em><span class="edition-choice-text">Kies combinatie →</span></div></label>
     `;
 
   }
@@ -291,329 +145,69 @@
 
 
   function getSelectedEdition() {
-
-    const selected =
-      selectedEditions();
-
-    if (
-      selected.includes(
-        "Beide editions"
-      )
-    ) {
-
-      return "both";
-
-    }
-
-
-    if (
-      selected.includes(
-        "Hummie Bear Waffle Edition"
-      )
-    ) {
-
-      return "waffle";
-
-    }
-
-
-    if (
-      selected.includes(
-        "Hummie Bear Candy Edition"
-      )
-    ) {
-
-      return "candy";
-
-    }
-
-
-    if (
-      selected.includes(
-        "Snoepzakken op maat"
-      )
-    ) {
-
-      return "bags";
-
-    }
-
-
-    return null;
-
+    const selected = selectedEditions()[0];
+    const map = {
+      "Hummie Bear Pasta Concept": "pasta",
+      "Hummie Bear Waffle Concept": "waffle",
+      "Hummie Bear Candy Concept": "candy",
+      "Pasta + Waffle Combinatie": "pasta_waffle",
+      "Snoepzakken op maat": "bags"
+    };
+    return map[selected] || null;
   }
-
-
-  /* =========================================================
-     EDITION PANELS
-  ========================================================= */
 
   function updateEditionPanels() {
-
-    const selected = selectedEditions();
-
-    const candySelected =
-      selected.includes("Hummie Bear Candy Edition") ||
-      selected.includes("Beide editions");
-
-    const waffleSelected =
-      selected.includes("Hummie Bear Waffle Edition") ||
-      selected.includes("Beide editions");
-
-    const bagsSelected =
-      selected.includes("Snoepzakken op maat");
-
-    const standaloneWaffleSelected =
-      selected.includes("Hummie Bear Waffle Edition");
-
-    if (candyFields) candyFields.hidden = !candySelected;
-    if (waffleFields) waffleFields.hidden = !waffleSelected;
-    if (wafflePackageFields) wafflePackageFields.hidden = !standaloneWaffleSelected;
-    if (bagFields) bagFields.hidden = !bagsSelected;
-
-    editionInputs.forEach((input) => {
-      input.closest(".edition-option")?.classList.toggle("selected", input.checked);
-    });
-
-    const summary = document.getElementById("edition-summary");
-    if (summary) {
-      const labels = {
-        "Hummie Bear Waffle Edition": "Lollywafel Edition",
-        "Hummie Bear Candy Edition": "Candy Edition",
-        "Beide editions": "Lollywafel + Candy",
-        "Snoepzakken op maat": "Snoepzakken op maat"
+    const selected = selectedEditions()[0];
+    const isPasta = selected === "Hummie Bear Pasta Concept";
+    const isWaffle = selected === "Hummie Bear Waffle Concept";
+    const isCandy = selected === "Hummie Bear Candy Concept";
+    const isCombo = selected === "Pasta + Waffle Combinatie";
+    const isBags = selected === "Snoepzakken op maat";
+    if (candyFields) candyFields.hidden = !isCandy;
+    if (waffleFields) waffleFields.hidden = !(isWaffle || isCombo);
+    if (wafflePackageFields) wafflePackageFields.hidden = !(isWaffle || isCombo);
+    if (pastaFields) pastaFields.hidden = !(isPasta || isCombo);
+    if (bagFields) bagFields.hidden = !isBags;
+    editionInputs.forEach(input => input.closest(".edition-option")?.classList.toggle("selected",input.checked));
+    const summary=document.getElementById("edition-summary");
+    if(summary){
+      const labels={
+        "Hummie Bear Pasta Concept":"Pasta Concept",
+        "Hummie Bear Waffle Concept":"Waffle Concept",
+        "Hummie Bear Candy Concept":"Candy Concept",
+        "Pasta + Waffle Combinatie":"Pasta + Waffle Combinatie",
+        "Snoepzakken op maat":"Snoepzakken op maat"
       };
-      const selectedInput = editionInputs.find((input) => input.checked);
-      summary.querySelector("strong").textContent =
-        selectedInput ? labels[selectedInput.value] : "Nog geen formule gekozen";
-      summary.classList.toggle("has-selection", Boolean(selectedInput));
+      const selectedInput=editionInputs.find(input=>input.checked);
+      const strong=summary.querySelector("strong");
+      if(strong) strong.textContent=selectedInput?labels[selectedInput.value]:"Nog geen concept gekozen";
+      summary.classList.toggle("has-selection",Boolean(selectedInput));
     }
-
   }
 
-
-  /* =========================================================
-     EDITION SELECTIE
-  ========================================================= */
-
-  editionInputs.forEach((input) => {
-
-    input.addEventListener(
-      "change",
-      () => {
-
-        updateEditionPanels();
-        updateEstimate();
-
-        const targetPanel =
-          input.value === "Hummie Bear Waffle Edition" || input.value === "Beide editions"
-            ? waffleFields
-            : input.value === "Hummie Bear Candy Edition"
-              ? candyFields
-              : input.value === "Snoepzakken op maat"
-                ? bagFields
-                : null;
-
-        setTimeout(() => {
-          (targetPanel || document.querySelector(".edition-summary"))?.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest"
-          });
-        }, 80);
-
-        return;
-
-        const bothInput =
-          editionInputs.find(
-            (item) =>
-              item.value ===
-              "Beide editions"
-          );
-
-
-        const candyInput =
-          editionInputs.find(
-            (item) =>
-              item.value ===
-              "Hummie Bear Candy Edition"
-          );
-
-
-        const waffleInput =
-          editionInputs.find(
-            (item) =>
-              item.value ===
-              "Hummie Bear Waffle Edition"
-          );
-
-
-        /* -------------------------------------------------
-           BEIDE EDITIONS
-        ------------------------------------------------- */
-
-        if (
-          input.value ===
-            "Beide editions" &&
-          input.checked
-        ) {
-
-          if (candyInput) {
-
-            candyInput.checked =
-              true;
-
-          }
-
-
-          if (waffleInput) {
-
-            waffleInput.checked =
-              true;
-
-          }
-
-        }
-
-
-        /* -------------------------------------------------
-           ÉÉN VAN DE TWEE UITGEVINKT
-        ------------------------------------------------- */
-
-        if (
-          input.value !==
-            "Beide editions" &&
-          !input.checked
-        ) {
-
-          if (bothInput) {
-
-            bothInput.checked =
-              false;
-
-          }
-
-        }
-
-
-        /* -------------------------------------------------
-           CANDY + WAFFLE LOS GESELECTEERD
-        ------------------------------------------------- */
-
-        if (
-          candyInput?.checked &&
-          waffleInput?.checked
-        ) {
-
-          if (bothInput) {
-
-            bothInput.checked =
-              true;
-
-          }
-
-        }
-
-
-        /* -------------------------------------------------
-           SNOEPZAKKEN
-           
-           Snoepzakken is een aparte keuze.
-           Bij selectie worden de andere keuzes uitgezet.
-        ------------------------------------------------- */
-
-        if (
-          input.value ===
-            "Snoepzakken op maat" &&
-          input.checked
-        ) {
-
-          editionInputs.forEach(
-            (otherInput) => {
-
-              if (
-                otherInput !== input
-              ) {
-
-                otherInput.checked =
-                  false;
-
-              }
-
-            }
-          );
-
-        }
-
-
-        /* -------------------------------------------------
-           ANDERE EDITION GEKOZEN
-           
-           Dan wordt snoepzakken automatisch uitgezet.
-        ------------------------------------------------- */
-
-        if (
-          input.value !==
-            "Snoepzakken op maat" &&
-          input.checked
-        ) {
-
-          const bagsInput =
-            editionInputs.find(
-              (item) =>
-                item.value ===
-                "Snoepzakken op maat"
-            );
-
-
-          if (bagsInput) {
-
-            bagsInput.checked =
-              false;
-
-          }
-
-        }
-
-
-        updateEditionPanels();
-
-        updateEstimate();
-
-      }
-    );
-
+  editionInputs.forEach(input=>{
+    input.addEventListener("change",()=>{
+      updateEditionPanels();
+      updateEstimate();
+      const targetPanel=(input.value==="Hummie Bear Waffle Concept"||input.value==="Pasta + Waffle Combinatie")?waffleFields:
+        input.value==="Hummie Bear Candy Concept"?candyFields:
+        input.value==="Hummie Bear Pasta Concept"?document.querySelector(".edition-summary"):document.querySelector(".edition-summary");
+      setTimeout(()=>targetPanel?.scrollIntoView({behavior:"smooth",block:"nearest"}),80);
+    });
   });
 
-
-  /* Links vanaf de Wafel- en Candy-pagina openen het formulier
-     meteen met de juiste formule geselecteerd. */
-
-  const requestedEdition =
-    new URLSearchParams(window.location.search).get("edition");
-
-
-  const editionByQuery = {
-    waffle: "Hummie Bear Waffle Edition",
-    candy: "Hummie Bear Candy Edition",
-    combo: "Beide editions",
-    bags: "Snoepzakken op maat"
+  const requestedEdition=new URLSearchParams(window.location.search).get("edition");
+  const editionByQuery={
+    pasta:"Hummie Bear Pasta Concept",
+    waffle:"Hummie Bear Waffle Concept",
+    candy:"Hummie Bear Candy Concept",
+    combo:"Pasta + Waffle Combinatie",
+    bags:"Snoepzakken op maat"
   };
-
-
-  const requestedInput =
-    editionInputs.find(
-      (input) => input.value === editionByQuery[requestedEdition]
-    );
-
-
-  if (requestedInput) {
-    requestedInput.checked = true;
-  }
-
-
+  const requestedInput=editionInputs.find(input=>input.value===editionByQuery[requestedEdition]);
+  if(requestedInput) requestedInput.checked=true;
   updateEditionPanels();
   updateEstimate();
-
 
   /* =========================================================
      TOAST
@@ -660,175 +254,52 @@
   ========================================================= */
 
   function minimumFor(edition) {
-
-    if (
-      edition === "candy" ||
-      edition === "both"
-    ) {
-
-      return 35;
-
-    }
-
-
-    if (
-      edition === "waffle" ||
-      edition === "bags"
-    ) {
-
-      return 20;
-
-    }
-
-
+    if(edition==="candy") return 50;
+    if(["pasta","waffle","pasta_waffle"].includes(edition)) return 30;
+    if(edition==="bags") return 20;
     return 0;
-
   }
-
-
-  /* =========================================================
-     PRIJSBEREKENING
-  ========================================================= */
-
-  function calculatePrice(
-    edition,
-    guests,
-    formData = null
-  ) {
-
-    if (edition === "waffle") {
-      const startup = guests >= 20 && guests < 30 ? 150 : 0;
-      const packageTier = formData ? getValue(formData, "waffle_package") : "basis";
-      const perPersonPrice = packageTier === "premium" ? 19.5 : 15;
-      let price = guests * perPersonPrice;
-      if (formData) {
-        const waffleOptions = getValues(formData, "waffle_options");
-        if (waffleOptions.includes("Snoepzakje + €5 p.p.")) price += guests * 5;
-        if (waffleOptions.includes("Frisdrank + €2 per blik")) {
-          const drinkQuantity = Number(getValue(formData, "waffle_drink_quantity") || 0);
-          if (Number.isFinite(drinkQuantity) && drinkQuantity > 0) price += drinkQuantity * 2;
-        }
-      }
-      return price + startup;
-    }
-
-    if (edition === "candy") {
-
-      const startup = guests < 50 ? 150 : 0;
-      const candyOptions = formData
-        ? getValues(formData, "candy_options")
-        : [];
-      const popcornSelected = candyOptions.includes("Popcorn");
-
-      return guests * (popcornSelected ? 12 : 10) + startup;
-
-    }
-
-    if (edition === "both") {
-
-      const startup = guests < 50 ? 150 : 0;
-      return guests * 29.5 + startup;
-
-    }
-
+  function startupCost(edition,guests){
+    return ["pasta","waffle","pasta_waffle"].includes(edition)&&guests>=30&&guests<50?150:0;
+  }
+  function waffleUnitPrice(formData){
+    const extra=formData?getValue(formData,"waffle_extra"):"none";
+    return extra&&extra!=="none"?16:12;
+  }
+  function calculatePrice(edition,guests,formData=null){
+    if(!guests||guests<minimumFor(edition)) return null;
+    const startup=startupCost(edition,guests);
+    if(edition==="pasta") return guests*15+startup;
+    if(edition==="waffle") return guests*waffleUnitPrice(formData)+startup;
+    if(edition==="candy") return guests*10;
+    if(edition==="pasta_waffle") return guests*(15+waffleUnitPrice(formData))+startup;
     return null;
-
   }
-
-
-  /* =========================================================
-     PRIJS FORMATTEREN
-  ========================================================= */
-
-  function formatPrice(price) {
-
-    if (
-      price === null ||
-      price === undefined ||
-      Number.isNaN(price)
-    ) {
-
-      return "Prijs op maat";
-
-    }
-
-
-    return new Intl.NumberFormat(
-      "nl-BE",
-      {
-        style: "currency",
-        currency: "EUR",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      }
-    ).format(price);
-
+  function formatPrice(price){
+    if(price===null||price===undefined||Number.isNaN(price)) return "Prijs op maat";
+    return new Intl.NumberFormat("nl-BE",{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2}).format(price);
   }
-
-
-  /* =========================================================
-     PRIJS UPDATE
-     
-     Ondersteunt verschillende mogelijke IDs
-     zonder bestaande HTML te breken.
-  ========================================================= */
-
-  function updateEstimate() {
-    if (!guestsInput) return;
-
-    const edition = getSelectedEdition();
-    const guests = Number(guestsInput.value || 0);
-    const formData = form ? new FormData(form) : null;
-    const price = calculatePrice(edition, guests, formData);
-    const estimateElements = [
-      $("#estimated-price"), $("#price-estimate"), $(".estimated-price"), $(".price-estimate")
-    ].filter(Boolean);
-
-    let priceLabel = price === null ? "Prijs op maat" : formatPrice(price);
-    if (edition === "waffle") {
-      if (guests <= 0) priceLabel = "Vul aantal personen in";
-      else if (guests < 20) priceLabel = "Minimum 20 personen";
-    }
-    estimateElements.forEach((element) => { element.textContent = priceLabel; });
-
-    const estimateBreakdown = $("#price-estimate-breakdown");
-    if (estimateBreakdown) {
-      if (edition === "waffle" && guests >= 20 && formData) {
-        const premium = getValue(formData, "waffle_package") === "premium";
-        const tierName = premium ? "Premiumformule" : "Basisformule";
-        const perPersonPrice = premium ? 19.5 : 15;
-        const startup = guests < 30 ? 150 : 0;
-        const options = getValues(formData, "waffle_options");
-        const bagSelected = options.includes("Snoepzakje + €5 p.p.");
-        const bagTotal = bagSelected ? guests * 5 : 0;
-        const drinksSelected = options.includes("Frisdrank + €2 per blik");
-        const drinkQuantity = Number(getValue(formData, "waffle_drink_quantity") || 0);
-        const drinkTotal = drinksSelected && Number.isFinite(drinkQuantity) && drinkQuantity > 0 ? drinkQuantity * 2 : 0;
-        estimateBreakdown.textContent = [
-          tierName + ": " + guests + " × " + formatPrice(perPersonPrice) + " = " + formatPrice(guests * perPersonPrice),
-          "Opstartkost: " + formatPrice(startup),
-          "Snoepzakjes: " + formatPrice(bagTotal) + (bagSelected ? " (" + guests + " × €5,00)" : ""),
-          drinksSelected && drinkTotal > 0
-            ? "Frisdrank: " + formatPrice(drinkTotal) + " (" + drinkQuantity + " × €2,00)"
-            : drinksSelected
-              ? "Frisdrank: vul het aantal blikjes in (€2,00 per blikje); nog niet opgenomen in het totaal."
-              : "Frisdrank optioneel en niet inbegrepen: €2,00 per blikje."
-        ].join("\n");
-      } else if (edition === "waffle" && guests > 0 && guests < 20) {
-        estimateBreakdown.textContent = "Minimum 20 personen. Voor 20–29 personen geldt €150 opstartkost; vanaf 30 personen vervalt die.";
-      } else if (edition === "waffle" && guests <= 0) {
-        estimateBreakdown.textContent = "Basis €15 p.p. · Premium €19,50 p.p. · €150 opstartkost van 20–29 personen.";
-      } else {
-        estimateBreakdown.textContent = "";
-      }
-    }
+  function updateEstimate(){
+    if(!guestsInput) return;
+    const edition=getSelectedEdition(),guests=Number(guestsInput.value||0),formData=form?new FormData(form):null;
+    const minimum=minimumFor(edition),price=calculatePrice(edition,guests,formData);
+    const estimateElements=[$("#estimated-price"),$("#price-estimate"),$(".estimated-price"),$(".price-estimate")].filter(Boolean);
+    const label=!edition?"Kies eerst een concept":guests<=0?"Vul het aantal personen in":guests<minimum?`Minimum ${minimum} personen`:formatPrice(price);
+    estimateElements.forEach(el=>el.textContent=label);
+    const breakdown=$("#price-estimate-breakdown");
+    if(!breakdown) return;
+    if(!edition||guests<=0){breakdown.textContent="Kies een concept en vul het aantal gasten in voor een prijsindicatie.";return;}
+    if(guests<minimum){breakdown.textContent=`Voor dit concept geldt een minimum van ${minimum} personen.`;return;}
+    const startup=startupCost(edition,guests),lines=[];
+    if(edition==="pasta") lines.push(`Pasta: ${guests} × €15,00 = ${formatPrice(guests*15)}`);
+    if(edition==="waffle") lines.push(`Waffle: ${guests} × €${waffleUnitPrice(formData)},00 = ${formatPrice(guests*waffleUnitPrice(formData))}`);
+    if(edition==="candy") lines.push(`Candy: ${guests} × €10,00 = ${formatPrice(guests*10)} (500 g snoep per persoon)`);
+    if(edition==="pasta_waffle") lines.push(`Pasta + Waffle: ${guests} × €${15+waffleUnitPrice(formData)},00 = ${formatPrice(guests*(15+waffleUnitPrice(formData)))}`);
+    lines.push(startup?`Opstartkost: ${formatPrice(startup)} (30–49 personen)`:"Opstartkost: €0,00");
+    lines.push(`Totaalindicatie: ${formatPrice(price)}`);
+    breakdown.textContent=lines.join("\n");
   }
-
-  if (form) {
-    form.addEventListener("input", updateEstimate);
-    form.addEventListener("change", updateEstimate);
-  }
-
+  if(form){form.addEventListener("input",updateEstimate);form.addEventListener("change",updateEstimate);}
 
   /* =========================================================
      TIJDEN UITHALEN
@@ -1022,17 +493,12 @@
             "editions"
           ),
 
-        waffle_options:
-          getValues(
-            formData,
-            "waffle_options"
-          ),
+        waffle_options: [],
 
-        waffle_package:
-          edition === "waffle" ? getValue(formData, "waffle_package") : null,
+        waffle_extra:
+          (edition === "waffle" || edition === "pasta_waffle") ? getValue(formData, "waffle_extra") : null,
 
-        waffle_drink_quantity:
-          edition === "waffle" ? getValue(formData, "waffle_drink_quantity") : null,
+        waffle_drink_quantity: null,
 
         candy_options:
           getValues(
