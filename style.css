@@ -1784,3 +1784,75 @@ body{
   .waffle-hero-image{margin-top:22px;border-radius:18px;}
   .waffle-hero-image figcaption{font-size:12px;padding:10px 12px;}
 }
+
+
+/* Waffle page: compact photo gallery and less vertical scrolling on mobile. */
+.waffle-photo-strip{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  max-width:860px;
+  margin:18px 0 0;
+}
+.waffle-photo-card{
+  min-width:0;
+  margin:0;
+  overflow:hidden;
+  border-radius:20px;
+  background:#fff;
+  box-shadow:0 12px 30px rgba(95,52,64,.10);
+}
+.waffle-photo-card img{
+  display:block;
+  width:100%;
+  height:100%;
+  max-height:390px;
+  aspect-ratio:4/5;
+  object-fit:cover;
+}
+.waffle-photo-card figcaption{
+  padding:10px 12px;
+  color:#6e5360;
+  font-size:12px;
+  font-weight:700;
+}
+@media(max-width:700px){
+  .detail-page .detail-grid{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:12px !important;
+    align-items:stretch;
+  }
+  .detail-page .detail-panel{
+    min-width:0;
+    padding:16px 13px !important;
+  }
+  .detail-page .detail-panel h2{
+    font-size:clamp(18px,4.8vw,23px);
+    line-height:1.15;
+  }
+  .detail-page .detail-panel p,
+  .detail-page .detail-panel li{
+    font-size:13px;
+    line-height:1.5;
+  }
+  .detail-page .detail-panel ul{
+    padding-left:17px;
+  }
+  .waffle-photo-strip{
+    gap:10px;
+    margin-top:12px;
+  }
+  .waffle-photo-card{
+    border-radius:15px;
+  }
+  .waffle-photo-card img{
+    aspect-ratio:3/4;
+    max-height:300px;
+  }
+}
+@media(max-width:380px){
+  .detail-page .detail-grid{
+    grid-template-columns:1fr !important;
+  }
+}
