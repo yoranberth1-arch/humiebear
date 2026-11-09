@@ -312,8 +312,6 @@
 
     if (selected.includes("Hummie Bear Pasta Concept")) return "pasta";
 
-    if (selected.includes("Hummie Bear Pasta Concept")) return "pasta";
-
     if (
       selected.includes(
         "Hummie Bear Waffle Edition"
