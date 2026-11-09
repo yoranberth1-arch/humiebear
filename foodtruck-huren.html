@@ -107,11 +107,11 @@
       <button class="menu-toggle" type="button" aria-label="Menu openen" aria-expanded="false"
         onclick="(function(btn){var nav=document.querySelector('.main-nav');if(!nav)return;var open=nav.classList.toggle('open');btn.setAttribute('aria-expanded',open?'true':'false');btn.setAttribute('aria-label',open?'Menu sluiten':'Menu openen');})(this)">☰</button>
       <nav class="main-nav" aria-label="Hoofdnavigatie">
-        <a href="index.html">Home</a>
-        <a href="foodtruck-huren.html">Foodtruck huren</a>
-        <a href="index.html#editions">Concepten</a>
-        <a href="shop.html" class="nav-button">Webshop</a>
-        <a href="index.html#contact" class="nav-button">Offerte aanvragen</a>
+        <a onclick="document.querySelector('.main-nav')?.classList.remove('open');document.querySelector('.menu-toggle')?.setAttribute('aria-expanded','false');" href="index.html">Home</a>
+        <a onclick="document.querySelector('.main-nav')?.classList.remove('open');document.querySelector('.menu-toggle')?.setAttribute('aria-expanded','false');" href="foodtruck-huren.html">Foodtruck huren</a>
+        <a onclick="document.querySelector('.main-nav')?.classList.remove('open');document.querySelector('.menu-toggle')?.setAttribute('aria-expanded','false');" href="index.html#editions">Concepten</a>
+        <a onclick="document.querySelector('.main-nav')?.classList.remove('open');document.querySelector('.menu-toggle')?.setAttribute('aria-expanded','false');" href="shop.html" class="nav-button">Webshop</a>
+        <a onclick="document.querySelector('.main-nav')?.classList.remove('open');document.querySelector('.menu-toggle')?.setAttribute('aria-expanded','false');" href="index.html#contact" class="nav-button">Offerte aanvragen</a>
       </nav>
     </div>
   </header>
