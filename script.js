@@ -122,7 +122,6 @@
       <label class="edition-option edition-option--candy"><input type="radio" name="editions" value="Hummie Bear Candy Concept" required><div class="edition-option-content"><span class="edition-option-kicker">66 SOORTEN SNOEP</span><strong>Candy Concept</strong><small>500 gram snoep per persoon.</small><b>€10 p.p.</b><em>Vanaf 50 personen</em><span class="edition-choice-text">Kies Candy →</span></div></label>
       <label class="edition-option edition-option--combo"><input type="radio" name="editions" value="Pasta + Waffle Combinatie" required><div class="edition-option-content"><span class="edition-option-kicker">HOOFDGERECHT + DESSERT</span><strong>Pasta + Waffle Combinatie</strong><small>Verse pasta met lollywafel als dessert.</small><b>€27 basis · €31 met extra p.p.</b><em>Vanaf 30 personen</em><span class="edition-choice-text">Kies combinatie →</span></div></label>
     `;
-    `;
 
   }
 
@@ -211,7 +210,6 @@
   updateEstimate();
 
   /* =========================================================
-     TOAST  /* =========================================================
      TOAST
   ========================================================= */
 
@@ -304,7 +302,6 @@
   if(form){form.addEventListener("input",updateEstimate);form.addEventListener("change",updateEstimate);}
 
   /* =========================================================
-     TIJDEN UITHALEN  /* =========================================================
      TIJDEN UITHALEN
   ========================================================= */
 
