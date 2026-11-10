@@ -2291,5 +2291,19 @@ document.querySelectorAll('.market-gallery-card img[src$=".webp.b64"]').forEach(
     })();
   </script>
 
+  <script>
+    // Show the existing quote form immediately after the header.
+    // Moving the original section keeps its form fields, IDs, listeners,
+    // validation, pricing logic and submission flow intact.
+    (function () {
+      var main = document.getElementById("main-content");
+      var quoteSection = document.getElementById("contact");
+      var heroSection = main && main.querySelector(".home-hero");
+      if (!main || !quoteSection || !heroSection) return;
+      quoteSection.setAttribute("data-hb-priority-quote", "");
+      main.insertBefore(quoteSection, heroSection);
+    })();
+  </script>
+
 </body>
 </html>
