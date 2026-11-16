@@ -3,13 +3,95 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,follow">
-  <meta http-equiv="refresh" content="0;url=/shop.html">
-  <link rel="canonical" href="https://www.hummiebear.be/shop.html">
-  <title>Hummie Bear Shop</title>
-  <script>window.location.replace("/shop.html");</script>
+  <title>Hummie Bear — Snoep, catering & privé-offertes</title>
+  <meta name="description" content="Ontdek de Hummie Bear webshop, onze mobiele cateringconcepten en vraag eenvoudig een vrijblijvende offerte aan voor jouw feest of evenement.">
+  <meta name="theme-color" content="#fff8f5">
+  <link rel="canonical" href="https://www.hummiebear.be/">
+  <link rel="stylesheet" href="webshop.css?v=20261109-clean-layout">
+  <style>
+    :root{--landing-ink:#39261d;--landing-pink:#df719e;--landing-cream:#fff8f5}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--landing-cream);color:var(--landing-ink)}
+    .landing-top{background:#39261d;color:#fff;text-align:center;padding:9px 16px;font-size:12px;font-weight:700;letter-spacing:.02em}
+    .landing-header{height:76px;background:rgba(255,250,247,.96);border-bottom:1px solid #efdfd8;display:flex;align-items:center}
+    .landing-header-inner{width:min(1240px,calc(100% - 40px));margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .landing-brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--landing-ink);font-weight:900;font-size:21px}
+    .landing-brand-mark{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#f4a3c1,#d9578d);color:white;box-shadow:0 6px 18px #d9578d33}
+    .landing-nav{display:flex;align-items:center;gap:24px}
+    .landing-nav a{color:#503c33;text-decoration:none;font-size:13px;font-weight:800}
+    .landing-nav a:hover{color:#d9578d}
+    .landing-main{width:min(1240px,calc(100% - 40px));margin:auto;padding:clamp(44px,7vw,88px) 0 78px}
+    .landing-intro{text-align:center;max-width:800px;margin:0 auto 38px}
+    .landing-eyebrow{color:#d9578d;font-size:11px;font-weight:900;letter-spacing:.18em}
+    .landing-intro h1{font-family:"Fredoka",system-ui,sans-serif;font-size:clamp(38px,5.5vw,64px);line-height:1.02;letter-spacing:-.035em;margin:13px 0 15px}
+    .landing-intro h1 em{font-style:normal;color:#d9578d}
+    .landing-intro p{font-size:clamp(15px,1.5vw,18px);line-height:1.65;color:#715d54;margin:0}
+    .landing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+    .landing-card{position:relative;display:flex;min-height:clamp(340px,37vw,460px);overflow:hidden;border-radius:28px;text-decoration:none;color:#fff;background:#513c32;isolation:isolate;box-shadow:0 16px 38px rgba(57,38,29,.13);transition:transform .22s ease,box-shadow .22s ease}
+    .landing-card:hover{transform:translateY(-6px);box-shadow:0 22px 48px rgba(57,38,29,.2)}
+    .landing-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .4s ease}
+    .landing-card:hover img{transform:scale(1.045)}
+    .landing-card:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(28,17,15,.02) 15%,rgba(28,17,15,.22) 42%,rgba(28,17,15,.88) 100%)}
+    .landing-card-content{align-self:flex-end;width:100%;padding:clamp(22px,2.6vw,32px)}
+    .landing-card-kicker{display:inline-block;margin-bottom:11px;padding:7px 11px;border-radius:99px;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);font-size:10px;font-weight:900;letter-spacing:.13em}
+    .landing-card h2{font-family:"Fredoka",system-ui,sans-serif;font-size:clamp(27px,3vw,37px);line-height:1.05;margin:0 0 10px}
+    .landing-card p{font-size:14px;line-height:1.55;color:#fff;margin:0 0 20px;max-width:340px}
+    .landing-card-cta{display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:900}
+    .landing-card-arrow{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:#e779a6;color:white;font-size:25px;line-height:1}
+    .landing-footer{border-top:1px solid #efdfd8;text-align:center;padding:24px 16px 32px;color:#806b62;font-size:12px}
+    @media(max-width:850px){.landing-grid{grid-template-columns:1fr 1fr}.landing-card:last-child{grid-column:1/-1;min-height:320px}.landing-card{min-height:360px}}
+    @media(max-width:600px){.landing-header{height:auto;padding:14px 0}.landing-header-inner{width:calc(100% - 28px);align-items:flex-start;flex-direction:column;gap:12px}.landing-nav{width:100%;gap:18px;overflow-x:auto;padding:3px 0 5px}.landing-nav a{white-space:nowrap}.landing-main{width:calc(100% - 28px);padding:42px 0 50px}.landing-intro{margin-bottom:25px}.landing-grid{grid-template-columns:1fr;gap:15px}.landing-card,.landing-card:last-child{grid-column:auto;min-height:330px;border-radius:23px}.landing-card-content{padding:22px}.landing-card h2{font-size:31px}}
+    @media(prefers-reduced-motion:reduce){.landing-card,.landing-card img{transition:none}}
+  </style>
 </head>
 <body>
-  <p>Je wordt doorgestuurd naar de <a href="/shop.html">Hummie Bear shop</a>.</p>
+  <div class="landing-top">Hummie Bear · Sweet moments, made special</div>
+  <header class="landing-header">
+    <div class="landing-header-inner">
+      <a class="landing-brand" href="index.html" aria-label="Hummie Bear startpagina"><span class="landing-brand-mark">HB</span>Hummie Bear</a>
+      <nav class="landing-nav" aria-label="Hoofdnavigatie">
+        <a href="shop.html">Webshop</a>
+        <a href="evenementen.html#editions">Catering</a>
+        <a href="evenementen.html#contact">Offerte aanvragen</a>
+      </nav>
+    </div>
+  </header>
+  <main class="landing-main">
+    <div class="landing-intro">
+      <span class="landing-eyebrow">WELKOM BIJ HUMMIE BEAR</span>
+      <h1>Waar ben je <em>naar op zoek?</em></h1>
+      <p>Van jouw favoriete snoep tot een smaakvol cateringconcept op jouw feest. Kies hieronder meteen de juiste richting.</p>
+    </div>
+    <section class="landing-grid" aria-label="Kies waarvoor je Hummie Bear bezoekt">
+      <a class="landing-card" href="shop.html#persoonlijk">
+        <img src="images/gummy-candy.png" alt="Kleurrijk assortiment schepsnoep" fetchpriority="high">
+        <div class="landing-card-content">
+          <span class="landing-card-kicker">ONLINE SHOPPEN</span>
+          <h2>Snoep & lekkers</h2>
+          <p>Ontdek schepsnoep, gepersonaliseerde snoepzakken, abonnementen en Belgische lekkernijen.</p>
+          <span class="landing-card-cta">Ontdek de snoepwinkel <span class="landing-card-arrow">›</span></span>
+        </div>
+      </a>
+      <a class="landing-card" href="evenementen.html#editions">
+        <img src="images/pasta-penne.webp" alt="Vers pastagerecht van Hummie Bear" loading="lazy">
+        <div class="landing-card-content">
+          <span class="landing-card-kicker">MOBIELE EVENTCATERING</span>
+          <h2>Onze cateringconcepten</h2>
+          <p>Ontdek Candy, Pasta en Lollywafel. Een smakelijke formule voor jouw evenement of feest.</p>
+          <span class="landing-card-cta">Bekijk alle concepten <span class="landing-card-arrow">›</span></span>
+        </div>
+      </a>
+      <a class="landing-card" href="evenementen.html#contact">
+        <img src="images/IMG_6331.webp" alt="Hummie Bear op een evenement" loading="lazy">
+        <div class="landing-card-content">
+          <span class="landing-card-kicker">PRIVÉFEEST OF BEDRIJFSEVENT</span>
+          <h2>Vraag jouw offerte aan</h2>
+          <p>Vertel ons wat je organiseert en ontvang vrijblijvend een voorstel op maat.</p>
+          <span class="landing-card-cta">Vraag een privé-offerte aan <span class="landing-card-arrow">›</span></span>
+        </div>
+      </a>
+    </section>
+  </main>
+  <footer class="landing-footer">© Hummie Bear · Sweetness on Wheels</footer>
 </body>
 </html>
