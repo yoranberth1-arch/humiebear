@@ -255,7 +255,7 @@ export default async function handler(req,res){
           description:"Hummie Bear bestelling "+order.order_number+(fulfillmentMethod==="pickup"?" (afhalen)":(fulfillmentMethod==="local_delivery"?" (lokale levering)":"")),
           redirectUrl:origin+"/payment-success.html?order="+encodeURIComponent(order.order_number),
           cancelUrl:origin+"/payment-cancelled.html?order="+encodeURIComponent(order.order_number),
-          webhookUrl:"https://humiebear.vercel.app/api/mollie-webhook",
+          webhookUrl:"https://humiebear-git-main-yoranberth1-arch.vercel.app/api/mollie-webhook",
           metadata:{order_number:order.order_number}
         })
       });
