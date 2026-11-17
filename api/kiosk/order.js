@@ -1,59 +1,25 @@
 const crypto=require('crypto');
 const {sb}=require('./_lib');
-
+const catalog=require('./catalog');
 module.exports=async(req,res)=>{
-  if(req.method!=='POST')return res.status(405).json({error:'Methode niet toegestaan'});
-  try{
-    const b=req.body||{};
-    const name=String(b.customer_name||'').trim().slice(0,60);
-    const rid=String(b.request_id||'');
-    if(!name||!Array.isArray(b.items)||!b.items.length||b.items.length>30||!/^[a-zA-Z0-9-]{12,90}$/.test(rid))
-      return res.status(400).json({error:'Vul je naam in en kies minstens één product.'});
-
-    const prior=await sb('/rest/v1/hb_kiosk_orders?select=id,order_number,payment_status,payment_method&request_id=eq.'+encodeURIComponent(rid));
-    if(prior[0])return res.status(200).json({order_id:prior[0].id,order_number:prior[0].order_number,manual_payment:true,duplicate:true});
-
-    const [ss,pp]=await Promise.all([
-      sb('/rest/v1/hb_kiosk_settings?select=*&id=eq.true'),
-      sb('/rest/v1/hb_kiosk_products?select=id,name,category,description,price_cents,image_path,active')
-    ]);
-    const settings=ss[0];
-    if(!settings)throw Error('Bestelsysteem niet ingesteld');
-    const map=new Map(pp.filter(p=>p.active).map(p=>[p.id,p]));
-    let total=0;
-    const lines=b.items.map(it=>{
-      const p=map.get(String(it.product_id));
-      const q=Math.max(1,Math.min(20,Math.floor(Number(it.quantity)||1)));
-      if(!p)throw Error('Een product is intussen uitverkocht. Vernieuw je winkelmandje.');
-      if(p.category==='chocolademelk'&&!settings.show_hot_chocolate)throw Error('Chocolademelk is tijdelijk niet beschikbaar.');
-      if(p.category==='frisdrank'&&!settings.show_soft_drinks)throw Error('Frisdrank is tijdelijk niet beschikbaar.');
-      const line=p.price_cents*q;
-      total+=line;
-      return {product_id:p.id,name:p.name,category:p.category,quantity:q,unit_price_cents:p.price_cents,line_total_cents:line};
-    });
-
-    const number='HB-'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+crypto.randomBytes(3).toString('hex').toUpperCase();
-    const row=(await sb('/rest/v1/hb_kiosk_orders',{
-      method:'POST',
-      headers:{Prefer:'return=representation'},
-      body:JSON.stringify({
-        order_number:number,
-        request_id:rid,
-        customer_name:name,
-        items:lines,
-        total_cents:total,
-        payment_method:'cash',
-        payment_status:'included',
-        status:'new'
-      })
-    }))[0];
-    if(!row?.id)throw Error('Bestelling opslaan mislukt');
-    return res.status(200).json({order_id:row.id,order_number:number,manual_payment:true,total_cents:total});
-  }catch(e){
-    return res.status(400).json({
-      error:/uitverkocht|niet beschikbaar|naam|product|winkelmandje/i.test(e.message)
-        ?e.message
-        :'Bestelling kon niet worden verwerkt. Probeer opnieuw of vraag hulp.'
-    });
-  }
+ if(req.method!=='POST')return res.status(405).json({error:'Methode niet toegestaan'});
+ try{
+  const b=req.body||{},name=String(b.customer_name||'Klant').trim().slice(0,60)||'Klant',rid=String(b.request_id||'');
+  if(!Array.isArray(b.items)||!b.items.length||b.items.length>40||!/^[a-zA-Z0-9-]{12,90}$/.test(rid))return res.status(400).json({error:'Kies minstens één product.'});
+  const prior=await sb('/rest/v1/hb_kiosk_orders?select=id,order_number&request_id=eq.'+encodeURIComponent(rid));
+  if(prior[0])return res.status(200).json({order_id:prior[0].id,order_number:prior[0].order_number,duplicate:true});
+  const products=new Map(catalog.products.map(p=>[p.id,p])),toppings=new Map(catalog.toppings.map(t=>[t.id,t]));
+  let total=0;
+  const lines=b.items.map(it=>{
+   const p=products.get(String(it.catalog_id));if(!p)throw Error('Onbekend product. Vernieuw het kassascherm.');
+   const ids=Array.isArray(it.toppings)?[...new Set(it.toppings.map(String))]:[];
+   const chosen=ids.map(id=>{const t=toppings.get(id);if(!t)throw Error('Onbekende topping geselecteerd.');return {id:t.id,name:t.name,price_cents:catalog.topping_price_cents}});
+   const base=p.price_cents,lineTotal=base+chosen.length*catalog.topping_price_cents;total+=lineTotal;
+   return {product_id:p.id,name:p.name,category:p.category,quantity:1,unit_price_cents:base,toppings:chosen,line_total_cents:lineTotal};
+  });
+  const number='HB-'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+crypto.randomBytes(3).toString('hex').toUpperCase();
+  const row=(await sb('/rest/v1/hb_kiosk_orders',{method:'POST',headers:{Prefer:'return=representation'},body:JSON.stringify({order_number:number,request_id:rid,customer_name:name,items:lines,total_cents:total,payment_method:'cash',payment_status:'included',status:'new'})}))[0];
+  if(!row?.id)throw Error('Bestelling opslaan mislukt');
+  return res.status(200).json({order_id:row.id,order_number:number,total_cents:total});
+ }catch(e){return res.status(400).json({error:/product|topping|selecteer|vernieuw/i.test(e.message)?e.message:'Bestelling kon niet worden opgeslagen. Probeer opnieuw.'})}
 };
