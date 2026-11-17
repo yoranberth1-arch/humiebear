@@ -1,8 +1,8 @@
 module.exports={
   products:[
-    {id:'lollywafel',name:'Lollywafel',category:'Wafels',price_cents:400,image_path:'/images/waffle-lollipop-closeup.png'},
-    {id:'bubbelwafel',name:'Bubbelwafel',category:'Wafels',price_cents:500,image_path:'/images/bubble-waffle.png'},
-    {id:'wafel-cup',name:'Wafel cup',category:'Wafels',price_cents:700,image_path:'/images/waffle-cup.png'},
+    {id:'lollywafel',name:'Lollywafel',category:'Wafels',price_cents:400,price_with_toppings_cents:500,image_path:'/images/waffle-lollipop-closeup.png'},
+    {id:'bubbelwafel',name:'Bubbelwafel',category:'Wafels',price_cents:500,price_with_toppings_cents:700,image_path:'/images/bubble-waffle.png'},
+    {id:'wafel-cup',name:'Wafel cup',category:'Wafels',price_cents:700,price_with_toppings_cents:900,image_path:'/images/waffle-cup.png'},
     {id:'zakje-snoep',name:'Zakje snoep',category:'Snoep & snacks',price_cents:500,image_path:'/images/snoep.png'},
     {id:'geroosterde-nootjes',name:'Geroosterde nootjes',category:'Snoep & snacks',price_cents:500,image_path:'/images/nootjes.png'},
     {id:'zakje-mallows',name:'Zakje mallows',category:'Snoep & snacks',price_cents:500,image_path:'/images/mallows.png'}
@@ -30,5 +30,5 @@ module.exports={
     {id:'mini-mallows',name:'Mini mallows',group:'Extra toppings'},
     {id:'aardbei',name:'Aardbei',group:'Extra toppings'}
   ],
-  topping_price_cents:50
+  topping_price_cents:0
 };
