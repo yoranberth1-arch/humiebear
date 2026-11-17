@@ -42,7 +42,7 @@ module.exports=async(req,res)=>{
         customer_name:name,
         items:lines,
         total_cents:total,
-        payment_method:'manual',
+        payment_method:'cash',
         payment_status:'included',
         status:'new'
       })
