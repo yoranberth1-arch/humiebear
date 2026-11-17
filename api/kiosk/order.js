@@ -13,9 +13,10 @@ module.exports=async(req,res)=>{
   const lines=b.items.map(it=>{
    const p=products.get(String(it.catalog_id));if(!p)throw Error('Onbekend product. Vernieuw het kassascherm.');
    const ids=Array.isArray(it.toppings)?[...new Set(it.toppings.map(String))]:[];
-   const chosen=ids.map(id=>{const t=toppings.get(id);if(!t)throw Error('Onbekende topping geselecteerd.');return {id:t.id,name:t.name,price_cents:catalog.topping_price_cents}});
-   const base=p.price_cents,lineTotal=base+chosen.length*catalog.topping_price_cents;total+=lineTotal;
-   return {product_id:p.id,name:p.name,category:p.category,quantity:1,unit_price_cents:base,toppings:chosen,line_total_cents:lineTotal};
+   if(ids.length&&!p.price_with_toppings_cents)throw Error('Dit product heeft geen toppings.');
+   const chosen=ids.map(id=>{const t=toppings.get(id);if(!t)throw Error('Onbekende topping geselecteerd.');return {id:t.id,name:t.name,price_cents:0}});
+   const lineTotal=chosen.length?p.price_with_toppings_cents:p.price_cents;total+=lineTotal;
+   return {product_id:p.id,name:p.name,category:p.category,quantity:1,unit_price_cents:lineTotal,toppings:chosen,line_total_cents:lineTotal};
   });
   const number='HB-'+new Date().toISOString().slice(2,10).replace(/-/g,'')+'-'+crypto.randomBytes(3).toString('hex').toUpperCase();
   const row=(await sb('/rest/v1/hb_kiosk_orders',{method:'POST',headers:{Prefer:'return=representation'},body:JSON.stringify({order_number:number,request_id:rid,customer_name:name,items:lines,total_cents:total,payment_method:'cash',payment_status:'included',status:'new'})}))[0];
