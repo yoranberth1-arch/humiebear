@@ -31,3 +31,17 @@
 .orders-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .orders-heading h2{margin-bottom:8px}
 .live-indicator{font-size:12px;font-weight:800;color:#28734b;background:#e9f7ed;border-radius:20px;padding:7px 11px}
+
+/* Clear grouped price editor */
+.price-group{margin:18px 0 24px}
+.price-group h3{margin:0 0 10px;color:var(--brown);font-size:18px}
+.price-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px;margin:10px 0;box-shadow:0 3px 12px #6a371408}
+.price-card-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}
+.price-card-title b{display:block;color:var(--brown);font-size:17px}
+.price-card-title small{display:block;color:#806958;margin-top:3px}
+.availability{font-size:13px;white-space:nowrap}
+.price-inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.price-inputs label{display:grid;gap:6px;color:#6b5141;font-size:13px;font-weight:800}
+.price-inputs input{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;font:inherit;font-size:17px;font-weight:800;color:var(--brown)}
+.save-price{margin-top:12px;background:var(--brown);color:#fff;border:0;border-radius:9px;padding:10px 15px;font-weight:800;cursor:pointer}
+@media(max-width:520px){.price-inputs{grid-template-columns:1fr}.price-card{padding:12px}.price-card-title{align-items:flex-start}}
