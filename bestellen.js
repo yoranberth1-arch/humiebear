@@ -53,9 +53,9 @@ $('close-modal').onclick=()=>{$('topping-modal').hidden=true;selected=null};
 $('topping-modal').addEventListener('click',e=>{if(e.target===$('topping-modal'))$('close-modal').click()});
 $('clear-order').onclick=()=>{if(cart.length&&confirm('Wil je de volledige bestelling leegmaken?')){cart=[];drawCart()}};
 $('finish-order').onclick=async()=>{
- if(!cart.length)return;const btn=$('finish-order');btn.disabled=true;btn.textContent='Bestelling opslaan…';
+ if(!cart.length)return;const customerName=$('customer-name').value.trim();if(!customerName){$('notice').hidden=false;$('notice').textContent='Vul eerst de naam van de klant in.';$('customer-name').focus();return}const btn=$('finish-order');btn.disabled=true;btn.textContent='Bestelling opslaan…';
  try{
-  const r=await fetch('/api/kiosk/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({customer_name:$('customer-name').value.trim()||'Klant',items:cart.map(x=>({catalog_id:x.catalog_id,toppings:x.toppings.map(t=>t.id)})),request_id:crypto.randomUUID()})});
+  const r=await fetch('/api/kiosk/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({customer_name:customerName,items:cart.map(x=>({catalog_id:x.catalog_id,toppings:x.toppings.map(t=>t.id)})),request_id:crypto.randomUUID()})});
   const d=await r.json();if(!r.ok)throw Error(d.error||'Bestelling kon niet worden opgeslagen');
   $('notice').hidden=false;$('notice').textContent='Bestelling '+d.order_number+' is doorgestuurd. Je kunt de volgende klant helpen.';
   cart=[];$('customer-name').value='';drawCart();window.scrollTo({top:0,behavior:'smooth'});
