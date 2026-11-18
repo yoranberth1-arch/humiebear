@@ -3,9 +3,12 @@ let data=null,token=sessionStorage.getItem('hb-admin-token')||'',lastOrders='';
 $('token').value=token;
 async function api(method='GET',body){const r=await fetch('/api/kiosk/admin',{method,headers:{'Content-Type':'application/json','x-kiosk-admin':token},body:body?JSON.stringify(body):undefined,cache:'no-store'});const d=await r.json();if(!r.ok)throw Error(d.error||'Fout');return d}
 function msg(s){$('msg').textContent=s}
+function showTab(id){document.querySelectorAll('.admin-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));document.querySelectorAll('.admin-view').forEach(v=>v.hidden=v.id!==id);sessionStorage.setItem('hb-admin-tab',id)}
+document.querySelectorAll('.admin-tab').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
 function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function renderOrders(orders){
  const signature=JSON.stringify(orders);if(signature===lastOrders)return;lastOrders=signature;
+ $('tab-order-count').textContent=orders.length;
  $('orders').innerHTML=orders.map(o=>'<article class="order"><div class="order-head"><b>'+escapeHtml(o.order_number)+' · '+escapeHtml(o.customer_name)+'</b><strong>'+money(o.total_cents)+'</strong></div><p>'+o.items.map(i=>i.quantity+'× '+escapeHtml(i.name)+(i.toppings&&i.toppings.length?' ['+i.toppings.map(t=>escapeHtml(t.name)).join(', ')+']':'')).join(' · ')+'</p><div class="order-head"><span class="status">'+(['manual','cash','included'].includes(o.payment_method)?'Manueel afrekenen':'Online betaald')+' · '+o.status+'</span><select data-status="'+o.id+'"><option value="new" '+(o.status==='new'?'selected':'')+'>Nieuw</option><option value="preparing" '+(o.status==='preparing'?'selected':'')+'>In bereiding</option><option value="ready" '+(o.status==='ready'?'selected':'')+'>Klaar</option><option value="completed" '+(o.status==='completed'?'selected':'')+'>Afgehaald</option><option value="cancelled" '+(o.status==='cancelled'?'selected':'')+'>Geannuleerd</option></select></div></article>').join('')||'<p>Nog geen bestellingen.</p>';
  document.querySelectorAll('[data-status]').forEach(s=>s.onchange=async()=>{try{await api('POST',{action:'status',order_id:s.dataset.status,status:s.value});lastOrders='';await pollOrders()}catch(e){msg(e.message)}});
 }
@@ -22,7 +25,7 @@ function renderProducts(products){
 async function pollOrders(){const fresh=await api();renderOrders(fresh.orders||[]);$('orders-live').textContent='Live · '+(fresh.orders||[]).length+' bestellingen · elke 2 sec'}
 async function refresh(){
  data=await api();$('dashboard').hidden=false;$('eventname').value=data.settings.event_name;$('hot').checked=data.settings.show_hot_chocolate;$('drinks').checked=data.settings.show_soft_drinks;
- renderProducts(data.products||[]);lastOrders='';renderOrders(data.orders||[]);$('orders-live').textContent='Live · automatisch vernieuwd';
+ renderProducts(data.products||[]);lastOrders='';renderOrders(data.orders||[]);$('orders-live').textContent='Live · automatisch vernieuwd';showTab(sessionStorage.getItem('hb-admin-tab')==='settings-view'?'settings-view':'orders-view');
 }
 async function saveProduct(id,activeOnly=false){
  const p=data.products.find(x=>String(x.id)===String(id));if(!p)return;
