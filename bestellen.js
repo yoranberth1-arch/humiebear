@@ -1,13 +1,52 @@
-const $=id=>document.getElementById(id),money=c=>(c/100).toLocaleString('nl-BE',{style:'currency',currency:'EUR'}),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let products=[],toppings=[],toppingPrice=50,cart=[],selected=null;
-async function load(){try{const r=await fetch('/api/kiosk/menu',{cache:'no-store'}),d=await r.json();if(!r.ok)throw Error(d.error||'Menu laden mislukt');products=d.products;toppings=d.toppings;toppingPrice=d.topping_price_cents;drawProducts()}catch(e){$('products').textContent=e.message}}
-function drawProducts(){$('products').innerHTML=products.map(p=>'<button class="pos-product" data-product="'+p.id+'"><span class="pos-product-name">'+esc(p.name)+'</span><strong>'+money(p.price_cents)+'</strong></button>').join('');document.querySelectorAll('[data-product]').forEach(b=>b.onclick=()=>openProduct(b.dataset.product))}
-function openProduct(id){selected=products.find(p=>p.id===id);if(!selected)return;$('modal-product-name').textContent=selected.name;$('modal-base-price').textContent='Zonder toppings '+money(selected.price_cents)+(selected.price_with_toppings_cents?' · Met toppings '+money(selected.price_with_toppings_cents):'');const groups=[...new Set(toppings.map(t=>t.group))];$('topping-options').innerHTML=groups.map(g=>'<section class="topping-group"><h3>'+esc(g)+'</h3><div class="topping-grid">'+toppings.filter(t=>t.group===g).map(t=>'<label class="topping-option"><input type="checkbox" value="'+t.id+'"><span>'+esc(t.name)+'</span><small>+ '+money(toppingPrice)+'</small></label>').join('')+'</div></section>').join('');$('topping-options').querySelectorAll('input').forEach(i=>i.onchange=updateModal);updateModal();$('topping-modal').hidden=false}
+const $=id=>document.getElementById(id),money=c=>(c/100).toLocaleString('nl-BE',{style:'currency',currency:'EUR'}),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let products=[],toppings=[],toppingPrice=0,cart=[],selected=null;
+async function load(){
+ try{
+  const r=await fetch('/api/kiosk/menu',{cache:'no-store'}),d=await r.json();
+  if(!r.ok)throw Error(d.error||'Menu laden mislukt');
+  products=d.products||[];toppings=d.toppings||[];toppingPrice=d.topping_price_cents||0;drawProducts();
+ }catch(e){$('products').textContent=e.message}
+}
+function drawProducts(){
+ $('products').innerHTML=products.map(p=>'<button class="pos-product" data-product="'+esc(p.id)+'"><span class="pos-product-name">'+esc(p.name)+'</span><strong>'+money(p.price_cents)+'</strong><small>'+esc(p.category==='chocolademelk'?'Warme dranken':p.category==='frisdrank'?'Frisdrank':p.category||'')+'</small></button>').join('');
+ document.querySelectorAll('[data-product]').forEach(b=>b.onclick=()=>openProduct(b.dataset.product));
+}
+function openProduct(id){
+ selected=products.find(p=>p.id===id);if(!selected)return;
+ if(!selected.has_toppings){addProductToCart([]);return}
+ $('modal-product-name').textContent=selected.name;
+ $('modal-base-price').textContent='Zonder toppings '+money(selected.price_cents)+(selected.price_with_toppings_cents?' · Met toppings '+money(selected.price_with_toppings_cents):'');
+ $('topping-options').innerHTML=[...new Set(toppings.map(t=>t.group))].map(g=>'<section class="topping-group"><h3>'+esc(g)+'</h3><div class="topping-grid">'+toppings.filter(t=>t.group===g).map(t=>'<label class="topping-option"><input type="checkbox" value="'+esc(t.id)+'"><span>'+esc(t.name)+'</span><small>inbegrepen</small></label>').join('')+'</div></section>').join('');
+ $('topping-options').querySelectorAll('input').forEach(i=>i.onchange=updateModal);
+ updateModal();$('topping-modal').hidden=false;
+}
 function selectedToppings(){return [...$('topping-options').querySelectorAll('input:checked')].map(i=>toppings.find(t=>t.id===i.value)).filter(Boolean)}
 function updateModal(){if(!selected)return;const n=selectedToppings().length;$('modal-total').textContent=money(n&&selected.price_with_toppings_cents?selected.price_with_toppings_cents:selected.price_cents)}
-function drawCart(){const count=cart.length,total=cart.reduce((s,x)=>s+x.total_cents,0);$('cart-count').textContent=count+' producten';$('cart-total').textContent=money(total);$('finish-order').textContent='Bestelling afronden · '+money(total);$('finish-order').disabled=!count;$('clear-order').disabled=!count;$('cart-lines').innerHTML?null:null;$('cart-lines').innerHTML=count?cart.map((x,i)=>'<article class="pos-cart-line"><div><b>'+esc(x.name)+'</b><small>'+money(x.base_price_cents)+' basis</small>'+(x.toppings.length?'<small>Toppings: '+x.toppings.map(t=>esc(t.name)).join(', ')+'</small>':'<small>Geen toppings</small>')+'<strong>'+money(x.total_cents)+'</strong></div><button class="remove-line" data-remove="'+i+'">Verwijder</button></article>').join(''):'<p class="muted">Nog geen producten gekozen.</p>';document.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{cart.splice(Number(b.dataset.remove),1);drawCart()})}
-$('add-configured').onclick=()=>{if(!selected)return;const ts=selectedToppings();cart.push({catalog_id:selected.id,name:selected.name,base_price_cents:selected.price_cents,toppings:ts.map(t=>({id:t.id,name:t.name})),total_cents:ts.length&&selected.price_with_toppings_cents?selected.price_with_toppings_cents:selected.price_cents});$('topping-modal').hidden=true;selected=null;drawCart()};
+function addProductToCart(ts){
+ const p=selected;if(!p)return;
+ const total=ts.length&&p.price_with_toppings_cents?p.price_with_toppings_cents:p.price_cents;
+ cart.push({catalog_id:p.id,name:p.name,base_price_cents:p.price_cents,toppings:ts.map(t=>({id:t.id,name:t.name})),total_cents:total});
+ selected=null;$('topping-modal').hidden=true;drawCart();
+}
+function drawCart(){
+ const count=cart.length,total=cart.reduce((s,x)=>s+x.total_cents,0);
+ $('cart-count').textContent=count+' producten';$('cart-total').textContent=money(total);
+ $('finish-order').textContent='Bestelling afronden · '+money(total);$('finish-order').disabled=!count;$('clear-order').disabled=!count;
+ $('cart-lines').innerHTML=count?cart.map((x,i)=>'<article class="pos-cart-line"><div><b>'+esc(x.name)+'</b><small>'+money(x.base_price_cents)+' basis</small>'+(x.toppings.length?'<small>Toppings: '+x.toppings.map(t=>esc(t.name)).join(', ')+'</small>':'<small>Geen toppings</small>')+'<strong>'+money(x.total_cents)+'</strong></div><button class="remove-line" data-remove="'+i+'">Verwijder</button></article>').join(''):'<p class="muted">Nog geen producten gekozen.</p>';
+ document.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{cart.splice(Number(b.dataset.remove),1);drawCart()});
+}
+$('add-configured').onclick=()=>{if(selected)addProductToCart(selectedToppings())};
 $('close-modal').onclick=()=>{$('topping-modal').hidden=true;selected=null};
 $('topping-modal').addEventListener('click',e=>{if(e.target===$('topping-modal'))$('close-modal').click()});
 $('clear-order').onclick=()=>{cart=[];drawCart()};
-$('finish-order').onclick=async()=>{if(!cart.length)return;const btn=$('finish-order');btn.disabled=true;btn.textContent='Bestelling opslaan…';try{const r=await fetch('/api/kiosk/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({customer_name:$('customer-name').value.trim()||'Klant',items:cart.map(x=>({catalog_id:x.catalog_id,toppings:x.toppings.map(t=>t.id)})),request_id:crypto.randomUUID()})});const d=await r.json();if(!r.ok)throw Error(d.error||'Bestelling kon niet worden opgeslagen');$('notice').hidden=false;$('notice').textContent='Bestelling '+d.order_number+' is doorgestuurd naar het team.';cart=[];$('customer-name').value='';drawCart();window.scrollTo({top:0,behavior:'smooth'});}catch(e){$('notice').hidden=false;$('notice').textContent=e.message;}finally{btn.disabled=!cart.length;btn.textContent='Bestelling afronden · '+$('cart-total').textContent}};
+$('finish-order').onclick=async()=>{
+ if(!cart.length)return;const btn=$('finish-order');btn.disabled=true;btn.textContent='Bestelling opslaan…';
+ try{
+  const r=await fetch('/api/kiosk/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({customer_name:$('customer-name').value.trim()||'Klant',items:cart.map(x=>({catalog_id:x.catalog_id,toppings:x.toppings.map(t=>t.id)})),request_id:crypto.randomUUID()})});
+  const d=await r.json();if(!r.ok)throw Error(d.error||'Bestelling kon niet worden opgeslagen');
+  $('notice').hidden=false;$('notice').textContent='Bestelling '+d.order_number+' is doorgestuurd naar het team.';
+  cart=[];$('customer-name').value='';drawCart();window.scrollTo({top:0,behavior:'smooth'});
+ }catch(e){$('notice').hidden=false;$('notice').textContent=e.message}
+ finally{btn.disabled=!cart.length;btn.textContent='Bestelling afronden · '+$('cart-total').textContent}
+};
 load();
