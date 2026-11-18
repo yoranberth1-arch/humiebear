@@ -6,7 +6,7 @@ module.exports=async(req,res)=>{
       const [orders,settings,products]=await Promise.all([
         sb('/rest/v1/hb_kiosk_orders?select=id,order_number,customer_name,items,total_cents,payment_status,payment_method,status,created_at&or=(payment_status.eq.paid,payment_status.eq.included)&order=created_at.desc&limit=200'),
         sb('/rest/v1/hb_kiosk_settings?select=*&id=eq.true'),
-        sb('/rest/v1/hb_kiosk_products?select=*&order=sort_order.asc')
+        sb('/rest/v1/hb_kiosk_products?select=*&or=(id.in.(lollywafel,bubbelwafel,wafel-cup,zakje-snoep,geroosterde-nootjes,zakje-mallows),category.in.(chocolademelk,frisdrank))&order=sort_order.asc')
       ]);
       return res.status(200).json({orders,settings:settings[0],products});
     }
@@ -16,6 +16,7 @@ module.exports=async(req,res)=>{
       const patch={updated_at:new Date().toISOString()};
       if(typeof b.active==='boolean')patch.active=b.active;
       if(b.price_cents!==undefined){const n=Number(b.price_cents);if(!Number.isInteger(n)||n<0||n>100000)return res.status(400).json({error:'Ongeldige prijs'});patch.price_cents=n}
+      if(b.price_with_toppings_cents!==undefined){const v=b.price_with_toppings_cents;if(v===null||v===''){patch.price_with_toppings_cents=null}else{const n=Number(v);if(!Number.isInteger(n)||n<0||n>100000)return res.status(400).json({error:'Ongeldige prijs met toppings'});patch.price_with_toppings_cents=n}}
       await sb('/rest/v1/hb_kiosk_products?id=eq.'+encodeURIComponent(String(b.id)),{method:'PATCH',body:JSON.stringify(patch)});
       return res.status(200).json({ok:true});
     }
