@@ -45,3 +45,21 @@
 .price-inputs input{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;font:inherit;font-size:17px;font-weight:800;color:var(--brown)}
 .save-price{margin-top:12px;background:var(--brown);color:#fff;border:0;border-radius:9px;padding:10px 15px;font-weight:800;cursor:pointer}
 @media(max-width:520px){.price-inputs{grid-template-columns:1fr}.price-card{padding:12px}.price-card-title{align-items:flex-start}}
+
+/* Admin navigation: orders first, settings separately */
+.admin-tabs{display:flex;gap:10px;margin:18px 0 14px;position:sticky;top:68px;z-index:4;background:#f8ead8;padding:8px 0}
+.admin-tab{border:1px solid var(--line);background:#fffaf3;color:var(--brown);border-radius:12px;padding:13px 20px;font:inherit;font-weight:900;cursor:pointer;min-height:48px}
+.admin-tab.active{background:var(--brown);color:#fff;border-color:var(--brown);box-shadow:0 4px 12px #54250f22}
+.admin-tab span{display:inline-flex;align-items:center;justify-content:center;background:#f4d9c1;color:var(--brown);border-radius:20px;min-width:23px;padding:2px 7px;margin-left:5px;font-size:12px}
+.admin-view[hidden]{display:none!important}
+.orders-panel{min-height:260px}
+.orders-panel .orders-heading{align-items:flex-start}
+.orders-panel .orders-heading h2{font-size:25px;margin-bottom:5px}
+.orders-panel .order{padding:16px;margin:12px 0}
+.orders-panel .order-head b{font-size:16px}
+.orders-panel .order-head strong{font-size:19px;color:var(--pink)}
+.orders-panel .order select{min-height:40px;font-weight:700}
+.settings-heading h2{margin-bottom:4px}
+.setting-toggle{display:flex;align-items:center;gap:9px;padding:10px 0;font-weight:700;color:var(--brown)}
+.setting-toggle input{width:19px;height:19px;accent-color:var(--pink)}
+@media(max-width:560px){.admin-tabs{top:68px}.admin-tab{flex:1;padding:12px 8px}.orders-panel .order-head{align-items:flex-start}.orders-panel .order-head strong{white-space:nowrap}}
