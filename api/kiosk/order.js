@@ -4,7 +4,8 @@ const catalog=require('./catalog');
 module.exports=async(req,res)=>{
  if(req.method!=='POST')return res.status(405).json({error:'Methode niet toegestaan'});
  try{
-  const b=req.body||{},name=String(b.customer_name||'Klant').trim().slice(0,60)||'Klant',rid=String(b.request_id||'');
+  const b=req.body||{},name=String(b.customer_name||'').trim().slice(0,60),rid=String(b.request_id||'');
+  if(!name)return res.status(400).json({error:'Vul de naam van de klant in.'});
   if(!Array.isArray(b.items)||!b.items.length||b.items.length>40||!/^[a-zA-Z0-9-]{12,90}$/.test(rid))return res.status(400).json({error:'Kies minstens één product.'});
   const prior=await sb('/rest/v1/hb_kiosk_orders?select=id,order_number&request_id=eq.'+encodeURIComponent(rid));
   if(prior[0])return res.status(200).json({order_id:prior[0].id,order_number:prior[0].order_number,duplicate:true});
