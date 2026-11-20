@@ -10,13 +10,13 @@ export default async function handler(req,res){
   const clean=(v,max=500)=>String(v??"").trim().slice(0,max);
   const parseBody=v=>{if(v&&typeof v==="object")return v;try{return JSON.parse(v||"{}")}catch{return{}}};
   const sb=async(path,options={})=>{
-    const key=process.env.SUPABASE_SERVICE_ROLE_KEY;if(!key)throw new Error("SUPABASE_SERVICE_ROLE_KEY is not configured.");
+    const key=String(process.env.SUPABASE_SERVICE_ROLE_KEY||"").replace(/\s+/g,"");if(!key)throw new Error("SUPABASE_SERVICE_ROLE_KEY is not configured.");
     const r=await fetch(SUPABASE_URL+"/rest/v1/"+path,{...options,headers:{"apikey":key,"Authorization":"Bearer "+key,"Content-Type":"application/json","Accept":"application/json",...(options.headers||{})}});
     const t=await r.text();let b=null;try{b=t?JSON.parse(t):null}catch{}
     if(!r.ok)throw new Error(b?.message||b?.hint||t||"Supabase request failed.");return b;
   };
   try{
-    const apiKey=process.env.MOLLIE_API_KEY;if(!apiKey)return res.status(500).json({error:"MOLLIE_API_KEY is not configured."});
+    const apiKey=String(process.env.MOLLIE_API_KEY||"").replace(/^\uFEFF/,"").trim().replace(/^Bearer\s+/i,"").replace(/^(['"])(.*)\1$/s,"$2").replace(/\s+/g,"");if(!apiKey)return res.status(500).json({error:"MOLLIE_API_KEY is not configured."});
     const body=parseBody(req.body),customer=body.customer||{},choice=clean(customer.choice,30);
     const options={
       monthly2kg:{label:"2 kg elke maand",weight:2000,frequency:"monthly",frequencyLabel:"Elke maand",interval:"1 month",deliveries:3},
@@ -80,7 +80,7 @@ export default async function handler(req,res){
     })});
     return res.status(200).json({paymentId:payment.id,checkoutUrl:payment._links?.checkout?.href||null});
   }catch(error){
-    console.error("Subscription payment error:",error);
-    return res.status(500).json({error:error.message||"Er ging iets mis bij het starten van het abonnement."});
+    console.error("Subscription payment error:",error?.name||"UnknownError");
+    return res.status(500).json({error:"Het abonnement kon niet worden gestart. Probeer opnieuw of contacteer Hummie Bear."});
   }
 }
