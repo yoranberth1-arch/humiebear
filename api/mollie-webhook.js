@@ -3,7 +3,7 @@ export default async function handler(req,res){
   const SUPABASE_URL="https://yrcajvpstbyupohjbavm.supabase.co";
   const clean=v=>String(v??"").trim();
   async function sb(path,options={}){
-    const key=process.env.SUPABASE_SERVICE_ROLE_KEY;if(!key)throw new Error("SUPABASE_SERVICE_ROLE_KEY is not configured.");
+    const key=String(process.env.SUPABASE_SERVICE_ROLE_KEY||"").replace(/\s+/g,"");if(!key)throw new Error("SUPABASE_SERVICE_ROLE_KEY is not configured.");
     const r=await fetch(SUPABASE_URL+"/rest/v1/"+path,{...options,headers:{"apikey":key,"Authorization":"Bearer "+key,"Content-Type":"application/json","Accept":"application/json",...(options.headers||{})}});
     const text=await r.text();let body=null;try{body=text?JSON.parse(text):null}catch{}
     if(!r.ok)throw new Error(body?.message||body?.hint||text||"Supabase request failed.");
@@ -20,7 +20,7 @@ export default async function handler(req,res){
     return d;
   }
   try{
-    const apiKey=process.env.MOLLIE_API_KEY;if(!apiKey)return res.status(500).send("Server configuration error");
+    const apiKey=String(process.env.MOLLIE_API_KEY||"").replace(/^\uFEFF/,"").trim().replace(/^Bearer\s+/i,"").replace(/^(['"])(.*)\1$/s,"$2").replace(/\s+/g,"");if(!apiKey)return res.status(500).send("Server configuration error");
     const body=parseBody(req.body);
     if(body.type==="hook.ping"||body.eventType==="hook.ping")return res.status(200).send("OK");
     let paymentId=body.id;
@@ -52,7 +52,7 @@ export default async function handler(req,res){
             interval,
             startDate:start.toISOString().slice(0,10),
             description:"Hummie Bear Sweet Club – "+String(metadata.weight_grams||row.weight_grams)+" g – "+String(metadata.frequency_label||row.frequency_label||"periodiek"),
-            webhookUrl:"https://humiebear.vercel.app/api/mollie-webhook",
+            webhookUrl:(process.env.PUBLIC_SITE_URL||"https://hummiebear.be").replace(/\/+$/,"")+"/api/mollie-webhook",
             metadata:{source:"hummiebear_subscription",subscription_row_id:String(row.id),frequency:String(metadata.frequency||row.frequency||""),weight_grams:String(metadata.weight_grams||row.weight_grams||""),email:String(metadata.email||row.customer_email||"")}
           })
         });
@@ -152,7 +152,7 @@ export default async function handler(req,res){
 
     return res.status(200).send("OK");
   }catch(error){
-    console.error("Mollie webhook error:",error);
+    console.error("Mollie webhook error:",error?.name||"UnknownError");
     return res.status(500).send("Webhook error");
   }
 }
