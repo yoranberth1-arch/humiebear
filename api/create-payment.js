@@ -23,7 +23,7 @@ export default async function handler(req,res){
   }));
 
   async function sb(path,options={}){
-    const key=process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const key=String(process.env.SUPABASE_SERVICE_ROLE_KEY||"").replace(/\s+/g,"");
     if(!key)throw new Error("SUPABASE_SERVICE_ROLE_KEY is not configured.");
     const r=await fetch(SUPABASE_URL+"/rest/v1/"+path,{...options,headers:{
       "apikey":key,"Authorization":"Bearer "+key,"Content-Type":"application/json","Accept":"application/json",...(options.headers||{})
@@ -81,7 +81,7 @@ export default async function handler(req,res){
   }
 
   try{
-    const apiKey=process.env.MOLLIE_API_KEY;
+    const apiKey=String(process.env.MOLLIE_API_KEY||"").replace(/^\uFEFF/,"").trim().replace(/^Bearer\s+/i,"").replace(/^(['"])(.*)\1$/s,"$2").replace(/\s+/g,"");
     if(!apiKey)return res.status(500).json({error:"MOLLIE_API_KEY is not configured."});
 
     const body=parseBody(req.body),customer=body.customer||{},inputItems=body.items;
@@ -205,7 +205,7 @@ export default async function handler(req,res){
 
     return res.status(200).json({orderNumber:order.order_number,paymentId:payment.id,status:payment.status,checkoutUrl:payment._links?.checkout?.href||null,total});
   }catch(error){
-    console.error("Create payment error:",error);
-    return res.status(500).json({error:error.message||"Er ging iets mis bij het starten van de betaling."});
+    console.error("Create payment error:",error?.name||"UnknownError");
+    return res.status(500).json({error:"De betaling kon niet worden gestart. Probeer opnieuw of contacteer Hummie Bear."});
   }
 }
