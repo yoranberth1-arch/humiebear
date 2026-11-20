@@ -108,7 +108,7 @@ export default async function handler(req,res){
     if(status==="paid" && order.confirmation_email_status!=="sent"){
       try{
         const itemRows=await sb("order_items?select=product_name,unit_price,quantity,line_total,meta&order_id=eq."+encodeURIComponent(order.id));
-        const apiKey=process.env.RESEND_API_KEY;
+        const apiKey=String(process.env.RESEND_API_KEY||"").replace(/^\uFEFF/,"").trim().replace(/\s+/g,"");
         const from=process.env.RESEND_FROM_EMAIL||"info@hummiebear.be";
         if(!apiKey) throw new Error("RESEND_API_KEY is not configured.");
         const response=await fetch("https://api.resend.com/emails",{
