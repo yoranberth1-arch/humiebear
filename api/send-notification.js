@@ -16,7 +16,7 @@ export default async function handler(req,res){
     else if(typeof value==="object")lines.push(key+": "+JSON.stringify(value,null,2));
     else lines.push(key+": "+String(value));
   }
-  const apiKey=process.env.RESEND_API_KEY;
+  const apiKey=String(process.env.RESEND_API_KEY||"").replace(/^\uFEFF/,"").trim().replace(/\s+/g,"");
   const from=process.env.RESEND_FROM_EMAIL||"info@hummiebear.be";
   if(!apiKey)return res.status(500).json({error:"RESEND_API_KEY is not configured."});
   try{
@@ -29,5 +29,5 @@ export default async function handler(req,res){
     const text=await response.text();let result={};try{result=text?JSON.parse(text):{}}catch{}
     if(!response.ok){console.error("Resend notification failed:",response.status,text);return res.status(502).json({error:result?.message||"Email could not be sent"});}
     return res.status(200).json({success:true,id:result?.id||null});
-  }catch(error){console.error("Resend notification error:",error);return res.status(500).json({error:"Email service unavailable"});}
+  }catch(error){console.error("Resend notification error:",error?.name||"UnknownError");return res.status(500).json({error:"Email service unavailable"});}
 }
