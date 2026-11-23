@@ -1,5 +1,5 @@
 export default async function handler(req,res){
-  const allowedOrigins=new Set(["https://hummiebear.be","https://www.hummiebear.be"]);
+  const allowedOrigins=new Set(["https://hummiebear.be","https://www.hummiebear.be","https://kiosk.hummiebear.be"]);
   const requestOrigin=req.headers.origin;
   if(requestOrigin&&allowedOrigins.has(requestOrigin)){
     res.setHeader("Access-Control-Allow-Origin",requestOrigin);
@@ -255,7 +255,7 @@ export default async function handler(req,res){
           description:"Hummie Bear bestelling "+order.order_number+(fulfillmentMethod==="pickup"?" (afhalen)":(fulfillmentMethod==="local_delivery"?" (lokale levering)":"")),
           redirectUrl:origin+"/payment-success.html?order="+encodeURIComponent(order.order_number),
           cancelUrl:origin+"/payment-cancelled.html?order="+encodeURIComponent(order.order_number),
-          webhookUrl:"https://humiebear-git-main-yoranberth1-arch.vercel.app/api/mollie-webhook",
+          webhookUrl:origin+"/api/mollie-webhook",
           metadata:{order_number:order.order_number}
         })
       });
