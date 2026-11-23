@@ -1,5 +1,5 @@
 export default async function handler(req,res){
-  const allowedOrigins=new Set(["https://hummiebear.be","https://www.hummiebear.be"]);
+  const allowedOrigins=new Set(["https://hummiebear.be","https://www.hummiebear.be","https://kiosk.hummiebear.be"]);
   const requestOrigin=req.headers.origin;
   if(requestOrigin&&allowedOrigins.has(requestOrigin)){
     res.setHeader("Access-Control-Allow-Origin",requestOrigin);
